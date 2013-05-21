@@ -15,6 +15,10 @@ public interface CustomerServiceAsync {
 	public void findByDocNumber(String docNumber, AsyncCallback<Customer> callback);
 
 	public void findAll(AsyncCallback<List<Customer>> callback);
+
+	void findById(Long id, AsyncCallback<Customer> callback);
+
+	void remove(Customer customer, AsyncCallback<Void> callback);
 	
 }
 

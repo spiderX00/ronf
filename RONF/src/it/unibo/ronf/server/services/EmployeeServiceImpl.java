@@ -38,4 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeDAO.remove(employee);
 	}
 
+	@Override
+	public Employee findByUserName(String userName) {
+		return employeeDAO.findByUserName(userName);
+	}
+
 }

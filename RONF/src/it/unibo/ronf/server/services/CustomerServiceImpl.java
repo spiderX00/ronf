@@ -39,4 +39,15 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDAO.findAll();
 	}
 
+	@Override
+	public Customer findById(Long id) {
+		return customerDAO.findById(id);
+	}
+
+	@Override
+	public void remove(Customer customer) {
+		customerDAO.remove(customer);
+		
+	}
+
 }

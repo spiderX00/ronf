@@ -10,20 +10,35 @@ import org.springframework.stereotype.Repository;
 
 @Repository("employeeDAO")
 public class EmployeeDAO extends JpaDAO<Employee> {
-	
+
 	public boolean checkLogin(String userName, String password) {
-		
-		TypedQuery<Employee> query = em.createQuery("SELECT e FROM Employee e WHERE e.userName = :userName AND e.password = :password", entityClass);
-		
+
+		TypedQuery<Employee> query = em
+				.createQuery(
+						"SELECT e FROM Employee e WHERE e.userName = :userName AND e.password = :password",
+						entityClass);
+
 		query.setParameter("userName", userName);
 		query.setParameter("password", password);
-		
+
 		List<Employee> employeeList = query.getResultList();
-		
+
 		return !(employeeList.isEmpty());
-		
+
 	}
-	
-	
+
+	public Employee findByUserName(String userName) {
+
+		TypedQuery<Employee> query = em.createQuery(
+				"SELECT e FROM Employee e WHERE e.userName = :userName",
+				entityClass);
+
+		query.setParameter("userName", userName);
+
+		List<Employee> employeeList = query.getResultList();
+
+		return employeeList.get(0);
+
+	}
 
 }

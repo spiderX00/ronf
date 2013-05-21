@@ -17,5 +17,9 @@ public interface CustomerService extends RemoteService {
 	public Customer findByDocNumber(String docNumber);
 
 	public List<Customer> findAll();
+	
+	public Customer findById(Long id);
+	
+	public void remove(Customer customer);
 
 }
