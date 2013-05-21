@@ -19,6 +19,9 @@ public interface CustomerServiceAsync {
 	void findById(Long id, AsyncCallback<Customer> callback);
 
 	void remove(Customer customer, AsyncCallback<Void> callback);
+
+	void removeById(long id, AsyncCallback<Void> callback);
+	
 	
 }
 

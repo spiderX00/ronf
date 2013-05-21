@@ -16,5 +16,7 @@ public interface UserService extends RemoteService {
 	
 	public List<User> findAll();
 	
+	public void removeById(long id);
+	
 
 }

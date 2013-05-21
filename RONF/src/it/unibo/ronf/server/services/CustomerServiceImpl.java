@@ -4,7 +4,6 @@ import java.util.List;
 
 import it.unibo.ronf.server.dao.CustomerDAO;
 import it.unibo.ronf.shared.entities.Customer;
-import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.services.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +46,13 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void remove(Customer customer) {
 		customerDAO.remove(customer);
+		
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void removeById(long id) {
+		customerDAO.remove(customerDAO.findById(id));
 		
 	}
 
