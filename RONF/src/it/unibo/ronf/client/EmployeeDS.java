@@ -34,8 +34,7 @@ public class EmployeeDS extends DataSource {
     private EmployeeDS(String id, final TabEmployee tabEmployee) {  
   
         setID(id);  
-        DataSourceIntegerField pkField = new DataSourceIntegerField("pk");  
-        pkField.setHidden(true);  
+        DataSourceIntegerField pkField = new DataSourceIntegerField("id");  
         pkField.setPrimaryKey(true);  
   
         DataSourceTextField nameField = new DataSourceTextField("name", "Nome");  
@@ -65,7 +64,7 @@ public class EmployeeDS extends DataSource {
 
     			int i = 0;
     			for(Employee p : result) {
-    				employeeRecord[i] = new GridRecord(p.getName(), p.getSurname(), p.getAge(), p.getUserName());
+    				employeeRecord[i] = new GridRecord(p.getId(), p.getName(), p.getSurname(), p.getAge(), p.getUserName());
     				i++;
     				
     			}

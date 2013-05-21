@@ -1,17 +1,8 @@
 package it.unibo.ronf.client;
 
-import it.unibo.ronf.shared.entities.Customer;
-import it.unibo.ronf.shared.services.CustomerService;
-import it.unibo.ronf.shared.services.CustomerServiceAsync;
-import com.google.gwt.core.client.GWT;
-
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
-import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * menu principale dell'applicazione

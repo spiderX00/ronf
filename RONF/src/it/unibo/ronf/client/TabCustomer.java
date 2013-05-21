@@ -4,6 +4,8 @@ import it.unibo.ronf.shared.services.CustomerService;
 import it.unibo.ronf.shared.services.CustomerServiceAsync;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.util.BooleanCallback;
@@ -55,23 +57,23 @@ public class TabCustomer extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
+								customerService.removeById(
+										rollOverRecord.getAttributeAsLong("id"),
+										new AsyncCallback<Void>() {
+											@Override
+											public void onSuccess(Void result) {
+											}
+
+											@Override
+											public void onFailure(
+													Throwable caught) {
+												Window.alert("Errore nell'eliminazione");
+											}
+										});
 							}
 						}
 					});
 
-					// customerService.remove(customer,
-					// new AsyncCallback<Void>() {
-					// @Override
-					// public void onSuccess(Void result) {
-					// MakeUser.this.hide();
-					// Window.alert("Customer Created!");
-					// }
-					//
-					// @Override
-					// public void onFailure(Throwable caught) {
-					// Window.alert("Impossible to create customer!");
-					// }
-					// });
 				}
 			});
 

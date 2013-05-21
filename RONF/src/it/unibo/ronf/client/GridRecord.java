@@ -12,7 +12,8 @@ public class GridRecord extends ListGridRecord {
     public GridRecord() {
     }
 
-    public GridRecord(String name, String surname, Integer age, String userName) {
+    public GridRecord(Long id, String name, String surname, Integer age, String userName) {
+    	setId(id);
         setName(name);
         setSurname(surname);
         setAge(age);
