@@ -1,17 +1,22 @@
 package it.unibo.ronf.shared.entities;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Agency {
 	
-	private int id;
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
 	private String code;
 	private String name;
 	private String address;
 	private String ipAddress;
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getCode() {

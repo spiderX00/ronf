@@ -37,4 +37,11 @@ public class UserServiceImpl implements UserService {
 		return userDAO.findAll();
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void removeById(long id) {
+		userDAO.remove(userDAO.findById(id));
+		
+	}
+
 }

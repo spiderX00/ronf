@@ -43,4 +43,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDAO.findByUserName(userName);
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void removeById(long id) {
+		employeeDAO.remove(employeeDAO.findById(id));
+		
+	}
+
 }

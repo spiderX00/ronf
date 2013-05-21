@@ -21,5 +21,7 @@ public interface CustomerService extends RemoteService {
 	public Customer findById(Long id);
 	
 	public void remove(Customer customer);
+	
+	public void removeById(long id);
 
 }

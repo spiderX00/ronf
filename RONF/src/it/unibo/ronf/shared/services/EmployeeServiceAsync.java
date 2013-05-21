@@ -19,4 +19,6 @@ public interface EmployeeServiceAsync {
 
 	void findByUserName(String userName, AsyncCallback<Employee> callback);
 
+	void removeById(long id, AsyncCallback<Void> callback);
+
 }
