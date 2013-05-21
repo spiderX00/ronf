@@ -1,6 +1,5 @@
 package it.unibo.ronf.server.dao;
 
-import it.unibo.ronf.shared.entities.Customer;
 import it.unibo.ronf.shared.entities.Rental;
 import it.unibo.ronf.shared.entities.Agency;
 
@@ -27,7 +26,7 @@ public class RentalDAO extends JpaDAO<Rental> {
 		return rentalListStart;
 
 	}
-	
+
 	public List<Rental> findByEnd(Date end) {
 
 		TypedQuery<Rental> query = em.createQuery(
@@ -40,34 +39,35 @@ public class RentalDAO extends JpaDAO<Rental> {
 		return rentalListEnd;
 
 	}
-	
-	public List<Rental> findByStartingAgency(Agency startingAgency) {
-		
 
-		TypedQuery<Rental> query = em.createQuery(
-				"SELECT r FROM Rental r WHERE r.startingAgency = :startingAgency", entityClass);
+	public List<Rental> findByStartingAgency(Agency startingAgency) {
+
+		TypedQuery<Rental> query = em
+				.createQuery(
+						"SELECT r FROM Rental r WHERE r.startingAgency = :startingAgency",
+						entityClass);
 
 		query.setParameter("startingAgency", startingAgency);
 
 		List<Rental> rentalListStartAgency = query.getResultList();
 
 		return rentalListStartAgency;
-		
+
 	}
-	
+
 	public List<Rental> findByArrivalAgency(Agency arrivalAgency) {
-		
-		TypedQuery<Rental> query = em.createQuery(
-				"SELECT r FROM Rental r WHERE r.arrivalAgency = :arrivalAgency", entityClass);
+
+		TypedQuery<Rental> query = em
+				.createQuery(
+						"SELECT r FROM Rental r WHERE r.arrivalAgency = :arrivalAgency",
+						entityClass);
 
 		query.setParameter("arrivalAgency", arrivalAgency);
 
 		List<Rental> rentalListArrivalAgency = query.getResultList();
 
 		return rentalListArrivalAgency;
-		
+
 	}
-	
-	
 
 }

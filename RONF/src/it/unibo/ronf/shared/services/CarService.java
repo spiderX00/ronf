@@ -2,7 +2,6 @@ package it.unibo.ronf.shared.services;
 
 import java.util.List;
 
-import it.unibo.ronf.server.dao.JpaDAO;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
 
@@ -21,5 +20,7 @@ public interface CarService extends RemoteService {
 	public void createCar(Car car);
 	
 	public List<Car> findByType(CarType cartype);
+	
+	public void removeById(long id);
 
 }

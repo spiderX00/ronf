@@ -42,4 +42,10 @@ public class CarServiceImpl implements CarService {
 		return carDAO.findByType(cartype);
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void removeById(long id) {
+		carDAO.remove(carDAO.findById(id));
+	}
+
 }

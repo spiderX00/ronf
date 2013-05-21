@@ -13,15 +13,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 public class RentalServiceImpl implements RentalService {
-	
+
 	@Autowired
 	private RentalDAO rentalDAO;
-	
+
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createRental(Rental rental) {
 		rentalDAO.persist(rental);
-		
+
 	}
 
 	@Override
@@ -49,5 +49,11 @@ public class RentalServiceImpl implements RentalService {
 		return rentalDAO.findAll();
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void removeById(long id) {
+		rentalDAO.remove(rentalDAO.findById(id));
+
+	}
 
 }
