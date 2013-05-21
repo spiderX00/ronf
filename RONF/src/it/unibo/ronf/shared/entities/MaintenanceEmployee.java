@@ -1,6 +1,11 @@
 package it.unibo.ronf.shared.entities;
 
-public class MaintenanceEmployee extends Employee {
+import javax.persistence.*;
+
+@Entity
+public class MaintenanceEmployee extends Employee implements java.io.Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private boolean busy;
 

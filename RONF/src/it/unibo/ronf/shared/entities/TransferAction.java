@@ -1,13 +1,22 @@
 package it.unibo.ronf.shared.entities;
 import java.util.Date;
 
+import javax.persistence.*;
+
 /**
  * Denota una azione di trasferimento di una singola macchina
  * 
  * @author lory
  *
  */
-public class TransferAction {
+@Entity
+public class TransferAction implements java.io.Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
 	
 	private Car requiredCar;
 	private TransferEmployee employee;

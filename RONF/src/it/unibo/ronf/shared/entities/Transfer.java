@@ -1,14 +1,21 @@
 package it.unibo.ronf.shared.entities;
 
 import java.util.List;
+import javax.persistence.*;
 
 /**
  * 
  * @author lory
  *
  */
-public class Transfer {
+@Entity
+public class Transfer implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	
 	private List<TransferAction> transfers;
 	private Agency startAgency;
 	private Agency arrivalAgency;
