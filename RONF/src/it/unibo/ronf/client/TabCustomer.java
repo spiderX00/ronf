@@ -1,7 +1,12 @@
 package it.unibo.ronf.client;
 
+import it.unibo.ronf.shared.services.CustomerService;
+import it.unibo.ronf.shared.services.CustomerServiceAsync;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
@@ -19,60 +24,65 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author Alessio De Vita alessio.dv@gmail.com
  */
 public class TabCustomer extends ListGrid {
-	private HLayout rollOverCanvas;  
-    private ListGridRecord rollOverRecord;  
-    final static VLayout vPanel = new VLayout();
+	private final CustomerServiceAsync customerService = GWT
+			.create(CustomerService.class);
+	private HLayout rollOverCanvas;
+	private ListGridRecord rollOverRecord;
+	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
-	 @Override  
-     protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {  
-         rollOverRecord = this.getRecord(rowNum);  
 
-         if(rollOverCanvas == null) {  
-             rollOverCanvas = new HLayout(3);  
-             rollOverCanvas.setSnapTo("TR");  
-             rollOverCanvas.setWidth(50);  
-             rollOverCanvas.setHeight(22);  
+	@Override
+	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
+		rollOverRecord = this.getRecord(rowNum);
 
-             ImgButton editImg = new ImgButton();  
-             editImg.setShowDown(false);  
-             editImg.setShowRollOver(false);  
-             editImg.setLayoutAlign(Alignment.CENTER);  
-             editImg.setSrc("comment_edit.png");  
-             editImg.setPrompt("Edit Comments");  
-             editImg.setHeight(16);  
-             editImg.setWidth(16);  
-             editImg.addClickHandler(new ClickHandler() {  
-                 public void onClick(ClickEvent event) {  
-                     SC.say("Edit Comment Icon Clicked for country : " + rollOverRecord.getAttribute("countryName"));  
-                 }  
-             });  
+		if (rollOverCanvas == null) {
+			rollOverCanvas = new HLayout(3);
+			rollOverCanvas.setSnapTo("TR");
+			rollOverCanvas.setWidth(50);
+			rollOverCanvas.setHeight(22);
 
-             ImgButton chartImg = new ImgButton();  
-             chartImg.setShowDown(false);  
-             chartImg.setShowRollOver(false);  
-             chartImg.setLayoutAlign(Alignment.CENTER);  
-             chartImg.setSrc("chart_bar.png");  
-             chartImg.setPrompt("View Chart");  
-             chartImg.setHeight(16);  
-             chartImg.setWidth(16);  
-             chartImg.addClickHandler(new ClickHandler() {  
-                 public void onClick(ClickEvent event) {  
-                     SC.say("Chart Icon Clicked for country : " + rollOverRecord.getAttribute("countryName"));  
-                 }  
-             });  
+			ImgButton removeImg = new ImgButton();
+			removeImg.setShowDown(false);
+			removeImg.setShowRollOver(false);
+			removeImg.setLayoutAlign(Alignment.CENTER);
+			removeImg.setSrc("remove.png");
+			removeImg.setPrompt("View Chart");
+			removeImg.setHeight(16);
+			removeImg.setWidth(16);
+			removeImg.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					SC.confirm("Sei sicuro?", new BooleanCallback() {
+						public void execute(Boolean value) {
+							if (Boolean.TRUE.equals(value)) {
+								removeData(rollOverRecord);
+							}
+						}
+					});
 
-             rollOverCanvas.addMember(editImg);  
-             rollOverCanvas.addMember(chartImg);  
-         }  
-         return rollOverCanvas;  
+					// customerService.remove(customer,
+					// new AsyncCallback<Void>() {
+					// @Override
+					// public void onSuccess(Void result) {
+					// MakeUser.this.hide();
+					// Window.alert("Customer Created!");
+					// }
+					//
+					// @Override
+					// public void onFailure(Throwable caught) {
+					// Window.alert("Impossible to create customer!");
+					// }
+					// });
+				}
+			});
 
-     } 
-	
-	
+			rollOverCanvas.addMember(removeImg);
+		}
+		return rollOverCanvas;
+
+	}
+
 	public TabCustomer() {
-		
-		
-		setShowRollOverCanvas(true);
+
 		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
 		if (CustomerDS.getInstance(TabCustomer.this) != null) {
 			rp.clear();
@@ -86,7 +96,7 @@ public class TabCustomer extends ListGrid {
 	 * chiamata Asincrona ha avuto successo
 	 */
 	static void setdata(CustomerDS data, TabCustomer tabCustomer) {
-		
+		tabCustomer.setShowRollOverCanvas(true);
 		tabCustomer.setWidth("99%");
 		vPanel.setWidth100();
 		tabCustomer.setHeight(400);

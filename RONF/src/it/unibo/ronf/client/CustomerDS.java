@@ -35,10 +35,8 @@ public class CustomerDS extends DataSource {
     public CustomerDS(String id, final TabCustomer tabCustomer) {  
   
         setID(id);  
-        DataSourceIntegerField pkField = new DataSourceIntegerField("pk");  
-        pkField.setHidden(true);  
-        pkField.setPrimaryKey(true);  
         DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");  
+        idField.setPrimaryKey(true);
 
         DataSourceTextField nameField = new DataSourceTextField("name", "Nome");  
         nameField.setRequired(true);  
@@ -52,7 +50,7 @@ public class CustomerDS extends DataSource {
         DataSourceTextField docNumberField = new DataSourceTextField("docNumber", "Documento n.");  
   
           
-        setFields(pkField, idField, nameField, surnameField, ageField, fiscalCodeField, docNumberField); 
+        setFields(idField, nameField, surnameField, ageField, fiscalCodeField, docNumberField); 
         /** Effettuo la richiesta per la ricerca di tutti gli employee */
         customerService.findAll( new AsyncCallback<List<Customer>>() {
 
