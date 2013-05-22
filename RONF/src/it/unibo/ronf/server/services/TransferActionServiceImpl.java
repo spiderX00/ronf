@@ -48,6 +48,7 @@ public class TransferActionServiceImpl implements TransferActionService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void removeById(long id) {
 		taDAO.remove(taDAO.findById(id));
 		

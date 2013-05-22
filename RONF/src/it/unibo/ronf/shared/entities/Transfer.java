@@ -19,6 +19,7 @@ public class Transfer implements java.io.Serializable {
 	private List<TransferAction> transfers;
 	private Agency startAgency;
 	private Agency arrivalAgency;
+	
 
 	public Transfer() {
 		// TODO Auto-generated constructor stub
@@ -47,5 +48,7 @@ public class Transfer implements java.io.Serializable {
 	public void setArrivalAgency(Agency arrivalAgency) {
 		this.arrivalAgency = arrivalAgency;
 	}
+
+	
 
 }
