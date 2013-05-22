@@ -26,4 +26,6 @@ public interface RentalServiceAsync {
 
 	void removeById(long id, AsyncCallback<Void> callback);
 
+	void updateRental(Rental r, AsyncCallback<Void> callback);
+
 }

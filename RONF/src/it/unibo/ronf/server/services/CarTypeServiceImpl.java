@@ -25,6 +25,12 @@ public class CarTypeServiceImpl implements CarTypeService {
 	public CarType findBytype(String type) {
 		return carTypeDAO.findByType(type);
 	}
+
+	@Override
+	public void removeById(long id) {
+		carTypeDAO.remove(carTypeDAO.findById(id));
+		
+	}
 	
 	
 

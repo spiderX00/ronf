@@ -56,4 +56,10 @@ public class RentalServiceImpl implements RentalService {
 
 	}
 
+	@Override
+	public void updateRental(Rental r) {
+		rentalDAO.merge(r);
+		
+	}
+
 }

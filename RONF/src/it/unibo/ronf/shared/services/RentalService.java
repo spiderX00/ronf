@@ -26,5 +26,6 @@ public interface RentalService extends RemoteService {
 	public void createRental(Rental rental);
 	
 	public void removeById(long id);
-
+	
+	public void updateRental(Rental r);
 }

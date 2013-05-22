@@ -35,6 +35,7 @@ public abstract class JpaDAO<E> {
 		em.remove(entity);
 	}
 
+	/*Aggiorna oggetto*/
 	public E merge(E entity) {
 		return em.merge(entity);
 	}

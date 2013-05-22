@@ -10,4 +10,6 @@ public interface CarTypeServiceAsync {
 
 	void findBytype(String type, AsyncCallback<CarType> callback);
 
+	void removeById(long id, AsyncCallback<Void> callback);
+
 }
