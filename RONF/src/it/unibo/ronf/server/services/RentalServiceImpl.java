@@ -57,6 +57,7 @@ public class RentalServiceImpl implements RentalService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void updateRental(Rental r) {
 		rentalDAO.merge(r);
 		
