@@ -46,13 +46,12 @@ public class TabEmployee extends ListGrid {
 			rollOverCanvas.setSnapTo("TR");
 			rollOverCanvas.setWidth(50);
 			rollOverCanvas.setHeight(22);
-
 			ImgButton removeImg = new ImgButton();
 			removeImg.setShowDown(false);
 			removeImg.setShowRollOver(false);
 			removeImg.setLayoutAlign(Alignment.CENTER);
 			removeImg.setSrc("remove.png");
-			removeImg.setPrompt("Rimuovi record");
+			removeImg.setPrompt("Remove record");
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
@@ -116,7 +115,7 @@ public class TabEmployee extends ListGrid {
 		ListGridField surnameField = new ListGridField("surname", "Cognome");
 		ListGridField ageField = new ListGridField("age", "Età");
 		ageField.setAlign(Alignment.LEFT);
-		ListGridField userNameField = new ListGridField("username", "Username");
+		ListGridField userNameField = new ListGridField("userName", "Username");
 
 		tabEmployee.setFields(new ListGridField[] { idField, nameField, surnameField,
 				ageField, userNameField });

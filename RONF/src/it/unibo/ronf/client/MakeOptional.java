@@ -1,8 +1,8 @@
 package it.unibo.ronf.client;
 
-import it.unibo.ronf.shared.entities.Customer;
-import it.unibo.ronf.shared.services.CustomerService;
-import it.unibo.ronf.shared.services.CustomerServiceAsync;
+import it.unibo.ronf.shared.entities.Optional;
+import it.unibo.ronf.shared.services.OptionalService;
+import it.unibo.ronf.shared.services.OptionalServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -16,19 +16,23 @@ import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.FloatItem;
+import com.smartgwt.client.widgets.form.fields.TextAreaItem;
+import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
- * finestra di dialogo per la creazione di un cliente
+ * Dialog che prende in input il DouteSource e permette di aggiungere record
+ * alla ListGrid e al DB
  * 
  * @author Alessio De Vita alessio.dv@gmail.com
  */
-public class MakeUser extends Dialog {
-	private final CustomerServiceAsync customerService = GWT
-			.create(CustomerService.class);
+public class MakeOptional extends Dialog {
+	private final OptionalServiceAsync optionalService = GWT
+			.create(OptionalService.class);
 	private HLayout hLayout;
 
-	public MakeUser() {
+	public MakeOptional() {
 		setSize("400px", "330px");
 		final DynamicForm dynamicForm = new DynamicForm();
 		dynamicForm.setSize("350px", "194px");
@@ -36,8 +40,8 @@ public class MakeUser extends Dialog {
 		hLayout = new HLayout();
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
-		final TabCustomer tabCustomer = new TabCustomer();
-		dynamicForm.setDataSource(CustomerDS.getInstance(tabCustomer));
+		final TabOptional tabOptional = new TabOptional();
+		dynamicForm.setDataSource(OptionalDS.getInstance(tabOptional));
 		dynamicForm.getField("id").hide();
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);
@@ -55,19 +59,17 @@ public class MakeUser extends Dialog {
 						dynamicForm.editNewRecord();
 					}
 				});
-				Customer customer = new Customer();
-				customer.setName(dynamicForm.getValueAsString("name"));
-				customer.setSurname(dynamicForm.getValueAsString("surname"));
-				customer.setAge(Integer.parseInt(dynamicForm
-						.getValueAsString("age")));
-				customer.setFiscalCode(dynamicForm
-						.getValueAsString("fiscalCode"));
-				customer.setDocNumber(dynamicForm.getValueAsString("docNumber"));
-				customerService.createCustomer(customer,
+				Optional optional = new Optional();
+				optional.setName(dynamicForm.getValueAsString("name"));
+				optional.setCost(Float.parseFloat(dynamicForm
+						.getValueAsString("cost")));
+				optional.setDescription(dynamicForm
+						.getValueAsString("description"));
+				optionalService.createOptional(optional,
 						new AsyncCallback<Void>() {
 							@Override
 							public void onSuccess(Void result) {
-								MakeUser.this.hide();
+								MakeOptional.this.hide();
 								Window.alert("Optional Created!");
 
 							}
@@ -86,7 +88,7 @@ public class MakeUser extends Dialog {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				MakeUser.this.hide();
+				MakeOptional.this.hide();
 
 			}
 		});

@@ -1,5 +1,7 @@
 package it.unibo.ronf.shared.services;
 
+import java.util.List;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -13,5 +15,7 @@ public interface OptionalService extends RemoteService {
 	public void createOptional(Optional optional);
 	
 	public void removeById(long id);
+	
+	public List<Optional> findAll();
 
 }

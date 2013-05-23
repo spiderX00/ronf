@@ -1,7 +1,9 @@
 package it.unibo.ronf.client;
 
-import it.unibo.ronf.shared.services.CustomerService;
-import it.unibo.ronf.shared.services.CustomerServiceAsync;
+import it.unibo.ronf.shared.services.EmployeeService;
+import it.unibo.ronf.shared.services.EmployeeServiceAsync;
+import it.unibo.ronf.shared.services.OptionalService;
+import it.unibo.ronf.shared.services.OptionalServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -25,14 +27,18 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  * @author Alessio De Vita alessio.dv@gmail.com
  */
-public class TabCustomer extends ListGrid {
-	private final CustomerServiceAsync customerService = GWT
-			.create(CustomerService.class);
-	private HLayout rollOverCanvas;
-	private ListGridRecord rollOverRecord;
+public class TabOptional extends ListGrid {
+	private final OptionalServiceAsync optionalService = GWT
+			.create(OptionalService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
+	private HLayout rollOverCanvas;
+	private ListGridRecord rollOverRecord;
 
+	/**
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
+	 * sopra una riga, permettendone la modifica
+	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
 		rollOverRecord = this.getRecord(rowNum);
@@ -42,7 +48,6 @@ public class TabCustomer extends ListGrid {
 			rollOverCanvas.setSnapTo("TR");
 			rollOverCanvas.setWidth(50);
 			rollOverCanvas.setHeight(22);
-
 			ImgButton removeImg = new ImgButton();
 			removeImg.setShowDown(false);
 			removeImg.setShowRollOver(false);
@@ -57,7 +62,7 @@ public class TabCustomer extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								customerService.removeById(
+								optionalService.removeById(
 										rollOverRecord.getAttributeAsLong("id"),
 										new AsyncCallback<Void>() {
 											@Override
@@ -83,10 +88,10 @@ public class TabCustomer extends ListGrid {
 
 	}
 
-	public TabCustomer() {
+	public TabOptional() {
 
 		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-		if (CustomerDS.getInstance(TabCustomer.this) != null) {
+		if (OptionalDS.getInstance(TabOptional.this) != null) {
 			rp.clear();
 			rp.add(vPanel);
 		}
@@ -97,29 +102,24 @@ public class TabCustomer extends ListGrid {
 	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
 	 * chiamata Asincrona ha avuto successo
 	 */
-	static void setdata(CustomerDS data, TabCustomer tabCustomer) {
-		tabCustomer.setShowRollOverCanvas(true);
-		tabCustomer.setWidth("99%");
+	static void setdata(OptionalDS data, TabOptional tabOptional) {
+		tabOptional.setShowRollOverCanvas(true);
+		tabOptional.setWidth("99%");
 		vPanel.setWidth100();
-		tabCustomer.setHeight(400);
-		tabCustomer.setShowFilterEditor(true);
-		tabCustomer.setFilterOnKeypress(true);
-		tabCustomer.setDataSource(data);
-		tabCustomer.setAutoFetchData(true);
+		tabOptional.setHeight(400);
+		tabOptional.setShowFilterEditor(true);
+		tabOptional.setFilterOnKeypress(true);
+		tabOptional.setDataSource(data);
+		tabOptional.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
 		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField surnameField = new ListGridField("surname", "Cognome");
-		ListGridField ageField = new ListGridField("age", "Età");
-		ageField.setAlign(Alignment.LEFT);
-		ListGridField fiscalCodeField = new ListGridField("fiscalCode",
-				"Cod. Fiscale");
-		ListGridField docNumberField = new ListGridField("docNumber",
-				"Documento n.");
-
-		tabCustomer.setFields(new ListGridField[] { idField, nameField,
-				surnameField, ageField, fiscalCodeField, docNumberField });
-		vPanel.addChild(tabCustomer);
+		ListGridField costField = new ListGridField("cost", "Prezzo");
+		ListGridField descriptionField = new ListGridField("description",
+				"Descrizione");
+		tabOptional.setFields(new ListGridField[] { idField, nameField,
+				costField, descriptionField });
+		vPanel.addChild(tabOptional);
 		rp.clear();
 		rp.add(vPanel);
 	}

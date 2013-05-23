@@ -11,6 +11,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.DataSourceIntegerField;
+import com.smartgwt.client.data.fields.DataSourcePasswordField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
  
 /**
@@ -42,14 +43,19 @@ public class EmployeeDS extends DataSource {
   
         DataSourceTextField surnameField = new DataSourceTextField("surname", "Cognome");  
         surnameField.setRequired(true);  
+        
+        DataSourcePasswordField passwordField = new DataSourcePasswordField("password", "Password");  
+        passwordField.setRequired(true);
   
-        DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Capital");  
+        DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Età");  
+        ageField.setRequired(true);
         DataSourceTextField userNameField = new DataSourceTextField("userName", "Username");  
+        userNameField.setRequired(true);
 //  
 //        DataSourceTextField docNumberField = new DataSourceTextField("docNumber", "Documento n.");  
   
           
-        setFields(pkField, nameField, surnameField, ageField, userNameField); 
+        setFields(pkField, nameField, surnameField, passwordField, ageField, userNameField); 
         /** Effettuo la richiesta per la ricerca di tutti gli employee */
         employeeService.findAll( new AsyncCallback<List<Employee>>() {
 

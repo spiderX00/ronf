@@ -1,96 +1,79 @@
 package it.unibo.ronf.client;
 
-import it.unibo.ronf.shared.entities.Customer;
 import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.Button;
+import com.smartgwt.client.data.DSCallback;
+import com.smartgwt.client.data.DSRequest;
+import com.smartgwt.client.data.DSResponse;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.widgets.Button;
+import com.smartgwt.client.widgets.Dialog;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.layout.HLayout;
 
-public class MakeEmployee extends DialogBox {
+
+
+public class MakeEmployee extends Dialog {
 	private final EmployeeServiceAsync employeeService = GWT
 			.create(EmployeeService.class);
+	private HLayout hLayout;
 
 	public MakeEmployee() {
 
-		AbsolutePanel absolutePanel = new AbsolutePanel();
-		setWidget(absolutePanel);
-		absolutePanel.setSize("385px", "331px");
-
-		VerticalPanel verticalPanel = new VerticalPanel();
-		absolutePanel.add(verticalPanel, 33, 10);
-		verticalPanel.setSize("107px", "254px");
-
-		Label lblNome = new Label("Nome");
-		lblNome.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		verticalPanel.add(lblNome);
-
-		Label lblCognome = new Label("Cognome");
-		lblCognome.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		verticalPanel.add(lblCognome);
-
-		Label lblEt = new Label("Età");
-		lblEt.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		verticalPanel.add(lblEt);
-
-		Label lblPassword = new Label("Password");
-		lblPassword.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		verticalPanel.add(lblPassword);
-
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		absolutePanel.add(verticalPanel_1, 165, 10);
-		verticalPanel_1.setSize("184px", "254px");
-
-		final TextBox name = new TextBox();
-		verticalPanel_1.add(name);
-
-		final TextBox surname = new TextBox();
-		verticalPanel_1.add(surname);
-
-		final TextBox age = new TextBox();
-		verticalPanel_1.add(age);
-
-		final PasswordTextBox passwd = new PasswordTextBox();
-		verticalPanel_1.add(passwd);
-		passwd.setSize("177px", "27");
-
+		setSize("400px", "330px");
+		final DynamicForm dynamicForm = new DynamicForm();
+		dynamicForm.setSize("350px", "194px");
+		addItem(dynamicForm);
+		hLayout = new HLayout();
+		hLayout.setHeight("46px");
+		hLayout.setMembersMargin(40);
+		final TabEmployee tabEmployee = new TabEmployee();
+		dynamicForm.setDataSource(EmployeeDS.getInstance(tabEmployee));
+		dynamicForm.getField("id").hide();
 		Button btnCancel = new Button("Cancel");
-		absolutePanel.add(btnCancel, 49, 294);
+		btnCancel.setAlign(Alignment.CENTER);
+		hLayout.addMember(btnCancel);
 
-		Button makeButton = new Button("Crea");
-		absolutePanel.add(makeButton, 220, 294);
-
-		makeButton.addClickHandler(new ClickHandler() {
+		Button btnCrea = new Button("Crea");
+		hLayout.addMember(btnCrea);
+		hLayout.setAlign(Alignment.CENTER);
+		btnCrea.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				/** al click viene creato un nuovo Customer */
+				dynamicForm.saveData(new DSCallback() {
+					public void execute(DSResponse response, Object rawData,
+							DSRequest request) {
+						dynamicForm.editNewRecord();
+					}
+				});
 				Employee employee = new Employee();
-				employee.setName(name.getText());
-				employee.setSurname(surname.getText());
-				employee.setAge(Integer.parseInt(age.getText()));
-				employee.setPassword(passwd.getText());
+				employee.setName(dynamicForm.getValueAsString("name"));
+				employee.setSurname(dynamicForm
+						.getValueAsString("surname"));
+				employee.setAge(Integer.parseInt(dynamicForm
+						.getValueAsString("age")));
+				employee.setPassword(dynamicForm.getValueAsString("password"));
+				employee.setUserName(dynamicForm.getValueAsString("userName"));
 				employeeService.createEmployee(employee,
 						new AsyncCallback<Void>() {
 							@Override
 							public void onSuccess(Void result) {
 								MakeEmployee.this.hide();
-								Window.alert("Customer Created!");
+								Window.alert("Optional Created!");
+
 							}
 
 							@Override
 							public void onFailure(Throwable caught) {
-								Window.alert("Impossible to create customer!");
+								Window.alert("Impossible to create optional : "
+										+ caught);
 							}
 						});
 
@@ -98,12 +81,15 @@ public class MakeEmployee extends DialogBox {
 		});
 
 		btnCancel.addClickHandler(new ClickHandler() {
+
+			@Override
 			public void onClick(ClickEvent event) {
 				MakeEmployee.this.hide();
 
 			}
 		});
-		getElement().getStyle().setZIndex(8000001);
-		setWidget(absolutePanel);
+		addItem(hLayout);
+		hLayout.moveTo(30, 231);
+
 	}
 }

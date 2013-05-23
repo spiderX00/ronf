@@ -13,7 +13,6 @@ public class Optional implements java.io.Serializable {
 	private String name;
 	private float cost;
 	private String description;
-	private String constraints;
 
 	public String getName() {
 		return name;
@@ -38,15 +37,7 @@ public class Optional implements java.io.Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public String getConstraints() {
-		return constraints;
-	}
-
-	public void setConstraints(String constraints) {
-		this.constraints = constraints;
-	}
-
+	
 	public long getId() {
 		return id;
 	}
