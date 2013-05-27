@@ -18,8 +18,6 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 
-
-
 public class MakeEmployee extends Dialog {
 	private final EmployeeServiceAsync employeeService = GWT
 			.create(EmployeeService.class);
@@ -55,8 +53,7 @@ public class MakeEmployee extends Dialog {
 				});
 				Employee employee = new Employee();
 				employee.setName(dynamicForm.getValueAsString("name"));
-				employee.setSurname(dynamicForm
-						.getValueAsString("surname"));
+				employee.setSurname(dynamicForm.getValueAsString("surname"));
 				employee.setAge(Integer.parseInt(dynamicForm
 						.getValueAsString("age")));
 				employee.setPassword(dynamicForm.getValueAsString("password"));

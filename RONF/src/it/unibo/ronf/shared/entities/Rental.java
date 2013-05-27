@@ -17,12 +17,14 @@ public class Rental implements java.io.Serializable {
 	private Date end;
 	private Car rentedCar;
 	private CarType rentedType;
+	private Customer customer;
 	private List<Optional> optional;
 	private Agency startingAgency;
 	private Agency arrivalAgency;
 	private Payment payment;
 	private float caution;
 	private boolean confirmed;
+	private boolean finished;
 
 	public Date getStart() {
 		return start;
@@ -62,6 +64,14 @@ public class Rental implements java.io.Serializable {
 
 	public void setOptional(List<Optional> optional) {
 		this.optional = optional;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Agency getStartingAgency() {
@@ -111,5 +121,14 @@ public class Rental implements java.io.Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
 
 }

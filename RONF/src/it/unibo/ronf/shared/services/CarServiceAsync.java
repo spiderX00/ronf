@@ -21,4 +21,6 @@ public interface CarServiceAsync {
 
 	void removeById(long id, AsyncCallback<Void> callback);
 
+	public void findAll(AsyncCallback<List<Car>> callback);
+
 }

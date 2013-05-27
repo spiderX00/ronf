@@ -3,14 +3,17 @@ package it.unibo.ronf.server.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.shared.entities.Car;
+import it.unibo.ronf.shared.entities.Customer;
 import it.unibo.ronf.shared.services.CarService;
 import it.unibo.ronf.shared.entities.CarType;
 
+@Service("carService")
 public class CarServiceImpl implements CarService {
 
 	@Autowired
@@ -46,6 +49,11 @@ public class CarServiceImpl implements CarService {
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void removeById(long id) {
 		carDAO.remove(carDAO.findById(id));
+	}
+	
+	@Override
+	public List<Car> findAll() {
+		return carDAO.findAll();
 	}
 
 }

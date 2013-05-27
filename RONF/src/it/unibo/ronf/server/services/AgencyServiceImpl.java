@@ -1,13 +1,18 @@
 package it.unibo.ronf.server.services;
 
+import java.util.List;
+
 import it.unibo.ronf.server.dao.AgencyDAO;
 import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.services.AgencyService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service("agencyService")
 public class AgencyServiceImpl implements AgencyService {
 
 	@Autowired
@@ -35,6 +40,11 @@ public class AgencyServiceImpl implements AgencyService {
 	public void removeById(long id) {
 		agencyDAO.remove(agencyDAO.findById(id));
 
+	}
+	
+	@Override
+	public List<Agency> findAll() {
+		return agencyDAO.findAll();
 	}
 
 }

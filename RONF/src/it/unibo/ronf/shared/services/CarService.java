@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
+import it.unibo.ronf.shared.entities.Customer;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -22,5 +23,8 @@ public interface CarService extends RemoteService {
 	public List<Car> findByType(CarType cartype);
 	
 	public void removeById(long id);
+	
+	public List<Car> findAll();
+
 
 }

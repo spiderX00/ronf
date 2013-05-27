@@ -1,12 +1,16 @@
 package it.unibo.ronf.shared.services;
 
+import java.util.List;
+
 import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Customer;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("ronfServices/agencyService")
 public interface AgencyService extends RemoteService {
+	
 
 	public Agency findByCode(String code);
 
@@ -15,5 +19,7 @@ public interface AgencyService extends RemoteService {
 	public void createAgency(Agency agency);
 
 	public void removeById(long id);
+
+	public List<Agency> findAll();
 
 }

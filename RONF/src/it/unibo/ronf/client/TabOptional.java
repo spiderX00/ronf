@@ -1,7 +1,5 @@
 package it.unibo.ronf.client;
 
-import it.unibo.ronf.shared.services.EmployeeService;
-import it.unibo.ronf.shared.services.EmployeeServiceAsync;
 import it.unibo.ronf.shared.services.OptionalService;
 import it.unibo.ronf.shared.services.OptionalServiceAsync;
 

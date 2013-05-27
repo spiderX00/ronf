@@ -1,8 +1,16 @@
 package it.unibo.ronf.client;
 
+import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.Employee;
+import it.unibo.ronf.shared.services.AgencyService;
+import it.unibo.ronf.shared.services.AgencyServiceAsync;
+import it.unibo.ronf.shared.services.CarService;
+import it.unibo.ronf.shared.services.CarServiceAsync;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
+import it.unibo.ronf.shared.services.RentalService;
+import it.unibo.ronf.shared.services.RentalServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -33,6 +41,11 @@ public class RONF implements EntryPoint {
 
 	private final EmployeeServiceAsync employeeService = GWT
 			.create(EmployeeService.class);
+	private final AgencyServiceAsync agencyService = GWT
+			.create(AgencyService.class);
+	private final CarServiceAsync carService = GWT.create(CarService.class);
+	private final RentalServiceAsync rentalService = GWT
+			.create(RentalService.class);
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -108,24 +121,59 @@ public class RONF implements EntryPoint {
 		});
 
 		/*************************************************/
-
-		// Employee admin = new Employee();
-		// admin.setAge(23);
-		// admin.setName("Amministratore");
-		// admin.setSurname("Admin");
-		// admin.setUserName("admin");
-		// admin.setPassword("admin");
-		// employeeService.createEmployee(admin, new AsyncCallback<Void>() {
-		// @Override
-		// public void onSuccess(Void result) {
-		// }
-		//
-		// @Override
-		// public void onFailure(Throwable caught) {
-		// Window.alert("Impossible to create admin!");
-		// }
-		// });
-		// LoginDialog d = new LoginDialog();
-		// d.setVisible(false);
+//		rentalService.removeById(4,new AsyncCallback<Void>() {
+//			 @Override
+//			 public void onSuccess(Void result) {
+//				 Window.alert("rimosso");
+//			 }
+//			
+//			 @Override
+//			 public void onFailure(Throwable caught) {
+//			 Window.alert("Impossible to create admin!");
+//			 }
+//			 });
+//		rentalService.removeById(5,new AsyncCallback<Void>() {
+//			 @Override
+//			 public void onSuccess(Void result) {
+//				 Window.alert("rimosso");
+//			 }
+//			
+//			 @Override
+//			 public void onFailure(Throwable caught) {
+//			 Window.alert("Impossible to create admin!");
+//			 }
+//			 });
+//		 Agency agency = new Agency();
+//		 agency.setCode("125");
+//		 agency.setName("agenzia Roma");
+//		 agency.setAddress("via roma, 23");
+//		 agency.setIpAddress("2.2.2.2");
+//		 agencyService.createAgency(agency, new AsyncCallback<Void>() {
+//		 @Override
+//		 public void onSuccess(Void result) {
+//		 }
+//		
+//		 @Override
+//		 public void onFailure(Throwable caught) {
+//		 Window.alert("Impossible to create admin!");
+//		 }
+//		 });
+//		 Car car = new Car();
+//		 car.setModel("monovolume");
+//		 car.setSeatsNumber(4);
+//		 car.setPlate("prova");
+//		 car.setGasolineType("diesel");
+//		 carService.createCar(car, new AsyncCallback<Void>() {
+//		 @Override
+//		 public void onSuccess(Void result) {
+//		 }
+//		
+//		 @Override
+//		 public void onFailure(Throwable caught) {
+//		 Window.alert("Impossible to create admin!");
+//		 }
+//		 });
+//		 LoginDialog d = new LoginDialog();
+//		 d.setVisible(false);
 	}
 }
