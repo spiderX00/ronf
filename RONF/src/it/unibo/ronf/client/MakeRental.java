@@ -267,8 +267,6 @@ public class MakeRental extends Dialog {
 		vPanel.addChild(tabRental);
 		rp.clear();
 		rp.add(vPanel);
-//		tabRental.setHtmlElement(DOM.getElementById("content"));
-//		tabRental.draw();
 	}
 
 }

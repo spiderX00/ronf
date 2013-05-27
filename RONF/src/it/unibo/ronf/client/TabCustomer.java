@@ -110,7 +110,7 @@ public class TabCustomer extends ListGrid {
 		idField.setAlign(Alignment.LEFT);
 		ListGridField nameField = new ListGridField("name", "Nome");
 		ListGridField surnameField = new ListGridField("surname", "Cognome");
-		ListGridField ageField = new ListGridField("age", "Età");
+		ListGridField ageField = new ListGridField("age", "EtÃ ");
 		ageField.setAlign(Alignment.LEFT);
 		ListGridField fiscalCodeField = new ListGridField("fiscalCode",
 				"Cod. Fiscale");

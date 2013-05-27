@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("rentalService")
+@Service("rentalService") 
 public class RentalServiceImpl implements RentalService {
 
 	@Autowired

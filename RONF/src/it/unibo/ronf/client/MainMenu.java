@@ -1,104 +1,114 @@
 package it.unibo.ronf.client;
 
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.MenuItem;
+import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.widgets.menu.Menu;
+import com.smartgwt.client.widgets.menu.MenuBar;
+import com.smartgwt.client.widgets.menu.MenuItem;
+import com.smartgwt.client.widgets.menu.events.ClickHandler;
+import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 
 /**
  * menu principale dell'applicazione
- *
+ * 
  * @author Alessio De Vita alessio.dv@gmail.com
  */
 public class MainMenu extends MenuBar {
+	VLayout main = new VLayout();
+	VLayout mainmenu = new VLayout();
+	VLayout content = new VLayout();
 
 	public MainMenu() {
-		
-		setAnimationEnabled(true);
-		setWidth("100%");
-		Command makeUtente = new Command() {
-			public void execute() {
-				MakeUser makeUser = new MakeUser();
-				makeUser.show();
-				makeUser.centerInPage();
-				
+		super();
+		mainmenu.addMember(MainMenu.this);
+		main.addMember(mainmenu);
+		main.draw();
+
+		/** cliccando su crea viene creata una finestra di dialogo MakeUser */
+		MenuItem subMakeCustomer = new MenuItem("Crea");
+		MenuItem subViewEmployee = new MenuItem("Visualizza");
+		MenuItem subMakeEmployee = new MenuItem("Crea");
+		MenuItem subViewCustomer = new MenuItem("Visualizza");
+		MenuItem subMakeOptional = new MenuItem("Crea");
+		MenuItem subViewOptional = new MenuItem("Visualizza");
+		MenuItem subViewRental = new MenuItem("Visualizza");
+		MenuItem subMakeRental = new MenuItem("Crea");
+		Menu optionalMenu = new Menu();
+		Menu employeeMenu = new Menu();
+		Menu customerMenu = new Menu();
+		Menu rentalMenu = new Menu();
+		employeeMenu.setTitle("Employee");
+		customerMenu.setTitle("Customer");
+		rentalMenu.setTitle("Rental");
+		optionalMenu.setTitle("Optional");
+		optionalMenu.setItems(subMakeOptional, subViewOptional);
+		employeeMenu.setItems(subMakeEmployee, subViewEmployee);
+		customerMenu.setItems(subMakeCustomer, subViewCustomer);
+		rentalMenu.setItems(subMakeRental, subViewRental);
+		subViewOptional.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				new TabOptional();
+
 			}
-		};
-		Command viewEmployee = new Command() {
-			public void execute() {
-				new TabEmployee();
-				
-				
-			}
-		};
-		Command viewCustomer = new Command() {
-			public void execute() {
-				new TabCustomer();
-				
-				
-			}
-		};
-		Command makeEmployee = new Command() {
-			public void execute() {
-				MakeEmployee makeEmployee = new MakeEmployee();
-				makeEmployee.show();
-				makeEmployee.centerInPage();	
-			}
-		};
-		
-		Command makeOptional = new Command() {
-			public void execute() {
+		});
+		subMakeOptional.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
 				MakeOptional makeOptional = new MakeOptional();
 				makeOptional.show();
 				makeOptional.centerInPage();
+
 			}
-		};
-		Command viewOptional = new Command() {
-			public void execute() {
-				new TabOptional();
+		});
+		subViewCustomer.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				new TabCustomer();
+
 			}
-		};
-		Command viewRental = new Command() {
-			public void execute() {
+		});
+		subMakeCustomer.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				MakeUser makeUser = new MakeUser();
+				makeUser.show();
+				makeUser.centerInPage();
+
+			}
+		});
+		subViewRental.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
 				MakeRental makeRental = new MakeRental();
 				makeRental.hide();
+
 			}
-		};
-		Command makeRental = new Command() {
-			public void execute() {
+		});
+		subMakeRental.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
 				MakeRental makeRental = new MakeRental();
 				makeRental.show();
 				makeRental.centerInPage();
+
 			}
-		};
-		MenuBar menuEmployee = new MenuBar();
-		MenuBar menuCustomer = new MenuBar();
-		MenuBar menuOptional = new MenuBar();
-		MenuBar menuRental = new MenuBar();
-		/** cliccando su crea viene creata una finestra di dialogo MakeUser*/
-		MenuItem subMakeCustomer = new MenuItem ("Crea", makeUtente);
-		MenuItem subViewEmployee = new MenuItem("Visualizza", viewEmployee);
-		MenuItem subMakeEmployee = new MenuItem("Crea", makeEmployee);	
-		MenuItem subViewCustomer = new MenuItem("Visualizza", viewCustomer);
-		MenuItem subMakeOptional = new MenuItem("Crea", makeOptional);
-		MenuItem subViewOptional = new MenuItem("Visualizza", viewOptional);
-		MenuItem subViewRental = new MenuItem("Visualizza", viewRental);
-		MenuItem subMakeRental = new MenuItem("Crea", makeRental);
-		addItem("Employee", menuEmployee);
-		addItem("Customer", menuCustomer);
-		addItem("Optional", menuOptional);
-		addItem("Rental", menuRental);
-		menuCustomer.addItem(subMakeCustomer);
-		menuEmployee.addItem(subMakeEmployee);
-		menuEmployee.addItem(subViewEmployee);
-		menuCustomer.addItem(subViewCustomer);
-		menuOptional.addItem(subMakeOptional);
-		menuOptional.addItem(subViewOptional);
-		menuRental.addItem(subViewRental);
-		menuRental.addItem(subMakeRental);
-//		RootPanel rp = RootPanel.get();
-//		FlowPanel fp = new FlowPanel();
-//		fp.add(menuBar);
-//		fp.addStyleName("center");
-//		rp.add(fp);
+		});
+		subViewEmployee.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				new TabEmployee();
+
+			}
+		});
+		subMakeEmployee.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				MakeEmployee makeEmployee = new MakeEmployee();
+				makeEmployee.show();
+				makeEmployee.centerInPage();
+
+			}
+		});
+		setMenus(employeeMenu, customerMenu, optionalMenu, rentalMenu);
 	}
 }
