@@ -3,7 +3,6 @@ package it.unibo.ronf.shared.services;
 import java.util.List;
 
 import it.unibo.ronf.shared.entities.Agency;
-import it.unibo.ronf.shared.entities.Customer;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

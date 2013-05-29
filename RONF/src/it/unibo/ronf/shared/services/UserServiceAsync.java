@@ -15,6 +15,6 @@ public interface UserServiceAsync {
 
 	public void findAll(AsyncCallback<List<User>> callback);
 
-	void removeById(long id, AsyncCallback<Void> callback);
+	public void removeById(long id, AsyncCallback<Void> callback);
 
 }
