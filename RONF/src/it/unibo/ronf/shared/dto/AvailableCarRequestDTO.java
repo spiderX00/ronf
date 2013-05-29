@@ -2,13 +2,16 @@ package it.unibo.ronf.shared.dto;
 
 import it.unibo.ronf.shared.entities.CarType;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class AvailableCarRequestDTO {
+public class AvailableCarRequestDTO implements Serializable{
 	
+	
+	private static final long serialVersionUID = -3792673978865268789L;
 	private CarType type;
 	private Date start;
 	private Date end;

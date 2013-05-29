@@ -2,6 +2,7 @@ package it.unibo.ronf.client.makedialog;
 
 import it.unibo.ronf.client.datasource.RentalDS;
 import it.unibo.ronf.client.table.TabRental;
+import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -23,7 +24,6 @@ import it.unibo.ronf.shared.services.RentalService;
 import it.unibo.ronf.shared.services.RentalServiceAsync;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +37,6 @@ import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.DateDisplayFormat;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -51,26 +50,17 @@ import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
-import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
-import com.smartgwt.client.widgets.grid.ListGrid;
-import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MakeRental extends Dialog {
 
-	private final RentalServiceAsync rentalService = GWT
-			.create(RentalService.class);
+	private final RentalServiceAsync rentalService = GWT.create(RentalService.class);
 	private final CarServiceAsync carService = GWT.create(CarService.class);
-	private final CustomerServiceAsync customerService = GWT
-			.create(CustomerService.class);
-	private final AgencyServiceAsync agencyService = GWT
-			.create(AgencyService.class);
-	private final CarTypeServiceAsync carTypeService = GWT
-			.create(CarTypeService.class);
-	private final OptionalServiceAsync optionalService = GWT
-			.create(OptionalService.class);
+	private final CustomerServiceAsync customerService = GWT.create(CustomerService.class);
+	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
+	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
+	private final OptionalServiceAsync optionalService = GWT.create(OptionalService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
 
@@ -108,14 +98,13 @@ public class MakeRental extends Dialog {
 		final DynamicForm dynamicForm3 = new DynamicForm();
 		carType = new SelectItem("carType", "Tipo");
 		carType.setValueMap("Mini", "Family", "Sport", "Prestige");
-		carModel = new SelectItem("carModel", "Modello");
+		carModel = new SelectItem("carModel", "Car");
 		optionalItem = new MultiComboBoxItem("optional", "Optional");
 		carModel.setEmptyDisplayValue("Select car");
 		carType.setEmptyDisplayValue("Select Type");
 		dynamicForm3.setFields(carType, carModel, optionalItem);
 		final DynamicForm dynamicForm2 = new DynamicForm();
-		dynamicForm2.setFields(sectionPayment, amount, paymentMethod,
-				dateOfPayment);
+		dynamicForm2.setFields(sectionPayment, amount, paymentMethod, dateOfPayment);
 		addItem(dynamicForm3);
 		addItem(dynamicForm2);
 
@@ -131,16 +120,14 @@ public class MakeRental extends Dialog {
 					@Override
 					public void onSuccess(List<Agency> result) {
 						for (Agency c : result) {
-							agencyMap.put("" + c.getId() + " - " + c.getName(),
-									c);
+							agencyMap.put("" + c.getId() + " - " + c.getName(), c);
 
 						}
 						final TabRental tabRental = new TabRental();
 						if (RentalDS.getDataSource("rentalDS") != null) {
 							RentalDS.getDataSource("rentalDS").destroy();
 						}
-						dynamicForm.setDataSource(new RentalDS("rentalDS", tabRental,
-								customersMap, agencyMap));
+						dynamicForm.setDataSource(new RentalDS("rentalDS", tabRental, customersMap, agencyMap));
 						dynamicForm.getField("id").hide();
 						dynamicForm.getField("rentedCar").hide();
 						dynamicForm.getField("optional").hide();
@@ -163,50 +150,43 @@ public class MakeRental extends Dialog {
 			@Override
 			public void onChange(ChangeEvent event) {
 				String selectedItem = (String) event.getValue();
-				carTypeService.findBytype(selectedItem,
-						new AsyncCallback<CarType>() {
-							@Override
-							public void onSuccess(CarType result) {
-								carService.findByType(result,
-										new AsyncCallback<List<Car>>() {
+				carTypeService.findBytype(selectedItem, new AsyncCallback<CarType>() {
+					@Override
+					public void onSuccess(CarType result) {
+						carService.findAvailableCar(
+								new AvailableCarRequestDTO(result, (Date) (dynamicForm.getValue("start")), (Date) (dynamicForm.getValue("end"))),
+								new AsyncCallback<List<Car>>() {
 
-											@Override
-											public void onFailure(
-													Throwable caught) {
-												// TODO Auto-generated method
-												// stub
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method
+										// stub
 
+									}
+
+									@Override
+									public void onSuccess(List<Car> result) {
+										if (result.isEmpty()) {
+											carModel.setValueMap(new String[] {});
+											carModel.disable();
+										} else {
+											for (Car c : result) {
+												carMap.put(c.getModel(), c);
 											}
+											carModel.enable();
+											carModel.setValueMap(carMap.keySet().toArray(new String[] {}));
+										}
 
-											@Override
-											public void onSuccess(
-													List<Car> result) {
-												if (result.isEmpty()) {
-													carModel.setValueMap(new String[] {});
-													carModel.disable();
-												} else {
-													for (Car c : result) {
-														carMap.put(
-																c.getModel(), c);
-													}
-													carModel.enable();
-													carModel.setValueMap(carMap
-															.keySet()
-															.toArray(
-																	new String[] {}));
-												}
+									}
 
-											}
+								});
+					}
 
-										});
-							}
-
-							@Override
-							public void onFailure(Throwable caught) {
-								Window.alert("Impossible to create optional : "
-										+ caught);
-							}
-						});
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to create optional : " + caught);
+					}
+				});
 			}
 		});
 		carModel.addChangeHandler(new ChangeHandler() {
@@ -229,14 +209,11 @@ public class MakeRental extends Dialog {
 				for (Optional o : result) {
 					optionalMap.put(o.getName(), o);
 				}
-				optionalItem.setValueMap(optionalMap.keySet().toArray(
-						new String[] {}));
+				optionalItem.setValueMap(optionalMap.keySet().toArray(new String[] {}));
 			}
 
 		});
-		
-		
-		
+
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);
 		hLayout.addMember(btnCancel);
@@ -248,8 +225,7 @@ public class MakeRental extends Dialog {
 			public void onClick(ClickEvent event) {
 				/** al click viene creato un nuovo Customer */
 				dynamicForm.saveData(new DSCallback() {
-					public void execute(DSResponse response, Object rawData,
-							DSRequest request) {
+					public void execute(DSResponse response, Object rawData, DSRequest request) {
 						dynamicForm.editNewRecord();
 					}
 				});
@@ -262,22 +238,17 @@ public class MakeRental extends Dialog {
 				rental.setStart((Date) dynamicForm.getValue("start"));
 				rental.setEnd((Date) (dynamicForm.getValue("end")));
 				// rental.setRentedType(carTypeMap.get(dynamicForm.getValueAsString("rentedType")));
-				rental.setCustomer(customersMap.get(dynamicForm
-						.getValueAsString("customer")));
-				rental.setStartingAgency(agencyMap.get(dynamicForm
-						.getValueAsString("startingAgency")));
-				rental.setArrivalAgency(agencyMap.get(dynamicForm
-						.getValueAsString("arrivalAgency")));
+				rental.setCustomer(customersMap.get(dynamicForm.getValueAsString("customer")));
+				rental.setStartingAgency(agencyMap.get(dynamicForm.getValueAsString("startingAgency")));
+				rental.setArrivalAgency(agencyMap.get(dynamicForm.getValueAsString("arrivalAgency")));
 				rental.setOptional(optionalList);
 				Payment payment = new Payment();
 				payment.setAmount(Float.parseFloat(amount.getEnteredValue()));
 				payment.setPaymentMethod(paymentMethod.getEnteredValue());
 				payment.setDateOfPayment(dateOfPayment.getValueAsDate());
 				// rental.setPayment(payment);
-				rental.setCaution(Float.parseFloat(dynamicForm
-						.getValueAsString("caution")));
-				rental.setFinished(Boolean.valueOf(dynamicForm
-						.getValueAsString("finished")));
+				rental.setCaution(Float.parseFloat(dynamicForm.getValueAsString("caution")));
+				rental.setFinished(Boolean.valueOf(dynamicForm.getValueAsString("finished")));
 				rentalService.createRental(rental, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {
@@ -288,8 +259,7 @@ public class MakeRental extends Dialog {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create optional : "
-								+ caught);
+						Window.alert("Impossible to create optional : " + caught);
 					}
 				});
 
@@ -308,7 +278,4 @@ public class MakeRental extends Dialog {
 		hLayout.moveTo(30, 231);
 
 	}
-
-
-
 }

@@ -29,15 +29,14 @@ import com.sun.jersey.core.header.MediaTypes;
 @Path("/cars")
 @Scope("request")
 public class CarServiceImpl implements CarService {
-	
-	private static final Logger logger = Logger
-			.getLogger(CarServiceImpl.class);
+
+	private static final Logger logger = Logger.getLogger(CarServiceImpl.class);
 
 	@Autowired
 	private CarDAO carDAO;
-	
+
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createCar(Car car) {
 		carDAO.persist(car);
 	}
@@ -45,7 +44,7 @@ public class CarServiceImpl implements CarService {
 	@Override
 	@GET
 	@Path("/model/{model}")
-	@Produces({MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_XML })
 	public List<Car> findByModel(@PathParam("model") String model) {
 		return carDAO.findByModel(model);
 	}
@@ -60,28 +59,20 @@ public class CarServiceImpl implements CarService {
 		return carDAO.findByGasolineType(gasolineType);
 	}
 
-	
 	@Override
 	@POST
-    @Produces({MediaType.APPLICATION_XML})
-	@Consumes({MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_XML })
 	public List<Car> findAvailableCar(AvailableCarRequestDTO request) {
-		if(logger.isDebugEnabled()) {
-			for(Car c : carDAO.findAvailableCar(request.getType(), request.getStart(), request.getEnd())) {
-				logger.debug(c.getType().getType());
-			}
-		}
-		
-		
 		return carDAO.findAvailableCar(request.getType(), request.getStart(), request.getEnd());
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
 		carDAO.remove(carDAO.findById(id));
 	}
-	
+
 	@Override
 	public List<Car> findAll() {
 		return carDAO.findAll();
@@ -89,8 +80,7 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public List<Car> findByType(CarType carType) {
-		carDAO.findByType(carType);
-		return null;
+		return carDAO.findByType(carType);
 	}
 
 }

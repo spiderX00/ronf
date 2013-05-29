@@ -3,8 +3,6 @@ package it.unibo.ronf.client.datasource;
 import it.unibo.ronf.client.record.RentalRecord;
 import it.unibo.ronf.client.table.TabRental;
 import it.unibo.ronf.shared.entities.Agency;
-import it.unibo.ronf.shared.entities.Car;
-import it.unibo.ronf.shared.entities.CarType;
 import it.unibo.ronf.shared.entities.Customer;
 import it.unibo.ronf.shared.entities.Rental;
 import it.unibo.ronf.shared.services.RentalService;
