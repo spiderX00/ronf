@@ -4,6 +4,7 @@ import it.unibo.ronf.shared.entities.Employee;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,7 @@ public class EmployeeDAO extends JpaDAO<Employee> {
 	}
 
 	public Employee findByUserName(String userName) {
+		try {
 
 		TypedQuery<Employee> query = em.createQuery(
 				"SELECT e FROM Employee e WHERE e.userName = :userName",
@@ -35,9 +37,10 @@ public class EmployeeDAO extends JpaDAO<Employee> {
 
 		query.setParameter("userName", userName);
 
-		List<Employee> employeeList = query.getResultList();
-
-		return employeeList.get(0);
+		return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
 
 	}
 

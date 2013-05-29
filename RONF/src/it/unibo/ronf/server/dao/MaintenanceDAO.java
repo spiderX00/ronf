@@ -9,12 +9,14 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 @Repository("maintenanceDAO")
 public class MaintenanceDAO extends JpaDAO<Maintenance> {
 
 	public Maintenance findByCar(Car car) {
+		try{
 
 		TypedQuery<Maintenance> query = em.createQuery(
 				"SELECT m FROM Maintenance m WHERE m.care = :car", entityClass);
@@ -22,6 +24,9 @@ public class MaintenanceDAO extends JpaDAO<Maintenance> {
 		query.setParameter("car", car);
 
 		return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
 
 	}
 

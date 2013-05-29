@@ -6,6 +6,7 @@ import it.unibo.ronf.shared.entities.CarType;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,8 @@ public class CarDAO extends JpaDAO<Car> {
 	}
 
 	public Car findByPlate(String plate) {
+		
+		try {
 
 		TypedQuery<Car> query = em.createQuery(
 				"SELECT c FROM Car c WHERE c.plate = :plate", entityClass);
@@ -35,6 +38,9 @@ public class CarDAO extends JpaDAO<Car> {
 		List<Car> carList = query.getResultList();
 
 		return carList.get(0);
+		} catch (NoResultException ex) {
+			return null;
+		}
 
 	}
 

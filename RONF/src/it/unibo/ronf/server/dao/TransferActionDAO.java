@@ -8,21 +8,24 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Date;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 @Repository("transferActionDAO")
 public class TransferActionDAO extends JpaDAO<TransferAction> {
 	
 	public TransferAction findByEmployee(TransferEmployee te) {
+		try {
 		
 		TypedQuery<TransferAction> query = em.createQuery(
 				"SELECT ta FROM TransferAction ta WHERE ta.employee = :te", entityClass);
 		
 		query.setParameter("te", te);
 		
-		List<TransferAction> transferAct = query.getResultList();
-		
-		return transferAct.get(0);
+		return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
 		
 	}
 	
