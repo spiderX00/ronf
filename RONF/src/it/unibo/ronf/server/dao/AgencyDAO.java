@@ -2,7 +2,6 @@ package it.unibo.ronf.server.dao;
 
 import it.unibo.ronf.shared.entities.Agency;
 
-
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -23,7 +23,7 @@ public interface CarServiceAsync {
 
 	public void findAll(AsyncCallback<List<Car>> callback);
 
-	void findAvailableCar(AvailableCarRequestDTO request,
+	public void findAvailableCar(AvailableCarRequestDTO request,
 			AsyncCallback<List<Car>> callback);
 
 	public void findByType(CarType cartype, AsyncCallback<List<Car>> callback);

@@ -17,8 +17,8 @@ public interface EmployeeServiceAsync {
 
 	public void remove(Employee employee, AsyncCallback<Void> callback);
 
-	void findByUserName(String userName, AsyncCallback<Employee> callback);
+	public void findByUserName(String userName, AsyncCallback<Employee> callback);
 
-	void removeById(long id, AsyncCallback<Void> callback);
+	public void removeById(long id, AsyncCallback<Void> callback);
 
 }
