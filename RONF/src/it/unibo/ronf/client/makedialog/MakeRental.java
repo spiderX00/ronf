@@ -32,7 +32,6 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
@@ -51,7 +50,6 @@ import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MakeRental extends Dialog {
 
@@ -61,20 +59,19 @@ public class MakeRental extends Dialog {
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
 	private final OptionalServiceAsync optionalService = GWT.create(OptionalService.class);
-	final static VLayout vPanel = new VLayout();
-	final static RootPanel rp = RootPanel.get("content");
 
-	Map<String, Car> carMap = new HashMap<String, Car>();
-	Map<String, Customer> customersMap = new HashMap<String, Customer>();
-	Map<String, Agency> agencyMap = new HashMap<String, Agency>();
-	Map<String, Payment> paymentMap = new HashMap<String, Payment>();
-	Map<String, Optional> optionalMap = new HashMap<String, Optional>();
+	private Map<String, Car> carMap = new HashMap<String, Car>();
+	private Map<String, Customer> customersMap = new HashMap<String, Customer>();
+	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
+	private Map<String, Payment> paymentMap = new HashMap<String, Payment>();
+	private Map<String, Optional> optionalMap = new HashMap<String, Optional>();
+	private Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
 
-	private TextItem paymentMethod;
-	private FloatItem amount;
-	private DateItem dateOfPayment;
-	private SelectItem carType;
-	private SelectItem carModel;
+	private TextItem paymentMethodItem;
+	private FloatItem amountItem;
+	private DateItem dateOfPaymentItem;
+	private SelectItem carTypeItem;
+	private SelectItem carModelItem;
 	private MultiComboBoxItem optionalItem;
 	private Rental rental = new Rental();
 
@@ -88,28 +85,26 @@ public class MakeRental extends Dialog {
 		hLayout = new HLayout();
 		hLayout.setSize("351px", "46px");
 		hLayout.setMembersMargin(40);
-		paymentMethod = new TextItem("paymentMethod", "Metodo di Pagmaneto");
-		amount = new FloatItem("amount", "Totale");
-		dateOfPayment = new DateItem("dateOfPayment", "Data pagamento");
+		paymentMethodItem = new TextItem("paymentMethod", "Metodo di Pagmaneto");
+		amountItem = new FloatItem("amount", "Totale");
+		dateOfPaymentItem = new DateItem("dateOfPayment", "Data pagamento");
 		SectionItem sectionPayment = new SectionItem();
 		sectionPayment.setDefaultValue("Pagamento");
 		sectionPayment.setSectionExpanded(false);
 		sectionPayment.setItemIds("paymentMethod", "amount", "dateOfPayment");
 		final DynamicForm dynamicForm3 = new DynamicForm();
-		carType = new SelectItem("carType", "Tipo");
-		carType.setValueMap("Mini", "Family", "Sport", "Prestige");
-		carModel = new SelectItem("carModel", "Car");
+		carTypeItem = new SelectItem("carType", "Tipo");
+		carTypeItem.setEmptyDisplayValue("Select Type");
+		carModelItem = new SelectItem("carModel", "Car");
+		carModelItem.setEmptyDisplayValue("Select car");
 		optionalItem = new MultiComboBoxItem("optional", "Optional");
-		carModel.setEmptyDisplayValue("Select car");
-		carType.setEmptyDisplayValue("Select Type");
-		dynamicForm3.setFields(carType, carModel, optionalItem);
+		dynamicForm3.setFields(carTypeItem, carModelItem, optionalItem);
 		final DynamicForm dynamicForm2 = new DynamicForm();
-		dynamicForm2.setFields(sectionPayment, amount, paymentMethod, dateOfPayment);
+		dynamicForm2.setFields(sectionPayment, amountItem, paymentMethodItem, dateOfPaymentItem);
 		addItem(dynamicForm3);
 		addItem(dynamicForm2);
 
 		customerService.findAll(new AsyncCallback<List<Customer>>() {
-
 			@Override
 			public void onSuccess(List<Customer> result) {
 				for (Customer c : result) {
@@ -136,60 +131,62 @@ public class MakeRental extends Dialog {
 
 					@Override
 					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to load agency: " + caught.getMessage());
 					}
 				});
-
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load customers: " + caught.getMessage());
 			}
 		});
 
-		carType.addChangeHandler(new ChangeHandler() {
+		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
+			@Override
+			public void onSuccess(List<CarType> result) {
+				for (CarType ct : result) {
+					carTypeMap.put(ct.getType(), ct);
+				}
+				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load car type: " + caught.getMessage());
+			}
+		});
+
+		carTypeItem.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				String selectedItem = (String) event.getValue();
-				carTypeService.findBytype(selectedItem, new AsyncCallback<CarType>() {
-					@Override
-					public void onSuccess(CarType result) {
-						carService.findAvailableCar(
-								new AvailableCarRequestDTO(result, (Date) (dynamicForm.getValue("start")), (Date) (dynamicForm.getValue("end"))),
-								new AsyncCallback<List<Car>>() {
-
-									@Override
-									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method
-										// stub
-
+				AvailableCarRequestDTO request = new AvailableCarRequestDTO(carTypeMap.get(selectedItem), (Date) (dynamicForm.getValue("start")), (Date) (dynamicForm.getValue("end")));
+				carService.findAvailableCar(request,
+						new AsyncCallback<List<Car>>() {
+							@Override
+							public void onSuccess(List<Car> result) {
+								if (result.isEmpty()) {
+									carModelItem.setValueMap(new String[] {});
+									carModelItem.disable();
+								} else {
+									for (Car c : result) {
+										carMap.put(c.getModel(), c);
 									}
+									carModelItem.enable();
+									carModelItem.setValueMap(carMap.keySet().toArray(new String[] {}));
+								}
+							}
 
-									@Override
-									public void onSuccess(List<Car> result) {
-										if (result.isEmpty()) {
-											carModel.setValueMap(new String[] {});
-											carModel.disable();
-										} else {
-											for (Car c : result) {
-												carMap.put(c.getModel(), c);
-											}
-											carModel.enable();
-											carModel.setValueMap(carMap.keySet().toArray(new String[] {}));
-										}
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Impossible to load available cars:" + caught.getMessage());
+							}
 
-									}
-
-								});
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create optional : " + caught);
-					}
-				});
+						});
 			}
 		});
-		carModel.addChangeHandler(new ChangeHandler() {
+		carModelItem.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
 				String selectedItem = (String) event.getValue();
@@ -200,8 +197,7 @@ public class MakeRental extends Dialog {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
+				Window.alert("Impossible to load optional:" + caught.getMessage());
 			}
 
 			@Override
@@ -243,9 +239,9 @@ public class MakeRental extends Dialog {
 				rental.setArrivalAgency(agencyMap.get(dynamicForm.getValueAsString("arrivalAgency")));
 				rental.setOptional(optionalList);
 				Payment payment = new Payment();
-				payment.setAmount(Float.parseFloat(amount.getEnteredValue()));
-				payment.setPaymentMethod(paymentMethod.getEnteredValue());
-				payment.setDateOfPayment(dateOfPayment.getValueAsDate());
+				payment.setAmount(Float.parseFloat(amountItem.getEnteredValue()));
+				payment.setPaymentMethod(paymentMethodItem.getEnteredValue());
+				payment.setDateOfPayment(dateOfPaymentItem.getValueAsDate());
 				// rental.setPayment(payment);
 				rental.setCaution(Float.parseFloat(dynamicForm.getValueAsString("caution")));
 				rental.setFinished(Boolean.valueOf(dynamicForm.getValueAsString("finished")));
@@ -253,13 +249,12 @@ public class MakeRental extends Dialog {
 					@Override
 					public void onSuccess(Void result) {
 						MakeRental.this.hide();
-						Window.alert("Optional Created!");
-
+						Window.alert("Rent Created!");
 					}
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create optional : " + caught);
+						Window.alert("Impossible to create rental : " + caught.getMessage());
 					}
 				});
 

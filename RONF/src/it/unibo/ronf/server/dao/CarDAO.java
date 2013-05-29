@@ -20,28 +20,20 @@ public class CarDAO extends JpaDAO<Car> {
 				"SELECT c FROM Car c WHERE c.model = :model", entityClass);
 
 		query.setParameter("model", model);
-
 		List<Car> carList = query.getResultList();
-
 		return carList;
 	}
 
 	public Car findByPlate(String plate) {
-		
 		try {
+			TypedQuery<Car> query = em.createQuery(
+					"SELECT c FROM Car c WHERE c.plate = :plate", entityClass);
 
-		TypedQuery<Car> query = em.createQuery(
-				"SELECT c FROM Car c WHERE c.plate = :plate", entityClass);
-
-		query.setParameter("plate", plate);
-
-		List<Car> carList = query.getResultList();
-
-		return carList.get(0);
+			query.setParameter("plate", plate);
+			return query.getSingleResult();
 		} catch (NoResultException ex) {
 			return null;
 		}
-
 	}
 
 	public List<Car> findByGasolineType(String gasolineType) {
@@ -51,11 +43,8 @@ public class CarDAO extends JpaDAO<Car> {
 				entityClass);
 
 		query.setParameter("gasolineType", gasolineType);
-
 		List<Car> carList = query.getResultList();
-
 		return carList;
-
 	}
 
 	public List<Car> findBySeatsNumber(int seatsNumber) {

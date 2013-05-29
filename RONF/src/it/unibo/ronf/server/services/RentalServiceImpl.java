@@ -26,8 +26,10 @@ public class RentalServiceImpl implements RentalService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createRental(Rental rental) {
+		if(rental.getStart().compareTo(rental.getEnd()) >= 0) {
+			throw new IllegalArgumentException("You must specify a valid date range!");
+		}
 		rentalDAO.persist(rental);
-
 	}
 
 	@Override
@@ -52,13 +54,6 @@ public class RentalServiceImpl implements RentalService {
 
 	@Override
 	public List<Rental> findAll() {
-//		if (logger.isDebugEnabled()) {
-//			for(Rental r : rentalDAO.findAll()) {
-//				for (Optional o : r.getOptional()) {
-//					logger.debug(o.getDescription());
-//				}
-//			}
-//		}
 		return rentalDAO.findAll();
 	}
 
@@ -73,7 +68,6 @@ public class RentalServiceImpl implements RentalService {
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void updateRental(Rental r) {
 		rentalDAO.merge(r);
-		
 	}
 
 }

@@ -3,8 +3,6 @@ package it.unibo.ronf.client;
 import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
-import it.unibo.ronf.shared.services.RentalService;
-import it.unibo.ronf.shared.services.RentalServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -28,11 +26,9 @@ public class RONF implements EntryPoint {
 
 	private final EmployeeServiceAsync employeeService = GWT
 			.create(EmployeeService.class);
-	private final RentalServiceAsync rentalService = GWT
-			.create(RentalService.class);
-	VLayout layoutMain = new VLayout();
-	HLayout layoutForm = new HLayout();
-	HLayout layoutButton = new HLayout();
+	private VLayout layoutMain = new VLayout();
+	private HLayout layoutForm = new HLayout();
+	private HLayout layoutButton = new HLayout();
 	private TextItem username;
 	private PasswordItem password;
 	private Button loginButton;
@@ -65,10 +61,8 @@ public class RONF implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				sendLogin();
-
 			}
 		});
-
 	}
 
 	private void sendLogin() {
@@ -88,7 +82,6 @@ public class RONF implements EntryPoint {
 					@Override
 					public void onSuccess(Boolean result) {
 						if (result == true) {
-							Window.alert("Login correct!");
 							layoutMain.removeChild(layoutForm);
 							layoutMain.removeChild(layoutButton);
 							/* carica menu principale */
@@ -104,9 +97,9 @@ public class RONF implements EntryPoint {
 
 					@Override
 					public void onFailure(Throwable caught) {
+						Window.alert("Error while tryng login: " + caught.getMessage());
 						loginButton.enable();
 					}
-
 				});
 
 		/*************************************************/

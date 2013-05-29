@@ -125,7 +125,7 @@ public class MakeCar extends Dialog {
 					@Override
 					public void onSuccess(Void result) {
 						MakeCar.this.hide();
-						Window.alert("Optional Created!");
+						Window.alert("Car Created!");
 					}
 
 					@Override
