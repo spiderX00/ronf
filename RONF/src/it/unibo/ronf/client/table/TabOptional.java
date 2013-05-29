@@ -1,7 +1,8 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.table;
 
-import it.unibo.ronf.shared.services.EmployeeService;
-import it.unibo.ronf.shared.services.EmployeeServiceAsync;
+import it.unibo.ronf.client.datasource.OptionalDS;
+import it.unibo.ronf.shared.services.OptionalService;
+import it.unibo.ronf.shared.services.OptionalServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -25,9 +26,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  * @author Alessio De Vita alessio.dv@gmail.com
  */
-public class TabEmployee extends ListGrid {
-	private final EmployeeServiceAsync employeeService = GWT
-			.create(EmployeeService.class);
+public class TabOptional extends ListGrid {
+	private final OptionalServiceAsync optionalService = GWT
+			.create(OptionalService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
 	private HLayout rollOverCanvas;
@@ -60,7 +61,7 @@ public class TabEmployee extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								employeeService.removeById(
+								optionalService.removeById(
 										rollOverRecord.getAttributeAsLong("id"),
 										new AsyncCallback<Void>() {
 											@Override
@@ -86,10 +87,10 @@ public class TabEmployee extends ListGrid {
 
 	}
 
-	public TabEmployee() {
+	public TabOptional() {
 
 		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-		if (EmployeeDS.getInstance(TabEmployee.this) != null) {
+		if (OptionalDS.getInstance(TabOptional.this) != null) {
 			rp.clear();
 			rp.add(vPanel);
 		}
@@ -100,26 +101,24 @@ public class TabEmployee extends ListGrid {
 	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
 	 * chiamata Asincrona ha avuto successo
 	 */
-	static void setdata(EmployeeDS data, TabEmployee tabEmployee) {
-		tabEmployee.setShowRollOverCanvas(true);
-		tabEmployee.setWidth("99%");
+	public static void setData(OptionalDS data, TabOptional tabOptional) {
+		tabOptional.setShowRollOverCanvas(true);
+		tabOptional.setWidth("99%");
 		vPanel.setWidth100();
-		tabEmployee.setHeight(400);
-		tabEmployee.setShowFilterEditor(true);
-		tabEmployee.setFilterOnKeypress(true);
-		tabEmployee.setDataSource(data);
-		tabEmployee.setAutoFetchData(true);
+		tabOptional.setHeight(400);
+		tabOptional.setShowFilterEditor(true);
+		tabOptional.setFilterOnKeypress(true);
+		tabOptional.setDataSource(data);
+		tabOptional.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
 		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField surnameField = new ListGridField("surname", "Cognome");
-		ListGridField ageField = new ListGridField("age", "Età");
-		ageField.setAlign(Alignment.LEFT);
-		ListGridField userNameField = new ListGridField("userName", "Username");
-
-		tabEmployee.setFields(new ListGridField[] { idField, nameField, surnameField,
-				ageField, userNameField });
-		vPanel.addChild(tabEmployee);
+		ListGridField costField = new ListGridField("cost", "Prezzo");
+		ListGridField descriptionField = new ListGridField("description",
+				"Descrizione");
+		tabOptional.setFields(new ListGridField[] { idField, nameField,
+				costField, descriptionField });
+		vPanel.addChild(tabOptional);
 		rp.clear();
 		rp.add(vPanel);
 	}

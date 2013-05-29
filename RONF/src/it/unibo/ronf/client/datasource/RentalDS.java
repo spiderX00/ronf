@@ -1,5 +1,7 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.datasource;
 
+import it.unibo.ronf.client.record.RentalRecord;
+import it.unibo.ronf.client.table.TabRental;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -127,7 +129,7 @@ public class RentalDS extends DataSource {
 				 * Una volta essermi assicurato che la chiamata Asincrona ha
 				 * avuto successo, posso mandare i dati alla ListGrid
 				 */
-				TabRental.setdata(RentalDS.this, tabRental);
+				TabRental.setData(RentalDS.this, tabRental);
 
 			}
 		});

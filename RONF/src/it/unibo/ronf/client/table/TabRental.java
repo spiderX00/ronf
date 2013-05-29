@@ -1,5 +1,6 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.table;
 
+import it.unibo.ronf.client.datasource.RentalDS;
 import it.unibo.ronf.shared.services.CarService;
 import it.unibo.ronf.shared.services.CarServiceAsync;
 
@@ -65,7 +66,7 @@ public class TabRental extends ListGrid {
 
 	}
 
-	static void setdata(RentalDS data, TabRental tabRental) {
+	public static void setData(RentalDS data, TabRental tabRental) {
 		tabRental.setShowRollOverCanvas(true);
 		tabRental.setWidth("99%");
 		vPanel.setWidth100();

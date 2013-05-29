@@ -1,4 +1,4 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.record;
 
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;

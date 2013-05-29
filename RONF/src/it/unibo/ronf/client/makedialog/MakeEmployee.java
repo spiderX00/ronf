@@ -1,8 +1,10 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.makedialog;
 
-import it.unibo.ronf.shared.entities.Optional;
-import it.unibo.ronf.shared.services.OptionalService;
-import it.unibo.ronf.shared.services.OptionalServiceAsync;
+import it.unibo.ronf.client.datasource.EmployeeDS;
+import it.unibo.ronf.client.table.TabEmployee;
+import it.unibo.ronf.shared.entities.Employee;
+import it.unibo.ronf.shared.services.EmployeeService;
+import it.unibo.ronf.shared.services.EmployeeServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -16,23 +18,15 @@ import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.FloatItem;
-import com.smartgwt.client.widgets.form.fields.TextAreaItem;
-import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.layout.HLayout;
 
-/**
- * Dialog che prende in input il DouteSource e permette di aggiungere record
- * alla ListGrid e al DB
- * 
- * @author Alessio De Vita alessio.dv@gmail.com
- */
-public class MakeOptional extends Dialog {
-	private final OptionalServiceAsync optionalService = GWT
-			.create(OptionalService.class);
+public class MakeEmployee extends Dialog {
+	private final EmployeeServiceAsync employeeService = GWT
+			.create(EmployeeService.class);
 	private HLayout hLayout;
 
-	public MakeOptional() {
+	public MakeEmployee() {
+
 		setSize("400px", "330px");
 		final DynamicForm dynamicForm = new DynamicForm();
 		dynamicForm.setSize("350px", "194px");
@@ -40,8 +34,8 @@ public class MakeOptional extends Dialog {
 		hLayout = new HLayout();
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
-		final TabOptional tabOptional = new TabOptional();
-		dynamicForm.setDataSource(OptionalDS.getInstance(tabOptional));
+		final TabEmployee tabEmployee = new TabEmployee();
+		dynamicForm.setDataSource(EmployeeDS.getInstance(tabEmployee));
 		dynamicForm.getField("id").hide();
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);
@@ -59,17 +53,18 @@ public class MakeOptional extends Dialog {
 						dynamicForm.editNewRecord();
 					}
 				});
-				Optional optional = new Optional();
-				optional.setName(dynamicForm.getValueAsString("name"));
-				optional.setCost(Float.parseFloat(dynamicForm
-						.getValueAsString("cost")));
-				optional.setDescription(dynamicForm
-						.getValueAsString("description"));
-				optionalService.createOptional(optional,
+				Employee employee = new Employee();
+				employee.setName(dynamicForm.getValueAsString("name"));
+				employee.setSurname(dynamicForm.getValueAsString("surname"));
+				employee.setAge(Integer.parseInt(dynamicForm
+						.getValueAsString("age")));
+				employee.setPassword(dynamicForm.getValueAsString("password"));
+				employee.setUserName(dynamicForm.getValueAsString("userName"));
+				employeeService.createEmployee(employee,
 						new AsyncCallback<Void>() {
 							@Override
 							public void onSuccess(Void result) {
-								MakeOptional.this.hide();
+								MakeEmployee.this.hide();
 								Window.alert("Optional Created!");
 
 							}
@@ -88,7 +83,7 @@ public class MakeOptional extends Dialog {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				MakeOptional.this.hide();
+				MakeEmployee.this.hide();
 
 			}
 		});

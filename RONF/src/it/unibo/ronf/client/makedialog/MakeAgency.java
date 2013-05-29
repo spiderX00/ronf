@@ -1,5 +1,7 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.makedialog;
 
+import it.unibo.ronf.client.datasource.AgencyDS;
+import it.unibo.ronf.client.table.TabAgency;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.services.AgencyService;
 import it.unibo.ronf.shared.services.AgencyServiceAsync;

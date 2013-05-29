@@ -40,6 +40,7 @@ public class RONF implements EntryPoint {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
+	@Override
 	public void onModuleLoad() {
 		layoutMain.setWidth100();
 		final DynamicForm loginForm = new DynamicForm();

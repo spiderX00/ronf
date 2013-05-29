@@ -1,5 +1,7 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.makedialog;
 
+import it.unibo.ronf.client.datasource.RentalDS;
+import it.unibo.ronf.client.table.TabRental;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;

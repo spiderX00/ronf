@@ -1,5 +1,6 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.table;
 
+import it.unibo.ronf.client.datasource.CustomerDS;
 import it.unibo.ronf.shared.services.CustomerService;
 import it.unibo.ronf.shared.services.CustomerServiceAsync;
 
@@ -97,7 +98,7 @@ public class TabCustomer extends ListGrid {
 	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
 	 * chiamata Asincrona ha avuto successo
 	 */
-	static void setdata(CustomerDS data, TabCustomer tabCustomer) {
+	public static void setData(CustomerDS data, TabCustomer tabCustomer) {
 		tabCustomer.setShowRollOverCanvas(true);
 		tabCustomer.setWidth("99%");
 		vPanel.setWidth100();

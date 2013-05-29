@@ -1,5 +1,16 @@
 package it.unibo.ronf.client;
 
+import it.unibo.ronf.client.makedialog.MakeAgency;
+import it.unibo.ronf.client.makedialog.MakeCar;
+import it.unibo.ronf.client.makedialog.MakeEmployee;
+import it.unibo.ronf.client.makedialog.MakeOptional;
+import it.unibo.ronf.client.makedialog.MakeRental;
+import it.unibo.ronf.client.makedialog.MakeUser;
+import it.unibo.ronf.client.table.TabAgency;
+import it.unibo.ronf.client.table.TabCustomer;
+import it.unibo.ronf.client.table.TabEmployee;
+import it.unibo.ronf.client.table.TabOptional;
+
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.menu.Menu;
 import com.smartgwt.client.widgets.menu.MenuBar;
@@ -58,11 +69,12 @@ public class MainMenu extends MenuBar {
 		optionalMenu.setItems(subMakeOptional, subViewOptional);
 		employeeMenu.setItems(subMakeEmployee, subViewEmployee);
 		customerMenu.setItems(subMakeCustomer, subViewCustomer);
-		carMenu.setItems(subMakeCar,subViewCar);
-		agencyMenu.setItems(subMakeAgency,subViewAgency);
+		carMenu.setItems(subMakeCar, subViewCar);
+		agencyMenu.setItems(subMakeAgency, subViewAgency);
 		rentalMenu.setItems(subMakeRental, subViewRental);
 		subViewOptional.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				new TabOptional();
 
@@ -70,6 +82,7 @@ public class MainMenu extends MenuBar {
 		});
 		subMakeOptional.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				MakeOptional makeOptional = new MakeOptional();
 				makeOptional.show();
@@ -79,6 +92,7 @@ public class MainMenu extends MenuBar {
 		});
 		subViewCustomer.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				new TabCustomer();
 
@@ -86,6 +100,7 @@ public class MainMenu extends MenuBar {
 		});
 		subMakeCustomer.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				MakeUser makeUser = new MakeUser();
 				makeUser.show();
@@ -95,6 +110,7 @@ public class MainMenu extends MenuBar {
 		});
 		subViewRental.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				MakeRental makeRental = new MakeRental();
 				makeRental.hide();
@@ -103,6 +119,7 @@ public class MainMenu extends MenuBar {
 		});
 		subMakeRental.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				MakeRental makeRental = new MakeRental();
 				makeRental.show();
@@ -112,6 +129,7 @@ public class MainMenu extends MenuBar {
 		});
 		subViewEmployee.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				new TabEmployee();
 
@@ -119,6 +137,7 @@ public class MainMenu extends MenuBar {
 		});
 		subMakeEmployee.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				MakeEmployee makeEmployee = new MakeEmployee();
 				makeEmployee.show();
@@ -128,6 +147,7 @@ public class MainMenu extends MenuBar {
 		});
 		subViewCar.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				MakeCar makeCar = new MakeCar();
 				makeCar.hide();
@@ -136,6 +156,7 @@ public class MainMenu extends MenuBar {
 		});
 		subMakeCar.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				MakeCar makeCar = new MakeCar();
 				makeCar.show();
@@ -145,6 +166,7 @@ public class MainMenu extends MenuBar {
 		});
 		subViewAgency.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				new TabAgency();
 
@@ -152,6 +174,7 @@ public class MainMenu extends MenuBar {
 		});
 		subMakeAgency.addClickHandler(new ClickHandler() {
 
+			@Override
 			public void onClick(MenuItemClickEvent event) {
 				MakeAgency makeAgency = new MakeAgency();
 				makeAgency.show();

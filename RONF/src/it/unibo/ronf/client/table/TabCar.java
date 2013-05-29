@@ -1,5 +1,6 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.table;
 
+import it.unibo.ronf.client.datasource.CarDS;
 import it.unibo.ronf.shared.services.CarService;
 import it.unibo.ronf.shared.services.CarServiceAsync;
 
@@ -96,7 +97,7 @@ public class TabCar extends ListGrid {
 	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
 	 * chiamata Asincrona ha avuto successo
 	 */
-	static void setdata(CarDS data, TabCar tabCar) {
+	public static void setData(CarDS data, TabCar tabCar) {
 		tabCar.setShowRollOverCanvas(true);
 		tabCar.setWidth("99%");
 		vPanel.setWidth100();

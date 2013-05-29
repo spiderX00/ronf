@@ -1,5 +1,7 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.datasource;
 
+import it.unibo.ronf.client.record.GridRecord;
+import it.unibo.ronf.client.table.TabCustomer;
 import it.unibo.ronf.shared.entities.Customer;
 import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.services.CustomerService;
@@ -93,7 +95,7 @@ public class CustomerDS extends DataSource {
 				 * Una volta essermi assicurato che la chiamata Asincrona ha
 				 * avuto successo, posso mandare i dati alla ListGrid
 				 */
-				TabCustomer.setdata(CustomerDS.this, tabCustomer);
+				TabCustomer.setData(CustomerDS.this, tabCustomer);
 
 			}
 		});

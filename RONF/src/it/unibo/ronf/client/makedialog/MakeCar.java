@@ -1,10 +1,10 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.makedialog;
 
-import it.unibo.ronf.client.components.RonfSelectItem;
+import it.unibo.ronf.client.datasource.CarDS;
+import it.unibo.ronf.client.table.TabCar;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
-import it.unibo.ronf.shared.entities.Payment;
 import it.unibo.ronf.shared.services.AgencyService;
 import it.unibo.ronf.shared.services.AgencyServiceAsync;
 import it.unibo.ronf.shared.services.CarService;
@@ -29,17 +29,14 @@ import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.FloatItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
-import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MakeCar extends Dialog {
-	
-	
+
 	private final CarServiceAsync carService = GWT.create(CarService.class);
 	private final AgencyServiceAsync agencyService = GWT
 			.create(AgencyService.class);
@@ -52,10 +49,8 @@ public class MakeCar extends Dialog {
 	Map<String, Agency> agencyMap = new HashMap<String, Agency>();
 	Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
 
-
 	private HLayout hLayout;
 	private SelectItem carTypeItem;
-
 
 	public MakeCar() {
 		setSize("370", "500px");
@@ -67,37 +62,36 @@ public class MakeCar extends Dialog {
 		hLayout.setMembersMargin(40);
 		final DynamicForm dynamicForm2 = new DynamicForm();
 		carTypeItem = new SelectItem("carType", "Avaiable Type");
-		carTypeItem.setValueMap("Mini","Family","Sport","Prestige");
+		carTypeItem.setValueMap("Mini", "Family", "Sport", "Prestige");
 		dynamicForm2.setFields(carTypeItem);
 		addItem(dynamicForm2);
 
-	
-						agencyService.findAll(new AsyncCallback<List<Agency>>() {
+		agencyService.findAll(new AsyncCallback<List<Agency>>() {
 
-									@Override
-									public void onSuccess(List<Agency> result) {
-										for (Agency c : result) {
-											agencyMap.put("" + c.getId()
-													+ " - " + c.getName(), c);
+			@Override
+			public void onSuccess(List<Agency> result) {
+				for (Agency c : result) {
+					agencyMap.put("" + c.getId()
+							+ " - " + c.getName(), c);
 
-										}
-										final TabCar tabCar = new TabCar();
-										if (CarDS.getDataSource("carDS") != null) {
-											CarDS.getDataSource("carDS")
-													.destroy();
-										}
-										dynamicForm.setDataSource(new CarDS(
-												"carDS", tabCar , agencyMap));
-										dynamicForm.getField("id").hide();
+				}
+				final TabCar tabCar = new TabCar();
+				if (CarDS.getDataSource("carDS") != null) {
+					CarDS.getDataSource("carDS")
+							.destroy();
+				}
+				dynamicForm.setDataSource(new CarDS(
+						"carDS", tabCar, agencyMap));
+				dynamicForm.getField("id").hide();
 
-									}
+			}
 
-									@Override
-									public void onFailure(Throwable caught) {
-									}
-								});
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+		});
 
-		car = new Car();			
+		car = new Car();
 		carTypeItem.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -133,17 +127,13 @@ public class MakeCar extends Dialog {
 					}
 				});
 
-				
-
 				car.setModel(dynamicForm.getValueAsString("model"));
 				car.setPlate(dynamicForm.getValueAsString("plate"));
 				car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
 				car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
 				car.setAgency(agencyMap.get(dynamicForm
 						.getValueAsString("agency")));
-				
-			
-			
+
 				carService.createCar(car, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {

@@ -1,5 +1,7 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.datasource;
 
+import it.unibo.ronf.client.record.OptionalRecord;
+import it.unibo.ronf.client.table.TabOptional;
 import it.unibo.ronf.shared.entities.Optional;
 import it.unibo.ronf.shared.services.OptionalService;
 import it.unibo.ronf.shared.services.OptionalServiceAsync;
@@ -90,7 +92,7 @@ public class OptionalDS extends DataSource {
 				 * Una volta essermi assicurato che la chiamata Asincrona ha
 				 * avuto successo, posso mandare i dati alla ListGrid
 				 */
-				TabOptional.setdata(OptionalDS.this, tabOptional);
+				TabOptional.setData(OptionalDS.this, tabOptional);
 
 			}
 		});

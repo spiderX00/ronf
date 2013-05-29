@@ -1,5 +1,7 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.datasource;
 
+import it.unibo.ronf.client.record.AgencyRecord;
+import it.unibo.ronf.client.table.TabAgency;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.services.AgencyService;
 import it.unibo.ronf.shared.services.AgencyServiceAsync;
@@ -12,7 +14,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.DataSourceIntegerField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
-import com.smartgwt.client.widgets.form.validator.IntegerRangeValidator;
 
 public class AgencyDS extends DataSource {
 
@@ -78,7 +79,7 @@ public class AgencyDS extends DataSource {
 				 * Una volta essermi assicurato che la chiamata Asincrona ha
 				 * avuto successo, posso mandare i dati alla ListGrid
 				 */
-				TabAgency.setdata(AgencyDS.this, tabAgency);
+				TabAgency.setData(AgencyDS.this, tabAgency);
 
 			}
 		});

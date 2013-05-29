@@ -1,4 +1,4 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.record;
 
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.form.DynamicForm;

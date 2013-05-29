@@ -1,8 +1,10 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.makedialog;
 
-import it.unibo.ronf.shared.entities.Employee;
-import it.unibo.ronf.shared.services.EmployeeService;
-import it.unibo.ronf.shared.services.EmployeeServiceAsync;
+import it.unibo.ronf.client.datasource.CustomerDS;
+import it.unibo.ronf.client.table.TabCustomer;
+import it.unibo.ronf.shared.entities.Customer;
+import it.unibo.ronf.shared.services.CustomerService;
+import it.unibo.ronf.shared.services.CustomerServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -18,13 +20,17 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 
-public class MakeEmployee extends Dialog {
-	private final EmployeeServiceAsync employeeService = GWT
-			.create(EmployeeService.class);
+/**
+ * finestra di dialogo per la creazione di un cliente
+ * 
+ * @author Alessio De Vita alessio.dv@gmail.com
+ */
+public class MakeUser extends Dialog {
+	private final CustomerServiceAsync customerService = GWT
+			.create(CustomerService.class);
 	private HLayout hLayout;
 
-	public MakeEmployee() {
-
+	public MakeUser() {
 		setSize("400px", "330px");
 		final DynamicForm dynamicForm = new DynamicForm();
 		dynamicForm.setSize("350px", "194px");
@@ -32,8 +38,8 @@ public class MakeEmployee extends Dialog {
 		hLayout = new HLayout();
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
-		final TabEmployee tabEmployee = new TabEmployee();
-		dynamicForm.setDataSource(EmployeeDS.getInstance(tabEmployee));
+		final TabCustomer tabCustomer = new TabCustomer();
+		dynamicForm.setDataSource(CustomerDS.getInstance(tabCustomer));
 		dynamicForm.getField("id").hide();
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);
@@ -51,18 +57,19 @@ public class MakeEmployee extends Dialog {
 						dynamicForm.editNewRecord();
 					}
 				});
-				Employee employee = new Employee();
-				employee.setName(dynamicForm.getValueAsString("name"));
-				employee.setSurname(dynamicForm.getValueAsString("surname"));
-				employee.setAge(Integer.parseInt(dynamicForm
+				Customer customer = new Customer();
+				customer.setName(dynamicForm.getValueAsString("name"));
+				customer.setSurname(dynamicForm.getValueAsString("surname"));
+				customer.setAge(Integer.parseInt(dynamicForm
 						.getValueAsString("age")));
-				employee.setPassword(dynamicForm.getValueAsString("password"));
-				employee.setUserName(dynamicForm.getValueAsString("userName"));
-				employeeService.createEmployee(employee,
+				customer.setFiscalCode(dynamicForm
+						.getValueAsString("fiscalCode"));
+				customer.setDocNumber(dynamicForm.getValueAsString("docNumber"));
+				customerService.createCustomer(customer,
 						new AsyncCallback<Void>() {
 							@Override
 							public void onSuccess(Void result) {
-								MakeEmployee.this.hide();
+								MakeUser.this.hide();
 								Window.alert("Optional Created!");
 
 							}
@@ -81,7 +88,7 @@ public class MakeEmployee extends Dialog {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				MakeEmployee.this.hide();
+				MakeUser.this.hide();
 
 			}
 		});

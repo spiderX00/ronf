@@ -1,7 +1,8 @@
-package it.unibo.ronf.client;
+package it.unibo.ronf.client.table;
 
-import it.unibo.ronf.shared.services.OptionalService;
-import it.unibo.ronf.shared.services.OptionalServiceAsync;
+import it.unibo.ronf.client.datasource.AgencyDS;
+import it.unibo.ronf.shared.services.AgencyService;
+import it.unibo.ronf.shared.services.AgencyServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -20,23 +21,15 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-/**
- * Tabella, con live-filter
- * 
- * @author Alessio De Vita alessio.dv@gmail.com
- */
-public class TabOptional extends ListGrid {
-	private final OptionalServiceAsync optionalService = GWT
-			.create(OptionalService.class);
-	final static VLayout vPanel = new VLayout();
-	final static RootPanel rp = RootPanel.get("content");
+public class TabAgency extends ListGrid{
+	
+	private final AgencyServiceAsync agencyService = GWT
+			.create(AgencyService.class);
 	private HLayout rollOverCanvas;
 	private ListGridRecord rollOverRecord;
+	final static VLayout vPanel = new VLayout();
+	final static RootPanel rp = RootPanel.get("content");
 
-	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
-	 * sopra una riga, permettendone la modifica
-	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
 		rollOverRecord = this.getRecord(rowNum);
@@ -46,6 +39,7 @@ public class TabOptional extends ListGrid {
 			rollOverCanvas.setSnapTo("TR");
 			rollOverCanvas.setWidth(50);
 			rollOverCanvas.setHeight(22);
+
 			ImgButton removeImg = new ImgButton();
 			removeImg.setShowDown(false);
 			removeImg.setShowRollOver(false);
@@ -60,7 +54,7 @@ public class TabOptional extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								optionalService.removeById(
+								agencyService.removeById(
 										rollOverRecord.getAttributeAsLong("id"),
 										new AsyncCallback<Void>() {
 											@Override
@@ -86,10 +80,10 @@ public class TabOptional extends ListGrid {
 
 	}
 
-	public TabOptional() {
+	public TabAgency() {
 
 		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-		if (OptionalDS.getInstance(TabOptional.this) != null) {
+		if (AgencyDS.getInstance(TabAgency.this) != null) {
 			rp.clear();
 			rp.add(vPanel);
 		}
@@ -100,24 +94,26 @@ public class TabOptional extends ListGrid {
 	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
 	 * chiamata Asincrona ha avuto successo
 	 */
-	static void setdata(OptionalDS data, TabOptional tabOptional) {
-		tabOptional.setShowRollOverCanvas(true);
-		tabOptional.setWidth("99%");
+	public static void setData(AgencyDS data, TabAgency tabAgency) {
+		tabAgency.setShowRollOverCanvas(true);
+		tabAgency.setWidth("99%");
 		vPanel.setWidth100();
-		tabOptional.setHeight(400);
-		tabOptional.setShowFilterEditor(true);
-		tabOptional.setFilterOnKeypress(true);
-		tabOptional.setDataSource(data);
-		tabOptional.setAutoFetchData(true);
+		tabAgency.setHeight(400);
+		tabAgency.setShowFilterEditor(true);
+		tabAgency.setFilterOnKeypress(true);
+		tabAgency.setDataSource(data);
+		tabAgency.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
+		ListGridField codeField = new ListGridField("code", "Codice");
 		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField costField = new ListGridField("cost", "Prezzo");
-		ListGridField descriptionField = new ListGridField("description",
-				"Descrizione");
-		tabOptional.setFields(new ListGridField[] { idField, nameField,
-				costField, descriptionField });
-		vPanel.addChild(tabOptional);
+		ListGridField addressField = new ListGridField("address", "Indirizzo");
+		ListGridField ipAddressField = new ListGridField("ipAddress",
+				"IP");
+
+		tabAgency.setFields(new ListGridField[] { idField, codeField,
+				nameField, addressField, ipAddressField});
+		vPanel.addChild(tabAgency);
 		rp.clear();
 		rp.add(vPanel);
 	}
