@@ -1,9 +1,11 @@
 package it.unibo.ronf.shared.entities;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
+@XmlRootElement
 public class CarType implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -1,8 +1,18 @@
 package it.unibo.ronf.client;
 
+import it.unibo.ronf.shared.entities.Car;
+import it.unibo.ronf.shared.entities.CarType;
 import it.unibo.ronf.shared.entities.Employee;
+
+import it.unibo.ronf.shared.services.CarTypeService;
+import it.unibo.ronf.shared.services.CarTypeServiceAsync;
+import it.unibo.ronf.shared.services.ClientRestCarsService;
+import it.unibo.ronf.shared.services.ClientRestCarsServiceAsync;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
+
+import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -26,12 +36,50 @@ public class RONF implements EntryPoint {
 
 	private final EmployeeServiceAsync employeeService = GWT
 			.create(EmployeeService.class);
-	VLayout vPanel = new VLayout();
+
+	private final ClientRestCarsServiceAsync clientRestCarService = GWT
+			.create(ClientRestCarsService.class);
+
+	private VLayout vPanel = new VLayout();
 
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	public void onModuleLoad() {
+
+		CarType type = new CarType();
+		type.setId(23);
+		type.setType("Familiare");
+		type.setDailyCost(40.5F);
+		
+		Date start = new Date(2013, 6, 1);
+		Date end = new Date(2013, 6, 5);
+		
+
+		clientRestCarService.findAvailableCar(type, start, end,
+				new AsyncCallback<List<Car>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Error");
+
+					}
+
+					@Override
+					public void onSuccess(List<Car> result) {
+						if (result.isEmpty()) {
+							Window.alert("Car not found");
+						} else {
+							String cars = "";
+							for(Car c : result) {
+								cars += "- "+c.getPlate()+c.getType().getId()+"\n";
+							}
+							Window.alert("Car found: \n"+cars);
+						}
+					}
+
+				});
+
 		vPanel.setWidth100();
 		final AbsolutePanel absolutePanel = new AbsolutePanel();
 		absolutePanel.setSize("450px", "300px");
@@ -156,4 +204,5 @@ public class RONF implements EntryPoint {
 		// LoginDialog d = new LoginDialog();
 		// d.setVisible(false);
 	}
+
 }

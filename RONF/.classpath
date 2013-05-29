@@ -5,32 +5,33 @@
 	<classpathentry kind="lib" path="lib/log4j/log4j-1.2.17.jar" sourcepath="lib/log4j/src.zip"/>
 	<classpathentry kind="lib" path="lib/log4j/log4j-gwt.jar"/>
 	<classpathentry kind="lib" path="lib/objectdb/2.5.0_05/bin/objectdb.jar"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/persistence-src/persistence-api-sources-2.0.jar"/>
-	<classpathentry kind="lib" path="lib/aop-alliance/aopalliance.jar"/>
-	<classpathentry kind="lib" path="lib/apache-commons-logging/1.1.2/commons-logging-1.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/junit/4.11/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-aop-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-aspects-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-beans-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-context-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-context-support-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-core-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-expression-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-instrument-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-instrument-tomcat-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-jdbc-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-jms-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-orm-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-oxm-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-struts-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-test-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-tx-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-web-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-webmvc-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-webmvc-portlet-3.2.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="lib/spring4gwt/0.0.1/spring4gwt-0.0.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/smartgwt.jar"/>
+	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-context-3.2.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-beans-3.2.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-tx-3.2.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/persistence-src/persistence-api-sources-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jersey-client-1.12.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://jersey.java.net/nonav/apidocs/latest/jersey/index.html"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jersey/jersey-core-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jersey-json-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jersey-server-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jersey-servlet-1.12.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jersey-spring-1.11-b02.jar"/>
+	<classpathentry kind="lib" path="lib/jersey/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/aspectj/aspectjrt-1.5.3.jar"/>
+	<classpathentry kind="lib" path="lib/aspectj/aspectjweaver-1.5.3.jar"/>
+	<classpathentry kind="lib" path="lib/cglib/cglib-2.2.2.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

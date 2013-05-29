@@ -4,7 +4,6 @@ import java.util.List;
 
 import it.unibo.ronf.server.dao.AgencyDAO;
 import it.unibo.ronf.shared.entities.Agency;
-import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.services.AgencyService;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,11 +2,13 @@ package it.unibo.ronf.server.dao;
 
 import it.unibo.ronf.shared.entities.Customer;
 
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+
 
 @Repository("customerDAO")
 public class CustomerDAO extends JpaDAO<Customer> {
