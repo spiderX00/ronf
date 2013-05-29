@@ -27,6 +27,8 @@ public interface CarService extends RemoteService {
 	public void removeById(long id);
 	
 	public List<Car> findAll();
+	
+	public List<Car> findByType(CarType cartype);
 
 
 }

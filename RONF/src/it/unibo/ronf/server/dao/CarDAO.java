@@ -74,7 +74,7 @@ public class CarDAO extends JpaDAO<Car> {
 	 * @param end
 	 * @return
 	 */
-	public List<Car> findByType(CarType type, Date start, Date end) {
+	public List<Car> findAvailableCar(CarType type, Date start, Date end) {
 
 		// Macchine di un determinato tipo che sono state noleggiate
 		TypedQuery<Car> queryFree = em.createQuery("SELECT r.rentedCar "
@@ -104,9 +104,21 @@ public class CarDAO extends JpaDAO<Car> {
 		// noleggiate ma disponibili nel periodo richiesto
 		List<Car> availableCars = queryFree.getResultList();
 		availableCars.addAll(freeCars);
-		
+
 		return availableCars;
 
+	}
+
+	public List<Car> findByType(CarType cartype) {
+
+		TypedQuery<Car> query = em.createQuery(
+				"SELECT c FROM Car c WHERE c.type = :cartype", entityClass);
+
+		query.setParameter("cartype", cartype);
+
+		List<Car> carListType = query.getResultList();
+
+		return carListType;
 	}
 
 }

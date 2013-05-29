@@ -26,4 +26,6 @@ public interface CarServiceAsync {
 	void findAvailableCar(AvailableCarRequestDTO request,
 			AsyncCallback<List<Car>> callback);
 
+	public void findByType(CarType cartype, AsyncCallback<List<Car>> callback);
+
 }

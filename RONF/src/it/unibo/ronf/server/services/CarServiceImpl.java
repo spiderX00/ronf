@@ -3,6 +3,7 @@ package it.unibo.ronf.server.services;
 import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Car;
+import it.unibo.ronf.shared.entities.CarType;
 import it.unibo.ronf.shared.services.CarService;
 
 import java.util.List;
@@ -66,13 +67,13 @@ public class CarServiceImpl implements CarService {
 	@Consumes({MediaType.APPLICATION_XML})
 	public List<Car> findAvailableCar(AvailableCarRequestDTO request) {
 		if(logger.isDebugEnabled()) {
-			for(Car c : carDAO.findByType(request.getType(), request.getStart(), request.getEnd())) {
+			for(Car c : carDAO.findAvailableCar(request.getType(), request.getStart(), request.getEnd())) {
 				logger.debug(c.getType().getType());
 			}
 		}
 		
 		
-		return carDAO.findByType(request.getType(), request.getStart(), request.getEnd());
+		return carDAO.findAvailableCar(request.getType(), request.getStart(), request.getEnd());
 	}
 
 	@Override
@@ -84,6 +85,12 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public List<Car> findAll() {
 		return carDAO.findAll();
+	}
+
+	@Override
+	public List<Car> findByType(CarType carType) {
+		carDAO.findByType(carType);
+		return null;
 	}
 
 }
