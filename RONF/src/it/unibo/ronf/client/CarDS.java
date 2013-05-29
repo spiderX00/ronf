@@ -1,0 +1,105 @@
+package it.unibo.ronf.client;
+
+import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Car;
+import it.unibo.ronf.shared.entities.Employee;
+import it.unibo.ronf.shared.services.CarService;
+import it.unibo.ronf.shared.services.CarServiceAsync;
+
+import java.util.List;
+import java.util.Map;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.data.fields.DataSourceEnumField;
+import com.smartgwt.client.data.fields.DataSourceIntegerField;
+import com.smartgwt.client.data.fields.DataSourceTextField;
+
+public class CarDS extends DataSource {
+
+	private static CarDS instance = null;
+	private final CarServiceAsync carService = GWT.create(CarService.class);
+	private static CarRecord[] carRecord;
+
+	public static CarDS getInstance(TabCar tabCar, Map<String, Agency> agencyMap) {
+		if (instance == null) {
+			instance = new CarDS("carDS", tabCar, agencyMap);
+		}
+		return instance;
+	}
+
+	public CarDS(String id, final TabCar tabCar, Map<String, Agency> agencyMap) {
+
+		setID(id);
+		DataSourceIntegerField idField = new DataSourceIntegerField("id");
+		idField.setPrimaryKey(true);
+
+		DataSourceTextField modelField = new DataSourceTextField("model",
+				"Modello");
+		modelField.setRequired(true);
+
+		DataSourceTextField plateField = new DataSourceTextField("plate",
+				"Targa");
+		plateField.setRequired(true);
+
+		DataSourceTextField gasolineTypeField = new DataSourceTextField(
+				"gasolineType", "Alimentazione");
+		gasolineTypeField.setRequired(true);
+
+		DataSourceIntegerField seatsNumberField = new DataSourceIntegerField(
+				"seatsNumber", "N. Posti");
+		seatsNumberField.setRequired(true);
+		DataSourceEnumField agencyField = new DataSourceEnumField("agency",
+				"Agenzia");
+		agencyField.setRequired(true);
+		
+		DataSourceTextField typeField = new DataSourceTextField("type", "Tipo");
+		if (agencyMap != null) {
+			agencyField.setValueMap(agencyMap.keySet().toArray(
+					new String[] {}));
+		}
+
+		setFields(idField, modelField, plateField, gasolineTypeField,
+				seatsNumberField, agencyField);
+
+		/** Effettuo la richiesta per la ricerca di tutti gli employee */
+		carService.findAll(new AsyncCallback<List<Car>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("fallito");
+			}
+
+			/**
+			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto
+			 * il DB
+			 */
+			public void onSuccess(List<Car> result) {
+				carRecord = new CarRecord[result.size()];
+
+				int i = 0;
+				for (Car p : result) {
+					carRecord[i] = new CarRecord(p.getId(), p.getModel(), p
+							.getPlate(), p.getGasolineType(), p
+							.getSeatsNumber(), p.getAgency().getName(), p
+							.getType().getType());
+					i++;
+
+				}
+
+				setTestData(carRecord);
+				/**
+				 * Una volta essermi assicurato che la chiamata Asincrona ha
+				 * avuto successo, posso mandare i dati alla ListGrid
+				 */
+				TabCar.setdata(CarDS.this, tabCar);
+
+			}
+		});
+
+		setClientOnly(true);
+	}
+
+}

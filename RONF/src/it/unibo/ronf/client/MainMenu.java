@@ -19,6 +19,7 @@ public class MainMenu extends MenuBar {
 
 	public MainMenu() {
 		super();
+		setShowShadow(true);
 		mainmenu.addMember(MainMenu.this);
 		main.addMember(mainmenu);
 		main.draw();
@@ -32,10 +33,24 @@ public class MainMenu extends MenuBar {
 		MenuItem subViewOptional = new MenuItem("Visualizza");
 		MenuItem subViewRental = new MenuItem("Visualizza");
 		MenuItem subMakeRental = new MenuItem("Crea");
+		MenuItem subViewCar = new MenuItem("Visualizza");
+		MenuItem subMakeCar = new MenuItem("Crea");
+		MenuItem subViewAgency = new MenuItem("Visualizza");
+		MenuItem subMakeAgency = new MenuItem("Crea");
 		Menu optionalMenu = new Menu();
 		Menu employeeMenu = new Menu();
 		Menu customerMenu = new Menu();
 		Menu rentalMenu = new Menu();
+		Menu carMenu = new Menu();
+		Menu agencyMenu = new Menu();
+		agencyMenu.setShowShadow(true);
+		carMenu.setShowShadow(true);
+		optionalMenu.setShowShadow(true);
+		employeeMenu.setShowShadow(true);
+		customerMenu.setShowShadow(true);
+		rentalMenu.setShowShadow(true);
+		agencyMenu.setTitle("Agency");
+		carMenu.setTitle("Car");
 		employeeMenu.setTitle("Employee");
 		customerMenu.setTitle("Customer");
 		rentalMenu.setTitle("Rental");
@@ -43,6 +58,8 @@ public class MainMenu extends MenuBar {
 		optionalMenu.setItems(subMakeOptional, subViewOptional);
 		employeeMenu.setItems(subMakeEmployee, subViewEmployee);
 		customerMenu.setItems(subMakeCustomer, subViewCustomer);
+		carMenu.setItems(subMakeCar,subViewCar);
+		agencyMenu.setItems(subMakeAgency,subViewAgency);
 		rentalMenu.setItems(subMakeRental, subViewRental);
 		subViewOptional.addClickHandler(new ClickHandler() {
 
@@ -109,6 +126,39 @@ public class MainMenu extends MenuBar {
 
 			}
 		});
-		setMenus(employeeMenu, customerMenu, optionalMenu, rentalMenu);
+		subViewCar.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				MakeCar makeCar = new MakeCar();
+				makeCar.hide();
+
+			}
+		});
+		subMakeCar.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				MakeCar makeCar = new MakeCar();
+				makeCar.show();
+				makeCar.centerInPage();
+
+			}
+		});
+		subViewAgency.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				new TabAgency();
+
+			}
+		});
+		subMakeAgency.addClickHandler(new ClickHandler() {
+
+			public void onClick(MenuItemClickEvent event) {
+				MakeAgency makeAgency = new MakeAgency();
+				makeAgency.show();
+				makeAgency.centerInPage();
+
+			}
+		});
+		setMenus(employeeMenu, customerMenu, optionalMenu, rentalMenu, carMenu, agencyMenu);
 	}
 }

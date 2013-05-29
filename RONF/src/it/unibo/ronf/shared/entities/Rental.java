@@ -9,21 +9,27 @@ import javax.persistence.*;
 public class Rental implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private Date start;
 	private Date end;
+	@OneToOne
 	private Car rentedCar;
+	@OneToOne
 	private CarType rentedType;
+	@OneToOne
 	private Customer customer;
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Optional> optional;
+	@OneToOne
 	private Agency startingAgency;
+	@OneToOne
 	private Agency arrivalAgency;
+	@OneToOne
 	private Payment payment;
 	private float caution;
-	private boolean confirmed;
 	private boolean finished;
 
 	public Date getStart() {
@@ -65,7 +71,7 @@ public class Rental implements java.io.Serializable {
 	public void setOptional(List<Optional> optional) {
 		this.optional = optional;
 	}
-	
+
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -106,14 +112,6 @@ public class Rental implements java.io.Serializable {
 		this.caution = caution;
 	}
 
-	public boolean isConfirmed() {
-		return confirmed;
-	}
-
-	public void setConfirmed(boolean confirmed) {
-		this.confirmed = confirmed;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -121,7 +119,7 @@ public class Rental implements java.io.Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public boolean isFinished() {
 		return finished;
 	}
@@ -129,6 +127,5 @@ public class Rental implements java.io.Serializable {
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
-
 
 }

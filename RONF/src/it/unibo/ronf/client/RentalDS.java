@@ -20,6 +20,7 @@ import com.smartgwt.client.data.fields.DataSourceBooleanField;
 import com.smartgwt.client.data.fields.DataSourceDateField;
 import com.smartgwt.client.data.fields.DataSourceEnumField;
 import com.smartgwt.client.data.fields.DataSourceIntegerField;
+import com.smartgwt.client.data.fields.DataSourceTextField;
 
 public class RentalDS extends DataSource {
 
@@ -29,21 +30,18 @@ public class RentalDS extends DataSource {
 	private static RentalRecord[] rentalRecord;
 	Map<String, Customer> customersMap = new HashMap<String, Customer>();
 	Map<String, Agency> agencyMap = new HashMap<String, Agency>();
-	Map<String, Car> carMap = new HashMap<String, Car>();
 
-	public static RentalDS getInstance(Map<String, Car> carMap,
-			Map<String, Customer> customersMap, Map<String, Agency> agencyMap,
-			Map<String, CarType> carTypeMap) {
+	public static RentalDS getInstance(TabRental tabRental,
+			Map<String, Customer> customersMap, Map<String, Agency> agencyMap) {
 		if (instance == null) {
-			instance = new RentalDS("rentalDS", carMap, customersMap,
-					agencyMap, carTypeMap);
+			instance = new RentalDS("rentalDS", tabRental, customersMap,
+					agencyMap);
 		}
 		return instance;
 	}
 
-	public RentalDS(String id, Map<String, Car> carMap,
-			Map<String, Customer> customersMap, Map<String, Agency> agencyMap,
-			Map<String, CarType> carTypeMap) {
+	public RentalDS(String id, final TabRental tabRental,
+			Map<String, Customer> customersMap, Map<String, Agency> agencyMap) {
 
 		setID(id);
 		DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");
@@ -55,20 +53,9 @@ public class RentalDS extends DataSource {
 				"Data Fine");
 		endField.setRequired(true);
 
-		DataSourceEnumField rentedCarField = new DataSourceEnumField(
+		DataSourceTextField rentedCarField = new DataSourceTextField(
 				"rentedCar", "Macchina");
-		rentedCarField.setRequired(true);
-		if (carMap != null) {
-			rentedCarField
-					.setValueMap(carMap.keySet().toArray(new String[] {}));
-		}
-		final DataSourceEnumField carTypeField = new DataSourceEnumField(
-				"rentedType", "Tipo Macchina");
-		carTypeField.setRequired(true);
-		if (carTypeMap != null) {
-			carTypeField.setValueMap(carTypeMap.keySet().toArray(
-					new String[] {}));
-		}
+
 		DataSourceEnumField customerField = new DataSourceEnumField("customer",
 				"Cliente");
 		customerField.setRequired(true);
@@ -90,19 +77,19 @@ public class RentalDS extends DataSource {
 			arrivalAgencyField.setValueMap(agencyMap.keySet().toArray(
 					new String[] {}));
 		}
+
+		DataSourceIntegerField optionalField = new DataSourceIntegerField(
+				"optional", "N.Optional");
 		DataSourceIntegerField cautionField = new DataSourceIntegerField(
 				"caution", "Cauzione");
 		cautionField.setRequired(true);
 
-		DataSourceBooleanField confirmedField = new DataSourceBooleanField(
-				"confirmed", "Conferma");
-
 		DataSourceBooleanField finishedField = new DataSourceBooleanField(
 				"finished", "Concluso");
 
-		setFields(idField, startField, endField, rentedCarField, carTypeField,
-				customerField, startingAgencyField, arrivalAgencyField,
-				cautionField, confirmedField, finishedField);
+		setFields(idField, startField, endField, rentedCarField, customerField,
+				startingAgencyField, arrivalAgencyField, optionalField,
+				cautionField, finishedField);
 
 		/** Effettuo la richiesta per la ricerca di tutti gli employee */
 		rentalService.findAll(new AsyncCallback<List<Rental>>() {
@@ -122,15 +109,15 @@ public class RentalDS extends DataSource {
 				int i = 0;
 				for (Rental p : result) {
 					rentalRecord[i] = new RentalRecord(p.getId(), p.getStart(),
-							p.getEnd(), p.getRentedCar().getModel(), "carType",
-							("" + p.getCustomer().getId() + " - " + p
+							p.getEnd(), p.getRentedCar().getModel(), (""
+									+ p.getCustomer().getId() + " - " + p
 									.getCustomer().getName()), (""
 									+ p.getStartingAgency().getId() + " - " + p
 									.getStartingAgency().getName()), (""
 									+ p.getArrivalAgency().getId() + " - " + p
-									.getArrivalAgency().getName()),
-							"pagamento", p.getCaution(), p.isConfirmed(), p
-									.isFinished());
+									.getArrivalAgency().getName()), p
+									.getOptional().size(), "pagamento", p
+									.getCaution(), p.isFinished());
 					i++;
 
 				}
@@ -140,7 +127,7 @@ public class RentalDS extends DataSource {
 				 * Una volta essermi assicurato che la chiamata Asincrona ha
 				 * avuto successo, posso mandare i dati alla ListGrid
 				 */
-				MakeRental.setdata(RentalDS.this);
+				TabRental.setdata(RentalDS.this, tabRental);
 
 			}
 		});
