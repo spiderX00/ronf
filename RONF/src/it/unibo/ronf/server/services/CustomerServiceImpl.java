@@ -1,17 +1,25 @@
 package it.unibo.ronf.server.services;
 
-import java.util.List;
-
 import it.unibo.ronf.server.dao.CustomerDAO;
 import it.unibo.ronf.shared.entities.Customer;
 import it.unibo.ronf.shared.services.CustomerService;
 
+import java.util.List;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("customerService")
+@Path("/customers")
+@Scope("request")
 public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
@@ -34,6 +42,8 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	@Override
+	@GET
+    @Produces({MediaType.APPLICATION_XML})
 	public List<Customer> findAll() {
 		return customerDAO.findAll();
 	}

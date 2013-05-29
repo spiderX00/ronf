@@ -13,6 +13,8 @@
             http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
     <context:component-scan base-package="it.unibo.ronf"/>
+    
+    <context:annotation-config/>
 
     <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
 
@@ -21,6 +23,8 @@
     <task:scheduler id="myScheduler" pool-size="10"/>
 
     <tx:annotation-driven/>
+    
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> 
 
     <bean class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" id="entityManagerFactory">
         <property name="persistenceUnitName" value="MyPersistenceUnit"/>
@@ -29,5 +33,7 @@
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
+    
+    <aop:config proxy-target-class="true"/>
 
 </beans>

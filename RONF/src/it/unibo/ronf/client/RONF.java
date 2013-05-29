@@ -1,11 +1,6 @@
 package it.unibo.ronf.client;
 
-import it.unibo.ronf.shared.entities.CarType;
 import it.unibo.ronf.shared.entities.Employee;
-import it.unibo.ronf.shared.services.CarService;
-import it.unibo.ronf.shared.services.CarServiceAsync;
-import it.unibo.ronf.shared.services.CarTypeService;
-import it.unibo.ronf.shared.services.CarTypeServiceAsync;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
 import it.unibo.ronf.shared.services.RentalService;
@@ -51,7 +46,7 @@ public class RONF implements EntryPoint {
 		username = new TextItem("username", "Username");
 		password = new PasswordItem("password", "Password");
 		loginButton = new Button("Login");
-		loginForm.setFields(username,password);
+		loginForm.setFields(username, password);
 		loginForm.setSize("283px", "113px");
 		layoutButton.addMember(loginButton);
 		layoutButton.setWidth100();
@@ -63,129 +58,64 @@ public class RONF implements EntryPoint {
 		layoutMain.addMember(layoutButton);
 		layoutMain.setAlign(Alignment.CENTER);
 		layoutMain.draw();
-	
+
 		loginButton.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				sendLogin();
-				
+
 			}
 		});
-			
-			
-		}
 
-			private void sendLogin() {
+	}
 
-				String userName = username.getEnteredValue();
-				String ppswd = password.getEnteredValue();
+	private void sendLogin() {
 
-				Employee e = new Employee();
-				e.setUserName(userName);
-				e.setPassword(ppswd);
+		String userName = username.getEnteredValue();
+		String ppswd = password.getEnteredValue();
 
-				loginButton.disable();
+		Employee e = new Employee();
+		e.setUserName(userName);
+		e.setPassword(ppswd);
 
-				employeeService.checkLogin(userName, ppswd,
-						new AsyncCallback<Boolean>() {
+		loginButton.disable();
 
-							@Override
-							public void onSuccess(Boolean result) {
-								if (result == true) {
-									Window.alert("Login correct!");
-									layoutMain.removeChild(layoutForm);
-									layoutMain.removeChild(layoutButton);
-									/* carica menu principale */
-									new MainMenu();
-								}
+		employeeService.checkLogin(userName, ppswd,
+				new AsyncCallback<Boolean>() {
 
-								if (result == false) {
-									Window.alert("Login Incorrect");
-									loginButton.enable();
-								}
+					@Override
+					public void onSuccess(Boolean result) {
+						if (result == true) {
+							Window.alert("Login correct!");
+							layoutMain.removeChild(layoutForm);
+							layoutMain.removeChild(layoutButton);
+							/* carica menu principale */
+							new MainMenu();
+						}
 
-							}
+						if (result == false) {
+							Window.alert("Login Incorrect");
+							loginButton.enable();
+						}
 
-							@Override
-							public void onFailure(Throwable caught) {
-								loginButton.enable();
-							}
+					}
 
-						});
-			
+					@Override
+					public void onFailure(Throwable caught) {
+						loginButton.enable();
+					}
 
-	
+				});
 
 		/*************************************************/
-//		CarType carType = new CarType();
-//		carType.setType("Mini");
-//		rentalService.setDailyCost(Float.parseFloat("20"));
-//		 rentalService.removeById(24,new AsyncCallback<Void>() {
-//		 @Override
-//		 public void onSuccess(Void result) {
-//		 Window.alert("rimosso");
-//		 }
-//		
-//		 @Override
-//		 public void onFailure(Throwable caught) {
-//		 Window.alert("Impossible to create admin!");
-//		 }
-//		 });
-	
-//		 CarType carType2 = new CarType();
-//			carType2.setType("Family");
-//			carType2.setDailyCost(Float.parseFloat("35"));
-//			 carTypeService.insertCarType(carType2,new AsyncCallback<Void>() {
-//			 @Override
-//			 public void onSuccess(Void result) {
-//			 Window.alert("aggiunto");
-//			 }
-//			
-//			 @Override
-//			 public void onFailure(Throwable caught) {
-//			 Window.alert("Impossible to create admin!");
-//			 }
-//			 });
-//			 CarType carType3 = new CarType();
-//				carType3.setType("Sport");
-//				carType3.setDailyCost(Float.parseFloat("60"));
-//				 carTypeService.insertCarType(carType3,new AsyncCallback<Void>() {
-//				 @Override
-//				 public void onSuccess(Void result) {
-//				 Window.alert("aggiunto");
-//				 }
-//				
-//				 @Override
-//				 public void onFailure(Throwable caught) {
-//				 Window.alert("Impossible to create admin!");
-//				 }
-//				 });
-//				 CarType carType4 = new CarType();
-//					carType4.setType("Prestige");
-//					carType4.setDailyCost(Float.parseFloat("100"));
-//					 carTypeService.insertCarType(carType4,new AsyncCallback<Void>() {
-//					 @Override
-//					 public void onSuccess(Void result) {
-//					 Window.alert("aggiunto");
-//					 }
-//					
-//					 @Override
-//					 public void onFailure(Throwable caught) {
-//					 Window.alert("Impossible to create admin!");
-//					 }
-//					 });
-		 
-			}
-}
-		// Agency agency = new Agency();
-		// agency.setCode("125");
-		// agency.setName("agenzia Roma");
-		// agency.setAddress("via roma, 23");
-		// agency.setIpAddress("2.2.2.2");
-		// agencyService.createAgency(agency, new AsyncCallback<Void>() {
+		// CarType carType = new CarType();
+		// carType.setType("Mini");
+		// rentalService.setDailyCost(Float.parseFloat("20"));
+		// rentalService.removeById(24,new AsyncCallback<Void>() {
 		// @Override
 		// public void onSuccess(Void result) {
+		// Window.alert("rimosso");
 		// }
 		//
 		// @Override
@@ -193,22 +123,81 @@ public class RONF implements EntryPoint {
 		// Window.alert("Impossible to create admin!");
 		// }
 		// });
-		// Car car = new Car();
-		// car.setModel("monovolume");
-		// car.setSeatsNumber(4);
-		// car.setPlate("prova");
-		// car.setGasolineType("diesel");
-		// carService.createCar(car, new AsyncCallback<Void>() {
-		// @Override
-		// public void onSuccess(Void result) {
-		// }
-		//
-		// @Override
-		// public void onFailure(Throwable caught) {
-		// Window.alert("Impossible to create admin!");
-		// }
-		// });
-		// LoginDialog d = new LoginDialog();
-		// d.setVisible(false);
-		
 
+		// CarType carType2 = new CarType();
+		// carType2.setType("Family");
+		// carType2.setDailyCost(Float.parseFloat("35"));
+		// carTypeService.insertCarType(carType2,new AsyncCallback<Void>() {
+		// @Override
+		// public void onSuccess(Void result) {
+		// Window.alert("aggiunto");
+		// }
+		//
+		// @Override
+		// public void onFailure(Throwable caught) {
+		// Window.alert("Impossible to create admin!");
+		// }
+		// });
+		// CarType carType3 = new CarType();
+		// carType3.setType("Sport");
+		// carType3.setDailyCost(Float.parseFloat("60"));
+		// carTypeService.insertCarType(carType3,new AsyncCallback<Void>() {
+		// @Override
+		// public void onSuccess(Void result) {
+		// Window.alert("aggiunto");
+		// }
+		//
+		// @Override
+		// public void onFailure(Throwable caught) {
+		// Window.alert("Impossible to create admin!");
+		// }
+		// });
+		// CarType carType4 = new CarType();
+		// carType4.setType("Prestige");
+		// carType4.setDailyCost(Float.parseFloat("100"));
+		// carTypeService.insertCarType(carType4,new AsyncCallback<Void>() {
+		// @Override
+		// public void onSuccess(Void result) {
+		// Window.alert("aggiunto");
+		// }
+		//
+		// @Override
+		// public void onFailure(Throwable caught) {
+		// Window.alert("Impossible to create admin!");
+		// }
+		// });
+
+	}
+}
+// Agency agency = new Agency();
+// agency.setCode("125");
+// agency.setName("agenzia Roma");
+// agency.setAddress("via roma, 23");
+// agency.setIpAddress("2.2.2.2");
+// agencyService.createAgency(agency, new AsyncCallback<Void>() {
+// @Override
+// public void onSuccess(Void result) {
+// }
+//
+// @Override
+// public void onFailure(Throwable caught) {
+// Window.alert("Impossible to create admin!");
+// }
+// });
+// Car car = new Car();
+// car.setModel("monovolume");
+// car.setSeatsNumber(4);
+// car.setPlate("prova");
+// car.setGasolineType("diesel");
+// carService.createCar(car, new AsyncCallback<Void>() {
+// @Override
+// public void onSuccess(Void result) {
+// }
+//
+// @Override
+// public void onFailure(Throwable caught) {
+// Window.alert("Impossible to create admin!");
+// }
+// });
+// LoginDialog d = new LoginDialog();
+// d.setVisible(false);

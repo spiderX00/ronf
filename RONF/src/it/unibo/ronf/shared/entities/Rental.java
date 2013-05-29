@@ -56,14 +56,6 @@ public class Rental implements java.io.Serializable {
 		this.rentedCar = rentedCar;
 	}
 
-	public CarType getRentedType() {
-		return rentedType;
-	}
-
-	public void setRentedType(CarType rentedType) {
-		this.rentedType = rentedType;
-	}
-
 	public List<Optional> getOptional() {
 		return optional;
 	}
