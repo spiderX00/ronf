@@ -29,7 +29,7 @@ public class AgencyDS extends DataSource {
 		return instance;
 	}
 
-	public AgencyDS(String id, final TabAgency tabAgency) {
+	private AgencyDS(String id, final TabAgency tabAgency) {
 
 		setID(id);
 		DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");
@@ -80,7 +80,6 @@ public class AgencyDS extends DataSource {
 				 * avuto successo, posso mandare i dati alla ListGrid
 				 */
 				TabAgency.setData(AgencyDS.this, tabAgency);
-
 			}
 		});
 

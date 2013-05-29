@@ -19,7 +19,6 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
@@ -33,21 +32,17 @@ import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 public class MakeCar extends Dialog {
 
 	private final CarServiceAsync carService = GWT.create(CarService.class);
-	private final AgencyServiceAsync agencyService = GWT
-			.create(AgencyService.class);
-	private final CarTypeServiceAsync carTypeService = GWT
-			.create(CarTypeService.class);
-	final static VLayout vPanel = new VLayout();
-	final static RootPanel rp = RootPanel.get("content");
+	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
+	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
+
 	private Car car;
 
-	Map<String, Agency> agencyMap = new HashMap<String, Agency>();
-	Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
+	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
+	private Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
 
 	private HLayout hLayout;
 	private SelectItem carTypeItem;
@@ -62,7 +57,6 @@ public class MakeCar extends Dialog {
 		hLayout.setMembersMargin(40);
 		final DynamicForm dynamicForm2 = new DynamicForm();
 		carTypeItem = new SelectItem("carType", "Avaiable Type");
-		carTypeItem.setValueMap("Mini", "Family", "Sport", "Prestige");
 		dynamicForm2.setFields(carTypeItem);
 		addItem(dynamicForm2);
 
@@ -71,45 +65,40 @@ public class MakeCar extends Dialog {
 			@Override
 			public void onSuccess(List<Agency> result) {
 				for (Agency c : result) {
-					agencyMap.put("" + c.getId()
-							+ " - " + c.getName(), c);
+					agencyMap.put("" + c.getId() + " - " + c.getName(), c);
 
 				}
 				final TabCar tabCar = new TabCar();
 				if (CarDS.getDataSource("carDS") != null) {
-					CarDS.getDataSource("carDS")
-							.destroy();
+					CarDS.getDataSource("carDS").destroy();
 				}
-				dynamicForm.setDataSource(new CarDS(
-						"carDS", tabCar, agencyMap));
+				dynamicForm.setDataSource(new CarDS("carDS", tabCar, agencyMap));
 				dynamicForm.getField("id").hide();
-
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load agency: " + caught.getMessage());
+			}
+		});
+
+		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
+			@Override
+			public void onSuccess(List<CarType> result) {
+				for (CarType ct : result) {
+					carTypeMap.put(ct.getType(), ct);
+				}
+				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load car type: " + caught.getMessage());
 			}
 		});
 
 		car = new Car();
-		carTypeItem.addChangeHandler(new ChangeHandler() {
-			@Override
-			public void onChange(ChangeEvent event) {
-				String selectedItem = (String) event.getValue();
-				carTypeService.findBytype(selectedItem, new AsyncCallback<CarType>() {
-					@Override
-					public void onSuccess(CarType result) {
-						car.setType(result);
-					}
 
-					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create optional : "
-								+ caught);
-					}
-				});
-			}
-		});
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);
 		hLayout.addMember(btnCancel);
@@ -121,8 +110,7 @@ public class MakeCar extends Dialog {
 			public void onClick(ClickEvent event) {
 				/** al click viene creato un nuovo Customer */
 				dynamicForm.saveData(new DSCallback() {
-					public void execute(DSResponse response, Object rawData,
-							DSRequest request) {
+					public void execute(DSResponse response, Object rawData, DSRequest request) {
 						dynamicForm.editNewRecord();
 					}
 				});
@@ -131,38 +119,30 @@ public class MakeCar extends Dialog {
 				car.setPlate(dynamicForm.getValueAsString("plate"));
 				car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
 				car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
-				car.setAgency(agencyMap.get(dynamicForm
-						.getValueAsString("agency")));
-
+				car.setAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
+				car.setType(carTypeMap.get(dynamicForm.getValueAsString("carType")));
 				carService.createCar(car, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {
 						MakeCar.this.hide();
 						Window.alert("Optional Created!");
-
 					}
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create optional : "
-								+ caught);
+						Window.alert("Impossible to create Car : " + caught);
 					}
 				});
-
 			}
 		});
 
 		btnCancel.addClickHandler(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
 				MakeCar.this.hide();
-
 			}
 		});
 		addItem(hLayout);
 		hLayout.moveTo(30, 231);
-
 	}
-
 }

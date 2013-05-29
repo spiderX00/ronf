@@ -21,8 +21,8 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class TabAgency extends ListGrid{
-	
+public class TabAgency extends ListGrid {
+
 	private final AgencyServiceAsync agencyService = GWT
 			.create(AgencyService.class);
 	private HLayout rollOverCanvas;
@@ -91,8 +91,8 @@ public class TabAgency extends ListGrid{
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
 	 */
 	public static void setData(AgencyDS data, TabAgency tabAgency) {
 		tabAgency.setShowRollOverCanvas(true);
@@ -112,7 +112,7 @@ public class TabAgency extends ListGrid{
 				"IP");
 
 		tabAgency.setFields(new ListGridField[] { idField, codeField,
-				nameField, addressField, ipAddressField});
+				nameField, addressField, ipAddressField });
 		vPanel.addChild(tabAgency);
 		rp.clear();
 		rp.add(vPanel);
