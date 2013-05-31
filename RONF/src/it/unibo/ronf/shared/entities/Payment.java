@@ -14,6 +14,7 @@ public class Payment implements java.io.Serializable {
 	private float amount;
 	private String paymentMethod;
 	private Date dateOfPayment;
+	@OneToOne
 	private Customer userPayer;
 
 	public float getAmount() {

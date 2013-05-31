@@ -15,9 +15,12 @@ public class Maintenance implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@OneToOne
 	private Car car;
 	private Date date;
+	@OneToOne
 	private MaintenanceEmployee maintenanceEmployee;
+	@OneToMany
 	private List<MaintenanceType> maintenances;
 
 	public Car getCar() {

@@ -12,6 +12,7 @@ public class Car implements java.io.Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String model;
+	@Column(unique=true)
 	private String plate;
 	private String gasolineType;
 	private int seatsNumber;
