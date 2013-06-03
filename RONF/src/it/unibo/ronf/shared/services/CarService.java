@@ -1,6 +1,6 @@
 package it.unibo.ronf.shared.services;
 
-import java.util.Date;
+
 import java.util.List;
 
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
@@ -29,6 +29,8 @@ public interface CarService extends RemoteService {
 	public List<Car> findAll();
 	
 	public List<Car> findByType(CarType cartype);
+	
+	public List<Car> findAvailableCarsInAllAgencies(AvailableCarRequestDTO request);
 
 
 }

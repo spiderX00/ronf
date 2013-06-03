@@ -1,11 +1,13 @@
 package it.unibo.ronf.server.services;
 
 import it.unibo.ronf.server.dao.CarDAO;
+import it.unibo.ronf.server.rest.CarRestClient;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
 import it.unibo.ronf.shared.services.CarService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -23,8 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sun.jersey.core.header.MediaTypes;
-
 @Service("carService")
 @Path("/cars")
 @Scope("request")
@@ -34,6 +34,9 @@ public class CarServiceImpl implements CarService {
 
 	@Autowired
 	private CarDAO carDAO;
+	
+	@Autowired
+	private CarRestClient carRestClient;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -59,6 +62,9 @@ public class CarServiceImpl implements CarService {
 		return carDAO.findByGasolineType(gasolineType);
 	}
 
+	/**
+	 * Questo metodo deve essere invocato soltanto attraverso chiamate REST
+	 */
 	@Override
 	@POST
 	@Produces({ MediaType.APPLICATION_XML })
@@ -81,6 +87,20 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public List<Car> findByType(CarType carType) {
 		return carDAO.findByType(carType);
+	}
+	
+	@Override
+	public List<Car> findAvailableCarsInAllAgencies(AvailableCarRequestDTO request) {
+		List<Car> localCars = findAvailableCar(request);
+		List<Car> allFound = new ArrayList<>();
+		allFound.addAll(localCars);
+		
+		try {
+			List<Car> remoteCars = carRestClient.findRemoteAvailableCar(request);
+			allFound.addAll(remoteCars);
+		} catch (Exception e) {}
+		
+		return allFound;
 	}
 
 }
