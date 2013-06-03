@@ -7,17 +7,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Agency implements java.io.Serializable {
 
-	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4932484306762735600L;
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(unique = true)
 	private String code;
+	@Column(unique = true)
 	private String name;
+	@Column(unique = true)
 	private String address;
 	private String ipAddress;
 	private int port;

@@ -1,6 +1,9 @@
 package it.unibo.ronf.client;
 
+import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Employee;
+import it.unibo.ronf.shared.services.AgencyService;
+import it.unibo.ronf.shared.services.AgencyServiceAsync;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
 
@@ -23,7 +26,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 
 public class RONF implements EntryPoint {
-
+	
 	private final EmployeeServiceAsync employeeService = GWT
 			.create(EmployeeService.class);
 	private VLayout layoutMain = new VLayout();
@@ -38,6 +41,7 @@ public class RONF implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
+		
 		layoutMain.setWidth100();
 		final DynamicForm loginForm = new DynamicForm();
 		username = new TextItem("username", "Username");

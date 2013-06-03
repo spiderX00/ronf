@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository("agencyDAO")
 public class AgencyDAO extends JpaDAO<Agency> {
 	
-	private static List<Agency> fakeAgency;
+	/*private static List<Agency> fakeAgency;
 	
 	static {
 		fakeAgency  = new ArrayList<>();
@@ -36,7 +36,7 @@ public class AgencyDAO extends JpaDAO<Agency> {
 	
 	public List<Agency> findAll() {
 		return fakeAgency;
-	}
+	}*/
 
 	public Agency findByCode(String code) {
 		try {

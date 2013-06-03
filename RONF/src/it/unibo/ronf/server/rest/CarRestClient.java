@@ -27,32 +27,35 @@ public class CarRestClient {
 	@Autowired
 	private AgencyDAO agencyDAO;
 
-	public List<Car> findRemoteAvailableCar(AvailableCarRequestDTO request)
-			throws Exception {
+	public List<Car> findRemoteAvailableCar(AvailableCarRequestDTO request) {
 		List<Car> allAvailableCars = new ArrayList<>();
 		try {
 			for (Agency a : agencyDAO.findAll()) {
+				logger.error("richiesta inoltrata a "+a.getName());
 				Client client = Client.create();
 				WebResource webResource = client.resource(getBaseUrl(
 						a.getIpAddress(), a.getPort()));
 				List<Car> cars = webResource.accept(MediaType.APPLICATION_XML)
 						.post(new GenericType<List<Car>>() {
 						}, request);
+				for(Car c: cars) {
+					logger.error("Found Car: "+c.getModel()+" at "+c.getAgency().getName());
+				}
 				allAvailableCars.addAll(cars);
 			}
 			return allAvailableCars;
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
-			throw new Exception(ex);
+			throw new RuntimeException(ex);
 		}
 	}
 
 	public String getBaseUrl(String ip, int port) {
-		if (Utils.isProductionMode()) {
-			return "http://" + ip + ":" + port + "/rest/cars/";
-		} else {
-			return "http://127.0.0.1:8081/rest/cars/";
-		}
+//		if (Utils.isProductionMode()) {
+			return "http://" + ip + ":" + port + "/RONF/rest/cars/";
+//		} else {
+//			return "http://127.0.0.1:8081/rest/cars/";
+//		}
 	}
 
 }
