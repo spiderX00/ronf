@@ -18,7 +18,9 @@ public class TransferAction implements java.io.Serializable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
+	@OneToOne
 	private Car requiredCar;
+	@OneToOne
 	private TransferEmployee employee;
 	private Date transferDate;
 	private boolean success;

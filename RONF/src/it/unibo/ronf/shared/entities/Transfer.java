@@ -16,8 +16,11 @@ public class Transfer implements java.io.Serializable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
+	@OneToMany
 	private List<TransferAction> transfers;
+	@OneToOne
 	private Agency startAgency;
+	@OneToOne
 	private Agency arrivalAgency;
 	
 

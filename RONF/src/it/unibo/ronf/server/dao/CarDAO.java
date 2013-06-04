@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.stereotype.Repository;
 
 @Repository("carDAO")
@@ -73,25 +74,25 @@ public class CarDAO extends JpaDAO<Car> {
 
 		// Macchine di un determinato tipo che sono state noleggiate
 		TypedQuery<Car> queryFree = em.createQuery("SELECT r.rentedCar "
-				+ "FROM Rental r " + "WHERE r.rentedCar.type = :type",
+				+ "FROM Rental r " + "WHERE r.rentedCar.type.type = :type",
 				Car.class);
-		queryFree.setParameter("type", type);
+		queryFree.setParameter("type", type.getType());
 		List<Car> rentedCars = queryFree.getResultList();
 
 		// Macchine di un determinato tipo meno quelle noleggiate
 		queryFree = em.createQuery("SELECT c FROM Car c "
-				+ "WHERE c.type = :type AND c NOT IN :rentedCars", Car.class);
-		queryFree.setParameter("type", type);
+				+ "WHERE c.type.type = :type AND c NOT IN :rentedCars", Car.class);
+		queryFree.setParameter("type", type.getType());
 		queryFree.setParameter("rentedCars", rentedCars);
 		List<Car> freeCars = queryFree.getResultList();
 
 		// Macchine di un determinato tipo noleggiate ma disponibili nel periodo
 		// richiesto
 		queryFree = em.createQuery("SELECT c.rentedCar FROM Rental c "
-				+ "WHERE c.rentedCar.type = :type AND "
+				+ "WHERE c.rentedCar.type.type = :type AND "
 				+ "((c.start > :start AND c.start > :end) OR "
 				+ "(c.end < :start AND c.end < :end)) ", Car.class);
-		queryFree.setParameter("type", type);
+		queryFree.setParameter("type", type.getType());
 		queryFree.setParameter("start", start);
 		queryFree.setParameter("end", end);
 
@@ -99,20 +100,15 @@ public class CarDAO extends JpaDAO<Car> {
 		// noleggiate ma disponibili nel periodo richiesto
 		List<Car> availableCars = queryFree.getResultList();
 		availableCars.addAll(freeCars);
-
 		return availableCars;
-
 	}
 
 	public List<Car> findByType(CarType cartype) {
-
 		TypedQuery<Car> query = em.createQuery(
 				"SELECT c FROM Car c WHERE c.type = :cartype", entityClass);
 
 		query.setParameter("cartype", cartype);
-
 		List<Car> carListType = query.getResultList();
-
 		return carListType;
 	}
 

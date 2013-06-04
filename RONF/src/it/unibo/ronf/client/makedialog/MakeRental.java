@@ -161,9 +161,10 @@ public class MakeRental extends Dialog {
 			@Override
 			public void onChange(ChangeEvent event) {
 				String selectedItem = (String) event.getValue();
+
 				AvailableCarRequestDTO request = new AvailableCarRequestDTO(carTypeMap.get(selectedItem), (Date) (dynamicForm.getValue("start")),
 						(Date) (dynamicForm.getValue("end")));
-				carService.findAvailableCar(request, new AsyncCallback<List<Car>>() {
+				carService.findAvailableCarsInAllAgencies(request, new AsyncCallback<List<Car>>() {
 					@Override
 					public void onSuccess(List<Car> result) {
 						if (result.isEmpty()) {
@@ -171,7 +172,7 @@ public class MakeRental extends Dialog {
 							carModelItem.disable();
 						} else {
 							for (Car c : result) {
-								carMap.put(c.getModel(), c);
+								carMap.put(c.getAgency().getName() + " - " + c.getModel(), c);
 							}
 							carModelItem.enable();
 							carModelItem.setValueMap(carMap.keySet().toArray(new String[] {}));
@@ -205,8 +206,8 @@ public class MakeRental extends Dialog {
 				for (Optional o : result) {
 					optionalMap.put(o.getName(), o);
 				}
+
 				optionalItem.setValueMap(optionalMap.keySet().toArray(new String[] {}));
-				optionalItem.setLayoutStyle(MultiComboBoxLayoutStyle.VERTICAL);
 			}
 
 		});
@@ -255,8 +256,8 @@ public class MakeRental extends Dialog {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create rental : " + caught.getMessage());
 
+						Window.alert("Impossible to create rental : " + caught.getMessage());
 					}
 				});
 

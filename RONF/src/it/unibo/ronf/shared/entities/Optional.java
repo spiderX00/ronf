@@ -10,6 +10,7 @@ public class Optional implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@Column(unique=true)
 	private String name;
 	private float cost;
 	private String description;

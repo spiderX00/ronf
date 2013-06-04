@@ -4,7 +4,7 @@ import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
 
-import java.util.Date;
+
 import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -27,5 +27,8 @@ public interface CarServiceAsync {
 			AsyncCallback<List<Car>> callback);
 
 	public void findByType(CarType cartype, AsyncCallback<List<Car>> callback);
+
+	void findAvailableCarsInAllAgencies(AvailableCarRequestDTO request,
+			AsyncCallback<List<Car>> callback);
 
 }

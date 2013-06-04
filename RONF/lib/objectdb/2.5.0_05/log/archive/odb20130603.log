@@ -1,0 +1,528 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 12:00:32 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 8341@lory-SVE1513Q1ESI
+
+[2013-06-03 12:00:36 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 8341@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 12:00:52 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 8371@lory-SVE1513Q1ESI
+
+[2013-06-03 12:01:14 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 8371@lory-SVE1513Q1ESI
+
+[2013-06-03 12:01:15 #3 store] 
+Database '/home/lory/git/ronf/RONF/war/WEB-INF/db/guests.odb' is opened by 8371@lory-SVE1513Q1ESI
+
+[2013-06-03 12:01:46 #4 store] 
+Database '/home/lory/git/ronf/RONF/war/WEB-INF/db/guests.odb' is closed by 8371@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 12:17:12 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 9058@lory-SVE1513Q1ESI
+
+[2013-06-03 12:17:41 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 9058@lory-SVE1513Q1ESI
+
+[2013-06-03 12:17:41 #3 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 9058@lory-SVE1513Q1ESI
+
+[2013-06-03 12:18:16 #4 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 9058@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 12:18:53 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 9114@lory-SVE1513Q1ESI
+
+[2013-06-03 12:19:06 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 9114@lory-SVE1513Q1ESI
+
+[2013-06-03 12:19:06 #3 store] 
+Database '/home/lory/git/ronf/RONF/war/WEB-INF/db/guests.odb' is opened by 9114@lory-SVE1513Q1ESI
+
+[2013-06-03 12:20:21 #4 store] 
+Database '/home/lory/git/ronf/RONF/war/WEB-INF/db/guests.odb' is closed by 9114@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 12:25:12 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 9649@lory-SVE1513Q1ESI
+
+[2013-06-03 12:25:36 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 9649@lory-SVE1513Q1ESI
+
+[2013-06-03 12:25:36 #3 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 9649@lory-SVE1513Q1ESI
+
+[2013-06-03 12:26:09 #4 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 9649@lory-SVE1513Q1ESI
+
+[2013-06-03 12:26:09 #5 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 9649@lory-SVE1513Q1ESI
+
+[2013-06-03 12:26:18 #6 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 9649@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 12:33:38 #1 explorer] 
+[ObjectDB 2.5.0_05] javax.persistence.PersistenceException
+Attempt to open a database file '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' that is currently in use by another process (error 141)
+	at com.objectdb.Explorer$1.run(Explorer.java:56)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:251)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:727)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:697)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+Caused by: com.objectdb.o.UserException: Attempt to open a database file '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' that is currently in use by another process
+	at com.objectdb.o.MSG.d(MSG.java:61)
+	at com.objectdb.o.LFL.O(LFL.java:913)
+	at com.objectdb.o.LFL.I(LFL.java:859)
+	at com.objectdb.o.LFL.I(LFL.java:769)
+	at com.objectdb.o.SFL.<init>(SFL.java:232)
+	at com.objectdb.o.MST.<init>(MST.java:109)
+	at com.objectdb.o.MST.aJ(MST.java:94)
+	at com.objectdb.o.MSF.UK(MSF.java:177)
+	at com.objectdb.o.OMF.am(OMF.java:743)
+	at com.objectdb.jpa.EMF.am(EMF.java:232)
+	at com.objectdb.o.OMF.al(OMF.java:684)
+	at com.objectdb.jpa.EMF.createEntityManager(EMF.java:250)
+	... 17 more
+
+[2013-06-03 12:33:45 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 10429@lory-SVE1513Q1ESI
+
+[2013-06-03 12:34:09 #3 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 10429@lory-SVE1513Q1ESI
+
+[2013-06-03 12:34:35 #4 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 10429@lory-SVE1513Q1ESI
+
+[2013-06-03 12:34:35 #5 store] 
+Database '/home/lory/git/ronf/RONF/war/WEB-INF/db/guests.odb' is opened by 10429@lory-SVE1513Q1ESI
+
+[2013-06-03 12:34:41 #6 store] 
+Database '/home/lory/git/ronf/RONF/war/WEB-INF/db/guests.odb' is closed by 10429@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 13:09:56 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 11709@lory-SVE1513Q1ESI
+
+[2013-06-03 13:10:11 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 11709@lory-SVE1513Q1ESI
+
+[2013-06-03 13:10:11 #3 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 11709@lory-SVE1513Q1ESI
+
+[2013-06-03 13:10:19 #4 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 11709@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 13:10:23 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 11752@lory-SVE1513Q1ESI
+
+[2013-06-03 13:10:41 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 11752@lory-SVE1513Q1ESI
+
+[2013-06-03 13:10:41 #3 store] 
+Database '/home/lory/git/ronf/RONF/war/WEB-INF/db/guests.odb' is opened by 11752@lory-SVE1513Q1ESI
+
+[2013-06-03 13:11:01 #4 store] 
+Database '/home/lory/git/ronf/RONF/war/WEB-INF/db/guests.odb' is closed by 11752@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 15:11:40 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 13622@lory-SVE1513Q1ESI
+
+[2013-06-03 15:12:47 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 13622@lory-SVE1513Q1ESI
+
+[2013-06-03 15:12:47 #3 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 13622@lory-SVE1513Q1ESI
+
+[2013-06-03 15:13:04 #4 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 13622@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 15:58:58 #1 explorer] 
+[ObjectDB 2.5.0_05] javax.persistence.PersistenceException
+Attempt to open a database file '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' that is currently in use by another process (error 141)
+	at com.objectdb.Explorer$1.run(Explorer.java:56)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:251)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:727)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:697)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+Caused by: com.objectdb.o.UserException: Attempt to open a database file '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' that is currently in use by another process
+	at com.objectdb.o.MSG.d(MSG.java:61)
+	at com.objectdb.o.LFL.O(LFL.java:913)
+	at com.objectdb.o.LFL.I(LFL.java:859)
+	at com.objectdb.o.LFL.I(LFL.java:769)
+	at com.objectdb.o.SFL.<init>(SFL.java:232)
+	at com.objectdb.o.MST.<init>(MST.java:109)
+	at com.objectdb.o.MST.aJ(MST.java:94)
+	at com.objectdb.o.MSF.UK(MSF.java:177)
+	at com.objectdb.o.OMF.am(OMF.java:743)
+	at com.objectdb.jpa.EMF.am(EMF.java:232)
+	at com.objectdb.o.OMF.al(OMF.java:684)
+	at com.objectdb.jpa.EMF.createEntityManager(EMF.java:250)
+	... 17 more
+
+[2013-06-03 15:59:06 #2 store] 
+Database '/home/lory/workspace/Provenzo/guests.odb' is opened by 15966@lory-SVE1513Q1ESI
+
+[2013-06-03 16:03:21 #3 store] 
+Database '/home/lory/workspace/Provenzo/guests.odb' is closed by 15966@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 16:40:29 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17557@lory-SVE1513Q1ESI
+
+[2013-06-03 16:40:34 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17557@lory-SVE1513Q1ESI
+
+[2013-06-03 16:40:34 #3 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17557@lory-SVE1513Q1ESI
+
+[2013-06-03 16:41:00 #4 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17557@lory-SVE1513Q1ESI
+
+[2013-06-03 16:41:01 #5 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17557@lory-SVE1513Q1ESI
+
+[2013-06-03 16:41:27 #6 explorer] 
+java.lang.IllegalArgumentException: Unexpected null argument
+	at com.objectdb.o.ERR.assertNotNull(ERR.java:237)
+	at com.objectdb.jpa.EMImpl.remove(EMImpl.java:432)
+	at com.objectdb.o.ETI.K(ETI.java:146)
+	at com.objectdb.o.ITP.D(ITP.java:455)
+	at com.objectdb.o.ITP.Vz(ITP.java:339)
+	at com.objectdb.o.RTR.Vz(RTR.java:68)
+	at com.objectdb.o.CMD.actionPerformed(CMD.java:469)
+	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:2018)
+	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2341)
+	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:402)
+	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:259)
+	at javax.swing.AbstractButton.doClick(AbstractButton.java:376)
+	at javax.swing.plaf.basic.BasicMenuItemUI.doClick(BasicMenuItemUI.java:833)
+	at javax.swing.plaf.basic.BasicMenuItemUI$Handler.mouseReleased(BasicMenuItemUI.java:877)
+	at java.awt.Component.processMouseEvent(Component.java:6505)
+	at javax.swing.JComponent.processMouseEvent(JComponent.java:3321)
+	at java.awt.Component.processEvent(Component.java:6270)
+	at java.awt.Container.processEvent(Container.java:2229)
+	at java.awt.Component.dispatchEventImpl(Component.java:4861)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4832)
+	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:4492)
+	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:4422)
+	at java.awt.Container.dispatchEventImpl(Container.java:2273)
+	at java.awt.Window.dispatchEventImpl(Window.java:2719)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:729)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.awt.EventQueue$4.run(EventQueue.java:702)
+	at java.awt.EventQueue$4.run(EventQueue.java:700)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:699)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+
+[2013-06-03 16:42:17 #7 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17557@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 16:42:23 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17594@lory-SVE1513Q1ESI
+
+[2013-06-03 16:42:37 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17594@lory-SVE1513Q1ESI
+
+[2013-06-03 16:42:37 #3 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17594@lory-SVE1513Q1ESI
+
+[2013-06-03 16:43:15 #4 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17594@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 16:45:53 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17729@lory-SVE1513Q1ESI
+
+[2013-06-03 16:46:21 #2 explorer] 
+[ObjectDB 2.5.0_05] java.lang.IllegalArgumentException
+Attempt to lock a new (non stored yet) entity object (error 635)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1664)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2879)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2926)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2842)
+	at java.awt.Component.processEvent(Component.java:6282)
+	at java.awt.Container.processEvent(Container.java:2229)
+	at java.awt.Component.dispatchEventImpl(Component.java:4861)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1895)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:762)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1027)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:899)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:727)
+	at java.awt.Component.dispatchEventImpl(Component.java:4731)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Window.dispatchEventImpl(Window.java:2719)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:729)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.awt.EventQueue$4.run(EventQueue.java:702)
+	at java.awt.EventQueue$4.run(EventQueue.java:700)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:699)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+
+[2013-06-03 16:46:30 #3 explorer] 
+[ObjectDB 2.5.0_05] java.lang.IllegalArgumentException
+Attempt to lock a new (non stored yet) entity object (error 635)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1664)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2879)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2926)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2842)
+	at java.awt.Component.processEvent(Component.java:6282)
+	at java.awt.Container.processEvent(Container.java:2229)
+	at java.awt.Component.dispatchEventImpl(Component.java:4861)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1895)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:762)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1027)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:899)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:727)
+	at java.awt.Component.dispatchEventImpl(Component.java:4731)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Window.dispatchEventImpl(Window.java:2719)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:729)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.awt.EventQueue$4.run(EventQueue.java:702)
+	at java.awt.EventQueue$4.run(EventQueue.java:700)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:699)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+
+[2013-06-03 16:46:34 #4 explorer] 
+[ObjectDB 2.5.0_05] java.lang.IllegalArgumentException
+Attempt to lock a new (non stored yet) entity object (error 635)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1664)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2879)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2926)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2842)
+	at java.awt.Component.processEvent(Component.java:6282)
+	at java.awt.Container.processEvent(Container.java:2229)
+	at java.awt.Component.dispatchEventImpl(Component.java:4861)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1895)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:762)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1027)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:899)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:727)
+	at java.awt.Component.dispatchEventImpl(Component.java:4731)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Window.dispatchEventImpl(Window.java:2719)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:729)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.awt.EventQueue$4.run(EventQueue.java:702)
+	at java.awt.EventQueue$4.run(EventQueue.java:700)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:699)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+
+[2013-06-03 16:46:41 #5 explorer] 
+[ObjectDB 2.5.0_05] java.lang.IllegalArgumentException
+Attempt to lock a new (non stored yet) entity object (error 635)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1664)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2879)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2926)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2842)
+	at java.awt.Component.processEvent(Component.java:6282)
+	at java.awt.Container.processEvent(Container.java:2229)
+	at java.awt.Component.dispatchEventImpl(Component.java:4861)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1895)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:762)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1027)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:899)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:727)
+	at java.awt.Component.dispatchEventImpl(Component.java:4731)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Window.dispatchEventImpl(Window.java:2719)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:729)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.awt.EventQueue$4.run(EventQueue.java:702)
+	at java.awt.EventQueue$4.run(EventQueue.java:700)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:699)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+
+[2013-06-03 16:46:47 #6 explorer] 
+[ObjectDB 2.5.0_05] java.lang.IllegalArgumentException
+Attempt to lock a new (non stored yet) entity object (error 635)
+	at javax.swing.JTextField.fireActionPerformed(JTextField.java:508)
+	at javax.swing.JTextField.postActionEvent(JTextField.java:721)
+	at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:836)
+	at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1664)
+	at javax.swing.JComponent.processKeyBinding(JComponent.java:2879)
+	at javax.swing.JComponent.processKeyBindings(JComponent.java:2926)
+	at javax.swing.JComponent.processKeyEvent(JComponent.java:2842)
+	at java.awt.Component.processEvent(Component.java:6282)
+	at java.awt.Container.processEvent(Container.java:2229)
+	at java.awt.Component.dispatchEventImpl(Component.java:4861)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1895)
+	at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:762)
+	at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1027)
+	at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:899)
+	at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:727)
+	at java.awt.Component.dispatchEventImpl(Component.java:4731)
+	at java.awt.Container.dispatchEventImpl(Container.java:2287)
+	at java.awt.Window.dispatchEventImpl(Window.java:2719)
+	at java.awt.Component.dispatchEvent(Component.java:4687)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:729)
+	at java.awt.EventQueue.access$200(EventQueue.java:103)
+	at java.awt.EventQueue$3.run(EventQueue.java:688)
+	at java.awt.EventQueue$3.run(EventQueue.java:686)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.awt.EventQueue$4.run(EventQueue.java:702)
+	at java.awt.EventQueue$4.run(EventQueue.java:700)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(ProtectionDomain.java:76)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:699)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:242)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:161)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:150)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:146)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:138)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:91)
+
+[2013-06-03 16:46:59 #7 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17729@lory-SVE1513Q1ESI
+
+[2013-06-03 16:46:59 #8 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17729@lory-SVE1513Q1ESI
+
+[2013-06-03 16:47:59 #9 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17729@lory-SVE1513Q1ESI
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2013-06-03 16:48:35 #1 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17776@lory-SVE1513Q1ESI
+
+[2013-06-03 16:51:01 #2 store] 
+Database '/home/lory/workspace/Servers/GWT-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17776@lory-SVE1513Q1ESI
+
+[2013-06-03 16:51:01 #3 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is opened by 17776@lory-SVE1513Q1ESI
+
+[2013-06-03 16:52:08 #4 store] 
+Database '/home/lory/workspace/Servers/GWT-8081-deploy/webapps/RONF/WEB-INF/db/guests.odb' is closed by 17776@lory-SVE1513Q1ESI
+

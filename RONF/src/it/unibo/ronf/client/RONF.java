@@ -1,7 +1,12 @@
 package it.unibo.ronf.client;
 
+import java.util.List;
+
+import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.entities.MaintenanceType;
+import it.unibo.ronf.shared.services.AgencyService;
+import it.unibo.ronf.shared.services.AgencyServiceAsync;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
 import it.unibo.ronf.shared.services.MaintenanceTypeService;
@@ -29,6 +34,11 @@ public class RONF implements EntryPoint {
 
 	private final EmployeeServiceAsync employeeService = GWT.create(EmployeeService.class);
 	private final MaintenanceTypeServiceAsync maintenanceTypeService = GWT.create(MaintenanceTypeService.class);
+
+
+	private final AgencyServiceAsync agencyService = GWT
+			.create(AgencyService.class);
+
 	private VLayout layoutMain = new VLayout();
 	private HLayout layoutForm = new HLayout();
 	private HLayout layoutButton = new HLayout();
@@ -41,6 +51,9 @@ public class RONF implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
+
+		loadAgencies();
+
 		layoutMain.setWidth100();
 		final DynamicForm loginForm = new DynamicForm();
 		username = new TextItem("username", "Username");
@@ -65,6 +78,56 @@ public class RONF implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				sendLogin();
 			}
+		});
+	}
+
+	private void loadAgencies() {
+		System.out.println("suuuuuuka");
+
+		Agency a1 = new Agency();
+		a1.setAddress("Via Zamboni");
+		a1.setCode("a1");
+		a1.setIpAddress("127.0.0.1");
+		a1.setName("Herz centrale 8080");
+		a1.setPort(8080);
+
+		Agency a2 = new Agency();
+		a2.setAddress("Via Stalingrado");
+		a2.setCode("a2");
+		a2.setIpAddress("127.0.0.1");
+		a2.setName("Herz periferia 8081");
+		a2.setPort(8081);
+
+		agencyService.createAgency(a1, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Agency not created!");
+
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Window.alert("Agency created!");
+
+			}
+
+		});
+
+		agencyService.createAgency(a2, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Agency not created!");
+
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Window.alert("Agency created!");
+
+			}
+
 		});
 	}
 
@@ -97,12 +160,14 @@ public class RONF implements EntryPoint {
 
 			}
 
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Error while tryng login: " + caught.getMessage());
-				loginButton.enable();
-			}
-		});
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Error while tryng login: "
+								+ caught.getMessage());
+						loginButton.enable();
+					}
+				});
 
 		/*************************************************/
 //		 MaintenanceType mainte = new MaintenanceType();
