@@ -2,7 +2,15 @@ package it.unibo.ronf.shared.entities;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
 
 @Entity
 public class Payment implements java.io.Serializable {
@@ -14,6 +22,7 @@ public class Payment implements java.io.Serializable {
 	private long id;
 	private float amount;
 	private String paymentMethod;
+	@Temporal(TemporalType.DATE)
 	private Date dateOfPayment;
 	@OneToOne
 	private Customer userPayer;

@@ -27,7 +27,7 @@
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> 
 
     <bean class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" id="entityManagerFactory">
-        <property name="persistenceUnitName" value="MyPersistenceUnit"/>
+        <property name="persistenceUnitName" value="ronfPU"/>
     </bean>
 
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">

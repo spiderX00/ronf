@@ -16,7 +16,7 @@ public abstract class JpaDAO<E> {
 
 	protected Class<E> entityClass;
 
-	@PersistenceContext(unitName = "MyPersistenceUnit")
+	@PersistenceContext(unitName = "ronfPU")
 	protected EntityManager em;
 
 	@SuppressWarnings("unchecked")

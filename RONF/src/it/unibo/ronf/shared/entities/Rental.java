@@ -13,7 +13,9 @@ public class Rental implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@Temporal(TemporalType.DATE)
 	private Date start;
+	@Temporal(TemporalType.DATE)
 	private Date end;
 	@OneToOne
 	private Car rentedCar;
@@ -29,6 +31,8 @@ public class Rental implements java.io.Serializable {
 	private Agency arrivalAgency;
 	@OneToOne(cascade=CascadeType.PERSIST)
 	private Payment payment;
+	@OneToOne(cascade=CascadeType.PERSIST)
+	private Payment fine;
 	private float caution;
 	private boolean finished;
 
@@ -38,6 +42,14 @@ public class Rental implements java.io.Serializable {
 
 	public void setStart(Date start) {
 		this.start = start;
+	}
+	
+	public Payment getFine() {
+		return fine;
+	}
+	
+	public void setFine(Payment fine) {
+		this.fine = fine;
 	}
 
 	public Date getEnd() {

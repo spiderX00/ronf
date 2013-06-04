@@ -17,6 +17,7 @@ public class Maintenance implements java.io.Serializable {
 
 	@OneToOne
 	private Car car;
+	@Temporal(TemporalType.DATE)
 	private Date date;
 	@OneToOne
 	private MaintenanceEmployee maintenanceEmployee;
