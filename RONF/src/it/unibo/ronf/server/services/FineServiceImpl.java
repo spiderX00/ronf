@@ -23,6 +23,8 @@ public class FineServiceImpl implements FineService {
 		
 		Payment fineToPay = new Payment();
 		fineToPay.setAmount(fineAmount);
+		fineToPay.setDateOfPayment(m.getDate());
+		fineToPay.setDateOfPayment(m.getDate());
 		return fineToPay;
 	}
 }
