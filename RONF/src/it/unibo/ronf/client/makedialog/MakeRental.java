@@ -73,7 +73,6 @@ public class MakeRental extends Dialog {
 
 	private TextItem paymentMethodItem;
 	private FloatItem amountItem;
-	private DateItem dateOfPaymentItem;
 	private SelectItem carTypeItem;
 	private SelectItem carModelItem;
 	private MultiComboBoxItem optionalItem;
@@ -93,12 +92,11 @@ public class MakeRental extends Dialog {
 		paymentMethodItem = new TextItem("paymentMethod", "Metodo di Pagmaneto");
 		amountItem = new FloatItem("amount", "Totale");
 		amountItem.setCanEdit(false);
-		dateOfPaymentItem = new DateItem("dateOfPayment", "Data pagamento");
 		final SectionItem sectionPayment = new SectionItem();
 		sectionPayment.setDefaultValue("Pagamento");
 		sectionPayment.setSectionExpanded(false);
 		sectionPayment.disable();
-		sectionPayment.setItemIds("paymentMethod", "amount", "dateOfPayment");
+		sectionPayment.setItemIds("paymentMethod", "amount");
 		final DynamicForm dynamicForm3 = new DynamicForm();
 		carTypeItem = new SelectItem("carType", "Tipo");
 		carTypeItem.setEmptyDisplayValue("Select Type");
@@ -108,7 +106,7 @@ public class MakeRental extends Dialog {
 		calcButtonItem = new ButtonItem("calcola", "Calcola");
 		dynamicForm3.setFields(carTypeItem, carModelItem, optionalItem, calcButtonItem);
 		final DynamicForm dynamicForm2 = new DynamicForm();
-		dynamicForm2.setFields(sectionPayment, amountItem, paymentMethodItem, dateOfPaymentItem);
+		dynamicForm2.setFields(sectionPayment, amountItem, paymentMethodItem);
 		addItem(dynamicForm3);
 		addItem(dynamicForm2);
 

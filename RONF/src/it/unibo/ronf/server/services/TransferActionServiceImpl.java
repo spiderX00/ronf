@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import it.unibo.ronf.server.dao.TransferActionDAO;
 import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.TransferActionService;
-import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.entities.TransferEmployee;
 
 public class TransferActionServiceImpl implements TransferActionService {
