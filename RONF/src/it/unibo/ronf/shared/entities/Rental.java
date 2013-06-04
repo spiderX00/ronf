@@ -31,11 +31,7 @@ public class Rental implements java.io.Serializable {
 	private Agency arrivalAgency;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Payment payment;
-<<<<<<< HEAD
-	@OneToOne(cascade=CascadeType.PERSIST)
-=======
 	@OneToOne(cascade = CascadeType.PERSIST)
->>>>>>> branch 'master' of https://srondelli@bitbucket.org/acidici/ronf.git
 	private Payment fine;
 	private float caution;
 	private boolean finished;
@@ -135,13 +131,4 @@ public class Rental implements java.io.Serializable {
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
-
-	public Payment getFine() {
-		return fine;
-	}
-
-	public void setFine(Payment fine) {
-		this.fine = fine;
-	}
-
 }
