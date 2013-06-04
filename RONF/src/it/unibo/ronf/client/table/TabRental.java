@@ -52,14 +52,7 @@ public class TabRental extends ListGrid {
 					/** Dialog Chiusura Rental */
 					if (rollOverRecord instanceof RentalRecord) {
 						RentalRecord rentalRecord = (RentalRecord) rollOverRecord;
-						Rental rental = rentalRecord.getObject();
-						String user = rentalRecord.getCustomer();
-						String car = rentalRecord.getRentedCar();
-						@SuppressWarnings("deprecation")
-						String start = rollOverRecord.getAttributeAsDate("start").toLocaleString().substring(0, 11);
-						@SuppressWarnings("deprecation")
-						String end = rollOverRecord.getAttributeAsDate("end").toLocaleString().substring(0, 11);
-						CloseRental closeRental = new CloseRental(rental, user, car, start, end);
+						CloseRental closeRental = new CloseRental(rentalRecord);
 						closeRental.show();
 						closeRental.centerInPage();
 					}

@@ -1,12 +1,17 @@
 package it.unibo.ronf.client.record;
 
+import it.unibo.ronf.shared.entities.Maintenance;
 import it.unibo.ronf.shared.entities.MaintenanceType;
+import it.unibo.ronf.shared.entities.Payment;
 import it.unibo.ronf.shared.entities.Rental;
+import it.unibo.ronf.shared.services.FineService;
+import it.unibo.ronf.shared.services.FineServiceAsync;
 import it.unibo.ronf.shared.services.MaintenanceTypeService;
 import it.unibo.ronf.shared.services.MaintenanceTypeServiceAsync;
 import it.unibo.ronf.shared.services.RentalService;
 import it.unibo.ronf.shared.services.RentalServiceAsync;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,12 +38,20 @@ public class CloseRental extends Dialog {
 	private MultiComboBoxItem maintenanceTypeItem;
 	private final MaintenanceTypeServiceAsync maintenanceTypeService = GWT.create(MaintenanceTypeService.class);
 	private final RentalServiceAsync rentalService = GWT.create(RentalService.class);
+	private final FineServiceAsync fineService = GWT.create(FineService.class);
 	private Map<String, MaintenanceType> maintenanceTypeMap = new HashMap<String, MaintenanceType>();
 	private Button confirmButton;
 	private Button cancelButton;
 	private HLayout hLayout;
 
-	public CloseRental(final Rental rental, String user, String car, String start, String end) {
+	public CloseRental(final RentalRecord rentalRecord) {
+		final Rental rental = rentalRecord.getObject();
+		String user = rentalRecord.getCustomer();
+		String car = rentalRecord.getRentedCar();
+		@SuppressWarnings("deprecation")
+		String start = rentalRecord.getStart().toLocaleString().substring(0, 11);
+		@SuppressWarnings("deprecation")
+		String end = rentalRecord.getEnd().toLocaleString().substring(0, 11);
 		setTitle("" + start + " - " + end);
 		setSize("340px", "300px");
 		hLayout = new HLayout();
@@ -85,20 +98,46 @@ public class CloseRental extends Dialog {
 			@Override
 			public void onClick(ClickEvent event) {
 				rental.setFinished(true);
-				rentalService.updateRental(rental, new AsyncCallback<Void>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to update Rental:" + caught.getMessage());
-
+				List<MaintenanceType> maintenanceTypeList = new ArrayList<MaintenanceType>();
+				String s = maintenanceTypeItem.getDisplayValue();
+				if (!s.trim().isEmpty()) {
+					String[] optional = s.split(",");
+					for (String o : optional) {
+						maintenanceTypeList.add(maintenanceTypeMap.get(o));
 					}
+					Maintenance maintenance = new Maintenance();
+					maintenance.setCar(rental.getRentedCar());
+					maintenance.setDate(rental.getEnd());
+					maintenance.setMaintenances(maintenanceTypeList);
+					fineService.calculateFine(maintenance, new AsyncCallback<Payment>() {
 
-					@Override
-					public void onSuccess(Void result) {
-						Window.alert("Rental concluded");
+						@Override
+						public void onFailure(Throwable caught) {
+							Window.alert("Impossible to calculate Fine!!!");
+						}
 
-					}
-				});
+						@Override
+						public void onSuccess(Payment result) {
+							rental.setFine(result);
+							rentalService.updateRental(rental, new AsyncCallback<Void>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									Window.alert("Error to update rental!!");
+
+								}
+
+								@Override
+								public void onSuccess(Void result) {
+
+								}
+							});
+
+						}
+					});
+				}
+				Window.alert("Rental concluded");
+				CloseRental.this.hide();
 			}
 		});
 
