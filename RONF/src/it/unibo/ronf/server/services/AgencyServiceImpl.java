@@ -20,7 +20,12 @@ public class AgencyServiceImpl implements AgencyService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createAgency(Agency agency) {
-		agencyDAO.persist(agency);
+
+		Agency res = agencyDAO.findByName(agency.getName());
+
+		if (res == null) {
+			agencyDAO.persist(agency);
+		}
 
 	}
 
@@ -40,7 +45,7 @@ public class AgencyServiceImpl implements AgencyService {
 		agencyDAO.remove(agencyDAO.findById(id));
 
 	}
-	
+
 	@Override
 	public List<Agency> findAll() {
 		return agencyDAO.findAll();

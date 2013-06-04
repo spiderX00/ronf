@@ -1,5 +1,7 @@
 package it.unibo.ronf.client;
 
+import java.util.List;
+
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.services.AgencyService;
@@ -29,6 +31,9 @@ public class RONF implements EntryPoint {
 	
 	private final EmployeeServiceAsync employeeService = GWT
 			.create(EmployeeService.class);
+	
+	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
+	
 	private VLayout layoutMain = new VLayout();
 	private HLayout layoutForm = new HLayout();
 	private HLayout layoutButton = new HLayout();
@@ -41,6 +46,8 @@ public class RONF implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
+		
+		loadAgencies();
 		
 		layoutMain.setWidth100();
 		final DynamicForm loginForm = new DynamicForm();
@@ -67,6 +74,83 @@ public class RONF implements EntryPoint {
 				sendLogin();
 			}
 		});
+	}
+
+	private void loadAgencies() {
+		
+		agencyService.findAll(new AsyncCallback<List<Agency>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Server error: not posssibile do load Agencies");
+				
+			}
+
+			@Override
+			public void onSuccess(List<Agency> result) {
+				
+				if(result.isEmpty()) {
+					
+					Agency a1 = new Agency();
+					a1.setAddress("Via Zamboni");
+					a1.setCode("a1");
+					a1.setIpAddress("127.0.0.1");
+					a1.setName("Herz centrale");
+					a1.setPort(8080);
+					
+					Agency a2 = new Agency();
+					a2.setAddress("Via Stalingrado");
+					a2.setCode("a2");
+					a2.setIpAddress("127.0.0.1");
+					a2.setName("Herz periferia");
+					a2.setPort(8081);
+					
+					agencyService.createAgency(a1, new AsyncCallback<Void>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onSuccess(Void result) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					});
+					
+					agencyService.createAgency(a2, new AsyncCallback<Void>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onSuccess(Void result) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					});
+					
+					
+					
+				}
+				
+				
+			}
+
+		
+		}
+		
+		);
+		
+		
+		
 	}
 
 	private void sendLogin() {

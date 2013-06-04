@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -38,7 +40,7 @@ public class MakeCar extends Dialog {
 	private final CarServiceAsync carService = GWT.create(CarService.class);
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
-
+	
 	private Car car;
 
 	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
@@ -121,6 +123,8 @@ public class MakeCar extends Dialog {
 				car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
 				car.setAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
 				car.setType(carTypeMap.get(dynamicForm.getValueAsString("carType")));
+				GWT.log(carTypeMap.get(dynamicForm.getValueAsString("carType")).getType());
+								
 				carService.createCar(car, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {
