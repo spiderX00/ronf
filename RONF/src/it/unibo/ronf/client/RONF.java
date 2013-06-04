@@ -28,12 +28,13 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 
 public class RONF implements EntryPoint {
-	
+
 	private final EmployeeServiceAsync employeeService = GWT
 			.create(EmployeeService.class);
-	
-	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
-	
+
+	private final AgencyServiceAsync agencyService = GWT
+			.create(AgencyService.class);
+
 	private VLayout layoutMain = new VLayout();
 	private HLayout layoutForm = new HLayout();
 	private HLayout layoutButton = new HLayout();
@@ -46,9 +47,9 @@ public class RONF implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
-		
+
 		loadAgencies();
-		
+
 		layoutMain.setWidth100();
 		final DynamicForm loginForm = new DynamicForm();
 		username = new TextItem("username", "Username");
@@ -77,80 +78,53 @@ public class RONF implements EntryPoint {
 	}
 
 	private void loadAgencies() {
-		
-		agencyService.findAll(new AsyncCallback<List<Agency>>() {
+		System.out.println("suuuuuuka");
+
+		Agency a1 = new Agency();
+		a1.setAddress("Via Zamboni");
+		a1.setCode("a1");
+		a1.setIpAddress("127.0.0.1");
+		a1.setName("Herz centrale 8080");
+		a1.setPort(8080);
+
+		Agency a2 = new Agency();
+		a2.setAddress("Via Stalingrado");
+		a2.setCode("a2");
+		a2.setIpAddress("127.0.0.1");
+		a2.setName("Herz periferia 8081");
+		a2.setPort(8081);
+
+		agencyService.createAgency(a1, new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Server error: not posssibile do load Agencies");
-				
+				Window.alert("Agency not created!");
+
 			}
 
 			@Override
-			public void onSuccess(List<Agency> result) {
-				
-				if(result.isEmpty()) {
-					
-					Agency a1 = new Agency();
-					a1.setAddress("Via Zamboni");
-					a1.setCode("a1");
-					a1.setIpAddress("127.0.0.1");
-					a1.setName("Herz centrale");
-					a1.setPort(8080);
-					
-					Agency a2 = new Agency();
-					a2.setAddress("Via Stalingrado");
-					a2.setCode("a2");
-					a2.setIpAddress("127.0.0.1");
-					a2.setName("Herz periferia");
-					a2.setPort(8081);
-					
-					agencyService.createAgency(a1, new AsyncCallback<Void>() {
+			public void onSuccess(Void result) {
+				Window.alert("Agency created!");
 
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
-							
-						}
-
-						@Override
-						public void onSuccess(Void result) {
-							// TODO Auto-generated method stub
-							
-						}
-						
-					});
-					
-					agencyService.createAgency(a2, new AsyncCallback<Void>() {
-
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
-							
-						}
-
-						@Override
-						public void onSuccess(Void result) {
-							// TODO Auto-generated method stub
-							
-						}
-						
-					});
-					
-					
-					
-				}
-				
-				
 			}
 
-		
-		}
-		
-		);
-		
-		
-		
+		});
+
+		agencyService.createAgency(a2, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Agency not created!");
+
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Window.alert("Agency created!");
+
+			}
+
+		});
 	}
 
 	private void sendLogin() {
@@ -185,7 +159,8 @@ public class RONF implements EntryPoint {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Error while tryng login: " + caught.getMessage());
+						Window.alert("Error while tryng login: "
+								+ caught.getMessage());
 						loginButton.enable();
 					}
 				});
