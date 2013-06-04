@@ -51,4 +51,9 @@ public class AgencyServiceImpl implements AgencyService {
 		return agencyDAO.findAll();
 	}
 
+	@Override
+	public void setCurrentAgency(Agency a) {
+		agencyDAO.setCurrentAgency(a);		
+	}
+
 }
