@@ -52,7 +52,7 @@ public class RONF implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 
-		loadAgencies();
+//		loadAgencies();
 
 		layoutMain.setWidth100();
 		final DynamicForm loginForm = new DynamicForm();
@@ -81,55 +81,55 @@ public class RONF implements EntryPoint {
 		});
 	}
 
-	private void loadAgencies() {
-		System.out.println("suuuuuuka");
-
-		Agency a1 = new Agency();
-		a1.setAddress("Via Zamboni");
-		a1.setCode("a1");
-		a1.setIpAddress("127.0.0.1");
-		a1.setName("Herz centrale 8080");
-		a1.setPort(8080);
-
-		Agency a2 = new Agency();
-		a2.setAddress("Via Stalingrado");
-		a2.setCode("a2");
-		a2.setIpAddress("127.0.0.1");
-		a2.setName("Herz periferia 8081");
-		a2.setPort(8081);
-
-		agencyService.createAgency(a1, new AsyncCallback<Void>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Agency not created!");
-
-			}
-
-			@Override
-			public void onSuccess(Void result) {
-				Window.alert("Agency created!");
-
-			}
-
-		});
-
-		agencyService.createAgency(a2, new AsyncCallback<Void>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Agency not created!");
-
-			}
-
-			@Override
-			public void onSuccess(Void result) {
-				Window.alert("Agency created!");
-
-			}
-
-		});
-	}
+//	private void loadAgencies() {
+//		System.out.println("suuuuuuka");
+//
+//		Agency a1 = new Agency();
+//		a1.setAddress("Via Zamboni");
+//		a1.setCode("a1");
+//		a1.setIpAddress("127.0.0.1");
+//		a1.setName("Herz centrale 8080");
+//		a1.setPort(8080);
+//
+//		Agency a2 = new Agency();
+//		a2.setAddress("Via Stalingrado");
+//		a2.setCode("a2");
+//		a2.setIpAddress("127.0.0.1");
+//		a2.setName("Herz periferia 8081");
+//		a2.setPort(8081);
+//
+//		agencyService.createAgency(a1, new AsyncCallback<Void>() {
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Agency not created!");
+//
+//			}
+//
+//			@Override
+//			public void onSuccess(Void result) {
+//				Window.alert("Agency created!");
+//
+//			}
+//
+//		});
+//
+//		agencyService.createAgency(a2, new AsyncCallback<Void>() {
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Agency not created!");
+//
+//			}
+//
+//			@Override
+//			public void onSuccess(Void result) {
+//				Window.alert("Agency created!");
+//
+//			}
+//
+//		});
+//	}
 
 	private void sendLogin() {
 

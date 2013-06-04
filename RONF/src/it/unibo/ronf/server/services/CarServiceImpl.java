@@ -34,7 +34,7 @@ public class CarServiceImpl implements CarService {
 
 	@Autowired
 	private CarDAO carDAO;
-	
+
 	@Autowired
 	private CarRestClient carRestClient;
 
@@ -89,16 +89,19 @@ public class CarServiceImpl implements CarService {
 	public List<Car> findByType(CarType carType) {
 		return carDAO.findByType(carType);
 	}
-	
+
 	@Override
 	public List<Car> findAvailableCarsInAllAgencies(AvailableCarRequestDTO request) {
 		List<Car> localCars = findAvailableCar(request);
 		List<Car> allFound = new ArrayList<>();
 		allFound.addAll(localCars);
-		
-		List<Car> remoteCars = carRestClient.findRemoteAvailableCar(request);
-		allFound.addAll(remoteCars);
+		try {
 
+			List<Car> remoteCars = carRestClient.findRemoteAvailableCar(request);
+			allFound.addAll(remoteCars);
+		} catch (Exception ex) {
+			logger.error("error while searching avaiable car in other agency: -->" + ex.getMessage());
+		}
 		return allFound;
 	}
 

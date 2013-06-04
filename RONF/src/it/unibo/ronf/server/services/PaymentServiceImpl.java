@@ -2,6 +2,7 @@ package it.unibo.ronf.server.services;
 
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import it.unibo.ronf.shared.entities.Optional;
@@ -12,32 +13,28 @@ import it.unibo.ronf.shared.services.PaymentService;
 @Service("paymentService")
 public class PaymentServiceImpl implements PaymentService {
 
+	private static final Logger logger = Logger.getLogger(PaymentServiceImpl.class);
+
 	@Override
 	public Payment makePayment(Rental r) {
-		
+
 		Date end = r.getEnd();
 		Date start = r.getStart();
 
 		long days = ((end.getTime() - start.getTime()) / 1000) / 86400;
-		
+
 		float totalForCar = r.getRentedCar().getType().getDailyCost() * days;
 		float caution = r.getCaution();
-		
-		float total = totalForCar+caution;
-		
-		if(!(r.getOptional().isEmpty())) {
-			
-			for(Optional o : r.getOptional()) {
-				
-				total = total+o.getCost();
-				
-			}
+
+		float total = totalForCar + caution;
+
+		for (Optional o : r.getOptional()) {
+			total = total + o.getCost();
 		}
-		
+
 		Payment totalPayment = new Payment();
 		totalPayment.setAmount(total);
 		totalPayment.setDateOfPayment(r.getStart());
-		totalPayment.setPaymentMethod(r.getPayment().getPaymentMethod());
 		return totalPayment;
 
 	}

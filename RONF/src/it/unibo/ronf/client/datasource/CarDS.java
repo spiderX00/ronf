@@ -38,33 +38,26 @@ public class CarDS extends DataSource {
 		DataSourceIntegerField idField = new DataSourceIntegerField("id");
 		idField.setPrimaryKey(true);
 
-		DataSourceTextField modelField = new DataSourceTextField("model",
-				"Modello");
+		DataSourceTextField modelField = new DataSourceTextField("model", "Modello");
 		modelField.setRequired(true);
 
-		DataSourceTextField plateField = new DataSourceTextField("plate",
-				"Targa");
+		DataSourceTextField plateField = new DataSourceTextField("plate", "Targa");
 		plateField.setRequired(true);
 
-		DataSourceTextField gasolineTypeField = new DataSourceTextField(
-				"gasolineType", "Alimentazione");
+		DataSourceTextField gasolineTypeField = new DataSourceTextField("gasolineType", "Alimentazione");
 		gasolineTypeField.setRequired(true);
 
-		DataSourceIntegerField seatsNumberField = new DataSourceIntegerField(
-				"seatsNumber", "N. Posti");
+		DataSourceIntegerField seatsNumberField = new DataSourceIntegerField("seatsNumber", "N. Posti");
 		seatsNumberField.setRequired(true);
-		DataSourceEnumField agencyField = new DataSourceEnumField("agency",
-				"Agenzia");
+		DataSourceEnumField agencyField = new DataSourceEnumField("agency", "Agenzia");
 		agencyField.setRequired(true);
-		
+
 		DataSourceTextField typeField = new DataSourceTextField("type", "Tipo");
 		if (agencyMap != null) {
-			agencyField.setValueMap(agencyMap.keySet().toArray(
-					new String[] {}));
+			agencyField.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 		}
 
-		setFields(idField, modelField, plateField, gasolineTypeField,
-				seatsNumberField, agencyField);
+		setFields(idField, modelField, plateField, gasolineTypeField, seatsNumberField, agencyField, typeField);
 
 		/** Effettuo la richiesta per la ricerca di tutti gli employee */
 		carService.findAll(new AsyncCallback<List<Car>>() {
@@ -83,9 +76,7 @@ public class CarDS extends DataSource {
 
 				int i = 0;
 				for (Car p : result) {
-					carRecord[i] = new CarRecord(p.getId(), p.getModel(), p
-							.getPlate(), p.getGasolineType(), p
-							.getSeatsNumber(), p.getAgency().getName(), p
+					carRecord[i] = new CarRecord(p.getId(), p.getModel(), p.getPlate(), p.getGasolineType(), p.getSeatsNumber(), p.getAgency().getName(), p
 							.getType().getType());
 					i++;
 

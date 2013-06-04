@@ -27,7 +27,7 @@ public class Rental implements java.io.Serializable {
 	private Agency startingAgency;
 	@OneToOne
 	private Agency arrivalAgency;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private Payment payment;
 	private float caution;
 	private boolean finished;

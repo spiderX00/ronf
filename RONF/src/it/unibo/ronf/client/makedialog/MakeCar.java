@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -31,8 +29,8 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
-import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeCar extends Dialog {
@@ -40,7 +38,7 @@ public class MakeCar extends Dialog {
 	private final CarServiceAsync carService = GWT.create(CarService.class);
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
-	
+
 	private Car car;
 
 	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
@@ -76,6 +74,7 @@ public class MakeCar extends Dialog {
 				}
 				dynamicForm.setDataSource(new CarDS("carDS", tabCar, agencyMap));
 				dynamicForm.getField("id").hide();
+				dynamicForm.getField("type").hide();
 			}
 
 			@Override
@@ -101,6 +100,14 @@ public class MakeCar extends Dialog {
 
 		car = new Car();
 
+		carTypeItem.addChangedHandler(new ChangedHandler() {
+
+			@Override
+			public void onChanged(ChangedEvent event) {
+				String selectedItem = (String) event.getValue();
+				car.setType(carTypeMap.get(selectedItem));
+			}
+		});
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);
 		hLayout.addMember(btnCancel);
@@ -122,9 +129,7 @@ public class MakeCar extends Dialog {
 				car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
 				car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
 				car.setAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
-				car.setType(carTypeMap.get(dynamicForm.getValueAsString("carType")));
-				GWT.log(carTypeMap.get(dynamicForm.getValueAsString("carType")).getType());
-								
+
 				carService.createCar(car, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {

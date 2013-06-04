@@ -20,6 +20,8 @@ import it.unibo.ronf.shared.services.CustomerService;
 import it.unibo.ronf.shared.services.CustomerServiceAsync;
 import it.unibo.ronf.shared.services.OptionalService;
 import it.unibo.ronf.shared.services.OptionalServiceAsync;
+import it.unibo.ronf.shared.services.PaymentService;
+import it.unibo.ronf.shared.services.PaymentServiceAsync;
 import it.unibo.ronf.shared.services.RentalService;
 import it.unibo.ronf.shared.services.RentalServiceAsync;
 
@@ -36,12 +38,12 @@ import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.MultiComboBoxLayoutStyle;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.ButtonItem;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 import com.smartgwt.client.widgets.form.fields.FloatItem;
 import com.smartgwt.client.widgets.form.fields.MultiComboBoxItem;
@@ -60,6 +62,7 @@ public class MakeRental extends Dialog {
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
 	private final OptionalServiceAsync optionalService = GWT.create(OptionalService.class);
+	private final PaymentServiceAsync paymentService = GWT.create(PaymentService.class);
 
 	private Map<String, Car> carMap = new HashMap<String, Car>();
 	private Map<String, Customer> customersMap = new HashMap<String, Customer>();
@@ -75,6 +78,7 @@ public class MakeRental extends Dialog {
 	private SelectItem carModelItem;
 	private MultiComboBoxItem optionalItem;
 	private Rental rental = new Rental();
+	private ButtonItem calcButtonItem;
 
 	private HLayout hLayout;
 
@@ -88,10 +92,12 @@ public class MakeRental extends Dialog {
 		hLayout.setMembersMargin(40);
 		paymentMethodItem = new TextItem("paymentMethod", "Metodo di Pagmaneto");
 		amountItem = new FloatItem("amount", "Totale");
+		amountItem.setCanEdit(false);
 		dateOfPaymentItem = new DateItem("dateOfPayment", "Data pagamento");
-		SectionItem sectionPayment = new SectionItem();
+		final SectionItem sectionPayment = new SectionItem();
 		sectionPayment.setDefaultValue("Pagamento");
 		sectionPayment.setSectionExpanded(false);
+		sectionPayment.disable();
 		sectionPayment.setItemIds("paymentMethod", "amount", "dateOfPayment");
 		final DynamicForm dynamicForm3 = new DynamicForm();
 		carTypeItem = new SelectItem("carType", "Tipo");
@@ -99,7 +105,8 @@ public class MakeRental extends Dialog {
 		carModelItem = new SelectItem("carModel", "Car");
 		carModelItem.setEmptyDisplayValue("Select car");
 		optionalItem = new MultiComboBoxItem("optional", "Optional");
-		dynamicForm3.setFields(carTypeItem, carModelItem, optionalItem);
+		calcButtonItem = new ButtonItem("calcola", "Calcola");
+		dynamicForm3.setFields(carTypeItem, carModelItem, optionalItem, calcButtonItem);
 		final DynamicForm dynamicForm2 = new DynamicForm();
 		dynamicForm2.setFields(sectionPayment, amountItem, paymentMethodItem, dateOfPaymentItem);
 		addItem(dynamicForm3);
@@ -127,6 +134,7 @@ public class MakeRental extends Dialog {
 						dynamicForm.getField("id").hide();
 						dynamicForm.getField("rentedCar").hide();
 						dynamicForm.getField("optional").hide();
+						dynamicForm.getField("finished").hide();
 					}
 
 					@Override
@@ -211,6 +219,46 @@ public class MakeRental extends Dialog {
 			}
 
 		});
+		
+		calcButtonItem.addClickHandler(new com.smartgwt.client.widgets.form.fields.events.ClickHandler() {
+			
+			@Override
+			public void onClick(com.smartgwt.client.widgets.form.fields.events.ClickEvent event) {
+				rental.setStart((Date) dynamicForm.getValue("start"));
+				rental.setEnd((Date) (dynamicForm.getValue("end")));
+				rental.setCaution(Float.parseFloat(dynamicForm.getValueAsString("caution")));
+				List<Optional> optionalList = new ArrayList<Optional>();
+				String s = optionalItem.getDisplayValue();
+				if(!s.trim().isEmpty())  {
+					String[] optional = s.split(",");
+					for (String o : optional) {
+						optionalList.add(optionalMap.get(o));
+					}
+				}
+				
+				rental.setOptional(optionalList);
+				
+				paymentService.makePayment(rental, new AsyncCallback<Payment>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossibile to calculate amount!!!" + caught.getMessage());
+					}
+
+					@Override
+					public void onSuccess(Payment result) {
+						amountItem.setValue(result.getAmount());
+						rental.setPayment(result);
+						sectionPayment.enable();
+						sectionPayment.expandSection();
+						
+						
+					}
+				});
+			}
+		});
+		
+		
 
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);
@@ -233,20 +281,12 @@ public class MakeRental extends Dialog {
 				for (String o : optional) {
 					optionalList.add(optionalMap.get(o));
 				}
-				rental.setStart((Date) dynamicForm.getValue("start"));
-				rental.setEnd((Date) (dynamicForm.getValue("end")));
-				// rental.setRentedType(carTypeMap.get(dynamicForm.getValueAsString("rentedType")));
+				
 				rental.setCustomer(customersMap.get(dynamicForm.getValueAsString("customer")));
 				rental.setStartingAgency(agencyMap.get(dynamicForm.getValueAsString("startingAgency")));
 				rental.setArrivalAgency(agencyMap.get(dynamicForm.getValueAsString("arrivalAgency")));
-				rental.setOptional(optionalList);
-				Payment payment = new Payment();
-				payment.setAmount(Float.parseFloat(amountItem.getEnteredValue()));
-				payment.setPaymentMethod(paymentMethodItem.getEnteredValue());
-				payment.setDateOfPayment(dateOfPaymentItem.getValueAsDate());
-				// rental.setPayment(payment);
-				rental.setCaution(Float.parseFloat(dynamicForm.getValueAsString("caution")));
 				rental.setFinished(Boolean.valueOf(dynamicForm.getValueAsString("finished")));
+				rental.getPayment().setPaymentMethod(paymentMethodItem.getEnteredValue());
 				rentalService.createRental(rental, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {

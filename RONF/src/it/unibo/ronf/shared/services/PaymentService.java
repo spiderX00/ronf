@@ -6,7 +6,7 @@ import it.unibo.ronf.shared.entities.Rental;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("ronfServices/agencyService")
+@RemoteServiceRelativePath("ronfServices/paymentService")
 public interface PaymentService extends RemoteService {
 	
 	public Payment makePayment(Rental r);
