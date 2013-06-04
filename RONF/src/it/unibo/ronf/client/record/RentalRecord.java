@@ -1,14 +1,8 @@
 package it.unibo.ronf.client.record;
 
-import it.unibo.ronf.shared.entities.Agency;
-import it.unibo.ronf.shared.entities.Car;
-import it.unibo.ronf.shared.entities.CarType;
-import it.unibo.ronf.shared.entities.Customer;
-import it.unibo.ronf.shared.entities.Optional;
-import it.unibo.ronf.shared.entities.Payment;
+import it.unibo.ronf.shared.entities.Rental;
 
 import java.util.Date;
-import java.util.List;
 
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
@@ -16,7 +10,7 @@ public class RentalRecord extends ListGridRecord {
 
 	public RentalRecord(Long id, Date start, Date end, String rentedCar,
 			String customer, String startingAgency, String arrivalAgency,
-			Integer optional, String payment, float caution, boolean finished) {
+			Integer optional, String payment, float caution, boolean finished, Rental rental) {
 		setId(id);
 		setStart(start);
 		setEnd(end);
@@ -27,7 +21,18 @@ public class RentalRecord extends ListGridRecord {
 		setOptional(optional);
 		setPayment(payment);
 		setCaution(caution);
+		setFinished(finished);
+		setObject(rental);
+		
 
+	}
+	
+	public void setObject(Rental rental) {
+		setAttribute("rental", rental);
+	}
+	
+	public Rental getObject() {
+		return (Rental) getAttributeAsObject("rental");
 	}
 
 	public void setId(Long id) {

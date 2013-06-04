@@ -1,17 +1,18 @@
 package it.unibo.ronf.client.table;
 
 import it.unibo.ronf.client.datasource.RentalDS;
+import it.unibo.ronf.client.record.CloseRental;
+import it.unibo.ronf.client.record.RentalRecord;
+import it.unibo.ronf.shared.entities.Rental;
 import it.unibo.ronf.shared.services.CarService;
 import it.unibo.ronf.shared.services.CarServiceAsync;
 
+import java.util.Date;
+
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.DateDisplayFormat;
-import com.smartgwt.client.util.BooleanCallback;
-import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -28,11 +29,10 @@ public class TabRental extends ListGrid {
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
 	private HLayout rollOverCanvas;
-	private ListGridRecord rollOverRecord;
 
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
-		rollOverRecord = this.getRecord(rowNum);
+		final ListGridRecord rollOverRecord = this.getRecord(rowNum);
 
 		if (rollOverCanvas == null) {
 			rollOverCanvas = new HLayout(3);
@@ -49,9 +49,20 @@ public class TabRental extends ListGrid {
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-				/** Dialog Chiusura Rental */
-					rollOverRecord.getAttributeAsString("customer");
-					rollOverRecord.getAttributeAsString("rentedCar");
+					/** Dialog Chiusura Rental */
+					if (rollOverRecord instanceof RentalRecord) {
+						RentalRecord rentalRecord = (RentalRecord) rollOverRecord;
+						Rental rental = rentalRecord.getObject();
+						String user = rentalRecord.getCustomer();
+						String car = rentalRecord.getRentedCar();
+						@SuppressWarnings("deprecation")
+						String start = rollOverRecord.getAttributeAsDate("start").toLocaleString().substring(0, 11);
+						@SuppressWarnings("deprecation")
+						String end = rollOverRecord.getAttributeAsDate("end").toLocaleString().substring(0, 11);
+						CloseRental closeRental = new CloseRental(rental, user, car, start, end);
+						closeRental.show();
+						closeRental.centerInPage();
+					}
 
 				}
 			});
@@ -81,28 +92,21 @@ public class TabRental extends ListGrid {
 		startField.setDateFormatter(DateDisplayFormat.TOEUROPEANSHORTDATE);
 		ListGridField endField = new ListGridField("end", "Data Fine");
 		endField.setDateFormatter(DateDisplayFormat.TOEUROPEANSHORTDATE);
-		ListGridField rentedCarField = new ListGridField("rentedCar",
-				"Macchina");
+		ListGridField rentedCarField = new ListGridField("rentedCar", "Macchina");
 		rentedCarField.setCanFilter(false);
-		ListGridField carTypeField = new ListGridField("rentedType",
-				"Tipo Macchina");
+		ListGridField carTypeField = new ListGridField("rentedType", "Tipo Macchina");
 		carTypeField.setCanFilter(false);
 		ListGridField customerField = new ListGridField("customer", "Cliente");
-		ListGridField startingAgencyField = new ListGridField("startingAgency",
-				"Agenzia di partenza");
-		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency",
-				"Agenzia di arrivo");
-		ListGridField optionalField = new ListGridField("optional",
-				"N. Optional");
+		ListGridField startingAgencyField = new ListGridField("startingAgency", "Agenzia di partenza");
+		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
+		ListGridField optionalField = new ListGridField("optional", "N. Optional");
 		optionalField.setAlign(Alignment.LEFT);
 		ListGridField paymentField = new ListGridField("payment", "Pagamento");
 		ListGridField cautionField = new ListGridField("caution", "Cauzione");
 		ListGridField finishedField = new ListGridField("finished", "Concluso");
 
-		tabRental.setFields(new ListGridField[] { idField, startField,
-				endField, rentedCarField, carTypeField, customerField,
-				startingAgencyField, arrivalAgencyField, optionalField,
-				paymentField, cautionField, finishedField });
+		tabRental.setFields(new ListGridField[] { idField, startField, endField, rentedCarField, carTypeField, customerField, startingAgencyField,
+				arrivalAgencyField, optionalField, paymentField, cautionField, finishedField });
 		vPanel.addChild(tabRental);
 		rp.clear();
 		rp.add(vPanel);

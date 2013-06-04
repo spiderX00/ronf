@@ -117,7 +117,7 @@ public class RentalDS extends DataSource {
 									+ p.getArrivalAgency().getId() + " - " + p
 									.getArrivalAgency().getName()), p
 									.getOptional().size(), "pagamento", p
-									.getCaution(), p.isFinished());
+									.getCaution(), p.isFinished(), p);
 					i++;
 
 				}

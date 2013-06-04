@@ -36,6 +36,7 @@ import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.MultiComboBoxLayoutStyle;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -126,7 +127,6 @@ public class MakeRental extends Dialog {
 						dynamicForm.getField("id").hide();
 						dynamicForm.getField("rentedCar").hide();
 						dynamicForm.getField("optional").hide();
-
 					}
 
 					@Override
@@ -161,29 +161,29 @@ public class MakeRental extends Dialog {
 			@Override
 			public void onChange(ChangeEvent event) {
 				String selectedItem = (String) event.getValue();
-				AvailableCarRequestDTO request = new AvailableCarRequestDTO(carTypeMap.get(selectedItem), (Date) (dynamicForm.getValue("start")), (Date) (dynamicForm.getValue("end")));
-				carService.findAvailableCar(request,
-						new AsyncCallback<List<Car>>() {
-							@Override
-							public void onSuccess(List<Car> result) {
-								if (result.isEmpty()) {
-									carModelItem.setValueMap(new String[] {});
-									carModelItem.disable();
-								} else {
-									for (Car c : result) {
-										carMap.put(c.getModel(), c);
-									}
-									carModelItem.enable();
-									carModelItem.setValueMap(carMap.keySet().toArray(new String[] {}));
-								}
+				AvailableCarRequestDTO request = new AvailableCarRequestDTO(carTypeMap.get(selectedItem), (Date) (dynamicForm.getValue("start")),
+						(Date) (dynamicForm.getValue("end")));
+				carService.findAvailableCar(request, new AsyncCallback<List<Car>>() {
+					@Override
+					public void onSuccess(List<Car> result) {
+						if (result.isEmpty()) {
+							carModelItem.setValueMap(new String[] {});
+							carModelItem.disable();
+						} else {
+							for (Car c : result) {
+								carMap.put(c.getModel(), c);
 							}
+							carModelItem.enable();
+							carModelItem.setValueMap(carMap.keySet().toArray(new String[] {}));
+						}
+					}
 
-							@Override
-							public void onFailure(Throwable caught) {
-								Window.alert("Impossible to load available cars:" + caught.getMessage());
-							}
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to load available cars:" + caught.getMessage());
+					}
 
-						});
+				});
 			}
 		});
 		carModelItem.addChangeHandler(new ChangeHandler() {
@@ -206,6 +206,7 @@ public class MakeRental extends Dialog {
 					optionalMap.put(o.getName(), o);
 				}
 				optionalItem.setValueMap(optionalMap.keySet().toArray(new String[] {}));
+				optionalItem.setLayoutStyle(MultiComboBoxLayoutStyle.VERTICAL);
 			}
 
 		});
@@ -255,6 +256,7 @@ public class MakeRental extends Dialog {
 					@Override
 					public void onFailure(Throwable caught) {
 						Window.alert("Impossible to create rental : " + caught.getMessage());
+
 					}
 				});
 
