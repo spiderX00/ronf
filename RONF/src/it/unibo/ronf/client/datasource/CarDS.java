@@ -76,7 +76,7 @@ public class CarDS extends DataSource {
 
 				int i = 0;
 				for (Car p : result) {
-					carRecord[i] = new CarRecord(p.getId(), p.getModel(), p.getPlate(), p.getGasolineType(), p.getSeatsNumber(), p.getAgency().getName(), p
+					carRecord[i] = new CarRecord(p.getId(), p.getModel(), p.getPlate(), p.getGasolineType(), p.getSeatsNumber(), p.getOriginAgency().getName(), p
 							.getType().getType());
 					i++;
 

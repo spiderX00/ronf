@@ -8,16 +8,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Car implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String model;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String plate;
 	private String gasolineType;
 	private int seatsNumber;
 	@OneToOne
-	private Agency agency;
+	private Agency currentAgency;
+	@OneToOne
+	private Agency originAgency;
 	@OneToOne
 	private CarType type;
 
@@ -61,20 +64,28 @@ public class Car implements java.io.Serializable {
 		this.seatsNumber = seatsNumber;
 	}
 
-	public Agency getAgency() {
-		return agency;
-	}
-
-	public void setAgency(Agency agency) {
-		this.agency = agency;
-	}
-
 	public CarType getType() {
 		return type;
 	}
 
 	public void setType(CarType type) {
 		this.type = type;
+	}
+
+	public Agency getCurrentAgency() {
+		return currentAgency;
+	}
+
+	public void setCurrentAgency(Agency currentAgency) {
+		this.currentAgency = currentAgency;
+	}
+
+	public Agency getOriginAgency() {
+		return originAgency;
+	}
+
+	public void setOriginAgency(Agency originAgency) {
+		this.originAgency = originAgency;
 	}
 
 }

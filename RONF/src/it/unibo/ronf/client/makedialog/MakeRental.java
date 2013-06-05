@@ -178,7 +178,7 @@ public class MakeRental extends Dialog {
 							carModelItem.disable();
 						} else {
 							for (Car c : result) {
-								carMap.put(c.getAgency().getName() + " - " + c.getModel(), c);
+								carMap.put(c.getOriginAgency().getName() + " - " + c.getModel(), c);
 							}
 							carModelItem.enable();
 							carModelItem.setValueMap(carMap.keySet().toArray(new String[] {}));

@@ -39,7 +39,7 @@ public class CarRestClient {
 			
 			if (logger.isDebugEnabled()) {
 				for (Car c : cars) {
-					logger.debug("Traovata macchina: " + c.getModel() + " at " + c.getAgency().getName()+ " in "+a.getName());
+					logger.debug("Traovata macchina: " + c.getModel() + " at " + c.getOriginAgency().getName()+ " in "+a.getName());
 				}
 			}
 			

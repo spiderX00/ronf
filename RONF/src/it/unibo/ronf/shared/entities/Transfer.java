@@ -2,6 +2,7 @@ package it.unibo.ronf.shared.entities;
 
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 
@@ -9,6 +10,7 @@ import javax.persistence.*;
  *
  */
 @Entity
+@XmlRootElement
 public class Transfer implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,9 +20,9 @@ public class Transfer implements java.io.Serializable {
 	
 	@OneToMany
 	private List<TransferAction> transfers;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private Agency startAgency;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private Agency arrivalAgency;
 	
 

@@ -34,7 +34,7 @@ public class Rental implements java.io.Serializable {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private Payment fine;
 	private float caution;
-	private boolean finished;
+	private boolean finished = false;
 
 	public Date getStart() {
 		return start;

@@ -2,6 +2,12 @@ package it.unibo.ronf.server.services;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import it.unibo.ronf.server.dao.TransferDAO;
 import it.unibo.ronf.shared.entities.Transfer;
 import it.unibo.ronf.shared.services.TransferService;
@@ -14,6 +20,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("transferService")
+@Path("/transfer")
 public class TransferServiceImpl implements TransferService {
 	
 	@Autowired
@@ -30,6 +37,9 @@ public class TransferServiceImpl implements TransferService {
 	}
 
 	@Override
+	@POST
+	@Produces({ MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_XML })
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void createTransfer(Transfer t) {
 		transferDAO.persist(t);

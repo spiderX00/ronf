@@ -2,6 +2,7 @@ package it.unibo.ronf.shared.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Payment implements java.io.Serializable {
 	private String paymentMethod;
 	@Temporal(TemporalType.DATE)
 	private Date dateOfPayment;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private Customer userPayer;
 
 	public float getAmount() {

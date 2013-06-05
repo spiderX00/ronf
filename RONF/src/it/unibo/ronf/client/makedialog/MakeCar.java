@@ -128,7 +128,7 @@ public class MakeCar extends Dialog {
 				car.setPlate(dynamicForm.getValueAsString("plate"));
 				car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
 				car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
-				car.setAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
+				car.setOriginAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
 
 				carService.createCar(car, new AsyncCallback<Void>() {
 					@Override

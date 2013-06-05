@@ -1,9 +1,12 @@
 package it.unibo.ronf.client;
 
 import it.unibo.ronf.shared.entities.Agency;
+
 import it.unibo.ronf.shared.entities.Employee;
+
 import it.unibo.ronf.shared.services.AgencyService;
 import it.unibo.ronf.shared.services.AgencyServiceAsync;
+
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
 import it.unibo.ronf.shared.services.InitService;
@@ -55,7 +58,7 @@ public class RONF implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
-		
+
 		initService.preLoginInitEntities(new AsyncCallback<Void>() {
 
 			@Override
@@ -69,7 +72,7 @@ public class RONF implements EntryPoint {
 
 			}
 		});
-		
+
 		final DynamicForm loginForm = new DynamicForm();
 		layoutMain.setWidth100();
 		loginButton = new Button("Login");
@@ -182,10 +185,10 @@ public class RONF implements EntryPoint {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Error while tryng login: "
-						+ caught.getMessage());
+				Window.alert("Error while tryng login: " + caught.getMessage());
 				loginButton.enable();
 			}
 		});
 	}
+
 }
