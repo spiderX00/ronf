@@ -19,8 +19,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.context.annotation.Scope;
+
 @Service("transferService")
 @Path("/transfer")
+@Scope("t")
 public class TransferServiceImpl implements TransferService {
 	
 	@Autowired
