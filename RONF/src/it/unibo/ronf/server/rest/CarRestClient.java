@@ -31,15 +31,18 @@ public class CarRestClient {
 		List<Car> allAvailableCars = new ArrayList<>();
 
 		for (Agency a : agencyDAO.findAll()) {
-			logger.error("richiesta inoltrata a " + a.getName());
+			logger.debug("Richiesta inoltrata a " + a.getName());
 			Client client = Client.create();
 			client.setConnectTimeout(10000);
 			WebResource webResource = client.resource(getBaseUrl(a.getIpAddress(), a.getPort()));
-			List<Car> cars = webResource.accept(MediaType.APPLICATION_XML).post(new GenericType<List<Car>>() {
-			}, request);
-			for (Car c : cars) {
-				logger.error("Found Car: " + c.getModel() + " at " + c.getAgency().getName());
+			List<Car> cars = webResource.accept(MediaType.APPLICATION_XML).post(new GenericType<List<Car>>() {}, request);
+			
+			if (logger.isDebugEnabled()) {
+				for (Car c : cars) {
+					logger.debug("Traovata macchina: " + c.getModel() + " at " + c.getAgency().getName()+ " in "+a.getName());
+				}
 			}
+			
 			allAvailableCars.addAll(cars);
 		}
 		return allAvailableCars;

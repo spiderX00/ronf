@@ -70,7 +70,6 @@ public class CarServiceImpl implements CarService {
 	@Produces({ MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_XML })
 	public List<Car> findAvailableCar(AvailableCarRequestDTO request) {
-		logger.error("Chiamato metodo findAvailaBleCar in CarServiceImpl");
 		return carDAO.findAvailableCar(request.getType(), request.getStart(), request.getEnd());
 	}
 
@@ -96,7 +95,6 @@ public class CarServiceImpl implements CarService {
 		List<Car> allFound = new ArrayList<>();
 		allFound.addAll(localCars);
 		try {
-
 			List<Car> remoteCars = carRestClient.findRemoteAvailableCar(request);
 			allFound.addAll(remoteCars);
 		} catch (Exception ex) {

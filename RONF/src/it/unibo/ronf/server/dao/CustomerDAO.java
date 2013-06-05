@@ -33,7 +33,7 @@ public class CustomerDAO extends JpaDAO<Customer> {
 		try {
 
 			TypedQuery<Customer> query = em.createQuery(
-					"SELCT c FROM Customer C WHERE c.docNumber = :docNumber",
+					"SELECT c FROM Customer C WHERE c.docNumber = :docNumber",
 					entityClass);
 
 			query.setParameter("docNumber", docNumber);

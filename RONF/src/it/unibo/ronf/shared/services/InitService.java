@@ -6,6 +6,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("ronfServices/initService")
 public interface InitService extends RemoteService{
 	
-	void initEntities();
+	void preLoginInitEntities();
+	
+	void postLoginInitEntities();
 
 }

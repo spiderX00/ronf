@@ -6,6 +6,8 @@ import it.unibo.ronf.shared.services.AgencyService;
 import it.unibo.ronf.shared.services.AgencyServiceAsync;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
+import it.unibo.ronf.shared.services.InitService;
+import it.unibo.ronf.shared.services.InitServiceAsync;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +27,6 @@ import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
-import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -38,6 +38,7 @@ public class RONF implements EntryPoint {
 
 	private final EmployeeServiceAsync employeeService = GWT.create(EmployeeService.class);
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
+	private final InitServiceAsync initService = GWT.create(InitService.class);
 
 	private VLayout layoutMain = new VLayout();
 	private HLayout layoutForm = new HLayout();
@@ -54,6 +55,21 @@ public class RONF implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
+		
+		initService.preLoginInitEntities(new AsyncCallback<Void>() {
+
+			@Override
+			public void onSuccess(Void result) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fallito preLogin()");
+
+			}
+		});
+		
 		final DynamicForm loginForm = new DynamicForm();
 		layoutMain.setWidth100();
 		loginButton = new Button("Login");
@@ -141,6 +157,19 @@ public class RONF implements EntryPoint {
 					layoutMain.removeChild(layoutForm);
 					layoutMain.removeChild(layoutButton);
 					/* carica menu principale */
+					initService.postLoginInitEntities(new AsyncCallback<Void>() {
+
+						@Override
+						public void onSuccess(Void result) {
+							// TODO Auto-generated method stub
+						}
+
+						@Override
+						public void onFailure(Throwable caught) {
+							Window.alert("Fallito postLogin()");
+
+						}
+					});
 					new MainMenu();
 				}
 

@@ -4,6 +4,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface InitServiceAsync {
 
-	void initEntities(AsyncCallback<Void> callback);
+	void preLoginInitEntities(AsyncCallback<Void> callback);
+
+	void postLoginInitEntities(AsyncCallback<Void> callback);
 
 }

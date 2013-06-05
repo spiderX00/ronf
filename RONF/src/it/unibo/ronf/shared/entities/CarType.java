@@ -12,6 +12,7 @@ public class CarType implements java.io.Serializable {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@Column(unique=true)
 	private String type;
 	private float dailyCost;
 
