@@ -18,5 +18,7 @@ public interface TransferService extends RemoteService {
 	public void createTransfer(Transfer t);
 	
 	public boolean removeById(long id);
+	
+	public List<Transfer> findAllPending();
 
 }

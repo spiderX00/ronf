@@ -121,12 +121,13 @@ public class RentalServiceImpl implements RentalService {
 		logger.debug("Inoltrata richiesta trasferimento!");
 		TransferAction transferAction = new TransferAction();
 		transferAction.setRequiredCar(r.getRentedCar());
-		transferAction.setSuccess(false);
+		transferAction.setSuccessAction(false);
 		transferAction.setTransferDate(r.getStart());
 
 		Transfer transferToDo = new Transfer();
 		transferToDo.setArrivalAgency(agencyDAO.getCurrentAgency());
 		transferToDo.setStartAgency(r.getRentedCar().getOriginAgency());
+		transferToDo.setSuccess(false);
 		
 		List<TransferAction> listAction = new LinkedList<TransferAction>();
 		listAction.add(transferAction);

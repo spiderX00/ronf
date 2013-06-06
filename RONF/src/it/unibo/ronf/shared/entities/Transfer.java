@@ -24,6 +24,8 @@ public class Transfer implements java.io.Serializable {
 	private Agency startAgency;
 	@OneToOne(cascade=CascadeType.PERSIST)
 	private Agency arrivalAgency;
+	private boolean success;
+
 	
 
 	public Transfer() {
@@ -52,6 +54,14 @@ public class Transfer implements java.io.Serializable {
 
 	public void setArrivalAgency(Agency arrivalAgency) {
 		this.arrivalAgency = arrivalAgency;
+	}
+
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
 
 	

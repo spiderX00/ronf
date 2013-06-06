@@ -38,5 +38,16 @@ public class TransferDAO extends JpaDAO<Transfer> {
 		
 	}
 	
+	public List<Transfer> findAllPending() {
+				
+		TypedQuery<Transfer> query = em.createQuery(
+				"SELECT t FROM Transfer t WHERE t.success = :state", entityClass);
+		
+		query.setParameter("state", false);
+		
+		return query.getResultList();
+		
+	}
+	
 	
 }

@@ -71,7 +71,7 @@ public class TransferServiceImpl implements TransferService {
 				
 		for(int i = 0; i<taList.size(); i++) {
 			
-			if (taList.get(i).isSuccess())
+			if (taList.get(i).isSuccessAction())
 				continue;
 			else
 				return false;
@@ -81,6 +81,11 @@ public class TransferServiceImpl implements TransferService {
 		return true;
 		
 		
+	}
+
+	@Override
+	public List<Transfer> findAllPending() {
+		return transferDAO.findAllPending();
 	}
 	
 	
