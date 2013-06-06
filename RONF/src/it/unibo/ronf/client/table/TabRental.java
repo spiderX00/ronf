@@ -87,8 +87,6 @@ public class TabRental extends ListGrid {
 		endField.setDateFormatter(DateDisplayFormat.TOEUROPEANSHORTDATE);
 		ListGridField rentedCarField = new ListGridField("rentedCar", "Macchina");
 		rentedCarField.setCanFilter(false);
-		ListGridField carTypeField = new ListGridField("rentedType", "Tipo Macchina");
-		carTypeField.setCanFilter(false);
 		ListGridField customerField = new ListGridField("customer", "Cliente");
 		ListGridField startingAgencyField = new ListGridField("startingAgency", "Agenzia di partenza");
 		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
@@ -98,7 +96,7 @@ public class TabRental extends ListGrid {
 		ListGridField cautionField = new ListGridField("caution", "Cauzione");
 		ListGridField finishedField = new ListGridField("finished", "Concluso");
 
-		tabRental.setFields(new ListGridField[] { idField, startField, endField, rentedCarField, carTypeField, customerField, startingAgencyField,
+		tabRental.setFields(new ListGridField[] { idField, startField, endField, rentedCarField, customerField, startingAgencyField,
 				arrivalAgencyField, optionalField, paymentField, cautionField, finishedField });
 		vPanel.addChild(tabRental);
 		rp.clear();

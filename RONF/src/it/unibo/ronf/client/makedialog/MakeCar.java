@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.debugging.sourcemap.dev.protobuf.UnknownFieldSet.Field;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -106,6 +107,7 @@ public class MakeCar extends Dialog {
 			public void onChanged(ChangedEvent event) {
 				String selectedItem = (String) event.getValue();
 				car.setType(carTypeMap.get(selectedItem));
+				dynamicForm.getField("type").setValue(car.getType().getType());
 			}
 		});
 		Button btnCancel = new Button("Cancel");
@@ -129,7 +131,6 @@ public class MakeCar extends Dialog {
 				car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
 				car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
 				car.setOriginAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
-
 				carService.createCar(car, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {

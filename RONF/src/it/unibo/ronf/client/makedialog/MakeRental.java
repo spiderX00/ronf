@@ -198,6 +198,7 @@ public class MakeRental extends Dialog {
 			public void onChange(ChangeEvent event) {
 				String selectedItem = (String) event.getValue();
 				rental.setRentedCar(carMap.get(selectedItem));
+				dynamicForm.getField("rentedCar").setValue(rental.getRentedCar().getModel());
 			}
 		});
 		optionalService.findAll(new AsyncCallback<List<Optional>>() {
@@ -235,7 +236,7 @@ public class MakeRental extends Dialog {
 				}
 				
 				rental.setOptional(optionalList);
-				
+				dynamicForm.getField("optional").setValue(rental.getOptional().size());
 				paymentService.makePayment(rental, new AsyncCallback<Payment>() {
 
 					@Override
@@ -273,13 +274,6 @@ public class MakeRental extends Dialog {
 						dynamicForm.editNewRecord();
 					}
 				});
-				List<Optional> optionalList = new ArrayList<Optional>();
-				String s = optionalItem.getDisplayValue();
-				String[] optional = s.split(",");
-				for (String o : optional) {
-					optionalList.add(optionalMap.get(o));
-				}
-				
 				rental.setCustomer(customersMap.get(dynamicForm.getValueAsString("customer")));
 				rental.setStartingAgency(agencyMap.get(dynamicForm.getValueAsString("startingAgency")));
 				rental.setArrivalAgency(agencyMap.get(dynamicForm.getValueAsString("arrivalAgency")));
