@@ -28,8 +28,8 @@ public class TransferRestClient {
 		Client client = Client.create();
 		client.setConnectTimeout(10000);
 		WebResource webResource = client.resource(getURI(t.getStartAgency()));
-		ClientResponse response = webResource.type("application/xml").post(ClientResponse.class, t);
-		//webResource.accept(MediaType.APPLICATION_XML).post(t);
+		//ClientResponse response = webResource.type("application/xml").post(ClientResponse.class, t);
+		webResource.accept(MediaType.APPLICATION_XML).post(t);
 		logger.debug("Post eseguita dal client");
 	}
 

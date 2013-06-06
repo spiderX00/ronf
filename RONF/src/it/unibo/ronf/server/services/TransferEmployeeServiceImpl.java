@@ -44,4 +44,9 @@ public class TransferEmployeeServiceImpl implements TransferEmployeeService {
 		
 	}
 
+	@Override
+	public List<TransferEmployee> findAll() {
+		return teDAO.findAll();
+	}
+
 }

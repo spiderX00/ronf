@@ -18,4 +18,6 @@ public interface TransferEmployeeServiceAsync {
 	void updateTransferEmployeeBusy(TransferEmployee te,
 			AsyncCallback<Void> callback);
 
+	void findAll(AsyncCallback<List<TransferEmployee>> callback);
+
 }
