@@ -8,10 +8,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.server.dao.TransferDAO;
 import it.unibo.ronf.shared.entities.Transfer;
 import it.unibo.ronf.shared.services.TransferService;
 import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.TransferAction;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,15 @@ import org.springframework.context.annotation.Scope;
 
 @Service("transferService")
 @Path("/transfer")
-@Scope("t")
+@Scope("request")
 public class TransferServiceImpl implements TransferService {
 	
 	@Autowired
-	TransferDAO transferDAO;
+	private TransferDAO transferDAO;
 
+	@Autowired
+	private CarDAO carDAO;
+	
 	@Override
 	public List<Transfer> findByStartAgency(Agency startAgency) {
 		return transferDAO.findByStartAgency(startAgency);
@@ -45,8 +50,14 @@ public class TransferServiceImpl implements TransferService {
 	@Consumes({ MediaType.APPLICATION_XML })
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
 	public void createTransfer(Transfer t) {
+		for(TransferAction ta : t.getTransfers()) {
+			Car c = carDAO.findByPlate(ta.getRequiredCar().getPlate());
+			if (c == null) {
+				throw new IllegalStateException("Impossible to find car with plate: "+ta.getRequiredCar().getPlate()+" in this agency");
+			}
+			ta.setRequiredCar(c);
+		}
 		transferDAO.persist(t);
-		
 	}
 
 	/**
@@ -79,17 +90,10 @@ public class TransferServiceImpl implements TransferService {
 		
 		transferDAO.remove(toRemove);
 		return true;
-		
-		
 	}
 
 	@Override
 	public List<Transfer> findAllPending() {
 		return transferDAO.findAllPending();
 	}
-	
-	
-	
-	
-
 }

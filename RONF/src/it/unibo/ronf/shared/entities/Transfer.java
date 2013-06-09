@@ -18,11 +18,11 @@ public class Transfer implements java.io.Serializable {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<TransferAction> transfers;
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne
 	private Agency startAgency;
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne
 	private Agency arrivalAgency;
 	private boolean success;
 

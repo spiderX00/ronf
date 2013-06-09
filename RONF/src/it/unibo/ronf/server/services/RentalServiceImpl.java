@@ -12,6 +12,7 @@ import it.unibo.ronf.shared.entities.Transfer;
 import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.RentalService;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +47,9 @@ public class RentalServiceImpl implements RentalService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createRental(Rental rental) {
 		if (rental.getStart().compareTo(rental.getEnd()) >= 0) {
-			throw new IllegalArgumentException("You must specify a valid date range!");
+			String start = DateFormat.getDateInstance().format(rental.getStart());//, "yyyy/MM/dd");
+			String end = DateFormat.getDateInstance().format(rental.getEnd());//, "yyyy/MM/dd");
+			throw new IllegalArgumentException("You must specify a valid date range! start:"+start+" end:"+end);
 		}
 
 		if (!rental.getRentedCar().getOriginAgency().getName().equals(agencyDAO.getCurrentAgency().getName())) {
