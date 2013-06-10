@@ -56,4 +56,14 @@ public class AgencyServiceImpl implements AgencyService {
 		agencyDAO.setCurrentAgency(a);		
 	}
 
+	@Override
+	public Agency getCurrentAgency() {
+		return agencyDAO.getCurrentAgency();
+	}
+
+	@Override
+	public List<Agency> getOthersAgencies() {
+		return agencyDAO.getOthers();
+	}
+
 }

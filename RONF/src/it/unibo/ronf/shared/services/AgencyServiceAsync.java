@@ -20,4 +20,8 @@ public interface AgencyServiceAsync {
 
 	void setCurrentAgency(Agency a, AsyncCallback<Void> callback);
 
+	void getCurrentAgency(AsyncCallback<Agency> callback);
+
+	void getOthersAgencies(AsyncCallback<List<Agency>> callback);
+
 }

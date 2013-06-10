@@ -2,7 +2,6 @@ package it.unibo.ronf.server.dao;
 
 import it.unibo.ronf.shared.entities.Agency;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -51,6 +50,17 @@ public class AgencyDAO extends JpaDAO<Agency> {
 	
 	public void setCurrentAgency(Agency currentAgency) {
 		this.currentAgency = currentAgency;
+	}
+	
+	public List<Agency> getOthers() {
+		
+		TypedQuery<Agency> query = em.createQuery(
+				"SELECT a FROM Agency a WHERE a.name != :current", entityClass);
+		
+		query.setParameter("current", getCurrentAgency().getName());
+		
+		return query.getResultList();
+		
 	}
 
 }

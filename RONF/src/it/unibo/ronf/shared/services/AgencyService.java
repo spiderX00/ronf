@@ -21,5 +21,9 @@ public interface AgencyService extends RemoteService {
 	public void removeById(long id);
 
 	public List<Agency> findAll();
+	
+	Agency getCurrentAgency();
+	
+	List<Agency> getOthersAgencies();
 
 }
