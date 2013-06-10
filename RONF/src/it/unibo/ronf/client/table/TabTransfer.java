@@ -117,13 +117,12 @@ public class TabTransfer extends ListGrid {
 		tabTransfer.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField surnameField = new ListGridField("surname", "Cognome");
-		ListGridField ageField = new ListGridField("age", "Età");
-		ageField.setAlign(Alignment.LEFT);
+		ListGridField startingAgencyField = new ListGridField("startAgency", "Agenzia di partenza");
+		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
+		ListGridField successField = new ListGridField("success", "Concluso");
 		
-		tabTransfer.setFields(new ListGridField[] { idField, nameField, surnameField,
-				ageField});
+		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField,
+				successField});
 		vPanel.addChild(tabTransfer);
 		rp.clear();
 		rp.add(vPanel);

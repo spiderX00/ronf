@@ -1,15 +1,22 @@
 package it.unibo.ronf.client.makedialog;
 
-import it.unibo.ronf.client.datasource.RentalDS;
 import it.unibo.ronf.client.datasource.TransferDS;
 import it.unibo.ronf.client.table.TabTransfer;
 import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Car;
+import it.unibo.ronf.shared.entities.CarType;
 import it.unibo.ronf.shared.entities.Transfer;
+import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.AgencyService;
 import it.unibo.ronf.shared.services.AgencyServiceAsync;
+import it.unibo.ronf.shared.services.CarService;
+import it.unibo.ronf.shared.services.CarServiceAsync;
+import it.unibo.ronf.shared.services.CarTypeService;
+import it.unibo.ronf.shared.services.CarTypeServiceAsync;
 import it.unibo.ronf.shared.services.TransferService;
 import it.unibo.ronf.shared.services.TransferServiceAsync;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,14 +33,27 @@ import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.DateItem;
+import com.smartgwt.client.widgets.form.fields.MultiComboBoxItem;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeTransfer extends Dialog {
 
 	private final TransferServiceAsync transferService = GWT.create(TransferService.class);
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
+	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
+	private final CarServiceAsync carService = GWT.create(CarService.class);
 	private HLayout hLayout;
 	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
+	private MultiComboBoxItem transferActionItem;
+	private Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
+	private Map<String, Car> carMap = new HashMap<String, Car>();
+	private SelectItem carTypeItem;
+	private TransferAction transferAction;
+	private DateItem data;
 
 	public MakeTransfer() {
 
@@ -44,12 +64,19 @@ public class MakeTransfer extends Dialog {
 		hLayout = new HLayout();
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
-		agencyService.findAll(new AsyncCallback<List<Agency>>() {
+		final DynamicForm dynamicForm3 = new DynamicForm();
+		transferActionItem = new MultiComboBoxItem("transferAction", "Transfer Action");
+		carTypeItem = new SelectItem("carType", "Tipo");
+		carTypeItem.setEmptyDisplayValue("Select Type");
+		data = new DateItem("data", "Data transferimento");
+		dynamicForm3.setFields(data, carTypeItem, transferActionItem);
+		addItem(dynamicForm3);
+
+		agencyService.getOthersAgencies(new AsyncCallback<List<Agency>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
+				Window.alert("Error while loading Agency:" + caught.getMessage());
 			}
 
 			@Override
@@ -63,10 +90,41 @@ public class MakeTransfer extends Dialog {
 				}
 				dynamicForm.setDataSource(new TransferDS("transferDS", tabTransfer, agencyMap));
 				dynamicForm.getField("id").hide();
+				dynamicForm.getField("arrivalAgency").hide();
 				dynamicForm.getField("success").hide();
+				dynamicForm.getField("startAgency").addChangeHandler(new StartAgencyHandler());
 
 			}
 		});
+		final Transfer transfer = new Transfer();
+		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
+			@Override
+			public void onSuccess(List<CarType> result) {
+				for (CarType ct : result) {
+					carTypeMap.put(ct.getType(), ct);
+				}
+				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load car type: " + caught.getMessage());
+			}
+		});
+
+		List<TransferAction> transferActionList = new ArrayList<TransferAction>();
+		String s = transferActionItem.getDisplayValue();
+		if (!s.trim().isEmpty()) {
+			String[] optional = s.split(",");
+			for (String o : optional) {
+				transferAction = new TransferAction();
+				transferAction.setRequiredCar(carMap.get(o));
+				transferAction.setSuccessAction(false);
+				transferAction.setTransferDate(data.getValueAsDate());
+				transferActionList.add(transferAction);
+			}
+			transfer.setTransfers(transferActionList);
+		}
 
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);
@@ -83,24 +141,34 @@ public class MakeTransfer extends Dialog {
 						dynamicForm.editNewRecord();
 					}
 				});
-				Transfer transfer = new Transfer();
 				transfer.setStartAgency(agencyMap.get(dynamicForm.getValueAsString("startAgency")));
-				transfer.setArrivalAgency(agencyMap.get(dynamicForm.getValueAsString("arrivalAgency")));
-				transfer.setSuccess(false);	
-				transferService.createTransfer(transfer, new AsyncCallback<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						MakeTransfer.this.hide();
-						Window.alert("Transfer Created!");
-
-					}
+				transfer.setSuccess(false);
+				agencyService.getCurrentAgency(new AsyncCallback<Agency>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create Transfer : " + caught);
+						Window.alert("Impossible to get current agency : " + caught);
+
+					}
+
+					@Override
+					public void onSuccess(Agency result) {
+						transfer.setArrivalAgency(result);
+						transferService.createTransfer(transfer, new AsyncCallback<Void>() {
+							@Override
+							public void onSuccess(Void result) {
+								MakeTransfer.this.hide();
+								Window.alert("Transfer Created!");
+
+							}
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Impossible to create Transfer : " + caught);
+							}
+						});
 					}
 				});
-
 			}
 		});
 
@@ -114,6 +182,32 @@ public class MakeTransfer extends Dialog {
 		});
 		addItem(hLayout);
 		hLayout.moveTo(30, 231);
+
+	}
+
+	class StartAgencyHandler implements ChangeHandler {
+
+		@Override
+		public void onChange(ChangeEvent event) {
+			String selectedItem = (String) event.getValue();
+			carService.getAllFreeCars(agencyMap.get(selectedItem), new AsyncCallback<List<Car>>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Error while loading Agency:" + caught.getMessage());
+				}
+
+				@Override
+				public void onSuccess(List<Car> result) {
+					for (Car c : result) {
+						carMap.put(c.getModel(), c);
+					}
+
+					transferActionItem.setValueMap(carMap.keySet().toArray(new String[] {}));
+				}
+
+			});
+		}
 
 	}
 
