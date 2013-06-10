@@ -106,5 +106,15 @@ public class CarDAO extends JpaDAO<Car> {
 		List<Car> carListType = query.getResultList();
 		return carListType;
 	}
-
+	
+	
+	public List<Car> getAllFreeCars() {
+		
+		TypedQuery<Car> query = em.createQuery(
+				"SELECT c FROM Car c WHERE c NOT IN "+
+		        "(SELECT r.rentedCar FROM Rental r)", entityClass);
+		
+		return query.getResultList();
+		
+	}
 }

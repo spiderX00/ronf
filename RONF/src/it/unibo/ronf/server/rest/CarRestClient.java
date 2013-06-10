@@ -1,6 +1,7 @@
 package it.unibo.ronf.server.rest;
 
 import it.unibo.ronf.server.dao.AgencyDAO;
+import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
@@ -34,27 +35,58 @@ public class CarRestClient {
 			logger.debug("Richiesta inoltrata a " + a.getName());
 			Client client = Client.create();
 			client.setConnectTimeout(10000);
-			WebResource webResource = client.resource(getBaseUrl(a.getIpAddress(), a.getPort()));
-			List<Car> cars = webResource.accept(MediaType.APPLICATION_XML).post(new GenericType<List<Car>>() {}, request);
-			
+			WebResource webResource = client.resource(getBaseUrlAvailable(
+					a.getIpAddress(), a.getPort()));
+			List<Car> cars = webResource.accept(MediaType.APPLICATION_XML)
+					.post(new GenericType<List<Car>>() {
+					}, request);
+
 			if (logger.isDebugEnabled()) {
 				for (Car c : cars) {
-					logger.debug("Traovata macchina: " + c.getModel() + " at " + c.getOriginAgency().getName()+ " in "+a.getName());
+					logger.debug("Traovata macchina: " + c.getModel() + " at "
+							+ c.getOriginAgency().getName() + " in "
+							+ a.getName());
 				}
 			}
-			
+
 			allAvailableCars.addAll(cars);
 		}
 		return allAvailableCars;
 
 	}
 
-	public String getBaseUrl(String ip, int port) {
-		// if (Utils.isProductionMode()) {
-		return "http://" + ip + ":" + port + "/RONF/rest/cars/";
-		// } else {
-		// return "http://127.0.0.1:8081/rest/cars/";
-		// }
+	public String getBaseUrlAvailable(String ip, int port) {
+		return "http://" + ip + ":" + port + "/RONF/rest/cars/available";
+	}
+
+	public List<Car> getRemoteFreeCar(Agency a) {
+
+		List<Car> freeRemote = new ArrayList<>();
+
+		logger.debug("Richiesta macchine libere inoltrata a " + a.getName());
+		Client client = Client.create();
+		client.setConnectTimeout(1000);
+		WebResource webResource = client.resource(getBaseUrlFree(a));
+		webResource.path("free");
+		freeRemote = webResource.accept(MediaType.APPLICATION_XML).post(
+				new GenericType<List<Car>>() {
+				});
+
+		if (logger.isDebugEnabled()) {
+			for (Car c : freeRemote) {
+				logger.debug("Traovata macchina free per parco: "
+						+ c.getModel() + " at " + c.getOriginAgency().getName()
+						+ " in " + a.getName());
+			}
+		}
+
+		return freeRemote;
+
+	}
+
+	public String getBaseUrlFree(Agency a) {
+		return "http://" + a.getIpAddress() + ":" + a.getPort()
+				+ "RONF/rest/cars/";
 	}
 
 }

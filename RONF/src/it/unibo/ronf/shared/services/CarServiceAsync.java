@@ -1,6 +1,7 @@
 package it.unibo.ronf.shared.services;
 
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
+import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
 
@@ -30,5 +31,7 @@ public interface CarServiceAsync {
 
 	void findAvailableCarsInAllAgencies(AvailableCarRequestDTO request,
 			AsyncCallback<List<Car>> callback);
+
+	void getAllFreeCars(Agency a, AsyncCallback<List<Car>> callback);
 
 }

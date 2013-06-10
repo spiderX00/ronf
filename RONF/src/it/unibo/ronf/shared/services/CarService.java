@@ -4,6 +4,7 @@ package it.unibo.ronf.shared.services;
 import java.util.List;
 
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
+import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
 
@@ -31,6 +32,8 @@ public interface CarService extends RemoteService {
 	public List<Car> findByType(CarType cartype);
 	
 	public List<Car> findAvailableCarsInAllAgencies(AvailableCarRequestDTO request);
+	
+	public List<Car> getAllFreeCars(Agency a);
 
 
 }

@@ -30,7 +30,7 @@ public class TransferDAO extends JpaDAO<Transfer> {
 		TypedQuery<Transfer> query = em.createQuery(
 				"SELECT t FROM Transfer t WHERE t.arrivalAgency = :arrivalAgency", entityClass);
 
-		query.setParameter("startAgency", arrivalAgency);
+		query.setParameter("arrivalAgency", arrivalAgency);
 
 		List<Transfer> transferList = query.getResultList();
 

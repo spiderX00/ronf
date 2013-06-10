@@ -3,6 +3,7 @@ package it.unibo.ronf.server.services;
 import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.server.rest.CarRestClient;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
+import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
 import it.unibo.ronf.shared.services.CarService;
@@ -67,6 +68,7 @@ public class CarServiceImpl implements CarService {
 	 */
 	@Override
 	@POST
+	@Path("/available")
 	@Produces({ MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_XML })
 	public List<Car> findAvailableCar(AvailableCarRequestDTO request) {
@@ -102,5 +104,26 @@ public class CarServiceImpl implements CarService {
 		}
 		return allFound;
 	}
+
+	
+	@POST
+	@Path("/free")
+	@Produces({ MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_XML })
+	private List<Car> searchFree() {
+		return carDAO.getAllFreeCars();
+	}
+
+	@Override
+	public List<Car> getAllFreeCars(Agency a) {
+		List<Car> foundFree;
+		foundFree = carRestClient.getRemoteFreeCar(a);
+		return foundFree;
+	}
+	
+	
+	
+	
+	
 
 }
