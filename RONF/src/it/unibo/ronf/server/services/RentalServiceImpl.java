@@ -4,7 +4,7 @@ import it.unibo.ronf.server.dao.AgencyDAO;
 import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.server.dao.RentalDAO;
 import it.unibo.ronf.server.dao.TransferEmployeeDAO;
-import it.unibo.ronf.server.rest.TransferRestClient;
+import it.unibo.ronf.server.rest.client.TransferRestClient;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.Rental;
@@ -13,8 +13,8 @@ import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.RentalService;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -54,11 +54,11 @@ public class RentalServiceImpl implements RentalService {
 
 		if (!rental.getRentedCar().getOriginAgency().getName().equals(agencyDAO.getCurrentAgency().getName())) {
 
-			logger.debug("ATTENZIONE trasferimento richiesto!");
+			logger.debug("ATTENZIONE trasferimento richiesto da:"+rental.getRentedCar().getOriginAgency().getName());
 			
 			requestTransfer(rental);
 			
-			logger.debug("Richiesta trasferimento iniviata!");
+			logger.debug("Richiesta trasferimento iniviata a:"+rental.getRentedCar().getOriginAgency().getName() );
 
 			Car tempCar = new Car();
 			tempCar.setCurrentAgency(agencyDAO.getCurrentAgency());
@@ -74,7 +74,6 @@ public class RentalServiceImpl implements RentalService {
 			rental.setRentedCar(tempCar);
 			rentalDAO.persist(rental);
 			return;
-
 		}
 
 		rentalDAO.persist(rental);
@@ -121,7 +120,7 @@ public class RentalServiceImpl implements RentalService {
 
 	private void requestTransfer(Rental r) {
 
-		logger.debug("Inoltrata richiesta trasferimento!");
+		logger.debug("Inizio inoltro richiesta trasferimento a: "+r.getRentedCar().getOriginAgency().getName());
 		TransferAction transferAction = new TransferAction();
 		transferAction.setRequiredCar(r.getRentedCar());
 		transferAction.setSuccessAction(false);
@@ -132,15 +131,13 @@ public class RentalServiceImpl implements RentalService {
 		transferToDo.setStartAgency(r.getRentedCar().getOriginAgency());
 		transferToDo.setSuccess(false);
 		
-		List<TransferAction> listAction = new LinkedList<TransferAction>();
+		List<TransferAction> listAction = new ArrayList<TransferAction>();
 		listAction.add(transferAction);
 		
 		transferToDo.setTransfers(listAction);
-		
 
 		try {
-			logger.debug("Invio richiesta trasferimento al client!");
-			transferRestClient.sendRequestTransfer(transferToDo);
+			transferRestClient.sendTransferRequest(transferToDo);
 		} catch (Exception ex) {
 			logger.error("error while sending request for transfer to other agency: -->" + ex.getMessage());
 		}

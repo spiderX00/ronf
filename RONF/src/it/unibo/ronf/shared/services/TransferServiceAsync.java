@@ -17,8 +17,6 @@ public interface TransferServiceAsync {
 
 	void createTransfer(Transfer t, AsyncCallback<Void> callback);
 
-	void removeById(long id, AsyncCallback<Boolean> callback);
-
 	void findAllPending(AsyncCallback<List<Transfer>> callback);
 
 	void findAll(AsyncCallback<List<Transfer>> callback);

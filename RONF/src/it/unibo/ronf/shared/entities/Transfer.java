@@ -2,31 +2,34 @@ package it.unibo.ronf.shared.entities;
 
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 
  * @author lory
- *
+ * 
  */
 @Entity
 @XmlRootElement
 public class Transfer implements java.io.Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private static final long serialVersionUID = 2721176873450373970L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@OneToMany(cascade=CascadeType.ALL)
+
+	//Quando un entity contiene relazioni OneToMany è obbligatorio mettere il FetchType.EAGER
+	//in quanto altrimenti con il FetchType.LAZY eclipselink sostituisce l'implememntazione della lista
+	//con un IndirectList (che gwt non riesce a serializzare) anzichè ArrayList
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<TransferAction> transfers;
 	@OneToOne
 	private Agency startAgency;
 	@OneToOne
 	private Agency arrivalAgency;
 	private boolean success;
-
-	
 
 	public Transfer() {
 		// TODO Auto-generated constructor stub
@@ -63,7 +66,6 @@ public class Transfer implements java.io.Serializable {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	
 
 	public long getId() {
 		return id;
@@ -72,6 +74,4 @@ public class Transfer implements java.io.Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-
 }

@@ -14,16 +14,12 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("ronfServices/carService")
 public interface CarService extends RemoteService {
-	
-	public List<Car> findByModel(String model);
 
 	public Car findByPlate(String plate);
 	
 	public List<Car> findByGasolineType(String gasolineType);
 
 	public void createCar(Car car);
-	
-	public List<Car> findAvailableCar(AvailableCarRequestDTO request);
 	
 	public void removeById(long id);
 	
@@ -34,6 +30,5 @@ public interface CarService extends RemoteService {
 	public List<Car> findAvailableCarsInAllAgencies(AvailableCarRequestDTO request);
 	
 	public List<Car> getAllFreeCars(Agency a);
-
 
 }

@@ -1,4 +1,4 @@
-package it.unibo.ronf.server.rest;
+package it.unibo.ronf.server.rest.client;
 
 import it.unibo.ronf.server.dao.AgencyDAO;
 import it.unibo.ronf.server.dao.CarDAO;
@@ -31,12 +31,16 @@ public class CarRestClient {
 	public List<Car> findRemoteAvailableCar(AvailableCarRequestDTO request) {
 		List<Car> allAvailableCars = new ArrayList<>();
 
-		for (Agency a : agencyDAO.findAll()) {
+		for (Agency a : agencyDAO.getOthers()) {
+			
 			logger.debug("Richiesta inoltrata a " + a.getName());
+			
 			Client client = Client.create();
 			client.setConnectTimeout(10000);
-			WebResource webResource = client.resource(getBaseUrlAvailable(
-					a.getIpAddress(), a.getPort()));
+			WebResource webResource = client.resource(getBaseUrl(a)).path("available");
+			
+			logger.debug("Request URI:" + webResource.getURI());
+			
 			List<Car> cars = webResource.accept(MediaType.APPLICATION_XML)
 					.post(new GenericType<List<Car>>() {
 					}, request);
@@ -64,10 +68,13 @@ public class CarRestClient {
 		List<Car> freeRemote = new ArrayList<>();
 
 		logger.debug("Richiesta macchine libere inoltrata a " + a.getName());
+
 		Client client = Client.create();
 		client.setConnectTimeout(1000);
-		WebResource webResource = client.resource(getBaseUrlFree(a));
-		webResource.path("free");
+		WebResource webResource = client.resource(getBaseUrl(a)).path("free");
+
+		logger.debug("Request URI:" + webResource.getURI());
+
 		freeRemote = webResource.accept(MediaType.APPLICATION_XML).post(
 				new GenericType<List<Car>>() {
 				});
@@ -86,7 +93,12 @@ public class CarRestClient {
 
 	public String getBaseUrlFree(Agency a) {
 		return "http://" + a.getIpAddress() + ":" + a.getPort()
-				+ "RONF/rest/cars/";
+				+ "/RONF/rest/cars/free";
+	}
+
+	public String getBaseUrl(Agency a) {
+		return "http://" + a.getIpAddress() + ":" + a.getPort()
+				+ "/RONF/rest/cars";
 	}
 
 }

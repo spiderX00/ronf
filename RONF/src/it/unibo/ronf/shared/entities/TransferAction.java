@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class TransferAction implements java.io.Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3718963073333055327L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

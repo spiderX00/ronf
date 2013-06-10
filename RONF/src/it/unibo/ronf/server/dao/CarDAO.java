@@ -10,14 +10,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
-import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.stereotype.Repository;
 
 @Repository("carDAO")
 public class CarDAO extends JpaDAO<Car> {
 
 	private static final Logger logger = Logger.getLogger(CarDAO.class);
-	
+
 	public List<Car> findByModel(String model) {
 
 		TypedQuery<Car> query = em.createQuery(
@@ -75,12 +74,15 @@ public class CarDAO extends JpaDAO<Car> {
 	 */
 	public List<Car> findAvailableCar(CarType type, Date start, Date end) {
 		// Macchine di un determinato tipo meno quelle noleggiate
-		TypedQuery<Car>queryFree = em.createQuery("SELECT c FROM Car c "
-				+ "WHERE c.type.type = :type AND c NOT IN " +
-				"(SELECT r.rentedCar FROM Rental r WHERE r.rentedCar.type.type = :type)", Car.class);
+		TypedQuery<Car> queryFree = em
+				.createQuery(
+						"SELECT c FROM Car c "
+								+ "WHERE c.type.type = :type AND c NOT IN "
+								+ "(SELECT r.rentedCar FROM Rental r WHERE r.rentedCar.type.type = :type)",
+						Car.class);
 		queryFree.setParameter("type", type.getType());
 		List<Car> freeCars = queryFree.getResultList();
-		
+
 		// Macchine di un determinato tipo noleggiate ma disponibili nel periodo
 		// richiesto
 		queryFree = em.createQuery("SELECT c.rentedCar FROM Rental c "
@@ -90,7 +92,7 @@ public class CarDAO extends JpaDAO<Car> {
 		queryFree.setParameter("type", type.getType());
 		queryFree.setParameter("start", start);
 		queryFree.setParameter("end", end);
-		
+
 		// unione delle macchine non noleggiate con quelle
 		// noleggiate ma disponibili nel periodo richiesto
 		List<Car> availableCars = queryFree.getResultList();
@@ -106,15 +108,15 @@ public class CarDAO extends JpaDAO<Car> {
 		List<Car> carListType = query.getResultList();
 		return carListType;
 	}
-	
-	
+
 	public List<Car> getAllFreeCars() {
-		
+
 		TypedQuery<Car> query = em.createQuery(
-				"SELECT c FROM Car c WHERE c NOT IN "+
-		        "(SELECT r.rentedCar FROM Rental r)", entityClass);
-		
+				"SELECT c FROM Car c WHERE "
+						+ "c NOT IN (SELECT r.rentedCar FROM Rental r) AND "
+						+ "c NOT IN (SELECT ta.requiredCar FROM TransferAction ta WHERE ta.successAction = false)", entityClass);
+
 		return query.getResultList();
-		
+
 	}
 }

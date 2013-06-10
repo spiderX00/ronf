@@ -6,8 +6,6 @@ import it.unibo.ronf.shared.services.TransferService;
 import it.unibo.ronf.shared.services.TransferServiceAsync;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.util.BooleanCallback;
@@ -56,19 +54,19 @@ public class TabTransfer extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								transferService.removeById(
-										rollOverRecord.getAttributeAsLong("id"),
-										new AsyncCallback<Boolean>() {
-											@Override
-											public void onSuccess(Boolean result) {
-											}
-
-											@Override
-											public void onFailure(
-													Throwable caught) {
-												Window.alert("Errore nell'eliminazione");
-											}
-										});
+//								transferService.removeById(
+//										rollOverRecord.getAttributeAsLong("id"),
+//										new AsyncCallback<Boolean>() {
+//											@Override
+//											public void onSuccess(Boolean result) {
+//											}
+//
+//											@Override
+//											public void onFailure(
+//													Throwable caught) {
+//												Window.alert("Errore nell'eliminazione");
+//											}
+//										});
 							}
 						}
 					});
