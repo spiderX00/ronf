@@ -22,8 +22,8 @@ public interface AgencyService extends RemoteService {
 
 	public List<Agency> findAll();
 	
-	Agency getCurrentAgency();
+	public Agency getCurrentAgency();
 	
-	List<Agency> getOthersAgencies();
+	public List<Agency> getOthersAgencies();
 
 }

@@ -18,10 +18,10 @@ public interface AgencyServiceAsync {
 
 	public void findAll(AsyncCallback<List<Agency>> callback);
 
-	void setCurrentAgency(Agency a, AsyncCallback<Void> callback);
+	public void setCurrentAgency(Agency a, AsyncCallback<Void> callback);
 
-	void getCurrentAgency(AsyncCallback<Agency> callback);
+	public void getCurrentAgency(AsyncCallback<Agency> callback);
 
-	void getOthersAgencies(AsyncCallback<List<Agency>> callback);
+	public void getOthersAgencies(AsyncCallback<List<Agency>> callback);
 
 }
