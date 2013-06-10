@@ -161,9 +161,19 @@ public class InitServiceImpl implements InitService {
 				car2.setPlate("def789");
 				car2.setSeatsNumber(5);
 				car2.setType(c2);
+				
+				Car car3 = new Car();
+				car3.setOriginAgency(agency);
+				car3.setGasolineType("Diesel");
+				car3.setModel("Fiat Doblò");
+				car3.setPlate("6dh74w");
+				car3.setSeatsNumber(5);
+				car3.setType(c2);
+				
 
 				carDAO.persist(car1);
 				carDAO.persist(car2);
+				carDAO.persist(car3);
 
 				Customer cus = new Customer();
 				cus.setAge(36);
@@ -176,15 +186,24 @@ public class InitServiceImpl implements InitService {
 			}
 
 			if (agencyDAO.getCurrentAgency().getPort() == 8081) {
-				Car car3 = new Car();
-				car3.setOriginAgency(agency);
-				car3.setGasolineType("Benzina");
-				car3.setModel("Seat Leon");
-				car3.setPlate("123ghi");
-				car3.setSeatsNumber(5);
-				car3.setType(c3);
+				Car car4 = new Car();
+				car4.setOriginAgency(agency);
+				car4.setGasolineType("Benzina");
+				car4.setModel("Seat Leon");
+				car4.setPlate("123ghi");
+				car4.setSeatsNumber(5);
+				car4.setType(c3);
+				
+				Car car5 = new Car();
+				car5.setOriginAgency(agency);
+				car5.setGasolineType("Benzina");
+				car5.setModel("Smart");
+				car5.setPlate("j747iy");
+				car5.setSeatsNumber(2);
+				car5.setType(c1);
 
-				carDAO.persist(car3);
+				carDAO.persist(car4);
+				carDAO.persist(car5);
 
 				Customer cus = new Customer();
 				cus.setAge(29);
