@@ -45,12 +45,14 @@ public class MakeCar extends Dialog {
 	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
 	private Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
 
+	private DynamicForm dynamicForm;
+
 	private HLayout hLayout;
 	private SelectItem carTypeItem;
 
 	public MakeCar() {
 		setSize("370", "500px");
-		final DynamicForm dynamicForm = new DynamicForm();
+		dynamicForm = new DynamicForm();
 		dynamicForm.setSize("350px", "194px");
 		addItem(dynamicForm);
 		hLayout = new HLayout();
@@ -117,34 +119,7 @@ public class MakeCar extends Dialog {
 		Button btnCrea = new Button("Crea");
 		hLayout.addMember(btnCrea);
 		hLayout.setAlign(Alignment.CENTER);
-		btnCrea.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				/** al click viene creato un nuovo Customer */
-				dynamicForm.saveData(new DSCallback() {
-					public void execute(DSResponse response, Object rawData, DSRequest request) {
-						dynamicForm.editNewRecord();
-					}
-				});
-
-				car.setModel(dynamicForm.getValueAsString("model"));
-				car.setPlate(dynamicForm.getValueAsString("plate"));
-				car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
-				car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
-				car.setOriginAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
-				carService.createCar(car, new AsyncCallback<Void>() {
-					@Override
-					public void onSuccess(Void result) {
-						MakeCar.this.hide();
-						Window.alert("Car Created!");
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create Car : " + caught);
-					}
-				});
-			}
-		});
+		btnCrea.addClickHandler(new CreateBtnHandler());
 
 		btnCancel.addClickHandler(new ClickHandler() {
 			@Override
@@ -154,5 +129,34 @@ public class MakeCar extends Dialog {
 		});
 		addItem(hLayout);
 		hLayout.moveTo(30, 231);
+	}
+
+	class CreateBtnHandler implements ClickHandler {
+		public void onClick(ClickEvent event) {
+			/** al click viene creato un nuovo Customer */
+			dynamicForm.saveData(new DSCallback() {
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
+					dynamicForm.editNewRecord();
+				}
+			});
+
+			car.setModel(dynamicForm.getValueAsString("model"));
+			car.setPlate(dynamicForm.getValueAsString("plate"));
+			car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
+			car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
+			car.setOriginAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
+			carService.createCar(car, new AsyncCallback<Void>() {
+				@Override
+				public void onSuccess(Void result) {
+					MakeCar.this.hide();
+					Window.alert("Car Created!");
+				}
+
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Impossible to create Car : " + caught);
+				}
+			});
+		}
 	}
 }

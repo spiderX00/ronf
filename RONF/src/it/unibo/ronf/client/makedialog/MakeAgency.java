@@ -21,29 +21,44 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeAgency extends Dialog {
-	private final AgencyServiceAsync agencyService = GWT
-			.create(AgencyService.class);
+	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private HLayout hLayout;
-	
-	public MakeAgency() {
-	setSize("400px", "330px");
-	final DynamicForm dynamicForm = new DynamicForm();
-	dynamicForm.setSize("350px", "194px");
-	addItem(dynamicForm);
-	hLayout = new HLayout();
-	hLayout.setHeight("46px");
-	hLayout.setMembersMargin(40);
-	final TabAgency tabAgency = new TabAgency();
-	dynamicForm.setDataSource(AgencyDS.getInstance(tabAgency));
-	dynamicForm.getField("id").hide();
-	Button btnCancel = new Button("Cancel");
-	btnCancel.setAlign(Alignment.CENTER);
-	hLayout.addMember(btnCancel);
+	private DynamicForm dynamicForm;
 
-	Button btnCrea = new Button("Crea");
-	hLayout.addMember(btnCrea);
-	hLayout.setAlign(Alignment.CENTER);
-	btnCrea.addClickHandler(new ClickHandler() {
+	public MakeAgency() {
+		setSize("400px", "330px");
+		dynamicForm = new DynamicForm();
+		dynamicForm.setSize("350px", "194px");
+		addItem(dynamicForm);
+		hLayout = new HLayout();
+		hLayout.setHeight("46px");
+		hLayout.setMembersMargin(40);
+		final TabAgency tabAgency = new TabAgency();
+		dynamicForm.setDataSource(AgencyDS.getInstance(tabAgency));
+		dynamicForm.getField("id").hide();
+		Button btnCancel = new Button("Cancel");
+		btnCancel.setAlign(Alignment.CENTER);
+		hLayout.addMember(btnCancel);
+
+		Button btnCrea = new Button("Crea");
+		hLayout.addMember(btnCrea);
+		hLayout.setAlign(Alignment.CENTER);
+		btnCrea.addClickHandler(new CreateBtnHandler());
+
+		btnCancel.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				MakeAgency.this.hide();
+
+			}
+		});
+		addItem(hLayout);
+		hLayout.moveTo(30, 231);
+
+	}
+	
+	class CreateBtnHandler implements ClickHandler {
 		public void onClick(ClickEvent event) {
 			/** al click viene creato un nuovo Customer */
 			dynamicForm.saveData(new DSCallback() {
@@ -63,7 +78,6 @@ public class MakeAgency extends Dialog {
 						public void onSuccess(Void result) {
 							MakeAgency.this.hide();
 							Window.alert("Optional Created!");
-
 						}
 
 						@Override
@@ -72,21 +86,7 @@ public class MakeAgency extends Dialog {
 									+ caught);
 						}
 					});
-
 		}
-	});
-
-	btnCancel.addClickHandler(new ClickHandler() {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			MakeAgency.this.hide();
-
-		}
-	});
-	addItem(hLayout);
-	hLayout.moveTo(30, 231);
-
-}
+	}
 
 }
