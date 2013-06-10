@@ -88,6 +88,11 @@ public class TransferServiceImpl implements TransferService {
 		return transferDAO.findAllPending();
 	}
 	
+	@Override
+	public List<Transfer> findAll() {
+		return transferDAO.findAll();
+	}
+	
 	
 	
 	

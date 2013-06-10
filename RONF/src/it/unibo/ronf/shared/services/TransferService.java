@@ -8,7 +8,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-@RemoteServiceRelativePath("transferServices/carTypeService")
+@RemoteServiceRelativePath("ronfServices/transferService")
 public interface TransferService extends RemoteService {
 	
 	public List<Transfer> findByStartAgency(Agency startAgency);
@@ -20,5 +20,7 @@ public interface TransferService extends RemoteService {
 	public boolean removeById(long id);
 	
 	public List<Transfer> findAllPending();
+	
+	public List<Transfer> findAll();
 
 }

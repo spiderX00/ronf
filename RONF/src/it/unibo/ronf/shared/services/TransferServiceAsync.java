@@ -21,4 +21,6 @@ public interface TransferServiceAsync {
 
 	void findAllPending(AsyncCallback<List<Transfer>> callback);
 
+	void findAll(AsyncCallback<List<Transfer>> callback);
+
 }

@@ -63,7 +63,15 @@ public class Transfer implements java.io.Serializable {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
+	
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 
 }

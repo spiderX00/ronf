@@ -5,11 +5,14 @@ import it.unibo.ronf.client.makedialog.MakeCar;
 import it.unibo.ronf.client.makedialog.MakeEmployee;
 import it.unibo.ronf.client.makedialog.MakeOptional;
 import it.unibo.ronf.client.makedialog.MakeRental;
+import it.unibo.ronf.client.makedialog.MakeTransfer;
+import it.unibo.ronf.client.makedialog.MakeTransferEmployee;
 import it.unibo.ronf.client.makedialog.MakeUser;
 import it.unibo.ronf.client.table.TabAgency;
 import it.unibo.ronf.client.table.TabCustomer;
 import it.unibo.ronf.client.table.TabEmployee;
 import it.unibo.ronf.client.table.TabOptional;
+import it.unibo.ronf.client.table.TabTransferEmployee;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.menu.Menu;
@@ -48,24 +51,36 @@ public class MainMenu extends MenuBar {
 		MenuItem subMakeCar = new MenuItem("Crea");
 		MenuItem subViewAgency = new MenuItem("Visualizza");
 		MenuItem subMakeAgency = new MenuItem("Crea");
+		MenuItem subViewTransferEmployee = new MenuItem("Visualizza");
+		MenuItem subMakeTransferEmployee = new MenuItem("Crea");
+		MenuItem subViewTransfer = new MenuItem("Visualizza");
+		MenuItem subMakeTransfer = new MenuItem("Crea");
+		Menu transferMenu = new Menu();
 		Menu optionalMenu = new Menu();
 		Menu employeeMenu = new Menu();
 		Menu customerMenu = new Menu();
 		Menu rentalMenu = new Menu();
 		Menu carMenu = new Menu();
 		Menu agencyMenu = new Menu();
+		Menu transferEmployeeMenu = new Menu();
+		transferMenu.setShowShadow(true);
 		agencyMenu.setShowShadow(true);
 		carMenu.setShowShadow(true);
 		optionalMenu.setShowShadow(true);
 		employeeMenu.setShowShadow(true);
 		customerMenu.setShowShadow(true);
 		rentalMenu.setShowShadow(true);
+		transferEmployeeMenu.setShowShadow(true);
+		transferMenu.setTitle("Transfer");
+		transferEmployeeMenu.setTitle("Transfer Employee");
 		agencyMenu.setTitle("Agency");
 		carMenu.setTitle("Car");
 		employeeMenu.setTitle("Employee");
 		customerMenu.setTitle("Customer");
 		rentalMenu.setTitle("Rental");
 		optionalMenu.setTitle("Optional");
+		transferEmployeeMenu.setItems(subMakeTransferEmployee, subViewTransferEmployee);
+		transferMenu.setItems(subMakeTransfer, subViewTransfer);
 		optionalMenu.setItems(subMakeOptional, subViewOptional);
 		employeeMenu.setItems(subMakeEmployee, subViewEmployee);
 		customerMenu.setItems(subMakeCustomer, subViewCustomer);
@@ -182,6 +197,43 @@ public class MainMenu extends MenuBar {
 
 			}
 		});
-		setMenus(employeeMenu, customerMenu, optionalMenu, rentalMenu, carMenu, agencyMenu);
+		subViewTransferEmployee.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				new TabTransferEmployee();
+
+			}
+		});
+		subMakeTransferEmployee.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				MakeTransferEmployee makeTransferEmployee = new MakeTransferEmployee();
+				makeTransferEmployee.show();
+				makeTransferEmployee.centerInPage();
+
+			}
+		});
+		subViewTransfer.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				MakeTransfer makeTransfer = new MakeTransfer();
+				makeTransfer.hide();
+
+			}
+		});
+		subMakeTransfer.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				MakeTransfer makeTransfer = new MakeTransfer();
+				makeTransfer.show();
+				makeTransfer.centerInPage();
+
+			}
+		});
+		setMenus(employeeMenu, customerMenu, optionalMenu, rentalMenu, carMenu, agencyMenu, transferEmployeeMenu, transferMenu);
 	}
 }
