@@ -21,14 +21,14 @@ public class TransferAction implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Car requiredCar;
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private TransferEmployee employee;
 	@Temporal(TemporalType.DATE)
 	private Date transferDate;
 	private boolean successAction;
-	
+
 	public Car getRequiredCar() {
 		return requiredCar;
 	}
@@ -61,5 +61,12 @@ public class TransferAction implements java.io.Serializable {
 		this.successAction = successAction;
 	}
 
-	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 }

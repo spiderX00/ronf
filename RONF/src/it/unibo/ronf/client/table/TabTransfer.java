@@ -1,5 +1,6 @@
 package it.unibo.ronf.client.table;
 
+import it.unibo.ronf.client.datasource.TransferActionDS;
 import it.unibo.ronf.client.datasource.TransferDS;
 import it.unibo.ronf.client.record.TransferRecord;
 import it.unibo.ronf.shared.services.TransferService;
@@ -7,7 +8,10 @@ import it.unibo.ronf.shared.services.TransferServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.ListGridEditEvent;
+import com.smartgwt.client.types.RowEndEditAction;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
@@ -93,9 +97,37 @@ public class TabTransfer extends ListGrid {
              return super.getCellCSSText(record, rowNum, colNum);  
          }  
      }   
+	 
+	 public DataSource getRelatedDataSource(TransferRecord record) {  
+         return TransferActionDS.getInstance(record);  
+     }  
+
+     @Override  
+     protected Canvas getExpansionComponent(final ListGridRecord record) {  
+
+
+         VLayout layout = new VLayout(5);  
+         layout.setPadding(5);  
+
+         final ListGrid countryGrid = new ListGrid();  
+         countryGrid.setWidth(500);  
+         countryGrid.setHeight(224);  
+         countryGrid.setCellHeight(22);  
+         countryGrid.setDataSource(getRelatedDataSource(record));  
+         countryGrid.setCanEdit(true);  
+         countryGrid.setModalEditing(true);  
+         countryGrid.setEditEvent(ListGridEditEvent.CLICK);  
+         countryGrid.setListEndEditAction(RowEndEditAction.NEXT);  
+         countryGrid.setAutoSaveEdits(false);  
+
+         layout.addMember(countryGrid);  
+
+         return layout;  
+     }  
 
 	public TabTransfer() {
-
+		
+	     
 	
 
 	}
