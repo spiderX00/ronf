@@ -39,4 +39,11 @@ public class TransferActionServiceImpl implements TransferActionService {
 
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void updateSuccessTransferAction(TransferAction ta) {
+		taDAO.merge(ta);
+		
+	}
+
 }
