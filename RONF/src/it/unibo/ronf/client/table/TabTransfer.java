@@ -2,6 +2,7 @@ package it.unibo.ronf.client.table;
 
 import it.unibo.ronf.client.TransferActionDialog;
 import it.unibo.ronf.client.datasource.TransferDS;
+import it.unibo.ronf.client.record.TransferEmployeeRecord;
 import it.unibo.ronf.client.record.TransferRecord;
 import it.unibo.ronf.shared.services.TransferService;
 import it.unibo.ronf.shared.services.TransferServiceAsync;
@@ -53,26 +54,11 @@ public class TabTransfer extends ListGrid {
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					SC.confirm("Sei sicuro?", new BooleanCallback() {
-						public void execute(Boolean value) {
-							if (Boolean.TRUE.equals(value)) {
-								removeData(rollOverRecord);
-								// transferService.removeById(
-								// rollOverRecord.getAttributeAsLong("id"),
-								// new AsyncCallback<Boolean>() {
-								// @Override
-								// public void onSuccess(Boolean result) {
-								// }
-								//
-								// @Override
-								// public void onFailure(
-								// Throwable caught) {
-								// Window.alert("Errore nell'eliminazione");
-								// }
-								// });
-							}
-						}
-					});
+
+					final TransferRecord transferRecord = (TransferRecord) rollOverRecord;
+					TransferActionDialog transferActionDialog = new TransferActionDialog(transferRecord);
+					transferActionDialog.show();
+					transferActionDialog.centerInPage();
 
 				}
 			});
@@ -100,11 +86,9 @@ public class TabTransfer extends ListGrid {
 			return super.getCellCSSText(record, rowNum, colNum);
 		}
 	}
-	
-	
 
 	public TabTransfer() {
-		
+
 	}
 
 	/**
@@ -126,17 +110,17 @@ public class TabTransfer extends ListGrid {
 		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
 		ListGridField successField = new ListGridField("success", "Concluso");
 		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField, successField });
-		tabTransfer.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
-
-			@Override
-			public void onRecordDoubleClick(RecordDoubleClickEvent event) {
-				TransferRecord record = (TransferRecord) event.getRecord();
-				SC.say("Double-clicked : <b>" + record.getObject().getTransfers().get(0).getId() + "</b>");  
-				TransferActionDialog transferActionDialog = new TransferActionDialog(record);
-				transferActionDialog.show();
-				transferActionDialog.centerInPage();
-			}
-		});
+		// tabTransfer.addRecordDoubleClickHandler(new
+		// RecordDoubleClickHandler() {
+		//
+		// @Override
+		// public void onRecordDoubleClick(RecordDoubleClickEvent event) {
+		// TransferRecord record = (TransferRecord) event.getRecord();
+		// SC.say("Double-clicked : <b>" +
+		// record.getObject().getTransfers().get(0).getId() + "</b>");
+		//
+		// }
+		// });
 
 		vPanel.addChild(tabTransfer);
 		rp.clear();
