@@ -67,12 +67,13 @@ public class TabTransferEmployee extends ListGrid {
 
 								@Override
 								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
+									Window.alert("Error to find pending Transfer!" + caught.getMessage());
 
 								}
 
 								@Override
 								public void onSuccess(List<Transfer> result) {
+									if (!result.isEmpty()){
 									result.get(0).setTransferEmployee(employeeRecord.getObject());
 									transferService.SetEmployeePerTransfer(result.get(0), new AsyncCallback<Void>() {
 
@@ -83,10 +84,12 @@ public class TabTransferEmployee extends ListGrid {
 
 										@Override
 										public void onSuccess(Void result) {
+											Window.alert("Transfer Employee Assegnato con successo!");
 
 										}
 									});
-
+									}
+									else { Window.alert("Transfer Not Found");}
 								}
 							});
 
