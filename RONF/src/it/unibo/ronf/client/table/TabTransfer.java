@@ -57,19 +57,19 @@ public class TabTransfer extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-//								transferService.removeById(
-//										rollOverRecord.getAttributeAsLong("id"),
-//										new AsyncCallback<Boolean>() {
-//											@Override
-//											public void onSuccess(Boolean result) {
-//											}
-//
-//											@Override
-//											public void onFailure(
-//													Throwable caught) {
-//												Window.alert("Errore nell'eliminazione");
-//											}
-//										});
+								// transferService.removeById(
+								// rollOverRecord.getAttributeAsLong("id"),
+								// new AsyncCallback<Boolean>() {
+								// @Override
+								// public void onSuccess(Boolean result) {
+								// }
+								//
+								// @Override
+								// public void onFailure(
+								// Throwable caught) {
+								// Window.alert("Errore nell'eliminazione");
+								// }
+								// });
 							}
 						}
 					});
@@ -82,24 +82,36 @@ public class TabTransfer extends ListGrid {
 		return rollOverCanvas;
 
 	}
-	/** Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo busy di un transfer employee */
-	 @Override  
-     protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {  
-         if (getFieldName(rowNum) != null) {  
-             TransferRecord transferRecord = (TransferRecord) record;  
-             if (transferRecord.getSuccess() == true) {  
-                 return "font-weight:bold; background-color:#e60000;";  
-             } else {
-                 return "font-weight:bold; background-color:#00cc00;";  
-             }  
-         } else {  
-             return super.getCellCSSText(record, rowNum, colNum);  
-         }  
-     }   
+
+	/**
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
+	 * settato l'attributo busy di un transfer employee
+	 */
+	@Override
+	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
+		if (getFieldName(rowNum) != null) {
+			TransferRecord transferRecord = (TransferRecord) record;
+			if (transferRecord.getSuccess() == true) {
+				return "font-weight:bold; background-color:#e60000;";
+			} else {
+				return "font-weight:bold; background-color:#00cc00;";
+			}
+		} else {
+			return super.getCellCSSText(record, rowNum, colNum);
+		}
+	}
 
 	public TabTransfer() {
+		addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
 
-	
+			@Override
+			public void onRecordDoubleClick(RecordDoubleClickEvent event) {
+				TransferRecord record = (TransferRecord) event.getRecord();
+				TransferActionDialog transferActionDialog = new TransferActionDialog(record);
+				transferActionDialog.show();
+				transferActionDialog.centerInPage();
+			}
+		});
 
 	}
 
@@ -121,22 +133,10 @@ public class TabTransfer extends ListGrid {
 		ListGridField startingAgencyField = new ListGridField("startAgency", "Agenzia di partenza");
 		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
 		ListGridField successField = new ListGridField("success", "Concluso");
-		tabTransfer.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
-			
-			@Override
-			public void onRecordDoubleClick(RecordDoubleClickEvent event) {
-                TransferRecord record = (TransferRecord) event.getRecord();  
-                TransferActionDialog transferActionDialog = new TransferActionDialog(record);
-				transferActionDialog.show();
-				transferActionDialog.centerInPage();
-			}
-		});
-		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField,
-				successField});
+		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField, successField });
 		vPanel.addChild(tabTransfer);
 		rp.clear();
 		rp.add(vPanel);
 	}
 
 }
-
