@@ -16,7 +16,7 @@ public class TransferRecord extends ListGridRecord {
 	}
 	
 	public void setObject(Transfer transfer) {
-		setAttribute("trasfer", transfer);
+		setAttribute("transfer", transfer);
 	}
 	
 	public Transfer getObject() {

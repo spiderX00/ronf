@@ -8,6 +8,7 @@ import it.unibo.ronf.shared.services.TransferServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Canvas;
@@ -17,6 +18,8 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
+import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -33,7 +36,7 @@ public class TabTransfer extends ListGrid {
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
-		rollOverRecord = this.getRecord(rowNum);
+		final ListGridRecord rollOverRecord = this.getRecord(rowNum);
 
 		if (rollOverCanvas == null) {
 			rollOverCanvas = new HLayout(3);
@@ -50,11 +53,20 @@ public class TabTransfer extends ListGrid {
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					final TransferRecord transferRecord = (TransferRecord) rollOverRecord;
-					TransferActionDialog transferActionDialog = new TransferActionDialog(transferRecord);
-					transferActionDialog.show();
-					transferActionDialog.centerInPage();
+					TransferRecord transferRecord = (TransferRecord) rollOverRecord;
+					transferRecord.getObject().setSuccess(true);
+					transferService.updateSuccessTransfer(transferRecord.getObject(), new AsyncCallback<Boolean>() {
 
+						@Override
+						public void onSuccess(Boolean result) {
+							Window.alert("Update Transfer Success!");
+						}
+
+						@Override
+						public void onFailure(Throwable caught) {
+							Window.alert("Error to update Transfer " + caught.getMessage());
+						}
+					});
 				}
 			});
 
@@ -72,7 +84,7 @@ public class TabTransfer extends ListGrid {
 	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
 		if (getFieldName(rowNum) != null) {
 			TransferRecord transferRecord = (TransferRecord) record;
-			if (transferRecord.getSuccess() == true) {
+			if (transferRecord.getObject().isSuccess() == false) {
 				return "font-weight:bold; background-color:#e60000;";
 			} else {
 				return "font-weight:bold; background-color:#00cc00;";
@@ -105,17 +117,17 @@ public class TabTransfer extends ListGrid {
 		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
 		ListGridField successField = new ListGridField("success", "Concluso");
 		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField, successField });
-		// tabTransfer.addRecordDoubleClickHandler(new
-		// RecordDoubleClickHandler() {
-		//
-		// @Override
-		// public void onRecordDoubleClick(RecordDoubleClickEvent event) {
-		// TransferRecord record = (TransferRecord) event.getRecord();
-		// SC.say("Double-clicked : <b>" +
-		// record.getObject().getTransfers().get(0).getId() + "</b>");
-		//
-		// }
-		// });
+		tabTransfer.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
+
+			@Override
+			public void onRecordDoubleClick(RecordDoubleClickEvent event) {
+				TransferRecord transferRecord = (TransferRecord) event.getRecord();
+				TransferActionDialog transferActionDialog = new TransferActionDialog(transferRecord);
+				transferActionDialog.show();
+				transferActionDialog.centerInPage();
+
+			}
+		});
 
 		vPanel.addChild(tabTransfer);
 		rp.clear();

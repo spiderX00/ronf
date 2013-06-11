@@ -7,6 +7,7 @@ import it.unibo.ronf.shared.entities.TransferAction;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.core.shared.GWT;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.DataSourceDateField;
 import com.smartgwt.client.data.fields.DataSourceIntegerField;
@@ -41,6 +42,7 @@ public class TransferActionDS extends DataSource {
 		/** Effettuo la richiesta per la ricerca di tutti gli employee */
 		List<TransferAction> transferActionList = new ArrayList<TransferAction>();
 		transferActionList = record.getObject().getTransfers();
+		transferActionRecord = new TransferActionRecord[transferActionList.size()];
 		int i = 0;
 		for (TransferAction t : transferActionList) {
 			transferActionRecord[i] = new TransferActionRecord(t.getId(), t, t.getRequiredCar().getModel(), t.getTransferDate());
