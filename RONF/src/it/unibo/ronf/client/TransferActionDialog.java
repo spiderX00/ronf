@@ -25,7 +25,7 @@ public class TransferActionDialog extends Dialog{
 		ListGridField transferDateField = new ListGridField("transferDate", "Data di Transferimento");
 		transferActionGrid.setFields(startingAgencyField,transferDateField);
 		addItem(transferActionGrid);
-		
+		transferActionGrid.draw();
 		
 	}
 
