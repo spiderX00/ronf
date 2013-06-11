@@ -49,5 +49,14 @@ public class TransferRestService {
 		transferDAO.persist(t);
 		logger.debug("transfer successfully created");
 	}
+	
+	@POST
+	@Path("/update")
+	@Produces({ MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_XML })
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void setSuccessfulTransfer(Transfer t) {
+		transferDAO.merge(t);
+	}
 
 }

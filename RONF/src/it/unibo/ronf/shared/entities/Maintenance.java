@@ -21,7 +21,7 @@ public class Maintenance implements java.io.Serializable {
 	private Date date;
 	@OneToOne
 	private MaintenanceEmployee maintenanceEmployee;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<MaintenanceType> maintenances;
 
 	public Car getCar() {

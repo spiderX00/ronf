@@ -1,6 +1,7 @@
 package it.unibo.ronf.server.services;
 
 import it.unibo.ronf.server.dao.TransferDAO;
+import it.unibo.ronf.server.dao.TransferEmployeeDAO;
 import it.unibo.ronf.server.rest.client.TransferRestClient;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Transfer;
@@ -11,6 +12,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("transferService")
 public class TransferServiceImpl implements TransferService {
@@ -19,6 +22,8 @@ public class TransferServiceImpl implements TransferService {
 
 	@Autowired
 	private TransferDAO transferDAO;
+	@Autowired
+	private TransferEmployeeDAO teDAO;
 
 	@Autowired
 	private TransferRestClient transferRestClient;
@@ -46,5 +51,19 @@ public class TransferServiceImpl implements TransferService {
 	@Override
 	public void createTransfer(Transfer t) {
 		transferRestClient.sendTransferRequest(t);
+	}
+
+	@Override
+	public void updateSuccessTransfer(Transfer t) {
+		transferRestClient.update(t);
+		
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	public void SetEmployeePerTransfer(Transfer t) {
+		transferDAO.merge(t);
+		//teDAO.merge(t.getEmployee());
+		
 	}
 }

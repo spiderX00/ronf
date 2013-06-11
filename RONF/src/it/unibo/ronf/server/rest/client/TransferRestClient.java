@@ -38,4 +38,14 @@ public class TransferRestClient {
 		return res;
 	}
 
+	public void update(Transfer t) {
+		Client client = Client.create();
+		client.setConnectTimeout(10000);
+		WebResource webResource = client.resource(getURI(t.getStartAgency())).path("update");
+		logger.debug("Sending transfer UPDATING request to: "+webResource.getURI());
+		webResource.accept(MediaType.APPLICATION_XML).post(t);
+		logger.debug("Transfer successfully UPDATED on agency: "+t.getStartAgency().getName());
+		
+	}
+
 }

@@ -13,7 +13,7 @@ import it.unibo.ronf.shared.services.TransferActionService;
 import it.unibo.ronf.shared.entities.TransferEmployee;
 
 public class TransferActionServiceImpl implements TransferActionService {
-	
+
 	@Autowired
 	private TransferActionDAO taDAO;
 
@@ -33,24 +33,10 @@ public class TransferActionServiceImpl implements TransferActionService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createTransferAction(TransferAction ta) {
 		taDAO.persist(ta);
-		
-	}
 
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public void updateTransferAction(TransferAction ta) {
-		taDAO.merge(ta);
-		
-	}
-
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public void removeById(long id) {
-		taDAO.remove(taDAO.findById(id));
-		
 	}
 
 }

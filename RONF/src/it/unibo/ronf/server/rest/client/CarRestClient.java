@@ -1,11 +1,10 @@
 package it.unibo.ronf.server.rest.client;
 
 import it.unibo.ronf.server.dao.AgencyDAO;
-import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
-import it.unibo.ronf.shared.util.Utils;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +31,16 @@ public class CarRestClient {
 		List<Car> allAvailableCars = new ArrayList<>();
 
 		for (Agency a : agencyDAO.getOthers()) {
-			
+
 			logger.debug("Richiesta inoltrata a " + a.getName());
-			
+
 			Client client = Client.create();
 			client.setConnectTimeout(10000);
-			WebResource webResource = client.resource(getBaseUrl(a)).path("available");
-			
+			WebResource webResource = client.resource(getBaseUrl(a)).path(
+					"available");
+
 			logger.debug("Request URI:" + webResource.getURI());
-			
+
 			List<Car> cars = webResource.accept(MediaType.APPLICATION_XML)
 					.post(new GenericType<List<Car>>() {
 					}, request);
@@ -89,11 +89,6 @@ public class CarRestClient {
 
 		return freeRemote;
 
-	}
-
-	public String getBaseUrlFree(Agency a) {
-		return "http://" + a.getIpAddress() + ":" + a.getPort()
-				+ "/RONF/rest/cars/free";
 	}
 
 	public String getBaseUrl(Agency a) {

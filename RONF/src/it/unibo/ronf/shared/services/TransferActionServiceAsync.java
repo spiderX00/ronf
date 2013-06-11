@@ -21,8 +21,4 @@ public interface TransferActionServiceAsync {
 
 	void createTransferAction(TransferAction ta, AsyncCallback<Void> callback);
 
-	void updateTransferAction(TransferAction ta, AsyncCallback<Void> callback);
-
-	void removeById(long id, AsyncCallback<Void> callback);
-
 }

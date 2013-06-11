@@ -9,20 +9,15 @@ import it.unibo.ronf.shared.entities.TransferEmployee;
 import java.util.Date;
 import java.util.List;
 
-
 @RemoteServiceRelativePath("ronfServices/transferActionService")
 public interface TransferActionService extends RemoteService {
-	
+
 	public TransferAction findByEmployee(TransferEmployee te);
-	
+
 	public List<TransferAction> findByDate(Date transferDate);
-	
+
 	public List<TransferAction> findBySuccess(boolean success);
-	
+
 	public void createTransferAction(TransferAction ta);
-	
-	public void updateTransferAction(TransferAction ta);
-	
-	public void removeById(long id);
 
 }

@@ -27,7 +27,6 @@ public class TransferAction implements java.io.Serializable {
 	private TransferEmployee employee;
 	@Temporal(TemporalType.DATE)
 	private Date transferDate;
-	private boolean successAction;
 	
 	public Car getRequiredCar() {
 		return requiredCar;
@@ -52,14 +51,5 @@ public class TransferAction implements java.io.Serializable {
 	public void setTransferDate(Date transferDate) {
 		this.transferDate = transferDate;
 	}
-
-	public boolean isSuccessAction() {
-		return successAction;
-	}
-
-	public void setSuccessAction(boolean successAction) {
-		this.successAction = successAction;
-	}
-
 	
 }
