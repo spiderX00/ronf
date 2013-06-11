@@ -1,5 +1,6 @@
 package it.unibo.ronf.client.makedialog;
 
+import it.unibo.ronf.client.datasource.RentalDS;
 import it.unibo.ronf.client.datasource.TransferEmployeeDS;
 import it.unibo.ronf.client.table.TabTransferEmployee;
 import it.unibo.ronf.shared.entities.TransferEmployee;
@@ -36,7 +37,10 @@ public class MakeTransferEmployee extends Dialog {
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
 		final TabTransferEmployee tabTransferEmployee = new TabTransferEmployee();
-		dynamicForm.setDataSource(TransferEmployeeDS.getInstance(tabTransferEmployee));
+		if (RentalDS.getDataSource("transferDS") != null) {
+			RentalDS.getDataSource("transferDS").destroy();
+		}
+		dynamicForm.setDataSource(new TransferEmployeeDS("transferDS", tabTransferEmployee));
 		dynamicForm.getField("id").hide();
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);

@@ -28,7 +28,7 @@ public class TransferEmployeeDS extends DataSource {
 		return instance;
 	}
 
-	private TransferEmployeeDS(String id, final TabTransferEmployee tabTransferEmployee) {
+	public TransferEmployeeDS(String id, final TabTransferEmployee tabTransferEmployee) {
 
 		setID(id);
 		DataSourceIntegerField pkField = new DataSourceIntegerField("id");

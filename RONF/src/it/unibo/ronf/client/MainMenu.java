@@ -201,7 +201,8 @@ public class MainMenu extends MenuBar {
 
 			@Override
 			public void onClick(MenuItemClickEvent event) {
-				new TabTransferEmployee();
+				MakeTransferEmployee makeTransferEmployee = new MakeTransferEmployee();
+				makeTransferEmployee.hide();
 
 			}
 		});

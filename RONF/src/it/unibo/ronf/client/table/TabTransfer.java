@@ -100,20 +100,11 @@ public class TabTransfer extends ListGrid {
 			return super.getCellCSSText(record, rowNum, colNum);
 		}
 	}
+	
+	
 
 	public TabTransfer() {
-		addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
-
-			@Override
-			public void onRecordDoubleClick(RecordDoubleClickEvent event) {
-				TransferRecord record = (TransferRecord) event.getRecord();
-				SC.say("Double-clicked : <b>" + record.getObject().getTransfers().get(0).getId() + "</b>");  
-				TransferActionDialog transferActionDialog = new TransferActionDialog(record);
-				transferActionDialog.show();
-				transferActionDialog.centerInPage();
-			}
-		});
-
+		
 	}
 
 	/**
@@ -135,6 +126,18 @@ public class TabTransfer extends ListGrid {
 		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
 		ListGridField successField = new ListGridField("success", "Concluso");
 		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField, successField });
+		tabTransfer.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
+
+			@Override
+			public void onRecordDoubleClick(RecordDoubleClickEvent event) {
+				TransferRecord record = (TransferRecord) event.getRecord();
+				SC.say("Double-clicked : <b>" + record.getObject().getTransfers().get(0).getId() + "</b>");  
+				TransferActionDialog transferActionDialog = new TransferActionDialog(record);
+				transferActionDialog.show();
+				transferActionDialog.centerInPage();
+			}
+		});
+
 		vPanel.addChild(tabTransfer);
 		rp.clear();
 		rp.add(vPanel);
