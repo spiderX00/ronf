@@ -52,7 +52,7 @@ public class TabTransferEmployee extends ListGrid {
 			editImg.setShowDown(false);
 			editImg.setShowRollOver(false);
 			editImg.setLayoutAlign(Alignment.CENTER);
-			editImg.setSrc("silk/comment_edit.png");
+			editImg.setSrc("transfer.png");
 			editImg.setPrompt("AssignEmployee");
 			editImg.setHeight(16);
 			editImg.setWidth(16);
@@ -126,7 +126,7 @@ public class TabTransferEmployee extends ListGrid {
 				}
 			});
 
-			rollOverCanvas.addMember(removeImg);
+			rollOverCanvas.addMembers(removeImg, editImg);
 		}
 		return rollOverCanvas;
 

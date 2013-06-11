@@ -28,6 +28,7 @@ import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.MultiComboBoxLayoutStyle;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -72,6 +73,7 @@ public class MakeTransfer extends Dialog {
 		final DynamicForm dynamicForm3 = new DynamicForm();
 		transferActionItem = new MultiComboBoxItem("transferAction",
 				"Transfer Action");
+		transferActionItem.setLayoutStyle(MultiComboBoxLayoutStyle.VERTICAL);
 		carTypeItem = new SelectItem("carType", "Tipo");
 		carTypeItem.setEmptyDisplayValue("Select Type");
 		data = new DateItem("data", "Data transferimento");
