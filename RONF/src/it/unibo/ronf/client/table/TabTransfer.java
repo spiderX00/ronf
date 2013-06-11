@@ -2,16 +2,14 @@ package it.unibo.ronf.client.table;
 
 import it.unibo.ronf.client.TransferActionDialog;
 import it.unibo.ronf.client.datasource.TransferDS;
-import it.unibo.ronf.client.record.TransferEmployeeRecord;
 import it.unibo.ronf.client.record.TransferRecord;
 import it.unibo.ronf.shared.services.TransferService;
 import it.unibo.ronf.shared.services.TransferServiceAsync;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.util.BooleanCallback;
-import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -19,8 +17,6 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
-import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
-import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -54,7 +50,7 @@ public class TabTransfer extends ListGrid {
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-
+					Window.alert("ci sono");
 					final TransferRecord transferRecord = (TransferRecord) rollOverRecord;
 					TransferActionDialog transferActionDialog = new TransferActionDialog(transferRecord);
 					transferActionDialog.show();
