@@ -32,6 +32,15 @@ public class TransferAction implements java.io.Serializable {
 	private Car requiredCar;
 	@Temporal(TemporalType.DATE)
 	private Date transferDate;
+	private boolean successAction;
+
+	public boolean isSuccessAction() {
+		return successAction;
+	}
+
+	public void setSuccessAction(boolean successAction) {
+		this.successAction = successAction;
+	}
 
 	public Car getRequiredCar() {
 		return requiredCar;

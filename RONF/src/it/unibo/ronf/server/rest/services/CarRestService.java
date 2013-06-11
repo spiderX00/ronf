@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class CarRestService {
 	
 	@Autowired
 	private CarDAO carDAO;
+	
+	private static final Logger logger = Logger.getLogger(CarRestService.class);
 
 	@POST
 	@Path("/available")
@@ -38,6 +41,7 @@ public class CarRestService {
 	@Produces({ MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_XML })
 	public List<Car> findFreeCars() {
+		logger.debug("chiamata findFreeCars");
 		return carDAO.getAllFreeCars();
 	}
 
