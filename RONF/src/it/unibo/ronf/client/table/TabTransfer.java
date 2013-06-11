@@ -50,7 +50,6 @@ public class TabTransfer extends ListGrid {
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					Window.alert("ci sono");
 					final TransferRecord transferRecord = (TransferRecord) rollOverRecord;
 					TransferActionDialog transferActionDialog = new TransferActionDialog(transferRecord);
 					transferActionDialog.show();
