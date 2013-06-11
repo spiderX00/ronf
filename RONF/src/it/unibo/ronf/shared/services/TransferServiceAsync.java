@@ -21,8 +21,8 @@ public interface TransferServiceAsync {
 
 	public void findAll(AsyncCallback<List<Transfer>> callback);
 
-	public void updateSuccessTransfer(Transfer t, AsyncCallback<Void> callback);
+	public void updateSuccessTransfer(Transfer t, AsyncCallback<Boolean> callback);
 
-	void SetEmployeePerTransfer(Transfer t, AsyncCallback<Void> callback);
+	public void SetEmployeePerTransfer(Transfer t, AsyncCallback<Void> callback);
 
 }

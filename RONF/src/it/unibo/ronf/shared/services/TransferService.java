@@ -21,7 +21,7 @@ public interface TransferService extends RemoteService {
 	
 	public List<Transfer> findAll();
 	
-	public void updateSuccessTransfer(Transfer t);
+	public boolean updateSuccessTransfer(Transfer t);
 	
 	public void SetEmployeePerTransfer(Transfer t);
 

@@ -5,6 +5,7 @@ import it.unibo.ronf.server.dao.TransferEmployeeDAO;
 import it.unibo.ronf.server.rest.client.TransferRestClient;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Transfer;
+import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.TransferService;
 
 import java.util.List;
@@ -55,9 +56,17 @@ public class TransferServiceImpl implements TransferService {
 	}
 
 	@Override
-	public void updateSuccessTransfer(Transfer t) {
-		transferRestClient.update(t);
-
+	public boolean updateSuccessTransfer(Transfer t) {
+		
+		for(TransferAction ta: t.getTransfers()) {
+			if(ta.isSuccessAction()) {
+				continue;
+			}
+			else {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
