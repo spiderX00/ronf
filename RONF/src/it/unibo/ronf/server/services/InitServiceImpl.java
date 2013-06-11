@@ -3,6 +3,7 @@
 package it.unibo.ronf.server.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -235,6 +236,7 @@ public class InitServiceImpl implements InitService {
 				TransferAction ta = new TransferAction();
 				ta.setRequiredCar(car5);
 				ta.setSuccessAction(false);
+				ta.setTransferDate(new Date(2013, 7, 15));
 				
 				List<TransferAction> taList = new ArrayList<TransferAction> ();
 				taList.add(ta);
