@@ -17,8 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("transferService")
 public class TransferServiceImpl implements TransferService {
-	
-	private static final Logger logger = Logger.getLogger(TransferServiceImpl.class);
+
+	private static final Logger logger = Logger
+			.getLogger(TransferServiceImpl.class);
 
 	@Autowired
 	private TransferDAO transferDAO;
@@ -56,14 +57,14 @@ public class TransferServiceImpl implements TransferService {
 	@Override
 	public void updateSuccessTransfer(Transfer t) {
 		transferRestClient.update(t);
-		
+
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void SetEmployeePerTransfer(Transfer t) {
 		transferDAO.merge(t);
-		//teDAO.merge(t.getEmployee());
-		
+		teDAO.merge(t.getTransferEmployee());
+
 	}
 }

@@ -30,6 +30,16 @@ public class Transfer implements java.io.Serializable {
 	@OneToOne
 	private Agency arrivalAgency;
 	private boolean success;
+	@OneToOne
+	private TransferEmployee transferEmployee;
+	
+	public TransferEmployee getTransferEmployee() {
+		return transferEmployee;
+	}
+
+	public void setTransferEmployee(TransferEmployee transferEmployee) {
+		this.transferEmployee = transferEmployee;
+	}
 
 	public Transfer() {
 		// TODO Auto-generated constructor stub
