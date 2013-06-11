@@ -2,7 +2,14 @@ package it.unibo.ronf.shared.entities;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -21,27 +28,17 @@ public class TransferAction implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Car requiredCar;
-	@OneToOne(cascade=CascadeType.PERSIST)
-	private TransferEmployee employee;
 	@Temporal(TemporalType.DATE)
 	private Date transferDate;
-	
+
 	public Car getRequiredCar() {
 		return requiredCar;
 	}
 
 	public void setRequiredCar(Car requiredCar) {
 		this.requiredCar = requiredCar;
-	}
-
-	public TransferEmployee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(TransferEmployee employee) {
-		this.employee = employee;
 	}
 
 	public Date getTransferDate() {
@@ -51,5 +48,13 @@ public class TransferAction implements java.io.Serializable {
 	public void setTransferDate(Date transferDate) {
 		this.transferDate = transferDate;
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 }
