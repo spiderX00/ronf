@@ -136,6 +136,8 @@ public class TabTransfer extends ListGrid {
 		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
 		ListGridField successField = new ListGridField("success", "Concluso");
         tabTransfer.setDrawAheadRatio(4);  
+        tabTransfer.setShowRecordComponents(true);
+        tabTransfer.setShowRecordComponentsByCell(true);
         tabTransfer.setCanExpandRecords(true);  
 		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField,
 				successField});
