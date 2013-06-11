@@ -21,4 +21,7 @@ public interface TransferActionServiceAsync {
 
 	void createTransferAction(TransferAction ta, AsyncCallback<Void> callback);
 
+	void updateSuccessTransferAction(TransferAction ta,
+			AsyncCallback<Void> callback);
+
 }
