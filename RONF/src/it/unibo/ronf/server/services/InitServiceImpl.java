@@ -2,6 +2,9 @@
 
 package it.unibo.ronf.server.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import it.unibo.ronf.server.dao.CarTypeDAO;
 import it.unibo.ronf.server.dao.CustomerDAO;
 import it.unibo.ronf.server.dao.EmployeeDAO;
 import it.unibo.ronf.server.dao.OptionalDAO;
+import it.unibo.ronf.server.dao.TransferDAO;
 import it.unibo.ronf.server.dao.TransferEmployeeDAO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
@@ -21,6 +25,8 @@ import it.unibo.ronf.shared.entities.CarType;
 import it.unibo.ronf.shared.entities.Customer;
 import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.entities.Optional;
+import it.unibo.ronf.shared.entities.Transfer;
+import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.entities.TransferEmployee;
 import it.unibo.ronf.shared.services.InitService;
 
@@ -54,6 +60,8 @@ public class InitServiceImpl implements InitService {
 	private CustomerDAO customerDAO;
 	@Autowired
 	private TransferEmployeeDAO teDAO;
+	@Autowired
+	private TransferDAO transferDAO;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -223,6 +231,24 @@ public class InitServiceImpl implements InitService {
 				te.setUserName("bob");
 
 				teDAO.persist(te);
+				
+				TransferAction ta = new TransferAction();
+				ta.setRequiredCar(car5);
+				ta.setSuccessAction(false);
+				
+				List<TransferAction> taList = new ArrayList<TransferAction> ();
+				taList.add(ta);
+				
+				Transfer t = new Transfer();
+				t.setTransfers(taList);
+				t.setArrivalAgency(null);
+				t.setStartAgency(agency);
+				t.setTransferEmployee(te);
+				t.setSuccess(false);
+				
+				transferDAO.persist(t);
+				
+				
 			}
 
 		} catch (Exception ex) {
