@@ -1,5 +1,6 @@
 package it.unibo.ronf.client.table;
 
+import it.unibo.ronf.client.TransferActionDialog;
 import it.unibo.ronf.client.datasource.TransferDS;
 import it.unibo.ronf.client.record.TransferRecord;
 import it.unibo.ronf.shared.services.TransferService;
@@ -12,12 +13,13 @@ import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
+import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -94,25 +96,9 @@ public class TabTransfer extends ListGrid {
              return super.getCellCSSText(record, rowNum, colNum);  
          }  
      }   
-	 
-	 @Override
-     protected Canvas getExpansionComponent(final ListGridRecord record) {  
-         VLayout layout = new VLayout(5);  
-         layout.setPadding(5);  
-         Label l = new Label("Expanded row");
-//         final ListGrid countryGrid = new ListGrid();  
-//         countryGrid.setWidth(500);  
-//         countryGrid.setHeight(224);  
-//         countryGrid.setCellHeight(22);  
-//         countryGrid.setDataSource(TransferActionDS.getInstance(record));  
-         layout.addMember(l);  
-
-         return layout;  
-     }  
 
 	public TabTransfer() {
-		
-	     
+
 	
 
 	}
@@ -135,10 +121,16 @@ public class TabTransfer extends ListGrid {
 		ListGridField startingAgencyField = new ListGridField("startAgency", "Agenzia di partenza");
 		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
 		ListGridField successField = new ListGridField("success", "Concluso");
-        tabTransfer.setDrawAheadRatio(4);  
-        tabTransfer.setShowRecordComponents(true);
-        tabTransfer.setShowRecordComponentsByCell(true);
-        tabTransfer.setCanExpandRecords(true);  
+		tabTransfer.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
+			
+			@Override
+			public void onRecordDoubleClick(RecordDoubleClickEvent event) {
+                TransferRecord record = (TransferRecord) event.getRecord();  
+                TransferActionDialog transferActionDialog = new TransferActionDialog(record);
+				transferActionDialog.show();
+				transferActionDialog.centerInPage();
+			}
+		});
 		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField,
 				successField});
 		vPanel.addChild(tabTransfer);

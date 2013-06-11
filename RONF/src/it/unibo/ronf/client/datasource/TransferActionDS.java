@@ -33,13 +33,10 @@ public class TransferActionDS extends DataSource {
 		DataSourceTextField carField = new DataSourceTextField("carRequired", "Car");
 		carField.setRequired(true);
 
-		DataSourceTextField employeeField = new DataSourceTextField("employee", "Employee");
-		employeeField.setRequired(true);
-
 		DataSourceDateField transferDateField = new DataSourceDateField("transferDate", "Data trasferimento");
 		transferDateField.setRequired(true);
 
-		setFields(pkField, carField, employeeField, transferDateField);
+		setFields(pkField, carField, transferDateField);
 
 		/** Effettuo la richiesta per la ricerca di tutti gli employee */
 		List<TransferAction> transferActionList = new ArrayList<TransferAction>();
