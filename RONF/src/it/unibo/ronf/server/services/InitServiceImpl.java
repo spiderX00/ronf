@@ -241,7 +241,7 @@ public class InitServiceImpl implements InitService {
 				
 				Transfer t = new Transfer();
 				t.setTransfers(taList);
-				t.setArrivalAgency(null);
+				t.setArrivalAgency(agency);
 				t.setStartAgency(agency);
 				t.setTransferEmployee(te);
 				t.setSuccess(false);
