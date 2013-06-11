@@ -105,7 +105,6 @@ public class TabTransfer extends ListGrid {
      @Override  
      protected Canvas getExpansionComponent(final ListGridRecord record) {  
 
-
          VLayout layout = new VLayout(5);  
          layout.setPadding(5);  
 
@@ -150,7 +149,8 @@ public class TabTransfer extends ListGrid {
 		ListGridField startingAgencyField = new ListGridField("startAgency", "Agenzia di partenza");
 		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
 		ListGridField successField = new ListGridField("success", "Concluso");
-		
+        tabTransfer.setDrawAheadRatio(4);  
+        tabTransfer.setCanExpandRecords(true);  
 		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField,
 				successField});
 		vPanel.addChild(tabTransfer);
