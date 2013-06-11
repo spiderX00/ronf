@@ -38,6 +38,15 @@ public class TransferRestClient {
 		return res;
 	}
 
+	/**
+	 *  
+	 * Tale metodo usa il servizio REST affinchè un addetto al trasferimento
+	 * si collega alla sua agenzia di origine (StartAgency, contenuta in t) dalla quale partiva
+	 * il trasferimento e setta nel relativo database che il trasferimento
+	 * della/e macchina/e è stato compiuto.
+	 * 
+	 * @param t è il Transfer da aggiormare come compiuto.
+	 */
 	public void update(Transfer t) {
 		Client client = Client.create();
 		client.setConnectTimeout(10000);
