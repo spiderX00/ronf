@@ -207,6 +207,7 @@ public class MakeTransfer extends Dialog {
 				for (String o : optional) {
 					transferAction = new TransferAction();
 					transferAction.setRequiredCar(carMap.get(o));
+					transferAction.setSuccessAction(false);
 					transferAction.setTransferDate(data.getValueAsDate());
 					transferActionList.add(transferAction);
 				}
