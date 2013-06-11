@@ -1,23 +1,18 @@
 package it.unibo.ronf.client.table;
 
-import it.unibo.ronf.client.datasource.TransferActionDS;
 import it.unibo.ronf.client.datasource.TransferDS;
-import it.unibo.ronf.client.record.TransferActionRecord;
 import it.unibo.ronf.client.record.TransferRecord;
-import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.TransferService;
 import it.unibo.ronf.shared.services.TransferServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.ListGridEditEvent;
-import com.smartgwt.client.types.RowEndEditAction;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
@@ -100,16 +95,17 @@ public class TabTransfer extends ListGrid {
          }  
      }   
 	 
-     protected Canvas getExpansionComponent(final TransferRecord record) {  
+	 @Override
+     protected Canvas getExpansionComponent(final ListGridRecord record) {  
          VLayout layout = new VLayout(5);  
          layout.setPadding(5);  
-
-         final ListGrid countryGrid = new ListGrid();  
-         countryGrid.setWidth(500);  
-         countryGrid.setHeight(224);  
-         countryGrid.setCellHeight(22);  
-         countryGrid.setDataSource(TransferActionDS.getInstance(record));  
-         layout.addMember(countryGrid);  
+         Label l = new Label("Expanded row");
+//         final ListGrid countryGrid = new ListGrid();  
+//         countryGrid.setWidth(500);  
+//         countryGrid.setHeight(224);  
+//         countryGrid.setCellHeight(22);  
+//         countryGrid.setDataSource(TransferActionDS.getInstance(record));  
+         layout.addMember(l);  
 
          return layout;  
      }  
