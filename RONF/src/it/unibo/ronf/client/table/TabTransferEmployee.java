@@ -74,6 +74,7 @@ public class TabTransferEmployee extends ListGrid {
 								@Override
 								public void onSuccess(List<Transfer> result) {
 									if (!result.isEmpty()){
+									employeeRecord.getObject().setBusy(true);
 									result.get(0).setTransferEmployee(employeeRecord.getObject());
 									transferService.SetEmployeePerTransfer(result.get(0), new AsyncCallback<Void>() {
 

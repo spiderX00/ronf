@@ -107,6 +107,7 @@ public class TabTransfer extends ListGrid {
 			@Override
 			public void onRecordDoubleClick(RecordDoubleClickEvent event) {
 				TransferRecord record = (TransferRecord) event.getRecord();
+				SC.say("Double-clicked : <b>" + record.getObject().getTransfers().get(0).getId() + "</b>");  
 				TransferActionDialog transferActionDialog = new TransferActionDialog(record);
 				transferActionDialog.show();
 				transferActionDialog.centerInPage();
