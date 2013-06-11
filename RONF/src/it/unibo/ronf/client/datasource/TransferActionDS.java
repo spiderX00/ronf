@@ -3,13 +3,10 @@ package it.unibo.ronf.client.datasource;
 import it.unibo.ronf.client.record.TransferActionRecord;
 import it.unibo.ronf.client.record.TransferRecord;
 import it.unibo.ronf.shared.entities.TransferAction;
-import it.unibo.ronf.shared.services.TransferService;
-import it.unibo.ronf.shared.services.TransferServiceAsync;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.DataSourceDateField;
 import com.smartgwt.client.data.fields.DataSourceIntegerField;

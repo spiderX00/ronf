@@ -2,7 +2,9 @@ package it.unibo.ronf.client.table;
 
 import it.unibo.ronf.client.datasource.TransferActionDS;
 import it.unibo.ronf.client.datasource.TransferDS;
+import it.unibo.ronf.client.record.TransferActionRecord;
 import it.unibo.ronf.client.record.TransferRecord;
+import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.TransferService;
 import it.unibo.ronf.shared.services.TransferServiceAsync;
 
@@ -98,13 +100,7 @@ public class TabTransfer extends ListGrid {
          }  
      }   
 	 
-	 public DataSource getRelatedDataSource(TransferRecord record) {  
-         return TransferActionDS.getInstance(record);  
-     }  
-
-     @Override  
-     protected Canvas getExpansionComponent(final ListGridRecord record) {  
-
+     protected Canvas getExpansionComponent(final TransferRecord record) {  
          VLayout layout = new VLayout(5);  
          layout.setPadding(5);  
 
@@ -112,13 +108,7 @@ public class TabTransfer extends ListGrid {
          countryGrid.setWidth(500);  
          countryGrid.setHeight(224);  
          countryGrid.setCellHeight(22);  
-         countryGrid.setDataSource(getRelatedDataSource(record));  
-         countryGrid.setCanEdit(true);  
-         countryGrid.setModalEditing(true);  
-         countryGrid.setEditEvent(ListGridEditEvent.CLICK);  
-         countryGrid.setListEndEditAction(RowEndEditAction.NEXT);  
-         countryGrid.setAutoSaveEdits(false);  
-
+         countryGrid.setDataSource(TransferActionDS.getInstance(record));  
          layout.addMember(countryGrid);  
 
          return layout;  
