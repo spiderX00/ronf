@@ -1,8 +1,11 @@
 package it.unibo.ronf.client.table;
 
 import it.unibo.ronf.client.datasource.EmployeeDS;
+import it.unibo.ronf.client.record.RentalRecord;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
+import it.unibo.ronf.shared.services.TransferService;
+import it.unibo.ronf.shared.services.TransferServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;

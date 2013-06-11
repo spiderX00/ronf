@@ -1,12 +1,14 @@
 package it.unibo.ronf.client.table;
 
-import it.unibo.ronf.client.datasource.EmployeeDS;
 import it.unibo.ronf.client.datasource.TransferEmployeeDS;
 import it.unibo.ronf.client.record.TransferEmployeeRecord;
-import it.unibo.ronf.shared.services.EmployeeService;
-import it.unibo.ronf.shared.services.EmployeeServiceAsync;
+import it.unibo.ronf.shared.entities.Transfer;
 import it.unibo.ronf.shared.services.TransferEmployeeService;
 import it.unibo.ronf.shared.services.TransferEmployeeServiceAsync;
+import it.unibo.ronf.shared.services.TransferService;
+import it.unibo.ronf.shared.services.TransferServiceAsync;
+
+import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -26,8 +28,8 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class TabTransferEmployee extends ListGrid {
-	private final TransferEmployeeServiceAsync transferEmployeeService = GWT
-			.create(TransferEmployeeService.class);
+	private final TransferEmployeeServiceAsync transferEmployeeService = GWT.create(TransferEmployeeService.class);
+	private final TransferServiceAsync transferService = GWT.create(TransferService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
 	private HLayout rollOverCanvas;
@@ -46,6 +48,53 @@ public class TabTransferEmployee extends ListGrid {
 			rollOverCanvas.setSnapTo("TR");
 			rollOverCanvas.setWidth(50);
 			rollOverCanvas.setHeight(22);
+			ImgButton editImg = new ImgButton();
+			editImg.setShowDown(false);
+			editImg.setShowRollOver(false);
+			editImg.setLayoutAlign(Alignment.CENTER);
+			editImg.setSrc("silk/comment_edit.png");
+			editImg.setPrompt("AssignEmployee");
+			editImg.setHeight(16);
+			editImg.setWidth(16);
+			editImg.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					SC.confirm("Assegnare un Transfer Employee a un Transfer?", new BooleanCallback() {
+
+						@Override
+						public void execute(Boolean value) {
+							final TransferEmployeeRecord employeeRecord = (TransferEmployeeRecord) rollOverRecord;
+							transferService.findAllPending(new AsyncCallback<List<Transfer>>() {
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+
+								}
+
+								@Override
+								public void onSuccess(List<Transfer> result) {
+									result.get(0).setTransferEmployee(employeeRecord.getObject());
+									transferService.SetEmployeePerTransfer(result.get(0), new AsyncCallback<Void>() {
+
+										@Override
+										public void onFailure(Throwable caught) {
+											Window.alert("Error to set Transfer Employee " + caught.getMessage());
+										}
+
+										@Override
+										public void onSuccess(Void result) {
+
+										}
+									});
+
+								}
+							});
+
+						}
+					});
+
+				}
+			});
 			ImgButton removeImg = new ImgButton();
 			removeImg.setShowDown(false);
 			removeImg.setShowRollOver(false);
@@ -60,19 +109,16 @@ public class TabTransferEmployee extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								transferEmployeeService.removeById(
-										rollOverRecord.getAttributeAsLong("id"),
-										new AsyncCallback<Void>() {
-											@Override
-											public void onSuccess(Void result) {
-											}
+								transferEmployeeService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
+									@Override
+									public void onSuccess(Void result) {
+									}
 
-											@Override
-											public void onFailure(
-													Throwable caught) {
-												Window.alert("Errore nell'eliminazione");
-											}
-										});
+									@Override
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
+									}
+								});
 							}
 						}
 					});
@@ -85,20 +131,24 @@ public class TabTransferEmployee extends ListGrid {
 		return rollOverCanvas;
 
 	}
-	/** Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo busy di un transfer employee */
-	 @Override  
-     protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {  
-         if (getFieldName(rowNum) != null) {  
-             TransferEmployeeRecord transferEmployeeRecord = (TransferEmployeeRecord) record;  
-             if (transferEmployeeRecord.getBusy() == true) {  
-                 return "font-weight:bold; background-color:#e60000;";  
-             } else {
-                 return "font-weight:bold; background-color:#00cc00;";  
-             }  
-         } else {  
-             return super.getCellCSSText(record, rowNum, colNum);  
-         }  
-     }   
+
+	/**
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
+	 * settato l'attributo busy di un transfer employee
+	 */
+	@Override
+	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
+		if (getFieldName(rowNum) != null) {
+			TransferEmployeeRecord transferEmployeeRecord = (TransferEmployeeRecord) record;
+			if (transferEmployeeRecord.getBusy() == true) {
+				return "font-weight:bold; background-color:#e60000;";
+			} else {
+				return "font-weight:bold; background-color:#00cc00;";
+			}
+		} else {
+			return super.getCellCSSText(record, rowNum, colNum);
+		}
+	}
 
 	public TabTransferEmployee() {
 
@@ -129,13 +179,11 @@ public class TabTransferEmployee extends ListGrid {
 		ListGridField surnameField = new ListGridField("surname", "Cognome");
 		ListGridField ageField = new ListGridField("age", "Età");
 		ageField.setAlign(Alignment.LEFT);
-		
-		tabTransferEmployee.setFields(new ListGridField[] { idField, nameField, surnameField,
-				ageField});
+
+		tabTransferEmployee.setFields(new ListGridField[] { idField, nameField, surnameField, ageField });
 		vPanel.addChild(tabTransferEmployee);
 		rp.clear();
 		rp.add(vPanel);
 	}
 
 }
-
