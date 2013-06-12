@@ -5,7 +5,6 @@ import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,20 +35,16 @@ public class CarRestClient {
 
 			Client client = Client.create();
 			client.setConnectTimeout(10000);
-			WebResource webResource = client.resource(getBaseUrl(a)).path(
-					"available");
+			WebResource webResource = client.resource(getBaseUrl(a)).path("available");
 
 			logger.debug("Request URI:" + webResource.getURI());
 
-			List<Car> cars = webResource.accept(MediaType.APPLICATION_XML)
-					.post(new GenericType<List<Car>>() {
-					}, request);
+			List<Car> cars = webResource.accept(MediaType.APPLICATION_XML).post(new GenericType<List<Car>>() {
+			}, request);
 
 			if (logger.isDebugEnabled()) {
 				for (Car c : cars) {
-					logger.debug("Traovata macchina: " + c.getModel() + " at "
-							+ c.getOriginAgency().getName() + " in "
-							+ a.getName());
+					logger.debug("Traovata macchina: " + c.getModel() + " at " + c.getOriginAgency().getName() + " in " + a.getName());
 				}
 			}
 
@@ -75,15 +70,12 @@ public class CarRestClient {
 
 		logger.debug("Request URI:" + webResource.getURI());
 
-		freeRemote = webResource.accept(MediaType.APPLICATION_XML).post(
-				new GenericType<List<Car>>() {
-				});
+		freeRemote = webResource.accept(MediaType.APPLICATION_XML).post(new GenericType<List<Car>>() {
+		});
 
 		if (logger.isDebugEnabled()) {
 			for (Car c : freeRemote) {
-				logger.debug("Traovata macchina free per parco: "
-						+ c.getModel() + " at " + c.getOriginAgency().getName()
-						+ " in " + a.getName());
+				logger.debug("Traovata macchina free per parco: " + c.getModel() + " at " + c.getOriginAgency().getName() + " in " + a.getName());
 			}
 		}
 
@@ -92,8 +84,7 @@ public class CarRestClient {
 	}
 
 	public String getBaseUrl(Agency a) {
-		return "http://" + a.getIpAddress() + ":" + a.getPort()
-				+ "/RONF/rest/cars";
+		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/cars";
 	}
 
 }

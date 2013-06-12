@@ -21,12 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Path("/customers")
 @Scope("request")
 public class CustomerServiceImpl implements CustomerService {
-	
+
 	@Autowired
 	private CustomerDAO customerDAO;
-	
+
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createCustomer(Customer customer) {
 		customerDAO.persist(customer);
 	}
@@ -40,10 +40,10 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer findByDocNumber(String docNumber) {
 		return customerDAO.findByDocNumber(docNumber);
 	}
-	
+
 	@Override
 	@GET
-    @Produces({MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_XML })
 	public List<Customer> findAll() {
 		return customerDAO.findAll();
 	}
@@ -56,14 +56,14 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void remove(Customer customer) {
 		customerDAO.remove(customer);
-		
+
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
 		customerDAO.remove(customerDAO.findById(id));
-		
+
 	}
 
 }

@@ -43,7 +43,7 @@ public class CarServiceImpl implements CarService {
 	public List<Car> findByGasolineType(String gasolineType) {
 		return carDAO.findByGasolineType(gasolineType);
 	}
-	
+
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
@@ -61,23 +61,19 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public List<Car> findAvailableCarsInAllAgencies(	
-			AvailableCarRequestDTO request) {
-		List<Car> localCars = carDAO.findAvailableCar(request.getType(),
-				request.getStart(), request.getEnd());
+	public List<Car> findAvailableCarsInAllAgencies(AvailableCarRequestDTO request) {
+		List<Car> localCars = carDAO.findAvailableCar(request.getType(), request.getStart(), request.getEnd());
 		List<Car> allFound = new ArrayList<>();
 		allFound.addAll(localCars);
 		try {
-			List<Car> remoteCars = carRestClient
-					.findRemoteAvailableCar(request);
+			List<Car> remoteCars = carRestClient.findRemoteAvailableCar(request);
 			allFound.addAll(remoteCars);
 		} catch (Exception ex) {
-			logger.error("error while searching avaiable car in other agency: -->"
-					+ ex.getMessage());
+			logger.error("error while searching avaiable car in other agency: -->" + ex.getMessage());
 		}
 		return allFound;
 	}
-	
+
 	@Override
 	public List<Car> getAllFreeCars(Agency a) {
 		return carRestClient.getRemoteFreeCar(a);

@@ -4,8 +4,7 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class CarRecord extends ListGridRecord {
 
-	public CarRecord(Long id, String model, String plate, String gasolineType,
-			Integer seatsNumber, String agency, String type) {
+	public CarRecord(Long id, String model, String plate, String gasolineType, Integer seatsNumber, String agency, String type) {
 		setId(id);
 		setModel(model);
 		setPlate(plate);

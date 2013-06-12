@@ -96,8 +96,7 @@ public class TabRental extends ListGrid {
 		ListGridField cautionField = new ListGridField("caution", "Cauzione");
 		ListGridField finishedField = new ListGridField("finished", "Concluso");
 
-		tabRental.setFields(new ListGridField[] { idField, startField, endField, rentedCarField, customerField, startingAgencyField,
-				arrivalAgencyField, optionalField, paymentField, cautionField, finishedField });
+		tabRental.setFields(new ListGridField[] { idField, startField, endField, rentedCarField, customerField, startingAgencyField, arrivalAgencyField, optionalField, paymentField, cautionField, finishedField });
 		vPanel.addChild(tabRental);
 		rp.clear();
 		rp.add(vPanel);

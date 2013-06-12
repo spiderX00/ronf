@@ -116,7 +116,7 @@ public class MakeRental extends Dialog {
 		customerService.findAll(new AsyncCallback<List<Customer>>() {
 			@Override
 			public void onSuccess(List<Customer> result) {
-				customersMap = new HashMap<String,Customer>();
+				customersMap = new HashMap<String, Customer>();
 				for (Customer c : result) {
 					customersMap.put("" + c.getId() + " - " + c.getName(), c);
 				}
@@ -124,7 +124,7 @@ public class MakeRental extends Dialog {
 
 					@Override
 					public void onSuccess(List<Agency> result) {
-						agencyMap = new HashMap<String,Agency>();
+						agencyMap = new HashMap<String, Agency>();
 						for (Agency c : result) {
 							agencyMap.put("" + c.getId() + " - " + c.getName(), c);
 						}
@@ -155,7 +155,7 @@ public class MakeRental extends Dialog {
 		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
 			@Override
 			public void onSuccess(List<CarType> result) {
-				carTypeMap = new HashMap<String,CarType>();
+				carTypeMap = new HashMap<String, CarType>();
 				for (CarType ct : result) {
 					carTypeMap.put(ct.getType(), ct);
 				}
@@ -174,8 +174,7 @@ public class MakeRental extends Dialog {
 			public void onChange(ChangeEvent event) {
 				String selectedItem = (String) event.getValue();
 
-				AvailableCarRequestDTO request = new AvailableCarRequestDTO(carTypeMap.get(selectedItem), (Date) (dynamicForm.getValue("start")),
-						(Date) (dynamicForm.getValue("end")));
+				AvailableCarRequestDTO request = new AvailableCarRequestDTO(carTypeMap.get(selectedItem), (Date) (dynamicForm.getValue("start")), (Date) (dynamicForm.getValue("end")));
 				carService.findAvailableCarsInAllAgencies(request, new AsyncCallback<List<Car>>() {
 					@Override
 					public void onSuccess(List<Car> result) {
@@ -183,7 +182,7 @@ public class MakeRental extends Dialog {
 							carModelItem.clearValue();
 							carModelItem.disable();
 						} else {
-							carMap = new HashMap<String,Car>();
+							carMap = new HashMap<String, Car>();
 							for (Car c : result) {
 								carMap.put(c.getOriginAgency().getName() + " - " + c.getModel(), c);
 							}
@@ -218,7 +217,7 @@ public class MakeRental extends Dialog {
 
 			@Override
 			public void onSuccess(List<Optional> result) {
-				optionalMap = new HashMap<String,Optional>();
+				optionalMap = new HashMap<String, Optional>();
 				for (Optional o : result) {
 					optionalMap.put(o.getName(), o);
 				}
@@ -227,9 +226,9 @@ public class MakeRental extends Dialog {
 			}
 
 		});
-		
+
 		calcButtonItem.addClickHandler(new com.smartgwt.client.widgets.form.fields.events.ClickHandler() {
-			
+
 			@Override
 			public void onClick(com.smartgwt.client.widgets.form.fields.events.ClickEvent event) {
 				rental.setStart((Date) dynamicForm.getValue("start"));
@@ -237,13 +236,13 @@ public class MakeRental extends Dialog {
 				rental.setCaution(Float.parseFloat(dynamicForm.getValueAsString("caution")));
 				List<Optional> optionalList = new ArrayList<Optional>();
 				String s = optionalItem.getDisplayValue();
-				if(!s.trim().isEmpty())  {
+				if (!s.trim().isEmpty()) {
 					String[] optional = s.split(",");
 					for (String o : optional) {
 						optionalList.add(optionalMap.get(o));
 					}
 				}
-				
+
 				rental.setOptional(optionalList);
 				dynamicForm.getField("optional").setValue(rental.getOptional().size());
 				paymentService.makePayment(rental, new AsyncCallback<Payment>() {
@@ -259,14 +258,11 @@ public class MakeRental extends Dialog {
 						rental.setPayment(result);
 						sectionPayment.enable();
 						sectionPayment.expandSection();
-						
-						
+
 					}
 				});
 			}
 		});
-		
-		
 
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);

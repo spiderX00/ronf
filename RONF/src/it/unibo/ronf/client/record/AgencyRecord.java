@@ -4,8 +4,7 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class AgencyRecord extends ListGridRecord {
 
-	public AgencyRecord(Long id, String code, String name, String address,
-			String ipAddress) {
+	public AgencyRecord(Long id, String code, String name, String address, String ipAddress) {
 		setId(id);
 		setCode(code);
 		setName(name);

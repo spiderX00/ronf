@@ -51,24 +51,18 @@ public class RentalServiceImpl implements RentalService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createRental(Rental rental) {
 		if (rental.getStart().compareTo(rental.getEnd()) >= 0) {
-			String start = DateFormat.getDateInstance().format(
-					rental.getStart());
+			String start = DateFormat.getDateInstance().format(rental.getStart());
 			String end = DateFormat.getDateInstance().format(rental.getEnd());
-			throw new IllegalArgumentException(
-					"You must specify a valid date range! start:" + start
-							+ " end:" + end);
+			throw new IllegalArgumentException("You must specify a valid date range! start:" + start + " end:" + end);
 		}
 
-		if (!rental.getRentedCar().getOriginAgency().getName()
-				.equals(agencyDAO.getCurrentAgency().getName())) {
+		if (!rental.getRentedCar().getOriginAgency().getName().equals(agencyDAO.getCurrentAgency().getName())) {
 
-			logger.debug("ATTENZIONE trasferimento richiesto da:"
-					+ rental.getRentedCar().getOriginAgency().getName());
+			logger.debug("ATTENZIONE trasferimento richiesto da:" + rental.getRentedCar().getOriginAgency().getName());
 
 			requestTransfer(rental);
 
-			logger.debug("Richiesta trasferimento iniviata a:"
-					+ rental.getRentedCar().getOriginAgency().getName());
+			logger.debug("Richiesta trasferimento iniviata a:" + rental.getRentedCar().getOriginAgency().getName());
 
 			Car tempCar = new Car();
 			tempCar.setCurrentAgency(agencyDAO.getCurrentAgency());
@@ -130,8 +124,7 @@ public class RentalServiceImpl implements RentalService {
 
 	private void requestTransfer(Rental r) {
 
-		logger.debug("Inizio inoltro richiesta trasferimento a: "
-				+ r.getRentedCar().getOriginAgency().getName());
+		logger.debug("Inizio inoltro richiesta trasferimento a: " + r.getRentedCar().getOriginAgency().getName());
 		TransferAction transferAction = new TransferAction();
 		transferAction.setRequiredCar(r.getRentedCar());
 		transferAction.setTransferDate(r.getStart());
@@ -149,8 +142,7 @@ public class RentalServiceImpl implements RentalService {
 		try {
 			transferRestClient.sendTransferRequest(transferToDo);
 		} catch (Exception ex) {
-			logger.error("error while sending request for transfer to other agency: -->"
-					+ ex.getMessage());
+			logger.error("error while sending request for transfer to other agency: -->" + ex.getMessage());
 		}
 
 	}

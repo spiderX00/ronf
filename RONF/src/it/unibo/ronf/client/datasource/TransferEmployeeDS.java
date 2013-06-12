@@ -57,8 +57,7 @@ public class TransferEmployeeDS extends DataSource {
 			}
 
 			/**
-			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto
-			 * il DB
+			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
 			public void onSuccess(List<TransferEmployee> result) {
 				transferEmployeeRecord = new TransferEmployeeRecord[result.size()];
@@ -72,8 +71,8 @@ public class TransferEmployeeDS extends DataSource {
 
 				setTestData(transferEmployeeRecord);
 				/**
-				 * Una volta essermi assicurato che la chiamata Asincrona ha
-				 * avuto successo, posso mandare i dati alla ListGrid
+				 * Una volta essermi assicurato che la chiamata Asincrona ha avuto successo, posso
+				 * mandare i dati alla ListGrid
 				 */
 				TabTransferEmployee.setData(TransferEmployeeDS.this, tabTransferEmployee);
 

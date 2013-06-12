@@ -44,10 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
 		employeeDAO.remove(employeeDAO.findById(id));
-		
+
 	}
 
 }

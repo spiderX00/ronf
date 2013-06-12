@@ -42,7 +42,7 @@ public class RONF implements EntryPoint {
 	private final EmployeeServiceAsync employeeService = GWT.create(EmployeeService.class);
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private final InitServiceAsync initService = GWT.create(InitService.class);
-	
+
 	private VLayout layoutMain = new VLayout();
 	private HLayout layoutForm = new HLayout();
 	private HLayout layoutButton = new HLayout();
@@ -66,7 +66,7 @@ public class RONF implements EntryPoint {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fallito preLogin(): "+caught.getMessage());
+				Window.alert("Fallito preLogin(): " + caught.getMessage());
 			}
 		});
 
@@ -169,12 +169,11 @@ public class RONF implements EntryPoint {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Fallito postLogin(): "+caught.getMessage());
+							Window.alert("Fallito postLogin(): " + caught.getMessage());
 
 						}
 					});
-					
-					
+
 					new MainMenu();
 				}
 

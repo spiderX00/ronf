@@ -27,8 +27,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  * @author Alessio De Vita alessio.dv@gmail.com
  */
 public class MakeUser extends Dialog {
-	private final CustomerServiceAsync customerService = GWT
-			.create(CustomerService.class);
+	private final CustomerServiceAsync customerService = GWT.create(CustomerService.class);
 	private HLayout hLayout;
 
 	public MakeUser() {
@@ -53,34 +52,29 @@ public class MakeUser extends Dialog {
 			public void onClick(ClickEvent event) {
 				/** al click viene creato un nuovo Customer */
 				dynamicForm.saveData(new DSCallback() {
-					public void execute(DSResponse response, Object rawData,
-							DSRequest request) {
+					public void execute(DSResponse response, Object rawData, DSRequest request) {
 						dynamicForm.editNewRecord();
 					}
 				});
 				Customer customer = new Customer();
 				customer.setName(dynamicForm.getValueAsString("name"));
 				customer.setSurname(dynamicForm.getValueAsString("surname"));
-				customer.setAge(Integer.parseInt(dynamicForm
-						.getValueAsString("age")));
-				customer.setFiscalCode(dynamicForm
-						.getValueAsString("fiscalCode"));
+				customer.setAge(Integer.parseInt(dynamicForm.getValueAsString("age")));
+				customer.setFiscalCode(dynamicForm.getValueAsString("fiscalCode"));
 				customer.setDocNumber(dynamicForm.getValueAsString("docNumber"));
-				customerService.createCustomer(customer,
-						new AsyncCallback<Void>() {
-							@Override
-							public void onSuccess(Void result) {
-								MakeUser.this.hide();
-								SC.say("Optional Created!");
+				customerService.createCustomer(customer, new AsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						MakeUser.this.hide();
+						SC.say("Optional Created!");
 
-							}
+					}
 
-							@Override
-							public void onFailure(Throwable caught) {
-								Window.alert("Impossible to create optional : "
-										+ caught);
-							}
-						});
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to create optional : " + caught);
+					}
+				});
 
 			}
 		});

@@ -17,8 +17,7 @@ public interface MaintenanceService extends RemoteService {
 
 	public List<Maintenance> findByDate(Date date);
 
-	public List<Maintenance> findByMaintenanceEmployee(
-			MaintenanceEmployee maintenanceEmployee);
+	public List<Maintenance> findByMaintenanceEmployee(MaintenanceEmployee maintenanceEmployee);
 
 	public void createMaintenance(Maintenance mt);
 

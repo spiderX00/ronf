@@ -87,7 +87,7 @@ public class MainMenu extends MenuBar {
 		customerMenu.setItems(subMakeCustomer, subViewCustomer);
 		carMenu.setItems(subMakeCar, subViewCar);
 		agencyMenu.setItems(subMakeAgency, subViewAgency);
-		rentalMenu.setItems(subMakeRental, subViewRental,subCloseRental);
+		rentalMenu.setItems(subMakeRental, subViewRental, subCloseRental);
 		subViewOptional.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -237,15 +237,15 @@ public class MainMenu extends MenuBar {
 			}
 		});
 		subCloseRental.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(MenuItemClickEvent event) {
 				CloseRentalDialog closeRental = new CloseRentalDialog();
 				closeRental.show();
-				
+
 			}
 		});
-		
+
 		setMenus(employeeMenu, customerMenu, optionalMenu, rentalMenu, carMenu, agencyMenu, transferEmployeeMenu, transferMenu);
 	}
 }

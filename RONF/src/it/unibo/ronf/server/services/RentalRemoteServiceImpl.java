@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service("rentalRemoteService")
 public class RentalRemoteServiceImpl implements RentalRemoteService {
-	
+
 	@Autowired
 	private RentalRestClient rentalRestClient;
 
@@ -25,5 +25,5 @@ public class RentalRemoteServiceImpl implements RentalRemoteService {
 	public void closeRemoteRental(Rental r) {
 		rentalRestClient.closeRemoteRental(r);
 	}
-	
+
 }

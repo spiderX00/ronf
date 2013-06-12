@@ -10,18 +10,14 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface TransferActionServiceAsync {
 
-	void findByEmployee(TransferEmployee te,
-			AsyncCallback<TransferAction> callback);
+	void findByEmployee(TransferEmployee te, AsyncCallback<TransferAction> callback);
 
-	void findByDate(Date transferDate,
-			AsyncCallback<List<TransferAction>> callback);
+	void findByDate(Date transferDate, AsyncCallback<List<TransferAction>> callback);
 
-	void findBySuccess(boolean success,
-			AsyncCallback<List<TransferAction>> callback);
+	void findBySuccess(boolean success, AsyncCallback<List<TransferAction>> callback);
 
 	void createTransferAction(TransferAction ta, AsyncCallback<Void> callback);
 
-	void updateSuccessTransferAction(TransferAction ta,
-			AsyncCallback<Void> callback);
+	void updateSuccessTransferAction(TransferAction ta, AsyncCallback<Void> callback);
 
 }

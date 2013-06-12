@@ -9,18 +9,18 @@ import javax.persistence.InheritanceType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @XmlRootElement
 public class User implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
 	private String surname;
 	private int age;
-	
 
 	public User() {
 	}

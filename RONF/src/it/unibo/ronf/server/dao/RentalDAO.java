@@ -16,8 +16,7 @@ public class RentalDAO extends JpaDAO<Rental> {
 
 	public List<Rental> findByStart(Date start) {
 
-		TypedQuery<Rental> query = em.createQuery(
-				"SELECT r FROM Rental r WHERE r.start = :start", entityClass);
+		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.start = :start", entityClass);
 
 		query.setParameter("start", start);
 
@@ -29,8 +28,7 @@ public class RentalDAO extends JpaDAO<Rental> {
 
 	public List<Rental> findByEnd(Date end) {
 
-		TypedQuery<Rental> query = em.createQuery(
-				"SELECT r FROM Rental r WHERE r.end = :end", entityClass);
+		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.end = :end", entityClass);
 
 		query.setParameter("end", end);
 
@@ -42,10 +40,7 @@ public class RentalDAO extends JpaDAO<Rental> {
 
 	public List<Rental> findByStartingAgency(Agency startingAgency) {
 
-		TypedQuery<Rental> query = em
-				.createQuery(
-						"SELECT r FROM Rental r WHERE r.startingAgency = :startingAgency",
-						entityClass);
+		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.startingAgency = :startingAgency", entityClass);
 
 		query.setParameter("startingAgency", startingAgency);
 
@@ -57,10 +52,7 @@ public class RentalDAO extends JpaDAO<Rental> {
 
 	public List<Rental> findByArrivalAgency(Agency arrivalAgency) {
 
-		TypedQuery<Rental> query = em
-				.createQuery(
-						"SELECT r FROM Rental r WHERE r.arrivalAgency = :arrivalAgency",
-						entityClass);
+		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.arrivalAgency = :arrivalAgency", entityClass);
 
 		query.setParameter("arrivalAgency", arrivalAgency);
 
@@ -71,10 +63,7 @@ public class RentalDAO extends JpaDAO<Rental> {
 	}
 
 	public List<Rental> findByUserId(long userID) {
-		TypedQuery<Rental> query = em
-				.createQuery(
-						"SELECT r FROM Rental r WHERE r.customer.id = :userID",
-						entityClass);
+		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.customer.id = :userID", entityClass);
 
 		query.setParameter("userID", userID);
 		List<Rental> rentalListArrivalAgency = query.getResultList();

@@ -30,7 +30,7 @@ public class OptionalServiceImpl implements OptionalService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
 		optionalDAO.remove(optionalDAO.findById(id));
 

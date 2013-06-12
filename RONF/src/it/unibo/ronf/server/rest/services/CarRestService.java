@@ -21,10 +21,10 @@ import org.springframework.stereotype.Service;
 @Path("/cars")
 @Scope("request")
 public class CarRestService {
-	
+
 	@Autowired
 	private CarDAO carDAO;
-	
+
 	private static final Logger logger = Logger.getLogger(CarRestService.class);
 
 	@POST
@@ -32,8 +32,7 @@ public class CarRestService {
 	@Produces({ MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_XML })
 	public List<Car> findAvailableCar(AvailableCarRequestDTO request) {
-		return carDAO.findAvailableCar(request.getType(),
-				request.getStart(), request.getEnd());
+		return carDAO.findAvailableCar(request.getType(), request.getStart(), request.getEnd());
 	}
 
 	@POST

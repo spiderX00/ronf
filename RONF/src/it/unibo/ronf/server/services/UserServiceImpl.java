@@ -15,8 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-	private static final Logger logger = Logger
-			.getLogger(UserServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserDAO userDAO;
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void insertUser(User u) {
 		userDAO.persist(u);
 	}
@@ -38,10 +37,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
 		userDAO.remove(userDAO.findById(id));
-		
+
 	}
 
 }

@@ -23,16 +23,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class TabCar extends ListGrid {
 
-	private final CarServiceAsync carService = GWT
-			.create(CarService.class);
+	private final CarServiceAsync carService = GWT.create(CarService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
 	private HLayout rollOverCanvas;
 	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
-	 * sopra una riga, permettendone la modifica
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
+	 * permettendone la modifica
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
@@ -57,19 +56,16 @@ public class TabCar extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								carService.removeById(
-										rollOverRecord.getAttributeAsLong("id"),
-										new AsyncCallback<Void>() {
-											@Override
-											public void onSuccess(Void result) {
-											}
+								carService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
+									@Override
+									public void onSuccess(Void result) {
+									}
 
-											@Override
-											public void onFailure(
-													Throwable caught) {
-												Window.alert("Errore nell'eliminazione");
-											}
-										});
+									@Override
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
+									}
+								});
 							}
 						}
 					});
@@ -94,8 +90,8 @@ public class TabCar extends ListGrid {
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
 	 */
 	public static void setData(CarDS data, TabCar tabCar) {
 		tabCar.setShowRollOverCanvas(true);
@@ -115,12 +111,10 @@ public class TabCar extends ListGrid {
 		seatsNumberField.setAlign(Alignment.LEFT);
 		ListGridField agencyField = new ListGridField("agency", "Agenzia");
 		ListGridField typeField = new ListGridField("type", "Tipo");
-		tabCar.setFields(new ListGridField[] { idField, modelField, plateField,
-				gasolineTypeField, seatsNumberField, agencyField, typeField });
+		tabCar.setFields(new ListGridField[] { idField, modelField, plateField, gasolineTypeField, seatsNumberField, agencyField, typeField });
 		vPanel.addChild(tabCar);
 		rp.clear();
 		rp.add(vPanel);
 	}
-
 
 }

@@ -19,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("transferService")
 public class TransferServiceImpl implements TransferService {
 
-	private static final Logger logger = Logger
-			.getLogger(TransferServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(TransferServiceImpl.class);
 
 	@Autowired
 	private TransferDAO transferDAO;
@@ -57,12 +56,11 @@ public class TransferServiceImpl implements TransferService {
 
 	@Override
 	public boolean updateSuccessTransfer(Transfer t) {
-		
-		for(TransferAction ta: t.getTransfers()) {
-			if(ta.isSuccessAction()) {
+
+		for (TransferAction ta : t.getTransfers()) {
+			if (ta.isSuccessAction()) {
 				continue;
-			}
-			else {
+			} else {
 				return false;
 			}
 		}

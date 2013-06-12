@@ -11,13 +11,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
 @Entity
 public class Payment implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -25,7 +23,7 @@ public class Payment implements java.io.Serializable {
 	private String paymentMethod;
 	@Temporal(TemporalType.DATE)
 	private Date dateOfPayment;
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Customer userPayer;
 
 	public float getAmount() {

@@ -67,7 +67,7 @@ public class MakeCar extends Dialog {
 
 			@Override
 			public void onSuccess(List<Agency> result) {
-				agencyMap = new HashMap<String,Agency>();
+				agencyMap = new HashMap<String, Agency>();
 				for (Agency c : result) {
 					agencyMap.put("" + c.getId() + " - " + c.getName(), c);
 

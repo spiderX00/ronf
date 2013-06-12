@@ -18,8 +18,7 @@ import com.smartgwt.client.data.fields.DataSourceTextField;
 public class AgencyDS extends DataSource {
 
 	private static AgencyDS instance = null;
-	private final AgencyServiceAsync agencyService = GWT
-			.create(AgencyService.class);
+	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private static AgencyRecord[] agencyRecord;
 
 	public static AgencyDS getInstance(TabAgency tabAgency) {
@@ -35,19 +34,16 @@ public class AgencyDS extends DataSource {
 		DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");
 		idField.setPrimaryKey(true);
 
-		DataSourceTextField codeField = new DataSourceTextField("code",
-				"Codice");
+		DataSourceTextField codeField = new DataSourceTextField("code", "Codice");
 		codeField.setRequired(true);
 
 		DataSourceTextField nameField = new DataSourceTextField("name", "Nome");
 		nameField.setRequired(true);
 
-		DataSourceTextField addressField = new DataSourceTextField("address",
-				"Indirizzo");
+		DataSourceTextField addressField = new DataSourceTextField("address", "Indirizzo");
 		addressField.setRequired(true);
 
-		DataSourceTextField ipAddressField = new DataSourceTextField(
-				"ipAddress", "IP");
+		DataSourceTextField ipAddressField = new DataSourceTextField("ipAddress", "IP");
 		ipAddressField.setRequired(true);
 
 		setFields(idField, codeField, nameField, addressField, ipAddressField);
@@ -60,24 +56,22 @@ public class AgencyDS extends DataSource {
 			}
 
 			/**
-			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto
-			 * il DB
+			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
 			public void onSuccess(List<Agency> result) {
 				agencyRecord = new AgencyRecord[result.size()];
 
 				int i = 0;
 				for (Agency p : result) {
-					agencyRecord[i] = new AgencyRecord(p.getId(), p.getCode(),
-							p.getName(), p.getAddress(), p.getIpAddress());
+					agencyRecord[i] = new AgencyRecord(p.getId(), p.getCode(), p.getName(), p.getAddress(), p.getIpAddress());
 					i++;
 
 				}
 
 				setTestData(agencyRecord);
 				/**
-				 * Una volta essermi assicurato che la chiamata Asincrona ha
-				 * avuto successo, posso mandare i dati alla ListGrid
+				 * Una volta essermi assicurato che la chiamata Asincrona ha avuto successo, posso
+				 * mandare i dati alla ListGrid
 				 */
 				TabAgency.setData(AgencyDS.this, tabAgency);
 			}

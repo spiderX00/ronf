@@ -16,10 +16,9 @@ import it.unibo.ronf.shared.services.MaintenanceService;
 
 @Service("maintenanceService")
 public class MaintenanceServiceImpl implements MaintenanceService {
-	
+
 	@Autowired
 	MaintenanceDAO maintenanceDAO;
-	
 
 	@Override
 	public Maintenance findByCar(Car car) {
@@ -32,8 +31,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 	}
 
 	@Override
-	public List<Maintenance> findByMaintenanceEmployee(
-			MaintenanceEmployee maintenanceEmployee) {
+	public List<Maintenance> findByMaintenanceEmployee(MaintenanceEmployee maintenanceEmployee) {
 		return maintenanceDAO.findByMaintenanceEmployee(maintenanceEmployee);
 	}
 
@@ -41,14 +39,14 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createMaintenance(Maintenance mt) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
 		maintenanceDAO.remove(maintenanceDAO.findById(id));
-		
+
 	}
 
 	@Override

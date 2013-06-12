@@ -25,8 +25,7 @@ import com.smartgwt.client.widgets.form.validator.FloatRangeValidator;
 public class OptionalDS extends DataSource {
 
 	private static OptionalDS instance = null;
-	private final OptionalServiceAsync optionalService = GWT
-			.create(OptionalService.class);
+	private final OptionalServiceAsync optionalService = GWT.create(OptionalService.class);
 	private static OptionalRecord[] optionalRecord;
 
 	public static OptionalDS getInstance(TabOptional tabOptional) {
@@ -45,8 +44,7 @@ public class OptionalDS extends DataSource {
 		DataSourceTextField nameField = new DataSourceTextField("name", "Nome");
 		nameField.setRequired(true);
 
-		DataSourceIntegerField costField = new DataSourceIntegerField("cost",
-				"Prezzo");
+		DataSourceIntegerField costField = new DataSourceIntegerField("cost", "Prezzo");
 		costField.setRequired(true);
 		FloatRangeValidator rangeValidator = new FloatRangeValidator();
 		rangeValidator.setMin(0);
@@ -54,13 +52,11 @@ public class OptionalDS extends DataSource {
 
 		FloatPrecisionValidator precisionValidator = new FloatPrecisionValidator();
 		precisionValidator.setPrecision(2);
-		precisionValidator
-				.setErrorMessage("The maximum allowed precision is 2");
-		/**Restrizioni su numeri negativi ed oltre le due cifre dopo la virgola */
+		precisionValidator.setErrorMessage("The maximum allowed precision is 2");
+		/** Restrizioni su numeri negativi ed oltre le due cifre dopo la virgola */
 		costField.setValidators(rangeValidator, precisionValidator);
 
-		DataSourceTextField descriptionField = new DataSourceTextField(
-				"description", "Descrizione");
+		DataSourceTextField descriptionField = new DataSourceTextField("description", "Descrizione");
 		descriptionField.setRequired(true);
 
 		setFields(pkField, nameField, costField, descriptionField);
@@ -73,24 +69,22 @@ public class OptionalDS extends DataSource {
 			}
 
 			/**
-			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto
-			 * il DB
+			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
 			public void onSuccess(List<Optional> result) {
 				optionalRecord = new OptionalRecord[result.size()];
 
 				int i = 0;
 				for (Optional p : result) {
-					optionalRecord[i] = new OptionalRecord(p.getId(), p
-							.getName(), p.getCost(), p.getDescription());
+					optionalRecord[i] = new OptionalRecord(p.getId(), p.getName(), p.getCost(), p.getDescription());
 					i++;
 
 				}
 
 				setTestData(optionalRecord);
 				/**
-				 * Una volta essermi assicurato che la chiamata Asincrona ha
-				 * avuto successo, posso mandare i dati alla ListGrid
+				 * Una volta essermi assicurato che la chiamata Asincrona ha avuto successo, posso
+				 * mandare i dati alla ListGrid
 				 */
 				TabOptional.setData(OptionalDS.this, tabOptional);
 

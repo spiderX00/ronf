@@ -8,8 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface EmployeeServiceAsync {
 
-	public void checkLogin(String userName, String password,
-			AsyncCallback<Boolean> callback);
+	public void checkLogin(String userName, String password, AsyncCallback<Boolean> callback);
 
 	public void createEmployee(Employee employee, AsyncCallback<Void> callback);
 

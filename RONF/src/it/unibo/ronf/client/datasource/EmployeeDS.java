@@ -24,8 +24,7 @@ import com.smartgwt.client.data.fields.DataSourceTextField;
 public class EmployeeDS extends DataSource {
 
 	private static EmployeeDS instance = null;
-	private final EmployeeServiceAsync employeeService = GWT
-			.create(EmployeeService.class);
+	private final EmployeeServiceAsync employeeService = GWT.create(EmployeeService.class);
 	private static GridRecord[] employeeRecord;
 
 	public static EmployeeDS getInstance(TabEmployee tabEmployee) {
@@ -44,23 +43,18 @@ public class EmployeeDS extends DataSource {
 		DataSourceTextField nameField = new DataSourceTextField("name", "Nome");
 		nameField.setRequired(true);
 
-		DataSourceTextField surnameField = new DataSourceTextField("surname",
-				"Cognome");
+		DataSourceTextField surnameField = new DataSourceTextField("surname", "Cognome");
 		surnameField.setRequired(true);
 
-		DataSourcePasswordField passwordField = new DataSourcePasswordField(
-				"password", "Password");
+		DataSourcePasswordField passwordField = new DataSourcePasswordField("password", "Password");
 		passwordField.setRequired(true);
 
-		DataSourceIntegerField ageField = new DataSourceIntegerField("age",
-				"Età");
+		DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Età");
 		ageField.setRequired(true);
-		DataSourceTextField userNameField = new DataSourceTextField("userName",
-				"Username");
+		DataSourceTextField userNameField = new DataSourceTextField("userName", "Username");
 		userNameField.setRequired(true);
 
-		setFields(pkField, nameField, surnameField, passwordField, ageField,
-				userNameField);
+		setFields(pkField, nameField, surnameField, passwordField, ageField, userNameField);
 
 		/** Effettuo la richiesta per la ricerca di tutti gli employee */
 		employeeService.findAll(new AsyncCallback<List<Employee>>() {
@@ -71,24 +65,22 @@ public class EmployeeDS extends DataSource {
 			}
 
 			/**
-			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto
-			 * il DB
+			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
 			public void onSuccess(List<Employee> result) {
 				employeeRecord = new GridRecord[result.size()];
 
 				int i = 0;
 				for (Employee p : result) {
-					employeeRecord[i] = new GridRecord(p.getId(), p.getName(),
-							p.getSurname(), p.getAge(), p.getUserName());
+					employeeRecord[i] = new GridRecord(p.getId(), p.getName(), p.getSurname(), p.getAge(), p.getUserName());
 					i++;
 
 				}
 
 				setTestData(employeeRecord);
 				/**
-				 * Una volta essermi assicurato che la chiamata Asincrona ha
-				 * avuto successo, posso mandare i dati alla ListGrid
+				 * Una volta essermi assicurato che la chiamata Asincrona ha avuto successo, posso
+				 * mandare i dati alla ListGrid
 				 */
 				TabEmployee.setData(EmployeeDS.this, tabEmployee);
 

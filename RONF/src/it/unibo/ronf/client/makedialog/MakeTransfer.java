@@ -71,8 +71,7 @@ public class MakeTransfer extends Dialog {
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
 		final DynamicForm dynamicForm3 = new DynamicForm();
-		transferActionItem = new MultiComboBoxItem("transferAction",
-				"Transfer Action");
+		transferActionItem = new MultiComboBoxItem("transferAction", "Transfer Action");
 		transferActionItem.setLayoutStyle(MultiComboBoxLayoutStyle.VERTICAL);
 		carTypeItem = new SelectItem("carType", "Tipo");
 		carTypeItem.setEmptyDisplayValue("Select Type");
@@ -96,8 +95,7 @@ public class MakeTransfer extends Dialog {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Error while loading Agency:"
-						+ caught.getMessage());
+				Window.alert("Error while loading Agency:" + caught.getMessage());
 			}
 
 			@Override
@@ -110,7 +108,7 @@ public class MakeTransfer extends Dialog {
 				if (TransferDS.getDataSource("transferDS") != null) {
 					TransferDS.getDataSource("transferDS").destroy();
 				}
-				dynamicForm.setDataSource(new TransferDS("transferDS",tabTransfer, agencyMap));
+				dynamicForm.setDataSource(new TransferDS("transferDS", tabTransfer, agencyMap));
 				dynamicForm.getField("id").hide();
 				dynamicForm.getField("arrivalAgency").hide();
 				dynamicForm.getField("success").hide();
@@ -131,8 +129,7 @@ public class MakeTransfer extends Dialog {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load car type: "
-						+ caught.getMessage());
+				Window.alert("Impossible to load car type: " + caught.getMessage());
 			}
 		});
 
@@ -163,27 +160,24 @@ public class MakeTransfer extends Dialog {
 		@Override
 		public void onChange(ChangeEvent event) {
 			String selectedItem = (String) event.getValue();
-			carService.getAllFreeCars(agencyMap.get(selectedItem),
-					new AsyncCallback<List<Car>>() {
+			carService.getAllFreeCars(agencyMap.get(selectedItem), new AsyncCallback<List<Car>>() {
 
-						@Override
-						public void onFailure(Throwable caught) {
-							Window.alert("Error while loading Agency:"
-									+ caught.getMessage());
-						}
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Error while loading Agency:" + caught.getMessage());
+				}
 
-						@Override
-						public void onSuccess(List<Car> result) {
-							carMap = new HashMap<String,Car>();
-							for (Car c : result) {
-								carMap.put(c.getModel(), c);
-							}
+				@Override
+				public void onSuccess(List<Car> result) {
+					carMap = new HashMap<String, Car>();
+					for (Car c : result) {
+						carMap.put(c.getModel(), c);
+					}
 
-							transferActionItem.setValueMap(carMap.keySet()
-									.toArray(new String[] {}));
-						}
+					transferActionItem.setValueMap(carMap.keySet().toArray(new String[] {}));
+				}
 
-					});
+			});
 		}
 
 	}
@@ -194,8 +188,7 @@ public class MakeTransfer extends Dialog {
 			final Transfer transfer = new Transfer();
 			/** al click viene creato un nuovo Customer */
 			dynamicForm.saveData(new DSCallback() {
-				public void execute(DSResponse response, Object rawData,
-						DSRequest request) {
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
 					dynamicForm.editNewRecord();
 				}
 			});

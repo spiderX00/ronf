@@ -64,7 +64,7 @@ public class MakeTransferEmployee extends Dialog {
 		hLayout.moveTo(30, 231);
 
 	}
-	
+
 	class CreateHandler implements ClickHandler {
 		public void onClick(ClickEvent event) {
 			/** al click viene creato un nuovo Customer */

@@ -45,11 +45,11 @@ public class Rental implements java.io.Serializable {
 	public void setStart(Date start) {
 		this.start = start;
 	}
-	
+
 	public Payment getFine() {
 		return fine;
 	}
-	
+
 	public void setFine(Payment fine) {
 		this.fine = fine;
 	}

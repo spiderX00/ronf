@@ -14,15 +14,13 @@ public interface RentalServiceAsync {
 
 	public void findAll(AsyncCallback<List<Rental>> callback);
 
-	public void findByArrivalAgency(Agency arrivalAgency,
-			AsyncCallback<List<Rental>> callback);
+	public void findByArrivalAgency(Agency arrivalAgency, AsyncCallback<List<Rental>> callback);
 
 	public void findByEnd(Date end, AsyncCallback<List<Rental>> callback);
 
 	public void findByStart(Date start, AsyncCallback<List<Rental>> callback);
 
-	public void findByStartingAgency(Agency startingAgency,
-			AsyncCallback<List<Rental>> callback);
+	public void findByStartingAgency(Agency startingAgency, AsyncCallback<List<Rental>> callback);
 
 	void removeById(long id, AsyncCallback<Void> callback);
 

@@ -11,9 +11,7 @@ public class CarTypeDAO extends JpaDAO<CarType> {
 
 	public CarType findByType(String type) {
 		try {
-			TypedQuery<CarType> query = em.createQuery(
-					"SELECT ct FROM CarType ct WHERE ct.type = :type",
-					entityClass);
+			TypedQuery<CarType> query = em.createQuery("SELECT ct FROM CarType ct WHERE ct.type = :type", entityClass);
 
 			query.setParameter("type", type);
 			return query.getSingleResult();

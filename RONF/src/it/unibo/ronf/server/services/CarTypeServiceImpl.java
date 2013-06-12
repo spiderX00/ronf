@@ -32,7 +32,7 @@ public class CarTypeServiceImpl implements CarTypeService {
 	public void removeById(long id) {
 		carTypeDAO.remove(carTypeDAO.findById(id));
 	}
-	
+
 	@Override
 	public List<CarType> findAll() {
 		return carTypeDAO.findAll();

@@ -32,8 +32,8 @@ public class TabTransfer extends ListGrid {
 	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
-	 * sopra una riga, permettendone la modifica
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
+	 * permettendone la modifica
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
@@ -78,8 +78,8 @@ public class TabTransfer extends ListGrid {
 	}
 
 	/**
-	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
-	 * settato l'attributo busy di un transfer employee
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo
+	 * busy di un transfer employee
 	 */
 	@Override
 	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
@@ -100,8 +100,8 @@ public class TabTransfer extends ListGrid {
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
 	 */
 	public static void setData(TransferDS data, TabTransfer tabTransfer) {
 		tabTransfer.setShowRollOverCanvas(true);

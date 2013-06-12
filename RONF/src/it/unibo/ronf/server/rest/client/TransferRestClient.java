@@ -20,8 +20,7 @@ public class TransferRestClient {
 	@Autowired
 	private TransferDAO transferDAO;
 
-	private static final Logger logger = Logger
-			.getLogger(RentalServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(RentalServiceImpl.class);
 
 	public void sendTransferRequest(Transfer t) {
 		Client client = Client.create();
@@ -31,13 +30,11 @@ public class TransferRestClient {
 		// ClientResponse response =
 		// webResource.type("application/xml").post(ClientResponse.class, t);
 		webResource.accept(MediaType.APPLICATION_XML).post(t);
-		logger.debug("Transfer successfully created on agency: "
-				+ t.getStartAgency().getName());
+		logger.debug("Transfer successfully created on agency: " + t.getStartAgency().getName());
 	}
 
 	public String getURI(Agency a) {
-		String res = "http://" + a.getIpAddress() + ":" + a.getPort()
-				+ "/RONF/rest/transfer/";
+		String res = "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/transfer/";
 		return res;
 	}
 

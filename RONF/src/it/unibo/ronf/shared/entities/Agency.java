@@ -22,7 +22,7 @@ public class Agency implements java.io.Serializable {
 	private String address;
 	private String ipAddress;
 	private int port;
-	
+
 	public Agency() {
 	}
 

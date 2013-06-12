@@ -11,13 +11,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository("agencyDAO")
 public class AgencyDAO extends JpaDAO<Agency> {
-	
+
 	private Agency currentAgency;
 
 	public Agency findByCode(String code) {
 		try {
-			TypedQuery<Agency> query = em.createQuery(
-					"SELECT a FROM Agency a WHERE a.code = :code", entityClass);
+			TypedQuery<Agency> query = em.createQuery("SELECT a FROM Agency a WHERE a.code = :code", entityClass);
 
 			query.setParameter("code", code);
 
@@ -32,8 +31,7 @@ public class AgencyDAO extends JpaDAO<Agency> {
 
 		try {
 
-			TypedQuery<Agency> query = em.createQuery(
-					"SELECT a FROM Agency a WHERE a.name = :name", entityClass);
+			TypedQuery<Agency> query = em.createQuery("SELECT a FROM Agency a WHERE a.name = :name", entityClass);
 
 			query.setParameter("name", name);
 
@@ -43,24 +41,23 @@ public class AgencyDAO extends JpaDAO<Agency> {
 			return null;
 		}
 	}
-	
+
 	public Agency getCurrentAgency() {
 		return currentAgency;
 	}
-	
+
 	public void setCurrentAgency(Agency currentAgency) {
 		this.currentAgency = currentAgency;
 	}
-	
+
 	public List<Agency> getOthers() {
-		
-		TypedQuery<Agency> query = em.createQuery(
-				"SELECT a FROM Agency a WHERE a.name != :current", entityClass);
-		
+
+		TypedQuery<Agency> query = em.createQuery("SELECT a FROM Agency a WHERE a.name != :current", entityClass);
+
 		query.setParameter("current", getCurrentAgency().getName());
-		
+
 		return query.getResultList();
-		
+
 	}
 
 }

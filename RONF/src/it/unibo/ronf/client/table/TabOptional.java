@@ -27,16 +27,15 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author Alessio De Vita alessio.dv@gmail.com
  */
 public class TabOptional extends ListGrid {
-	private final OptionalServiceAsync optionalService = GWT
-			.create(OptionalService.class);
+	private final OptionalServiceAsync optionalService = GWT.create(OptionalService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
 	private HLayout rollOverCanvas;
 	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
-	 * sopra una riga, permettendone la modifica
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
+	 * permettendone la modifica
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
@@ -61,19 +60,16 @@ public class TabOptional extends ListGrid {
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								optionalService.removeById(
-										rollOverRecord.getAttributeAsLong("id"),
-										new AsyncCallback<Void>() {
-											@Override
-											public void onSuccess(Void result) {
-											}
+								optionalService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
+									@Override
+									public void onSuccess(Void result) {
+									}
 
-											@Override
-											public void onFailure(
-													Throwable caught) {
-												Window.alert("Errore nell'eliminazione");
-											}
-										});
+									@Override
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
+									}
+								});
 							}
 						}
 					});
@@ -98,8 +94,8 @@ public class TabOptional extends ListGrid {
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
 	 */
 	public static void setData(OptionalDS data, TabOptional tabOptional) {
 		tabOptional.setShowRollOverCanvas(true);
@@ -114,10 +110,8 @@ public class TabOptional extends ListGrid {
 		idField.setAlign(Alignment.LEFT);
 		ListGridField nameField = new ListGridField("name", "Nome");
 		ListGridField costField = new ListGridField("cost", "Prezzo");
-		ListGridField descriptionField = new ListGridField("description",
-				"Descrizione");
-		tabOptional.setFields(new ListGridField[] { idField, nameField,
-				costField, descriptionField });
+		ListGridField descriptionField = new ListGridField("description", "Descrizione");
+		tabOptional.setFields(new ListGridField[] { idField, nameField, costField, descriptionField });
 		vPanel.addChild(tabOptional);
 		rp.clear();
 		rp.add(vPanel);

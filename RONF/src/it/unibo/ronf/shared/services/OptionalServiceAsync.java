@@ -15,8 +15,5 @@ public interface OptionalServiceAsync {
 	void removeById(long id, AsyncCallback<Void> callback);
 
 	public void findAll(AsyncCallback<List<Optional>> callback);
-	
-	
-	
 
 }

@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("ronfServices/fineService")
 public interface FineService extends RemoteService {
-	
+
 	Payment calculateFine(Maintenance m);
 
 }

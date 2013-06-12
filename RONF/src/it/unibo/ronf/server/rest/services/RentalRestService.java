@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Path("/rental")
 @Scope("request")
 public class RentalRestService {
-	
+
 	private static final Logger logger = Logger.getLogger(RentalRestService.class);
 
 	@Autowired

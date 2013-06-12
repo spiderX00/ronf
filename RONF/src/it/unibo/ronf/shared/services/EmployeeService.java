@@ -19,7 +19,7 @@ public interface EmployeeService extends RemoteService {
 	public void remove(Employee employee);
 
 	public Employee findByUserName(String userName);
-	
+
 	public void removeById(long id);
 
 }

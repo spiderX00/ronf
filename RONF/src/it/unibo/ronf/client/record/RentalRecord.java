@@ -8,9 +8,7 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class RentalRecord extends ListGridRecord {
 
-	public RentalRecord(Long id, Date start, Date end, String rentedCar,
-			String customer, String startingAgency, String arrivalAgency,
-			Integer optional, String payment, float caution, boolean finished, Rental rental) {
+	public RentalRecord(Long id, Date start, Date end, String rentedCar, String customer, String startingAgency, String arrivalAgency, Integer optional, String payment, float caution, boolean finished, Rental rental) {
 		setId(id);
 		setStart(start);
 		setEnd(end);
@@ -23,14 +21,13 @@ public class RentalRecord extends ListGridRecord {
 		setCaution(caution);
 		setFinished(finished);
 		setObject(rental);
-		
 
 	}
-	
+
 	public void setObject(Rental rental) {
 		setAttribute("rental", rental);
 	}
-	
+
 	public Rental getObject() {
 		return (Rental) getAttributeAsObject("rental");
 	}

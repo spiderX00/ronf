@@ -27,7 +27,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 public class TransferActionDialog extends Dialog {
 	private HLayout rollOverCanvas;
 	private final TransferActionServiceAsync transferActionService = GWT.create(TransferActionService.class);
-	
+
 	public TransferActionDialog(TransferRecord record) {
 
 		setSize("550px", "250px");
@@ -36,7 +36,7 @@ public class TransferActionDialog extends Dialog {
 		final ListGrid transferActionGrid = new ListGrid() {
 			@Override
 			protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
-				 final ListGridRecord rollOverRecord = this.getRecord(rowNum);
+				final ListGridRecord rollOverRecord = this.getRecord(rowNum);
 
 				if (rollOverCanvas == null) {
 					rollOverCanvas = new HLayout(3);
@@ -54,26 +54,26 @@ public class TransferActionDialog extends Dialog {
 					removeImg.addClickHandler(new ClickHandler() {
 						public void onClick(ClickEvent event) {
 							SC.confirm("Transfer avvenuto con successo?", new BooleanCallback() {
-								
+
 								@Override
 								public void execute(Boolean value) {
 									if (Boolean.TRUE.equals(value)) {
 										TransferActionRecord ta = (TransferActionRecord) rollOverRecord;
 										ta.getObject().setSuccessAction(true);
 										transferActionService.updateSuccessTransferAction(ta.getObject(), new AsyncCallback<Void>() {
-											
+
 											@Override
 											public void onSuccess(Void result) {
 												SC.say("Update Success!");
 											}
-											
+
 											@Override
 											public void onFailure(Throwable caught) {
 												Window.alert("Error to update Success " + caught.getMessage());
 											}
 										});
 									}
-									
+
 								}
 							});
 						}
@@ -82,8 +82,9 @@ public class TransferActionDialog extends Dialog {
 					rollOverCanvas.addMember(removeImg);
 				}
 				return rollOverCanvas;
-				
+
 			}
+
 			@Override
 			protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
 				if (getFieldName(rowNum) != null) {

@@ -21,10 +21,8 @@ public abstract class JpaDAO<E> {
 
 	@SuppressWarnings("unchecked")
 	public JpaDAO() {
-		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
-				.getGenericSuperclass();
-		this.entityClass = (Class<E>) genericSuperclass
-				.getActualTypeArguments()[0];
+		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+		this.entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
 	}
 
 	public void persist(E entity) {
@@ -35,7 +33,7 @@ public abstract class JpaDAO<E> {
 		em.remove(entity);
 	}
 
-	/*Aggiorna oggetto*/
+	/* Aggiorna oggetto */
 	public E merge(E entity) {
 		return em.merge(entity);
 	}
@@ -54,8 +52,7 @@ public abstract class JpaDAO<E> {
 	}
 
 	public List<E> findAll() {
-		TypedQuery<E> q = em.createQuery(
-				"SELECT h FROM " + entityClass.getName() + " h", entityClass);
+		TypedQuery<E> q = em.createQuery("SELECT h FROM " + entityClass.getName() + " h", entityClass);
 		return q.getResultList();
 	}
 

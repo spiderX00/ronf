@@ -14,10 +14,7 @@ public class CustomerDAO extends JpaDAO<Customer> {
 
 		try {
 
-			TypedQuery<Customer> query = em
-					.createQuery(
-							"SELECT c FROM Customer c WHERE c.fiscalCode = :fiscalCode",
-							entityClass);
+			TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.fiscalCode = :fiscalCode", entityClass);
 
 			query.setParameter("fiscalCode", fiscalCode);
 
@@ -32,9 +29,7 @@ public class CustomerDAO extends JpaDAO<Customer> {
 
 		try {
 
-			TypedQuery<Customer> query = em.createQuery(
-					"SELECT c FROM Customer C WHERE c.docNumber = :docNumber",
-					entityClass);
+			TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer C WHERE c.docNumber = :docNumber", entityClass);
 
 			query.setParameter("docNumber", docNumber);
 
