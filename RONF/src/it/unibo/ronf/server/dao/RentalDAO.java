@@ -70,4 +70,15 @@ public class RentalDAO extends JpaDAO<Rental> {
 
 	}
 
+	public List<Rental> findByUserId(long userID) {
+		TypedQuery<Rental> query = em
+				.createQuery(
+						"SELECT r FROM Rental r WHERE r.customer.id = :userID",
+						entityClass);
+
+		query.setParameter("userID", userID);
+		List<Rental> rentalListArrivalAgency = query.getResultList();
+		return rentalListArrivalAgency;
+	}
+
 }
