@@ -11,6 +11,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -59,7 +60,7 @@ public class TabTransfer extends ListGrid {
 
 						@Override
 						public void onSuccess(Boolean result) {
-							Window.alert("Update Transfer Success!");
+							SC.say("Update Transfer Success!");
 						}
 
 						@Override

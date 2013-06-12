@@ -13,6 +13,7 @@ import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -82,7 +83,7 @@ public class MakeEmployee extends Dialog {
 						@Override
 						public void onSuccess(Void result) {
 							MakeEmployee.this.hide();
-							Window.alert("Optional Created!");
+							SC.say("Optional Created!");
 
 						}
 

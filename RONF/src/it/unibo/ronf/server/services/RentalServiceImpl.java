@@ -27,8 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("rentalService")
 public class RentalServiceImpl implements RentalService {
 
-	private static final Logger logger = Logger
-			.getLogger(RentalServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(RentalServiceImpl.class);
 
 	@Autowired
 	private CarDAO carDAO;
@@ -53,9 +52,8 @@ public class RentalServiceImpl implements RentalService {
 	public void createRental(Rental rental) {
 		if (rental.getStart().compareTo(rental.getEnd()) >= 0) {
 			String start = DateFormat.getDateInstance().format(
-					rental.getStart());// , "yyyy/MM/dd");
-			String end = DateFormat.getDateInstance().format(rental.getEnd());// ,
-																				// "yyyy/MM/dd");
+					rental.getStart());
+			String end = DateFormat.getDateInstance().format(rental.getEnd());
 			throw new IllegalArgumentException(
 					"You must specify a valid date range! start:" + start
 							+ " end:" + end);

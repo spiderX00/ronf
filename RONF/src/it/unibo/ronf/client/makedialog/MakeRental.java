@@ -38,13 +38,13 @@ import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.ButtonItem;
-import com.smartgwt.client.widgets.form.fields.DateItem;
 import com.smartgwt.client.widgets.form.fields.FloatItem;
 import com.smartgwt.client.widgets.form.fields.MultiComboBoxItem;
 import com.smartgwt.client.widgets.form.fields.SectionItem;
@@ -64,13 +64,15 @@ public class MakeRental extends Dialog {
 	private final OptionalServiceAsync optionalService = GWT.create(OptionalService.class);
 	private final PaymentServiceAsync paymentService = GWT.create(PaymentService.class);
 
-	private Map<String, Car> carMap = new HashMap<String, Car>();
-	private Map<String, Customer> customersMap = new HashMap<String, Customer>();
-	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
-	private Map<String, Payment> paymentMap = new HashMap<String, Payment>();
-	private Map<String, Optional> optionalMap = new HashMap<String, Optional>();
-	private Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
+	private Map<String, Car> carMap;
+	private Map<String, Customer> customersMap;
+	private Map<String, Agency> agencyMap;
+	private Map<String, Optional> optionalMap;
+	private Map<String, CarType> carTypeMap;
 
+	private DynamicForm dynamicForm;
+	private DynamicForm dynamicForm2;
+	private DynamicForm dynamicForm3;
 	private TextItem paymentMethodItem;
 	private FloatItem amountItem;
 	private SelectItem carTypeItem;
@@ -83,9 +85,8 @@ public class MakeRental extends Dialog {
 
 	public MakeRental() {
 		setSize("370", "500px");
-		final DynamicForm dynamicForm = new DynamicForm();
+		dynamicForm = new DynamicForm();
 		dynamicForm.setSize("350px", "194px");
-		addItem(dynamicForm);
 		hLayout = new HLayout();
 		hLayout.setSize("351px", "46px");
 		hLayout.setMembersMargin(40);
@@ -97,7 +98,7 @@ public class MakeRental extends Dialog {
 		sectionPayment.setSectionExpanded(false);
 		sectionPayment.disable();
 		sectionPayment.setItemIds("paymentMethod", "amount");
-		final DynamicForm dynamicForm3 = new DynamicForm();
+		dynamicForm3 = new DynamicForm();
 		carTypeItem = new SelectItem("carType", "Tipo");
 		carTypeItem.setEmptyDisplayValue("Select Type");
 		carModelItem = new SelectItem("carModel", "Car");
@@ -105,14 +106,17 @@ public class MakeRental extends Dialog {
 		optionalItem = new MultiComboBoxItem("optional", "Optional");
 		calcButtonItem = new ButtonItem("calcola", "Calcola");
 		dynamicForm3.setFields(carTypeItem, carModelItem, optionalItem, calcButtonItem);
-		final DynamicForm dynamicForm2 = new DynamicForm();
+		dynamicForm2 = new DynamicForm();
 		dynamicForm2.setFields(sectionPayment, amountItem, paymentMethodItem);
-		addItem(dynamicForm3);
+
+		addItem(dynamicForm);
 		addItem(dynamicForm2);
+		addItem(dynamicForm3);
 
 		customerService.findAll(new AsyncCallback<List<Customer>>() {
 			@Override
 			public void onSuccess(List<Customer> result) {
+				customersMap = new HashMap<String,Customer>();
 				for (Customer c : result) {
 					customersMap.put("" + c.getId() + " - " + c.getName(), c);
 				}
@@ -120,9 +124,9 @@ public class MakeRental extends Dialog {
 
 					@Override
 					public void onSuccess(List<Agency> result) {
+						agencyMap = new HashMap<String,Agency>();
 						for (Agency c : result) {
 							agencyMap.put("" + c.getId() + " - " + c.getName(), c);
-
 						}
 						final TabRental tabRental = new TabRental();
 						if (RentalDS.getDataSource("rentalDS") != null) {
@@ -151,9 +155,11 @@ public class MakeRental extends Dialog {
 		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
 			@Override
 			public void onSuccess(List<CarType> result) {
+				carTypeMap = new HashMap<String,CarType>();
 				for (CarType ct : result) {
 					carTypeMap.put(ct.getType(), ct);
 				}
+				carTypeItem.clearValue();
 				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
 			}
 
@@ -174,12 +180,14 @@ public class MakeRental extends Dialog {
 					@Override
 					public void onSuccess(List<Car> result) {
 						if (result.isEmpty()) {
-							carModelItem.setValueMap(new String[] {});
+							carModelItem.clearValue();
 							carModelItem.disable();
 						} else {
+							carMap = new HashMap<String,Car>();
 							for (Car c : result) {
 								carMap.put(c.getOriginAgency().getName() + " - " + c.getModel(), c);
 							}
+							carModelItem.clearValue();
 							carModelItem.enable();
 							carModelItem.setValueMap(carMap.keySet().toArray(new String[] {}));
 						}
@@ -210,10 +218,11 @@ public class MakeRental extends Dialog {
 
 			@Override
 			public void onSuccess(List<Optional> result) {
+				optionalMap = new HashMap<String,Optional>();
 				for (Optional o : result) {
 					optionalMap.put(o.getName(), o);
 				}
-
+				optionalItem.clearValue();
 				optionalItem.setValueMap(optionalMap.keySet().toArray(new String[] {}));
 			}
 
@@ -283,7 +292,7 @@ public class MakeRental extends Dialog {
 					@Override
 					public void onSuccess(Void result) {
 						MakeRental.this.hide();
-						Window.alert("Rent Created!");
+						SC.say("Rent Successfully Created!");
 					}
 
 					@Override

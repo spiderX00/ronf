@@ -64,7 +64,7 @@ public class TransferActionDialog extends Dialog {
 											
 											@Override
 											public void onSuccess(Void result) {
-												Window.alert("Update Success!");
+												SC.say("Update Success!");
 											}
 											
 											@Override

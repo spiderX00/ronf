@@ -32,12 +32,10 @@ import it.unibo.ronf.shared.entities.TransferEmployee;
 import it.unibo.ronf.shared.services.InitService;
 
 /**
- * Questa classe serve in fase di development poichè abbiamo impostato un
- * parametro nel JPA di EclipseLink il quale, ad ogni avvio dell'applicazione,
- * cancella tutto il database in modo che, per ogni prova/test, abbiamo a che
- * fare sempre con un database pulito ed re-inizializzato con i suoi componenti
- * fondamentali come l'utente admin, i tipi di macchine, le macchine e le
- * agenzie.
+ * Questa classe serve in fase di development poichè abbiamo impostato un parametro nel JPA di
+ * EclipseLink il quale, ad ogni avvio dell'applicazione, cancella tutto il database in modo che,
+ * per ogni prova/test, abbiamo a che fare sempre con un database pulito ed re-inizializzato con i
+ * suoi componenti fondamentali come l'utente admin, i tipi di macchine, le macchine e le agenzie.
  * 
  * @author Mone e Lory
  * 
@@ -46,6 +44,10 @@ import it.unibo.ronf.shared.services.InitService;
 public class InitServiceImpl implements InitService {
 
 	private static final Logger logger = Logger.getLogger(InitServiceImpl.class);
+
+	// avoid a double call of the methods
+	private static boolean preLogin = false;
+	private static boolean postLogin = false;
 
 	@Autowired
 	private EmployeeDAO employeeDAO;
@@ -67,6 +69,10 @@ public class InitServiceImpl implements InitService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void preLoginInitEntities() {
+		if (preLogin) {
+			return;
+		}
+		preLogin = true;
 		try {
 			/* Aggiungo l'admin */
 			Employee admin = new Employee();
@@ -102,12 +108,16 @@ public class InitServiceImpl implements InitService {
 	}
 
 	/**
-	 * A seconda della currentAgency contenuta dentro AgencyDAO, aggiungo
-	 * qualche macchina nei rispettivi database
+	 * A seconda della currentAgency contenuta dentro AgencyDAO, aggiungo qualche macchina nei
+	 * rispettivi database
 	 */
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void postLoginInitEntities() {
+		if (postLogin) {
+			return;
+		}
+		postLogin = true;
 		try {
 			Agency agency = agencyDAO.getCurrentAgency();
 
@@ -170,7 +180,7 @@ public class InitServiceImpl implements InitService {
 				car2.setPlate("def789");
 				car2.setSeatsNumber(5);
 				car2.setType(c2);
-				
+
 				Car car3 = new Car();
 				car3.setOriginAgency(agency);
 				car3.setGasolineType("Diesel");
@@ -178,7 +188,6 @@ public class InitServiceImpl implements InitService {
 				car3.setPlate("6dh74w");
 				car3.setSeatsNumber(5);
 				car3.setType(c2);
-				
 
 				carDAO.persist(car1);
 				carDAO.persist(car2);
@@ -202,7 +211,7 @@ public class InitServiceImpl implements InitService {
 				car4.setPlate("123ghi");
 				car4.setSeatsNumber(5);
 				car4.setType(c3);
-				
+
 				Car car5 = new Car();
 				car5.setOriginAgency(agency);
 				car5.setGasolineType("Benzina");
@@ -232,25 +241,24 @@ public class InitServiceImpl implements InitService {
 				te.setUserName("bob");
 
 				teDAO.persist(te);
-				
+
 				TransferAction ta = new TransferAction();
 				ta.setRequiredCar(car5);
 				ta.setSuccessAction(false);
 				ta.setTransferDate(new Date(2013, 7, 15));
-				
-				List<TransferAction> taList = new ArrayList<TransferAction> ();
+
+				List<TransferAction> taList = new ArrayList<TransferAction>();
 				taList.add(ta);
-				
+
 				Transfer t = new Transfer();
 				t.setTransfers(taList);
 				t.setArrivalAgency(agency);
 				t.setStartAgency(agency);
 				t.setTransferEmployee(te);
 				t.setSuccess(false);
-				
+
 				transferDAO.persist(t);
-				
-				
+
 			}
 
 		} catch (Exception ex) {

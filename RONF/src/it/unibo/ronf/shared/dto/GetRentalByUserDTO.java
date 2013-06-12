@@ -4,13 +4,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 @XmlRootElement
-public class CloseRentalDTO implements Serializable {
+public class GetRentalByUserDTO implements Serializable {
 
 	private static final long serialVersionUID = 6973887571638996716L;
 
-	private long id;
+	private Long id;
 
-	public CloseRentalDTO() {
+	public GetRentalByUserDTO() {
 
 	}
 

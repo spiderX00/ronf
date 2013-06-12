@@ -240,7 +240,8 @@ public class MainMenu extends MenuBar {
 			
 			@Override
 			public void onClick(MenuItemClickEvent event) {
-				// TODO Auto-generated method stub
+				CloseRentalDialog closeRental = new CloseRentalDialog();
+				closeRental.show();
 				
 			}
 		});
