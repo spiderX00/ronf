@@ -4,6 +4,7 @@ import it.unibo.ronf.server.dao.AgencyDAO;
 import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.server.dao.RentalDAO;
 import it.unibo.ronf.server.dao.TransferEmployeeDAO;
+import it.unibo.ronf.server.rest.client.RentalRestClient;
 import it.unibo.ronf.server.rest.client.TransferRestClient;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
@@ -26,7 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("rentalService")
 public class RentalServiceImpl implements RentalService {
 
-	private static final Logger logger = Logger.getLogger(RentalServiceImpl.class);
+	private static final Logger logger = Logger
+			.getLogger(RentalServiceImpl.class);
 
 	@Autowired
 	private CarDAO carDAO;
@@ -43,22 +45,32 @@ public class RentalServiceImpl implements RentalService {
 	@Autowired
 	private TransferRestClient transferRestClient;
 
+	@Autowired
+	private RentalRestClient rentalRestClient;
+
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createRental(Rental rental) {
 		if (rental.getStart().compareTo(rental.getEnd()) >= 0) {
-			String start = DateFormat.getDateInstance().format(rental.getStart());//, "yyyy/MM/dd");
-			String end = DateFormat.getDateInstance().format(rental.getEnd());//, "yyyy/MM/dd");
-			throw new IllegalArgumentException("You must specify a valid date range! start:"+start+" end:"+end);
+			String start = DateFormat.getDateInstance().format(
+					rental.getStart());// , "yyyy/MM/dd");
+			String end = DateFormat.getDateInstance().format(rental.getEnd());// ,
+																				// "yyyy/MM/dd");
+			throw new IllegalArgumentException(
+					"You must specify a valid date range! start:" + start
+							+ " end:" + end);
 		}
 
-		if (!rental.getRentedCar().getOriginAgency().getName().equals(agencyDAO.getCurrentAgency().getName())) {
+		if (!rental.getRentedCar().getOriginAgency().getName()
+				.equals(agencyDAO.getCurrentAgency().getName())) {
 
-			logger.debug("ATTENZIONE trasferimento richiesto da:"+rental.getRentedCar().getOriginAgency().getName());
-			
+			logger.debug("ATTENZIONE trasferimento richiesto da:"
+					+ rental.getRentedCar().getOriginAgency().getName());
+
 			requestTransfer(rental);
-			
-			logger.debug("Richiesta trasferimento iniviata a:"+rental.getRentedCar().getOriginAgency().getName() );
+
+			logger.debug("Richiesta trasferimento iniviata a:"
+					+ rental.getRentedCar().getOriginAgency().getName());
 
 			Car tempCar = new Car();
 			tempCar.setCurrentAgency(agencyDAO.getCurrentAgency());
@@ -69,11 +81,11 @@ public class RentalServiceImpl implements RentalService {
 			tempCar.setSeatsNumber(rental.getRentedCar().getSeatsNumber());
 			tempCar.setType(rental.getRentedCar().getType());
 
-			
 			carDAO.persist(tempCar);
 			rental.setRentedCar(tempCar);
 			rentalDAO.persist(rental);
 			return;
+
 		}
 
 		rentalDAO.persist(rental);
@@ -120,7 +132,8 @@ public class RentalServiceImpl implements RentalService {
 
 	private void requestTransfer(Rental r) {
 
-		logger.debug("Inizio inoltro richiesta trasferimento a: "+r.getRentedCar().getOriginAgency().getName());
+		logger.debug("Inizio inoltro richiesta trasferimento a: "
+				+ r.getRentedCar().getOriginAgency().getName());
 		TransferAction transferAction = new TransferAction();
 		transferAction.setRequiredCar(r.getRentedCar());
 		transferAction.setTransferDate(r.getStart());
@@ -129,16 +142,17 @@ public class RentalServiceImpl implements RentalService {
 		transferToDo.setArrivalAgency(agencyDAO.getCurrentAgency());
 		transferToDo.setStartAgency(r.getRentedCar().getOriginAgency());
 		transferToDo.setSuccess(false);
-		
+
 		List<TransferAction> listAction = new ArrayList<TransferAction>();
 		listAction.add(transferAction);
-		
+
 		transferToDo.setTransfers(listAction);
 
 		try {
 			transferRestClient.sendTransferRequest(transferToDo);
 		} catch (Exception ex) {
-			logger.error("error while sending request for transfer to other agency: -->" + ex.getMessage());
+			logger.error("error while sending request for transfer to other agency: -->"
+					+ ex.getMessage());
 		}
 
 	}
