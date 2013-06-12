@@ -46,6 +46,7 @@ public class MainMenu extends MenuBar {
 		MenuItem subMakeOptional = new MenuItem("Crea");
 		MenuItem subViewOptional = new MenuItem("Visualizza");
 		MenuItem subViewRental = new MenuItem("Visualizza");
+		MenuItem subCloseRental = new MenuItem("Close Rental");
 		MenuItem subMakeRental = new MenuItem("Crea");
 		MenuItem subViewCar = new MenuItem("Visualizza");
 		MenuItem subMakeCar = new MenuItem("Crea");
@@ -86,7 +87,7 @@ public class MainMenu extends MenuBar {
 		customerMenu.setItems(subMakeCustomer, subViewCustomer);
 		carMenu.setItems(subMakeCar, subViewCar);
 		agencyMenu.setItems(subMakeAgency, subViewAgency);
-		rentalMenu.setItems(subMakeRental, subViewRental);
+		rentalMenu.setItems(subMakeRental, subViewRental,subCloseRental);
 		subViewOptional.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -235,6 +236,15 @@ public class MainMenu extends MenuBar {
 
 			}
 		});
+		subCloseRental.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(MenuItemClickEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		setMenus(employeeMenu, customerMenu, optionalMenu, rentalMenu, carMenu, agencyMenu, transferEmployeeMenu, transferMenu);
 	}
 }
