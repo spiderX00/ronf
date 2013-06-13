@@ -1,6 +1,7 @@
 package it.unibo.ronf.server.rest.client;
 
 import it.unibo.ronf.server.dao.AgencyDAO;
+import it.unibo.ronf.server.rest.RestClient;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
@@ -19,14 +20,19 @@ import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 
 @Service("clientRestCarsService")
-public class CarRestClient {
+public class CarRestProxy implements RestClient {
 
-	private static final Logger logger = Logger.getLogger(CarRestClient.class);
+	private static final Logger logger = Logger.getLogger(CarRestProxy.class);
 
 	@Autowired
 	private AgencyDAO agencyDAO;
 
-	public List<Car> findRemoteAvailableCar(AvailableCarRequestDTO request) {
+	@Override
+	public String getBaseUrl(Agency a) {
+		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/cars";
+	}
+
+	public List<Car> findAvailableCar(AvailableCarRequestDTO request) {
 		List<Car> allAvailableCars = new ArrayList<>();
 
 		for (Agency a : agencyDAO.getOthers()) {
@@ -54,11 +60,7 @@ public class CarRestClient {
 
 	}
 
-	public String getBaseUrlAvailable(String ip, int port) {
-		return "http://" + ip + ":" + port + "/RONF/rest/cars/available";
-	}
-
-	public List<Car> getRemoteFreeCar(Agency a) {
+	public List<Car> findFreeCars(Agency a) {
 
 		List<Car> freeRemote = new ArrayList<>();
 
@@ -78,13 +80,7 @@ public class CarRestClient {
 				logger.debug("Traovata macchina free per parco: " + c.getModel() + " at " + c.getOriginAgency().getName() + " in " + a.getName());
 			}
 		}
-
 		return freeRemote;
-
-	}
-
-	public String getBaseUrl(Agency a) {
-		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/cars";
 	}
 
 }

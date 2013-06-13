@@ -1,6 +1,7 @@
 package it.unibo.ronf.server.rest.services;
 
 import it.unibo.ronf.server.dao.CarDAO;
+import it.unibo.ronf.server.rest.CarRestService;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Car;
 
@@ -20,13 +21,14 @@ import org.springframework.stereotype.Service;
 @Service("carServiceRemote")
 @Path("/cars")
 @Scope("request")
-public class CarRestService {
+public class CarRestServiceImpl implements CarRestService {
 
 	@Autowired
 	private CarDAO carDAO;
 
-	private static final Logger logger = Logger.getLogger(CarRestService.class);
+	private static final Logger logger = Logger.getLogger(CarRestServiceImpl.class);
 
+	@Override
 	@POST
 	@Path("/available")
 	@Produces({ MediaType.APPLICATION_XML })
@@ -35,6 +37,7 @@ public class CarRestService {
 		return carDAO.findAvailableCar(request.getType(), request.getStart(), request.getEnd());
 	}
 
+	@Override
 	@POST
 	@Path("/free")
 	@Produces({ MediaType.APPLICATION_XML })

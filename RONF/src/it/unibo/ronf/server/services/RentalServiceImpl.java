@@ -4,8 +4,8 @@ import it.unibo.ronf.server.dao.AgencyDAO;
 import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.server.dao.RentalDAO;
 import it.unibo.ronf.server.dao.TransferEmployeeDAO;
-import it.unibo.ronf.server.rest.client.RentalRestClient;
-import it.unibo.ronf.server.rest.client.TransferRestClient;
+import it.unibo.ronf.server.rest.client.RentalRestProxy;
+import it.unibo.ronf.server.rest.client.TransferRestProxy;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.Rental;
@@ -42,10 +42,10 @@ public class RentalServiceImpl implements RentalService {
 	private TransferEmployeeDAO teDAO;
 
 	@Autowired
-	private TransferRestClient transferRestClient;
+	private TransferRestProxy transferRestClient;
 
 	@Autowired
-	private RentalRestClient rentalRestClient;
+	private RentalRestProxy rentalRestClient;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -140,7 +140,7 @@ public class RentalServiceImpl implements RentalService {
 		transferToDo.setTransfers(listAction);
 
 		try {
-			transferRestClient.sendTransferRequest(transferToDo);
+			transferRestClient.createTransfer(transferToDo);
 		} catch (Exception ex) {
 			logger.error("error while sending request for transfer to other agency: -->" + ex.getMessage());
 		}

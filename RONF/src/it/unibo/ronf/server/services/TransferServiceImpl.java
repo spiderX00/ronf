@@ -2,7 +2,7 @@ package it.unibo.ronf.server.services;
 
 import it.unibo.ronf.server.dao.TransferDAO;
 import it.unibo.ronf.server.dao.TransferEmployeeDAO;
-import it.unibo.ronf.server.rest.client.TransferRestClient;
+import it.unibo.ronf.server.rest.client.TransferRestProxy;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Transfer;
 import it.unibo.ronf.shared.entities.TransferAction;
@@ -27,7 +27,7 @@ public class TransferServiceImpl implements TransferService {
 	private TransferEmployeeDAO teDAO;
 
 	@Autowired
-	private TransferRestClient transferRestClient;
+	private TransferRestProxy transferRestClient;
 
 	@Override
 	public List<Transfer> findByStartAgency(Agency startAgency) {
@@ -51,7 +51,7 @@ public class TransferServiceImpl implements TransferService {
 
 	@Override
 	public void createTransfer(Transfer t) {
-		transferRestClient.sendTransferRequest(t);
+		transferRestClient.createTransfer(t);
 	}
 
 	@Override

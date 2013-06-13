@@ -1,7 +1,8 @@
 package it.unibo.ronf.shared.dto;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class GetRentalByUserDTO implements Serializable {
@@ -11,7 +12,6 @@ public class GetRentalByUserDTO implements Serializable {
 	private Long id;
 
 	public GetRentalByUserDTO() {
-
 	}
 
 	public long getId() {

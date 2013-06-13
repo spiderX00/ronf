@@ -1,7 +1,7 @@
 package it.unibo.ronf.server.services;
 
 import it.unibo.ronf.server.dao.CarDAO;
-import it.unibo.ronf.server.rest.client.CarRestClient;
+import it.unibo.ronf.server.rest.client.CarRestProxy;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
@@ -26,7 +26,7 @@ public class CarServiceImpl implements CarService {
 	private CarDAO carDAO;
 
 	@Autowired
-	private CarRestClient carRestClient;
+	private CarRestProxy carRestClient;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -66,7 +66,7 @@ public class CarServiceImpl implements CarService {
 		List<Car> allFound = new ArrayList<>();
 		allFound.addAll(localCars);
 		try {
-			List<Car> remoteCars = carRestClient.findRemoteAvailableCar(request);
+			List<Car> remoteCars = carRestClient.findAvailableCar(request);
 			allFound.addAll(remoteCars);
 		} catch (Exception ex) {
 			logger.error("error while searching avaiable car in other agency: -->" + ex.getMessage());
@@ -76,6 +76,6 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public List<Car> getAllFreeCars(Agency a) {
-		return carRestClient.getRemoteFreeCar(a);
+		return carRestClient.findFreeCars(a);
 	}
 }

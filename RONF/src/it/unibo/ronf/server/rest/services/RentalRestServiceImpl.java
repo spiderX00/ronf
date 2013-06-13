@@ -2,6 +2,7 @@ package it.unibo.ronf.server.rest.services;
 
 import it.unibo.ronf.server.dao.CustomerDAO;
 import it.unibo.ronf.server.dao.RentalDAO;
+import it.unibo.ronf.server.rest.RentalRestService;
 import it.unibo.ronf.shared.dto.GetRentalByUserDTO;
 import it.unibo.ronf.shared.entities.Rental;
 
@@ -24,9 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("rentalRestService")
 @Path("/rental")
 @Scope("request")
-public class RentalRestService {
+public class RentalRestServiceImpl implements RentalRestService {
 
-	private static final Logger logger = Logger.getLogger(RentalRestService.class);
+	private static final Logger logger = Logger.getLogger(RentalRestServiceImpl.class);
 
 	@Autowired
 	private RentalDAO rentalDAO;
@@ -34,17 +35,19 @@ public class RentalRestService {
 	@Autowired
 	private CustomerDAO customerDAO;
 
+	@Override
 	@POST
 	@Path("/getRentals")
 	@Produces({ MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_XML })
-	public List<Rental> getRentalForUser(GetRentalByUserDTO closeDto) {
+	public List<Rental> findRentalForUser(GetRentalByUserDTO closeDto) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Serching rental for user: " + closeDto.getId());
 		}
 		return rentalDAO.findByUserId(closeDto.getId());
 	}
 
+	@Override
 	@POST
 	@Path("/close")
 	@Produces({ MediaType.APPLICATION_XML })

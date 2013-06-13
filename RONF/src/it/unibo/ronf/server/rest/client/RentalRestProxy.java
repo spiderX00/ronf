@@ -1,12 +1,13 @@
 package it.unibo.ronf.server.rest.client;
 
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-
+import it.unibo.ronf.server.rest.RestClient;
 import it.unibo.ronf.shared.dto.GetRentalByUserDTO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Rental;
+
+import java.util.List;
+
+import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,11 @@ import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 
 @Service("clientRestRentalService")
-public class RentalRestClient {
+public class RentalRestProxy implements RestClient {
 
-	private final static Logger logger = Logger.getLogger(RentalRestClient.class);
+	private final static Logger logger = Logger.getLogger(RentalRestProxy.class);
 
-	public List<Rental> getUserRemoteRental(long id, Agency a) {
+	public List<Rental> getRentalForUser(long id, Agency a) {
 
 		GetRentalByUserDTO crDTO = new GetRentalByUserDTO();
 		crDTO.setId(id);
@@ -40,7 +41,7 @@ public class RentalRestClient {
 		return rentals;
 	}
 
-	public void closeRemoteRental(Rental r) {
+	public void closeRental(Rental r) {
 		logger.debug("closeRemoteRental -> start");
 		Client client = Client.create();
 		client.setConnectTimeout(10000);
@@ -49,7 +50,8 @@ public class RentalRestClient {
 		webResource.accept(MediaType.APPLICATION_XML).post(r);
 		logger.debug("closeRemoteRental -> Rental successfully closed");
 	}
-
+	
+	@Override
 	public String getBaseUrl(Agency a) {
 		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/rental/";
 	}
