@@ -50,7 +50,7 @@ public class RentalRestProxy implements RestClient {
 		webResource.accept(MediaType.APPLICATION_XML).post(r);
 		logger.debug("closeRemoteRental -> Rental successfully closed");
 	}
-	
+
 	@Override
 	public String getBaseUrl(Agency a) {
 		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/rental/";

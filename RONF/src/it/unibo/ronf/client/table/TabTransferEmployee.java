@@ -57,6 +57,7 @@ public class TabTransferEmployee extends ListGrid {
 			editImg.setHeight(16);
 			editImg.setWidth(16);
 			editImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					SC.confirm("Assegnare un Transfer Employee a un Transfer?", new BooleanCallback() {
 
@@ -109,8 +110,10 @@ public class TabTransferEmployee extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					SC.confirm("Sei sicuro?", new BooleanCallback() {
+						@Override
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);

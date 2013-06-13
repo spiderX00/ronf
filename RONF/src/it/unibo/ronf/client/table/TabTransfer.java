@@ -53,6 +53,7 @@ public class TabTransfer extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					TransferRecord transferRecord = (TransferRecord) rollOverRecord;
 					transferRecord.getObject().setSuccess(true);

@@ -52,8 +52,10 @@ public class TabCustomer extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					SC.confirm("Sei sicuro?", new BooleanCallback() {
+						@Override
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);

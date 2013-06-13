@@ -61,6 +61,7 @@ public class TransferDS extends DataSource {
 			/**
 			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
+			@Override
 			public void onSuccess(List<Transfer> result) {
 				transferRecord = new TransferRecord[result.size()];
 

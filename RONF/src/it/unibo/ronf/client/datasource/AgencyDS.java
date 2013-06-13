@@ -58,6 +58,7 @@ public class AgencyDS extends DataSource {
 			/**
 			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
+			@Override
 			public void onSuccess(List<Agency> result) {
 				agencyRecord = new AgencyRecord[result.size()];
 

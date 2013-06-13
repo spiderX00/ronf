@@ -84,6 +84,7 @@ public class RentalDS extends DataSource {
 			/**
 			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
+			@Override
 			public void onSuccess(List<Rental> result) {
 				rentalRecord = new RentalRecord[result.size()];
 

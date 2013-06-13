@@ -52,6 +52,7 @@ public class TransferActionDialog extends Dialog {
 					removeImg.setHeight(16);
 					removeImg.setWidth(16);
 					removeImg.addClickHandler(new ClickHandler() {
+						@Override
 						public void onClick(ClickEvent event) {
 							SC.confirm("Transfer avvenuto con successo?", new BooleanCallback() {
 

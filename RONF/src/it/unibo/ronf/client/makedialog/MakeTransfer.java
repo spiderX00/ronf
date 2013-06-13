@@ -27,6 +27,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
+import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.MultiComboBoxLayoutStyle;
 import com.smartgwt.client.util.SC;
@@ -105,8 +106,8 @@ public class MakeTransfer extends Dialog {
 					agencyMap.put("" + c.getId() + " - " + c.getName(), c);
 				}
 				final TabTransfer tabTransfer = new TabTransfer();
-				if (TransferDS.getDataSource("transferDS") != null) {
-					TransferDS.getDataSource("transferDS").destroy();
+				if (DataSource.getDataSource("transferDS") != null) {
+					DataSource.getDataSource("transferDS").destroy();
 				}
 				dynamicForm.setDataSource(new TransferDS("transferDS", tabTransfer, agencyMap));
 				dynamicForm.getField("id").hide();
@@ -184,10 +185,12 @@ public class MakeTransfer extends Dialog {
 
 	class CreateBtnClickHandler implements ClickHandler {
 
+		@Override
 		public void onClick(ClickEvent event) {
 			final Transfer transfer = new Transfer();
 			/** al click viene creato un nuovo Customer */
 			dynamicForm.saveData(new DSCallback() {
+				@Override
 				public void execute(DSResponse response, Object rawData, DSRequest request) {
 					dynamicForm.editNewRecord();
 				}

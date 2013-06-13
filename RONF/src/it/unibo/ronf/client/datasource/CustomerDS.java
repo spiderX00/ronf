@@ -71,6 +71,7 @@ public class CustomerDS extends DataSource {
 			/**
 			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
+			@Override
 			public void onSuccess(List<Customer> result) {
 				customerRecord = new GridRecord[result.size()];
 

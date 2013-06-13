@@ -48,6 +48,7 @@ public class TabRental extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					/** Dialog Chiusura Rental */
 					if (rollOverRecord instanceof RentalRecord) {

@@ -71,6 +71,7 @@ public class OptionalDS extends DataSource {
 			/**
 			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
+			@Override
 			public void onSuccess(List<Optional> result) {
 				optionalRecord = new OptionalRecord[result.size()];
 
