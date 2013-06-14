@@ -84,7 +84,7 @@ public class TabTransfer extends ListGrid {
 	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
 		if (getFieldName(rowNum) != null) {
 			TransferRecord transferRecord = (TransferRecord) record;
-			if (transferRecord.getObject().isSuccess() == false) {
+			if (transferRecord.getSuccess() == false) {
 				return "font-weight:bold; background-color:#e60000;";
 			} else {
 				return "font-weight:bold; background-color:#00cc00;";
