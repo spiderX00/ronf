@@ -12,6 +12,9 @@ import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.TransferActionService;
 import it.unibo.ronf.shared.entities.TransferEmployee;
 
+import org.springframework.stereotype.Service;
+
+@Service("transferActionService")
 public class TransferActionServiceImpl implements TransferActionService {
 
 	@Autowired
@@ -43,7 +46,7 @@ public class TransferActionServiceImpl implements TransferActionService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void updateSuccessTransferAction(TransferAction ta) {
 		taDAO.merge(ta);
-		
+
 	}
 
 }

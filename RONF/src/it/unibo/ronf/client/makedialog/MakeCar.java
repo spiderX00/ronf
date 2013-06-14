@@ -16,14 +16,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.debugging.sourcemap.dev.protobuf.UnknownFieldSet.Field;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
+import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -42,8 +43,8 @@ public class MakeCar extends Dialog {
 
 	private Car car;
 
-	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
-	private Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
+	private Map<String, Agency> agencyMap;
+	private Map<String, CarType> carTypeMap;
 
 	private DynamicForm dynamicForm;
 
@@ -67,13 +68,14 @@ public class MakeCar extends Dialog {
 
 			@Override
 			public void onSuccess(List<Agency> result) {
+				agencyMap = new HashMap<String, Agency>();
 				for (Agency c : result) {
 					agencyMap.put("" + c.getId() + " - " + c.getName(), c);
 
 				}
 				final TabCar tabCar = new TabCar();
-				if (CarDS.getDataSource("carDS") != null) {
-					CarDS.getDataSource("carDS").destroy();
+				if (DataSource.getDataSource("carDS") != null) {
+					DataSource.getDataSource("carDS").destroy();
 				}
 				dynamicForm.setDataSource(new CarDS("carDS", tabCar, agencyMap));
 				dynamicForm.getField("id").hide();
@@ -89,9 +91,11 @@ public class MakeCar extends Dialog {
 		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
 			@Override
 			public void onSuccess(List<CarType> result) {
+				carTypeMap = new HashMap<String, CarType>();
 				for (CarType ct : result) {
 					carTypeMap.put(ct.getType(), ct);
 				}
+				carTypeItem.clearValue();
 				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
 			}
 
@@ -132,9 +136,11 @@ public class MakeCar extends Dialog {
 	}
 
 	class CreateBtnHandler implements ClickHandler {
+		@Override
 		public void onClick(ClickEvent event) {
 			/** al click viene creato un nuovo Customer */
 			dynamicForm.saveData(new DSCallback() {
+				@Override
 				public void execute(DSResponse response, Object rawData, DSRequest request) {
 					dynamicForm.editNewRecord();
 				}
@@ -149,7 +155,7 @@ public class MakeCar extends Dialog {
 				@Override
 				public void onSuccess(Void result) {
 					MakeCar.this.hide();
-					Window.alert("Car Created!");
+					SC.say("Car Created!");
 				}
 
 				@Override

@@ -27,8 +27,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author Alessio De Vita alessio.dv@gmail.com
  */
 public class TabCustomer extends ListGrid {
-	private final CustomerServiceAsync customerService = GWT
-			.create(CustomerService.class);
+	private final CustomerServiceAsync customerService = GWT.create(CustomerService.class);
 	private HLayout rollOverCanvas;
 	private ListGridRecord rollOverRecord;
 	final static VLayout vPanel = new VLayout();
@@ -53,24 +52,23 @@ public class TabCustomer extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					SC.confirm("Sei sicuro?", new BooleanCallback() {
+						@Override
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								customerService.removeById(
-										rollOverRecord.getAttributeAsLong("id"),
-										new AsyncCallback<Void>() {
-											@Override
-											public void onSuccess(Void result) {
-											}
+								customerService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
+									@Override
+									public void onSuccess(Void result) {
+									}
 
-											@Override
-											public void onFailure(
-													Throwable caught) {
-												Window.alert("Errore nell'eliminazione");
-											}
-										});
+									@Override
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
+									}
+								});
 							}
 						}
 					});
@@ -95,8 +93,8 @@ public class TabCustomer extends ListGrid {
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
 	 */
 	public static void setData(CustomerDS data, TabCustomer tabCustomer) {
 		tabCustomer.setShowRollOverCanvas(true);
@@ -113,13 +111,10 @@ public class TabCustomer extends ListGrid {
 		ListGridField surnameField = new ListGridField("surname", "Cognome");
 		ListGridField ageField = new ListGridField("age", "EtÃ ");
 		ageField.setAlign(Alignment.LEFT);
-		ListGridField fiscalCodeField = new ListGridField("fiscalCode",
-				"Cod. Fiscale");
-		ListGridField docNumberField = new ListGridField("docNumber",
-				"Documento n.");
+		ListGridField fiscalCodeField = new ListGridField("fiscalCode", "Cod. Fiscale");
+		ListGridField docNumberField = new ListGridField("docNumber", "Documento n.");
 
-		tabCustomer.setFields(new ListGridField[] { idField, nameField,
-				surnameField, ageField, fiscalCodeField, docNumberField });
+		tabCustomer.setFields(new ListGridField[] { idField, nameField, surnameField, ageField, fiscalCodeField, docNumberField });
 		vPanel.addChild(tabCustomer);
 		rp.clear();
 		rp.add(vPanel);

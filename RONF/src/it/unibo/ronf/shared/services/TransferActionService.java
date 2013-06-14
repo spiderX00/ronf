@@ -19,7 +19,7 @@ public interface TransferActionService extends RemoteService {
 	public List<TransferAction> findBySuccess(boolean success);
 
 	public void createTransferAction(TransferAction ta);
-	
+
 	public void updateSuccessTransferAction(TransferAction ta);
 
 }

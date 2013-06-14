@@ -3,7 +3,6 @@ package it.unibo.ronf.shared.services;
 import java.util.List;
 import java.util.Date;
 
-
 import it.unibo.ronf.shared.entities.Rental;
 import it.unibo.ronf.shared.entities.Agency;
 
@@ -24,8 +23,8 @@ public interface RentalService extends RemoteService {
 	public List<Rental> findAll();
 
 	public void createRental(Rental rental);
-	
+
 	public void removeById(long id);
-	
+
 	public void updateRental(Rental r);
 }

@@ -10,13 +10,11 @@ public interface TransferEmployeeServiceAsync {
 
 	void findByBusy(boolean busy, AsyncCallback<List<TransferEmployee>> callback);
 
-	void createTransferEmployee(TransferEmployee te,
-			AsyncCallback<Void> callback);
+	void createTransferEmployee(TransferEmployee te, AsyncCallback<Void> callback);
 
 	void removeById(long id, AsyncCallback<Void> callback);
 
-	void updateTransferEmployeeBusy(TransferEmployee te,
-			AsyncCallback<Void> callback);
+	void updateTransferEmployeeBusy(TransferEmployee te, AsyncCallback<Void> callback);
 
 	void findAll(AsyncCallback<List<TransferEmployee>> callback);
 

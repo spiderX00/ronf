@@ -53,7 +53,7 @@ public class AgencyServiceImpl implements AgencyService {
 
 	@Override
 	public void setCurrentAgency(Agency a) {
-		agencyDAO.setCurrentAgency(a);		
+		agencyDAO.setCurrentAgency(a);
 	}
 
 	@Override

@@ -68,24 +68,23 @@ public class CarDS extends DataSource {
 			}
 
 			/**
-			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto
-			 * il DB
+			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
+			@Override
 			public void onSuccess(List<Car> result) {
 				carRecord = new CarRecord[result.size()];
 
 				int i = 0;
 				for (Car p : result) {
-					carRecord[i] = new CarRecord(p.getId(), p.getModel(), p.getPlate(), p.getGasolineType(), p.getSeatsNumber(), p.getOriginAgency().getName(), p
-							.getType().getType());
+					carRecord[i] = new CarRecord(p.getId(), p.getModel(), p.getPlate(), p.getGasolineType(), p.getSeatsNumber(), p.getOriginAgency().getName(), p.getType().getType());
 					i++;
 
 				}
 
 				setTestData(carRecord);
 				/**
-				 * Una volta essermi assicurato che la chiamata Asincrona ha
-				 * avuto successo, posso mandare i dati alla ListGrid
+				 * Una volta essermi assicurato che la chiamata Asincrona ha avuto successo, posso
+				 * mandare i dati alla ListGrid
 				 */
 				TabCar.setData(CarDS.this, tabCar);
 

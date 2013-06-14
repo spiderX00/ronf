@@ -27,8 +27,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
+import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.MultiComboBoxLayoutStyle;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -43,18 +45,17 @@ import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeTransfer extends Dialog {
 
-	private final TransferServiceAsync transferService = GWT
-			.create(TransferService.class);
-	private final AgencyServiceAsync agencyService = GWT
-			.create(AgencyService.class);
-	private final CarTypeServiceAsync carTypeService = GWT
-			.create(CarTypeService.class);
+	private final TransferServiceAsync transferService = GWT.create(TransferService.class);
+	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
+	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
 	private final CarServiceAsync carService = GWT.create(CarService.class);
 	private HLayout hLayout;
-	private Map<String, Agency> agencyMap = new HashMap<String, Agency>();
 	private MultiComboBoxItem transferActionItem;
-	private Map<String, CarType> carTypeMap = new HashMap<String, CarType>();
-	private Map<String, Car> carMap = new HashMap<String, Car>();
+
+	private Map<String, Agency> agencyMap;
+	private Map<String, CarType> carTypeMap;
+	private Map<String, Car> carMap;
+
 	private SelectItem carTypeItem;
 	private TransferAction transferAction;
 	private DateItem data;
@@ -71,8 +72,7 @@ public class MakeTransfer extends Dialog {
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
 		final DynamicForm dynamicForm3 = new DynamicForm();
-		transferActionItem = new MultiComboBoxItem("transferAction",
-				"Transfer Action");
+		transferActionItem = new MultiComboBoxItem("transferAction", "Transfer Action");
 		transferActionItem.setLayoutStyle(MultiComboBoxLayoutStyle.VERTICAL);
 		carTypeItem = new SelectItem("carType", "Tipo");
 		carTypeItem.setEmptyDisplayValue("Select Type");
@@ -96,26 +96,24 @@ public class MakeTransfer extends Dialog {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Error while loading Agency:"
-						+ caught.getMessage());
+				Window.alert("Error while loading Agency:" + caught.getMessage());
 			}
 
 			@Override
 			public void onSuccess(List<Agency> result) {
+				agencyMap = new HashMap<String, Agency>();
 				for (Agency c : result) {
 					agencyMap.put("" + c.getId() + " - " + c.getName(), c);
 				}
 				final TabTransfer tabTransfer = new TabTransfer();
-				if (TransferDS.getDataSource("transferDS") != null) {
-					TransferDS.getDataSource("transferDS").destroy();
+				if (DataSource.getDataSource("transferDS") != null) {
+					DataSource.getDataSource("transferDS").destroy();
 				}
-				dynamicForm.setDataSource(new TransferDS("transferDS",
-						tabTransfer, agencyMap));
+				dynamicForm.setDataSource(new TransferDS("transferDS", tabTransfer, agencyMap));
 				dynamicForm.getField("id").hide();
 				dynamicForm.getField("arrivalAgency").hide();
 				dynamicForm.getField("success").hide();
-				dynamicForm.getField("startAgency").addChangeHandler(
-						new StartAgencyHandler());
+				dynamicForm.getField("startAgency").addChangeHandler(new StartAgencyHandler());
 
 			}
 		});
@@ -123,17 +121,16 @@ public class MakeTransfer extends Dialog {
 		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
 			@Override
 			public void onSuccess(List<CarType> result) {
+				carTypeMap = new HashMap<String, CarType>();
 				for (CarType ct : result) {
 					carTypeMap.put(ct.getType(), ct);
 				}
-				carTypeItem.setValueMap(carTypeMap.keySet().toArray(
-						new String[] {}));
+				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load car type: "
-						+ caught.getMessage());
+				Window.alert("Impossible to load car type: " + caught.getMessage());
 			}
 		});
 
@@ -164,38 +161,37 @@ public class MakeTransfer extends Dialog {
 		@Override
 		public void onChange(ChangeEvent event) {
 			String selectedItem = (String) event.getValue();
-			carService.getAllFreeCars(agencyMap.get(selectedItem),
-					new AsyncCallback<List<Car>>() {
+			carService.getAllFreeCars(agencyMap.get(selectedItem), new AsyncCallback<List<Car>>() {
 
-						@Override
-						public void onFailure(Throwable caught) {
-							Window.alert("Error while loading Agency:"
-									+ caught.getMessage());
-						}
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Error while loading Agency:" + caught.getMessage());
+				}
 
-						@Override
-						public void onSuccess(List<Car> result) {
-							for (Car c : result) {
-								carMap.put(c.getModel(), c);
-							}
+				@Override
+				public void onSuccess(List<Car> result) {
+					carMap = new HashMap<String, Car>();
+					for (Car c : result) {
+						carMap.put(c.getModel(), c);
+					}
 
-							transferActionItem.setValueMap(carMap.keySet()
-									.toArray(new String[] {}));
-						}
+					transferActionItem.setValueMap(carMap.keySet().toArray(new String[] {}));
+				}
 
-					});
+			});
 		}
 
 	}
 
 	class CreateBtnClickHandler implements ClickHandler {
 
+		@Override
 		public void onClick(ClickEvent event) {
 			final Transfer transfer = new Transfer();
 			/** al click viene creato un nuovo Customer */
 			dynamicForm.saveData(new DSCallback() {
-				public void execute(DSResponse response, Object rawData,
-						DSRequest request) {
+				@Override
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
 					dynamicForm.editNewRecord();
 				}
 			});
@@ -221,7 +217,7 @@ public class MakeTransfer extends Dialog {
 				@Override
 				public void onSuccess(Void result) {
 					MakeTransfer.this.hide();
-					Window.alert("Transfer Successfully Created!");
+					SC.say("Transfer Successfully Created!");
 				}
 
 				@Override

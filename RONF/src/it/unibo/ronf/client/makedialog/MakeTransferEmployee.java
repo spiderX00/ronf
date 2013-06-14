@@ -13,7 +13,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
+import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -37,8 +39,8 @@ public class MakeTransferEmployee extends Dialog {
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
 		final TabTransferEmployee tabTransferEmployee = new TabTransferEmployee();
-		if (RentalDS.getDataSource("transferDS") != null) {
-			RentalDS.getDataSource("transferDS").destroy();
+		if (DataSource.getDataSource("transferDS") != null) {
+			DataSource.getDataSource("transferDS").destroy();
 		}
 		dynamicForm.setDataSource(new TransferEmployeeDS("transferDS", tabTransferEmployee));
 		dynamicForm.getField("id").hide();
@@ -63,11 +65,13 @@ public class MakeTransferEmployee extends Dialog {
 		hLayout.moveTo(30, 231);
 
 	}
-	
+
 	class CreateHandler implements ClickHandler {
+		@Override
 		public void onClick(ClickEvent event) {
 			/** al click viene creato un nuovo Customer */
 			dynamicForm.saveData(new DSCallback() {
+				@Override
 				public void execute(DSResponse response, Object rawData, DSRequest request) {
 					dynamicForm.editNewRecord();
 				}
@@ -81,7 +85,7 @@ public class MakeTransferEmployee extends Dialog {
 				@Override
 				public void onSuccess(Void result) {
 					MakeTransferEmployee.this.hide();
-					Window.alert("Transfer Employee Created!");
+					SC.say("Transfer Employee Created!");
 				}
 
 				@Override

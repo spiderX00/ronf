@@ -17,7 +17,7 @@ public interface TransferEmployeeService extends RemoteService {
 	public void removeById(long id);
 
 	public void updateTransferEmployeeBusy(TransferEmployee te);
-	
+
 	public List<TransferEmployee> findAll();
 
 }

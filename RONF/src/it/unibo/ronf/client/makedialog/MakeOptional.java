@@ -13,6 +13,7 @@ import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -24,14 +25,12 @@ import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
- * Dialog che prende in input il DouteSource e permette di aggiungere record
- * alla ListGrid e al DB
+ * Dialog che prende in input il DouteSource e permette di aggiungere record alla ListGrid e al DB
  * 
  * @author Alessio De Vita alessio.dv@gmail.com
  */
 public class MakeOptional extends Dialog {
-	private final OptionalServiceAsync optionalService = GWT
-			.create(OptionalService.class);
+	private final OptionalServiceAsync optionalService = GWT.create(OptionalService.class);
 	private HLayout hLayout;
 
 	public MakeOptional() {
@@ -53,35 +52,32 @@ public class MakeOptional extends Dialog {
 		hLayout.addMember(btnCrea);
 		hLayout.setAlign(Alignment.CENTER);
 		btnCrea.addClickHandler(new ClickHandler() {
+			@Override
 			public void onClick(ClickEvent event) {
 				/** al click viene creato un nuovo Customer */
 				dynamicForm.saveData(new DSCallback() {
-					public void execute(DSResponse response, Object rawData,
-							DSRequest request) {
+					@Override
+					public void execute(DSResponse response, Object rawData, DSRequest request) {
 						dynamicForm.editNewRecord();
 					}
 				});
 				Optional optional = new Optional();
 				optional.setName(dynamicForm.getValueAsString("name"));
-				optional.setCost(Float.parseFloat(dynamicForm
-						.getValueAsString("cost")));
-				optional.setDescription(dynamicForm
-						.getValueAsString("description"));
-				optionalService.createOptional(optional,
-						new AsyncCallback<Void>() {
-							@Override
-							public void onSuccess(Void result) {
-								MakeOptional.this.hide();
-								Window.alert("Optional Created!");
+				optional.setCost(Float.parseFloat(dynamicForm.getValueAsString("cost")));
+				optional.setDescription(dynamicForm.getValueAsString("description"));
+				optionalService.createOptional(optional, new AsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+						MakeOptional.this.hide();
+						SC.say("Optional Created!");
 
-							}
+					}
 
-							@Override
-							public void onFailure(Throwable caught) {
-								Window.alert("Impossible to create optional : "
-										+ caught);
-							}
-						});
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to create optional : " + caught);
+					}
+				});
 
 			}
 		});

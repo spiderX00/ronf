@@ -11,6 +11,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -31,8 +32,8 @@ public class TabTransfer extends ListGrid {
 	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
-	 * sopra una riga, permettendone la modifica
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
+	 * permettendone la modifica
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
@@ -52,6 +53,7 @@ public class TabTransfer extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					TransferRecord transferRecord = (TransferRecord) rollOverRecord;
 					transferRecord.getObject().setSuccess(true);
@@ -59,7 +61,7 @@ public class TabTransfer extends ListGrid {
 
 						@Override
 						public void onSuccess(Boolean result) {
-							Window.alert("Update Transfer Success!");
+							SC.say("Update Transfer Success!");
 						}
 
 						@Override
@@ -77,8 +79,8 @@ public class TabTransfer extends ListGrid {
 	}
 
 	/**
-	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
-	 * settato l'attributo busy di un transfer employee
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo
+	 * busy di un transfer employee
 	 */
 	@Override
 	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
@@ -99,8 +101,8 @@ public class TabTransfer extends ListGrid {
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
 	 */
 	public static void setData(TransferDS data, TabTransfer tabTransfer) {
 		tabTransfer.setShowRollOverCanvas(true);

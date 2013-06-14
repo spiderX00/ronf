@@ -21,6 +21,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.MultiComboBoxLayoutStyle;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -136,7 +137,7 @@ public class CloseRental extends Dialog {
 						}
 					});
 				}
-				Window.alert("Rental concluded");
+				SC.say("Rental concluded");
 				CloseRental.this.hide();
 			}
 		});

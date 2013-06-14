@@ -23,8 +23,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class TabAgency extends ListGrid {
 
-	private final AgencyServiceAsync agencyService = GWT
-			.create(AgencyService.class);
+	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private HLayout rollOverCanvas;
 	private ListGridRecord rollOverRecord;
 	final static VLayout vPanel = new VLayout();
@@ -49,24 +48,23 @@ public class TabAgency extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					SC.confirm("Sei sicuro?", new BooleanCallback() {
+						@Override
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
-								agencyService.removeById(
-										rollOverRecord.getAttributeAsLong("id"),
-										new AsyncCallback<Void>() {
-											@Override
-											public void onSuccess(Void result) {
-											}
+								agencyService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
+									@Override
+									public void onSuccess(Void result) {
+									}
 
-											@Override
-											public void onFailure(
-													Throwable caught) {
-												Window.alert("Errore nell'eliminazione");
-											}
-										});
+									@Override
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
+									}
+								});
 							}
 						}
 					});
@@ -108,11 +106,9 @@ public class TabAgency extends ListGrid {
 		ListGridField codeField = new ListGridField("code", "Codice");
 		ListGridField nameField = new ListGridField("name", "Nome");
 		ListGridField addressField = new ListGridField("address", "Indirizzo");
-		ListGridField ipAddressField = new ListGridField("ipAddress",
-				"IP");
+		ListGridField ipAddressField = new ListGridField("ipAddress", "IP");
 
-		tabAgency.setFields(new ListGridField[] { idField, codeField,
-				nameField, addressField, ipAddressField });
+		tabAgency.setFields(new ListGridField[] { idField, codeField, nameField, addressField, ipAddressField });
 		vPanel.addChild(tabAgency);
 		rp.clear();
 		rp.add(vPanel);

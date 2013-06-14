@@ -3,16 +3,16 @@ package it.unibo.ronf.shared.entities;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @Entity
 @XmlRootElement
 public class CarType implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String type;
 	private float dailyCost;
 

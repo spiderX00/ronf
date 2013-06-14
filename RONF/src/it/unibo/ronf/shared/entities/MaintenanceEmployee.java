@@ -4,9 +4,9 @@ import javax.persistence.*;
 
 @Entity
 public class MaintenanceEmployee extends Employee implements java.io.Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private boolean busy;
 
 	public boolean isBusy() {
@@ -16,7 +16,5 @@ public class MaintenanceEmployee extends Employee implements java.io.Serializabl
 	public void setBusy(boolean busy) {
 		this.busy = busy;
 	}
-	
-	
 
 }

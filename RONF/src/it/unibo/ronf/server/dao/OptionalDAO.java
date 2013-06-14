@@ -11,22 +11,19 @@ import javax.persistence.TypedQuery;
 
 @Repository("optionalDAO")
 public class OptionalDAO extends JpaDAO<Optional> {
-	
+
 	public Optional findByName(String name) {
 		try {
-		
-		TypedQuery<Optional> query = em.createQuery(
-				"SELECT o FROM Optional o WHERE o.name = :name", entityClass);
-		
-		query.setParameter("name", name);
-		
-		return query.getSingleResult();
+
+			TypedQuery<Optional> query = em.createQuery("SELECT o FROM Optional o WHERE o.name = :name", entityClass);
+
+			query.setParameter("name", name);
+
+			return query.getSingleResult();
 		} catch (NoResultException ex) {
 			return null;
 		}
-		
+
 	}
-	
-	
 
 }

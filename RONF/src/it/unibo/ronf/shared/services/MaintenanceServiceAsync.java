@@ -15,8 +15,7 @@ public interface MaintenanceServiceAsync {
 
 	public void findByDate(Date date, AsyncCallback<List<Maintenance>> callback);
 
-	public void findByMaintenanceEmployee(MaintenanceEmployee maintenanceEmployee,
-			AsyncCallback<List<Maintenance>> callback);
+	public void findByMaintenanceEmployee(MaintenanceEmployee maintenanceEmployee, AsyncCallback<List<Maintenance>> callback);
 
 	public void createMaintenance(Maintenance mt, AsyncCallback<Void> callback);
 

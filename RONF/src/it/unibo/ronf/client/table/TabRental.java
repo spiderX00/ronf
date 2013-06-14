@@ -48,6 +48,7 @@ public class TabRental extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					/** Dialog Chiusura Rental */
 					if (rollOverRecord instanceof RentalRecord) {
@@ -96,8 +97,7 @@ public class TabRental extends ListGrid {
 		ListGridField cautionField = new ListGridField("caution", "Cauzione");
 		ListGridField finishedField = new ListGridField("finished", "Concluso");
 
-		tabRental.setFields(new ListGridField[] { idField, startField, endField, rentedCarField, customerField, startingAgencyField,
-				arrivalAgencyField, optionalField, paymentField, cautionField, finishedField });
+		tabRental.setFields(new ListGridField[] { idField, startField, endField, rentedCarField, customerField, startingAgencyField, arrivalAgencyField, optionalField, paymentField, cautionField, finishedField });
 		vPanel.addChild(tabRental);
 		rp.clear();
 		rp.add(vPanel);

@@ -8,17 +8,14 @@ import it.unibo.ronf.shared.entities.MaintenanceType;
 
 @Repository("maintenanceTypeDAO")
 public class MaintenanceTypeDAO extends JpaDAO<MaintenanceType> {
-	
+
 	public MaintenanceType findByName(String name) {
-		
-		TypedQuery<MaintenanceType> query = em.createQuery(
-				"SELECT mt FROM MaintenanceType mt WHERE mt.name = :name", entityClass);
-		
+
+		TypedQuery<MaintenanceType> query = em.createQuery("SELECT mt FROM MaintenanceType mt WHERE mt.name = :name", entityClass);
+
 		query.setParameter("name", name);
-		
+
 		return query.getSingleResult();
 	}
-	
-	
 
 }

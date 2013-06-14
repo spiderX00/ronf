@@ -20,9 +20,10 @@ public class Transfer implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	//Quando un entity contiene relazioni OneToMany è obbligatorio mettere il FetchType.EAGER
-	//in quanto altrimenti con il FetchType.LAZY eclipselink sostituisce l'implememntazione della lista
-	//con un IndirectList (che gwt non riesce a serializzare) anzichè ArrayList
+	// Quando un entity contiene relazioni OneToMany è obbligatorio mettere il FetchType.EAGER
+	// in quanto altrimenti con il FetchType.LAZY eclipselink sostituisce l'implememntazione della
+	// lista
+	// con un IndirectList (che gwt non riesce a serializzare) anzichè ArrayList
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<TransferAction> transfers;
 	@OneToOne
@@ -32,7 +33,7 @@ public class Transfer implements java.io.Serializable {
 	private boolean success;
 	@OneToOne
 	private TransferEmployee transferEmployee;
-	
+
 	public TransferEmployee getTransferEmployee() {
 		return transferEmployee;
 	}

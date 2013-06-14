@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("ronfServices/paymentService")
 public interface PaymentService extends RemoteService {
-	
+
 	public Payment makePayment(Rental r);
 
 }

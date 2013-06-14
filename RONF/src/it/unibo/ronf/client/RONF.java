@@ -42,7 +42,7 @@ public class RONF implements EntryPoint {
 	private final EmployeeServiceAsync employeeService = GWT.create(EmployeeService.class);
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private final InitServiceAsync initService = GWT.create(InitService.class);
-	
+
 	private VLayout layoutMain = new VLayout();
 	private HLayout layoutForm = new HLayout();
 	private HLayout layoutButton = new HLayout();
@@ -58,24 +58,22 @@ public class RONF implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
-
 		initService.preLoginInitEntities(new AsyncCallback<Void>() {
 
 			@Override
 			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fallito preLogin()");
-
+				Window.alert("Fallito preLogin(): " + caught.getMessage());
 			}
 		});
 
 		final DynamicForm loginForm = new DynamicForm();
 		layoutMain.setWidth100();
 		loginButton = new Button("Login");
+		loginButton.disable();
 		layoutButton.addMember(loginButton);
 		layoutButton.setWidth100();
 		layoutButton.setAlign(Alignment.CENTER);
@@ -111,7 +109,9 @@ public class RONF implements EntryPoint {
 				for (Agency a : result) {
 					agencyMap.put(a.getName(), a);
 				}
+				agencySelectItem.clearValue();
 				agencySelectItem.setValueMap(agencyMap.keySet().toArray(new String[] {}));
+				loginButton.enable();
 			}
 
 			@Override
@@ -169,12 +169,11 @@ public class RONF implements EntryPoint {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							Window.alert("Fallito postLogin()");
+							Window.alert("Fallito postLogin(): " + caught.getMessage());
 
 						}
 					});
-					
-					
+
 					new MainMenu();
 				}
 

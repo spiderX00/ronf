@@ -19,8 +19,7 @@ public class CarDAO extends JpaDAO<Car> {
 
 	public List<Car> findByModel(String model) {
 
-		TypedQuery<Car> query = em.createQuery(
-				"SELECT c FROM Car c WHERE c.model = :model", entityClass);
+		TypedQuery<Car> query = em.createQuery("SELECT c FROM Car c WHERE c.model = :model", entityClass);
 
 		query.setParameter("model", model);
 		List<Car> carList = query.getResultList();
@@ -29,8 +28,7 @@ public class CarDAO extends JpaDAO<Car> {
 
 	public Car findByPlate(String plate) {
 		try {
-			TypedQuery<Car> query = em.createQuery(
-					"SELECT c FROM Car c WHERE c.plate = :plate", entityClass);
+			TypedQuery<Car> query = em.createQuery("SELECT c FROM Car c WHERE c.plate = :plate", entityClass);
 
 			query.setParameter("plate", plate);
 			return query.getSingleResult();
@@ -41,9 +39,7 @@ public class CarDAO extends JpaDAO<Car> {
 
 	public List<Car> findByGasolineType(String gasolineType) {
 
-		TypedQuery<Car> query = em.createQuery(
-				"SELECT c FROM Car c WHERE c.gasolineType = :gasolineType",
-				entityClass);
+		TypedQuery<Car> query = em.createQuery("SELECT c FROM Car c WHERE c.gasolineType = :gasolineType", entityClass);
 
 		query.setParameter("gasolineType", gasolineType);
 		List<Car> carList = query.getResultList();
@@ -52,9 +48,7 @@ public class CarDAO extends JpaDAO<Car> {
 
 	public List<Car> findBySeatsNumber(int seatsNumber) {
 
-		TypedQuery<Car> query = em.createQuery(
-				"SELECT c FROM Car c WHERE c.seatsNumber = :seatsNumber",
-				entityClass);
+		TypedQuery<Car> query = em.createQuery("SELECT c FROM Car c WHERE c.seatsNumber = :seatsNumber", entityClass);
 
 		query.setParameter("seatsNumber", seatsNumber);
 
@@ -74,21 +68,13 @@ public class CarDAO extends JpaDAO<Car> {
 	 */
 	public List<Car> findAvailableCar(CarType type, Date start, Date end) {
 		// Macchine di un determinato tipo meno quelle noleggiate
-		TypedQuery<Car> queryFree = em
-				.createQuery(
-						"SELECT c FROM Car c "
-								+ "WHERE c.type.type = :type AND c NOT IN "
-								+ "(SELECT r.rentedCar FROM Rental r WHERE r.rentedCar.type.type = :type)",
-						Car.class);
+		TypedQuery<Car> queryFree = em.createQuery("SELECT c FROM Car c " + "WHERE c.type.type = :type AND c NOT IN " + "(SELECT r.rentedCar FROM Rental r WHERE r.rentedCar.type.type = :type)", Car.class);
 		queryFree.setParameter("type", type.getType());
 		List<Car> freeCars = queryFree.getResultList();
 
 		// Macchine di un determinato tipo noleggiate ma disponibili nel periodo
 		// richiesto
-		queryFree = em.createQuery("SELECT c.rentedCar FROM Rental c "
-				+ "WHERE c.rentedCar.type.type = :type AND "
-				+ "((c.start > :start AND c.start > :end) OR "
-				+ "(c.end < :start AND c.end < :end)) ", Car.class);
+		queryFree = em.createQuery("SELECT c.rentedCar FROM Rental c " + "WHERE c.rentedCar.type.type = :type AND " + "((c.start > :start AND c.start > :end) OR " + "(c.end < :start AND c.end < :end)) ", Car.class);
 		queryFree.setParameter("type", type.getType());
 		queryFree.setParameter("start", start);
 		queryFree.setParameter("end", end);
@@ -101,8 +87,7 @@ public class CarDAO extends JpaDAO<Car> {
 	}
 
 	public List<Car> findByType(CarType cartype) {
-		TypedQuery<Car> query = em.createQuery(
-				"SELECT c FROM Car c WHERE c.type = :cartype", entityClass);
+		TypedQuery<Car> query = em.createQuery("SELECT c FROM Car c WHERE c.type = :cartype", entityClass);
 
 		query.setParameter("cartype", cartype);
 		List<Car> carListType = query.getResultList();
@@ -111,10 +96,7 @@ public class CarDAO extends JpaDAO<Car> {
 
 	public List<Car> getAllFreeCars() {
 
-		TypedQuery<Car> query = em.createQuery(
-				"SELECT c FROM Car c WHERE "
-						+ "c NOT IN (SELECT r.rentedCar FROM Rental r) AND "
-						+ "c NOT IN (SELECT ta.requiredCar FROM TransferAction ta WHERE ta.successAction = false)", entityClass);
+		TypedQuery<Car> query = em.createQuery("SELECT c FROM Car c WHERE " + "c NOT IN (SELECT r.rentedCar FROM Rental r) AND " + "c NOT IN (SELECT ta.requiredCar FROM TransferAction ta WHERE ta.successAction = false)", entityClass);
 
 		return query.getResultList();
 

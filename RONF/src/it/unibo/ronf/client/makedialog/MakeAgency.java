@@ -13,6 +13,7 @@ import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -57,13 +58,14 @@ public class MakeAgency extends Dialog {
 		hLayout.moveTo(30, 231);
 
 	}
-	
+
 	class CreateBtnHandler implements ClickHandler {
+		@Override
 		public void onClick(ClickEvent event) {
 			/** al click viene creato un nuovo Customer */
 			dynamicForm.saveData(new DSCallback() {
-				public void execute(DSResponse response, Object rawData,
-						DSRequest request) {
+				@Override
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
 					dynamicForm.editNewRecord();
 				}
 			});
@@ -72,20 +74,18 @@ public class MakeAgency extends Dialog {
 			agency.setName(dynamicForm.getValueAsString("name"));
 			agency.setAddress(dynamicForm.getValueAsString("address"));
 			agency.setIpAddress(dynamicForm.getValueAsString("ipAddress"));
-			agencyService.createAgency(agency,
-					new AsyncCallback<Void>() {
-						@Override
-						public void onSuccess(Void result) {
-							MakeAgency.this.hide();
-							Window.alert("Optional Created!");
-						}
+			agencyService.createAgency(agency, new AsyncCallback<Void>() {
+				@Override
+				public void onSuccess(Void result) {
+					MakeAgency.this.hide();
+					SC.say("Optional Created!");
+				}
 
-						@Override
-						public void onFailure(Throwable caught) {
-							Window.alert("Impossible to create optional : "
-									+ caught);
-						}
-					});
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Impossible to create optional : " + caught);
+				}
+			});
 		}
 	}
 

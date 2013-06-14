@@ -36,8 +36,8 @@ public class TabTransferEmployee extends ListGrid {
 	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
-	 * sopra una riga, permettendone la modifica
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
+	 * permettendone la modifica
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
@@ -57,6 +57,7 @@ public class TabTransferEmployee extends ListGrid {
 			editImg.setHeight(16);
 			editImg.setWidth(16);
 			editImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					SC.confirm("Assegnare un Transfer Employee a un Transfer?", new BooleanCallback() {
 
@@ -73,24 +74,25 @@ public class TabTransferEmployee extends ListGrid {
 
 								@Override
 								public void onSuccess(List<Transfer> result) {
-									if (!result.isEmpty()){
-									employeeRecord.getObject().setBusy(true);
-									result.get(0).setTransferEmployee(employeeRecord.getObject());
-									transferService.SetEmployeePerTransfer(result.get(0), new AsyncCallback<Void>() {
+									if (!result.isEmpty()) {
+										employeeRecord.getObject().setBusy(true);
+										result.get(0).setTransferEmployee(employeeRecord.getObject());
+										transferService.SetEmployeePerTransfer(result.get(0), new AsyncCallback<Void>() {
 
-										@Override
-										public void onFailure(Throwable caught) {
-											Window.alert("Error to set Transfer Employee " + caught.getMessage());
-										}
+											@Override
+											public void onFailure(Throwable caught) {
+												Window.alert("Error to set Transfer Employee " + caught.getMessage());
+											}
 
-										@Override
-										public void onSuccess(Void result) {
-											Window.alert("Transfer Employee Assegnato con successo!");
+											@Override
+											public void onSuccess(Void result) {
+												Window.alert("Transfer Employee Assegnato con successo!");
 
-										}
-									});
+											}
+										});
+									} else {
+										Window.alert("Transfer Not Found");
 									}
-									else { Window.alert("Transfer Not Found");}
 								}
 							});
 
@@ -108,8 +110,10 @@ public class TabTransferEmployee extends ListGrid {
 			removeImg.setHeight(16);
 			removeImg.setWidth(16);
 			removeImg.addClickHandler(new ClickHandler() {
+				@Override
 				public void onClick(ClickEvent event) {
 					SC.confirm("Sei sicuro?", new BooleanCallback() {
+						@Override
 						public void execute(Boolean value) {
 							if (Boolean.TRUE.equals(value)) {
 								removeData(rollOverRecord);
@@ -137,8 +141,8 @@ public class TabTransferEmployee extends ListGrid {
 	}
 
 	/**
-	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
-	 * settato l'attributo busy di un transfer employee
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo
+	 * busy di un transfer employee
 	 */
 	@Override
 	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
@@ -165,8 +169,8 @@ public class TabTransferEmployee extends ListGrid {
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
 	 */
 	public static void setData(TransferEmployeeDS data, TabTransferEmployee tabTransferEmployee) {
 		tabTransferEmployee.setShowRollOverCanvas(true);

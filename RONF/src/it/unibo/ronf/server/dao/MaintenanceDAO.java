@@ -16,14 +16,13 @@ import javax.persistence.TypedQuery;
 public class MaintenanceDAO extends JpaDAO<Maintenance> {
 
 	public Maintenance findByCar(Car car) {
-		try{
+		try {
 
-		TypedQuery<Maintenance> query = em.createQuery(
-				"SELECT m FROM Maintenance m WHERE m.care = :car", entityClass);
+			TypedQuery<Maintenance> query = em.createQuery("SELECT m FROM Maintenance m WHERE m.care = :car", entityClass);
 
-		query.setParameter("car", car);
+			query.setParameter("car", car);
 
-		return query.getSingleResult();
+			return query.getSingleResult();
 		} catch (NoResultException ex) {
 			return null;
 		}
@@ -32,10 +31,7 @@ public class MaintenanceDAO extends JpaDAO<Maintenance> {
 
 	public List<Maintenance> findByDate(Date date) {
 
-		TypedQuery<Maintenance> query = em
-				.createQuery(
-						"SELECT m FROM Maintenance m WHERE m.date = :date",
-						entityClass);
+		TypedQuery<Maintenance> query = em.createQuery("SELECT m FROM Maintenance m WHERE m.date = :date", entityClass);
 
 		query.setParameter("date", date);
 
@@ -44,20 +40,17 @@ public class MaintenanceDAO extends JpaDAO<Maintenance> {
 		return maintenanceResults;
 
 	}
-	
+
 	public List<Maintenance> findByMaintenanceEmployee(MaintenanceEmployee maintenanceEmployee) {
-		
-		TypedQuery<Maintenance> query = em
-				.createQuery(
-						"SELECT m FROM Maintenance m WHERE m.maintenanceEmployee = :maintenanceEmployee",
-						entityClass);
+
+		TypedQuery<Maintenance> query = em.createQuery("SELECT m FROM Maintenance m WHERE m.maintenanceEmployee = :maintenanceEmployee", entityClass);
 
 		query.setParameter("maintenanceEmployee", maintenanceEmployee);
 
 		List<Maintenance> maintenanceResults = query.getResultList();
 
 		return maintenanceResults;
-		
+
 	}
 
 }

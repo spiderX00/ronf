@@ -6,11 +6,11 @@ import javax.persistence.*;
 public class Optional implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String name;
 	private float cost;
 	private String description;
@@ -38,7 +38,7 @@ public class Optional implements java.io.Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public long getId() {
 		return id;
 	}

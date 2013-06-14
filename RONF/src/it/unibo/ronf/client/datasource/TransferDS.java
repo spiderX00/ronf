@@ -24,35 +24,30 @@ public class TransferDS extends DataSource {
 	private final TransferServiceAsync transferService = GWT.create(TransferService.class);
 	private static TransferRecord[] transferRecord;
 
-	public static TransferDS getInstance(TabTransfer tabTransfer,  Map<String, Agency> agencyMap) {
+	public static TransferDS getInstance(TabTransfer tabTransfer, Map<String, Agency> agencyMap) {
 		if (instance == null) {
-			instance = new TransferDS("transferDS", tabTransfer,  agencyMap);
+			instance = new TransferDS("transferDS", tabTransfer, agencyMap);
 		}
 		return instance;
 	}
 
-	public TransferDS(String id, final TabTransfer tabTransfer,  Map<String, Agency> agencyMap) {
+	public TransferDS(String id, final TabTransfer tabTransfer, Map<String, Agency> agencyMap) {
 
 		setID(id);
 		DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");
 		idField.setPrimaryKey(true);
 
-		final DataSourceEnumField startingAgencyField = new DataSourceEnumField(
-				"startAgency", "Agenzia di partenza");
+		final DataSourceEnumField startingAgencyField = new DataSourceEnumField("startAgency", "Agenzia di partenza");
 		startingAgencyField.setRequired(true);
 		if (agencyMap != null) {
-			startingAgencyField.setValueMap(agencyMap.keySet().toArray(
-					new String[] {}));
+			startingAgencyField.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 		}
-		final DataSourceEnumField arrivalAgencyField = new DataSourceEnumField(
-				"arrivalAgency", "Agenzia di arrivo");
+		final DataSourceEnumField arrivalAgencyField = new DataSourceEnumField("arrivalAgency", "Agenzia di arrivo");
 		arrivalAgencyField.setRequired(true);
 		if (agencyMap != null) {
-			arrivalAgencyField.setValueMap(agencyMap.keySet().toArray(
-					new String[] {}));
+			arrivalAgencyField.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 		}
-		DataSourceBooleanField successField = new DataSourceBooleanField(
-				"success", "Concluso");
+		DataSourceBooleanField successField = new DataSourceBooleanField("success", "Concluso");
 
 		setFields(idField, startingAgencyField, arrivalAgencyField, successField);
 		/** Effettuo la richiesta per la ricerca di tutti gli employee */
@@ -64,24 +59,23 @@ public class TransferDS extends DataSource {
 			}
 
 			/**
-			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto
-			 * il DB
+			 * In caso di successo creo un nuovo EmployeeRecord e itero su tutto il DB
 			 */
+			@Override
 			public void onSuccess(List<Transfer> result) {
 				transferRecord = new TransferRecord[result.size()];
 
 				int i = 0;
 				for (Transfer p : result) {
-					transferRecord[i] = new TransferRecord(p, p.getId(), p.getTransfers().size(), p.getStartAgency().getName(), p.getArrivalAgency().getName(),
-							p.isSuccess());
+					transferRecord[i] = new TransferRecord(p, p.getId(), p.getTransfers().size(), p.getStartAgency().getName(), p.getArrivalAgency().getName(), p.isSuccess());
 					i++;
 
 				}
 
 				setTestData(transferRecord);
 				/**
-				 * Una volta essermi assicurato che la chiamata Asincrona ha
-				 * avuto successo, posso mandare i dati alla ListGrid
+				 * Una volta essermi assicurato che la chiamata Asincrona ha avuto successo, posso
+				 * mandare i dati alla ListGrid
 				 */
 				TabTransfer.setData(TransferDS.this, tabTransfer);
 

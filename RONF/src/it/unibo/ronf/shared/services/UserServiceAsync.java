@@ -8,8 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface UserServiceAsync {
 
-	public void findByNameAndSurname(String name, String surname,
-			AsyncCallback<List<User>> callback);
+	public void findByNameAndSurname(String name, String surname, AsyncCallback<List<User>> callback);
 
 	public void insertUser(User u, AsyncCallback<Void> callback);
 

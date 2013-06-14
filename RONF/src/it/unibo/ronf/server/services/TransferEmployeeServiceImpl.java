@@ -2,7 +2,6 @@ package it.unibo.ronf.server.services;
 
 import java.util.List;
 
-
 import it.unibo.ronf.server.dao.TransferEmployeeDAO;
 import it.unibo.ronf.shared.entities.TransferEmployee;
 import it.unibo.ronf.shared.services.TransferEmployeeService;
@@ -14,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("transferEmployeeService")
 public class TransferEmployeeServiceImpl implements TransferEmployeeService {
-	
+
 	@Autowired
 	private TransferEmployeeDAO teDAO;
 
@@ -24,24 +23,24 @@ public class TransferEmployeeServiceImpl implements TransferEmployeeService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createTransferEmployee(TransferEmployee te) {
 		teDAO.persist(te);
-		
+
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
 		teDAO.remove(teDAO.findById(id));
-		
+
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void updateTransferEmployeeBusy(TransferEmployee te) {
 		teDAO.merge(te);
-		
+
 	}
 
 	@Override

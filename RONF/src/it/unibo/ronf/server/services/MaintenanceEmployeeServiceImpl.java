@@ -12,8 +12,7 @@ import it.unibo.ronf.shared.entities.MaintenanceEmployee;
 import it.unibo.ronf.shared.services.MaintenanceEmployeeService;
 
 @Service("maintenanceEmployeeService")
-public class MaintenanceEmployeeServiceImpl implements
-		MaintenanceEmployeeService {
+public class MaintenanceEmployeeServiceImpl implements MaintenanceEmployeeService {
 
 	@Autowired
 	MaintenanceEmployeeDAO maintenanceEmployeeDao;

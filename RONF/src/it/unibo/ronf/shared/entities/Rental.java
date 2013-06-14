@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement
 public class Rental implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,11 +45,11 @@ public class Rental implements java.io.Serializable {
 	public void setStart(Date start) {
 		this.start = start;
 	}
-	
+
 	public Payment getFine() {
 		return fine;
 	}
-	
+
 	public void setFine(Payment fine) {
 		this.fine = fine;
 	}

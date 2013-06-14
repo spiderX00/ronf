@@ -6,8 +6,12 @@
 	<classpathentry kind="lib" path="lib/eclipselink/javax.persistence_2.0.4.v201112161009.jar"/>
 	<classpathentry kind="lib" path="lib/log4j/log4j-1.2.17.jar" sourcepath="lib/log4j/src.zip"/>
 	<classpathentry kind="lib" path="lib/log4j/log4j-gwt.jar"/>
-	<classpathentry kind="lib" path="lib/junit/4.11/junit-4.11.jar"/>
 	<classpathentry kind="lib" path="lib/smartgwt.jar"/>
+	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-test-3.2.2.RELEASE.jar" sourcepath="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-test-3.2.2.RELEASE-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/RONF/lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-test-3.2.2.RELEASE-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-context-3.2.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-beans-3.2.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-tx-3.2.2.RELEASE.jar"/>
@@ -35,5 +39,7 @@
 	<classpathentry kind="lib" path="lib/aspectj/aspectjweaver-1.5.3.jar"/>
 	<classpathentry kind="lib" path="lib/cglib/cglib-2.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/hsqlb/hsqldb.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/spring/3.2.2/spring-framework-3.2.2.RELEASE/libs/spring-core-3.2.2.RELEASE.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

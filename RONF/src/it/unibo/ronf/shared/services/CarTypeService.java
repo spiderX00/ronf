@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("ronfServices/carTypeService")
 public interface CarTypeService extends RemoteService {
-	
+
 	public List<CarType> findAll();
 
 	public void insertCarType(CarType ct);
