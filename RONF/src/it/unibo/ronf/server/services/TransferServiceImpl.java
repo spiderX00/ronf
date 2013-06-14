@@ -61,6 +61,7 @@ public class TransferServiceImpl implements TransferService {
 			if (ta.isSuccessAction()) {
 				continue;
 			} else {
+				transferDAO.merge(t);
 				return false;
 			}
 		}
