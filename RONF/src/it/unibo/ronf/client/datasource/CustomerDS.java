@@ -3,7 +3,6 @@ package it.unibo.ronf.client.datasource;
 import it.unibo.ronf.client.record.GridRecord;
 import it.unibo.ronf.client.table.TabCustomer;
 import it.unibo.ronf.shared.entities.Customer;
-import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.services.CustomerService;
 import it.unibo.ronf.shared.services.CustomerServiceAsync;
 
@@ -15,7 +14,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.fields.DataSourceIntegerField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
-import com.smartgwt.client.widgets.form.validator.FloatRangeValidator;
 import com.smartgwt.client.widgets.form.validator.IntegerRangeValidator;
 
 /**

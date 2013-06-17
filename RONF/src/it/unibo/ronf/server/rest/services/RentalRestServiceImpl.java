@@ -37,18 +37,6 @@ public class RentalRestServiceImpl implements RentalRestService {
 
 	@Override
 	@POST
-	@Path("/getRentals")
-	@Produces({ MediaType.APPLICATION_XML })
-	@Consumes({ MediaType.APPLICATION_XML })
-	public List<Rental> findRentalForUser(GetRentalByUserDTO closeDto) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("Serching rental for user: " + closeDto.getId());
-		}
-		return rentalDAO.findByUserId(closeDto.getId());
-	}
-
-	@Override
-	@POST
 	@Path("/close")
 	@Produces({ MediaType.APPLICATION_XML })
 	@Consumes({ MediaType.APPLICATION_XML })
@@ -61,6 +49,18 @@ public class RentalRestServiceImpl implements RentalRestService {
 		}
 		r.setFinished(true);
 		rentalDAO.merge(r);
+	}
+
+	@Override
+	@POST
+	@Path("/getRentals")
+	@Produces({ MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_XML })
+	public List<Rental> findRentalForUser(GetRentalByUserDTO closeDto) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("Serching rental for user: " + closeDto.getId());
+		}
+		return rentalDAO.findByUserId(closeDto.getId());
 	}
 
 }

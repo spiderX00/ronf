@@ -22,7 +22,41 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeEmployee extends Dialog {
+	class CreateBtnHandler implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			/** al click viene creato un nuovo Customer */
+			dynamicForm.saveData(new DSCallback() {
+				@Override
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
+					dynamicForm.editNewRecord();
+				}
+			});
+			Employee employee = new Employee();
+			employee.setName(dynamicForm.getValueAsString("name"));
+			employee.setSurname(dynamicForm.getValueAsString("surname"));
+			employee.setAge(Integer.parseInt(dynamicForm.getValueAsString("age")));
+			employee.setPassword(dynamicForm.getValueAsString("password"));
+			employee.setUserName(dynamicForm.getValueAsString("userName"));
+			employeeService.createEmployee(employee, new AsyncCallback<Void>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Impossible to create optional : " + caught);
+				}
+
+				@Override
+				public void onSuccess(Void result) {
+					MakeEmployee.this.hide();
+					SC.say("Optional Created!");
+
+				}
+			});
+
+		}
+	}
+
 	private final EmployeeServiceAsync employeeService = GWT.create(EmployeeService.class);
+
 	private HLayout hLayout;
 
 	private DynamicForm dynamicForm;
@@ -59,38 +93,5 @@ public class MakeEmployee extends Dialog {
 		addItem(hLayout);
 		hLayout.moveTo(30, 231);
 
-	}
-
-	class CreateBtnHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			/** al click viene creato un nuovo Customer */
-			dynamicForm.saveData(new DSCallback() {
-				@Override
-				public void execute(DSResponse response, Object rawData, DSRequest request) {
-					dynamicForm.editNewRecord();
-				}
-			});
-			Employee employee = new Employee();
-			employee.setName(dynamicForm.getValueAsString("name"));
-			employee.setSurname(dynamicForm.getValueAsString("surname"));
-			employee.setAge(Integer.parseInt(dynamicForm.getValueAsString("age")));
-			employee.setPassword(dynamicForm.getValueAsString("password"));
-			employee.setUserName(dynamicForm.getValueAsString("userName"));
-			employeeService.createEmployee(employee, new AsyncCallback<Void>() {
-				@Override
-				public void onSuccess(Void result) {
-					MakeEmployee.this.hide();
-					SC.say("Optional Created!");
-
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert("Impossible to create optional : " + caught);
-				}
-			});
-
-		}
 	}
 }

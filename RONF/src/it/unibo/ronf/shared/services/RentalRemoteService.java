@@ -11,8 +11,8 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("ronfServices/rentalRemoteService")
 public interface RentalRemoteService extends RemoteService {
 
-	public List<Rental> getUserRemoteRental(long id, Agency a);
-
 	public void closeRemoteRental(Rental r);
+
+	public List<Rental> getUserRemoteRental(long id, Agency a);
 
 }

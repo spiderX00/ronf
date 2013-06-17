@@ -1,6 +1,9 @@
 package it.unibo.ronf.shared.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class MaintenanceType implements java.io.Serializable {
@@ -18,28 +21,28 @@ public class MaintenanceType implements java.io.Serializable {
 		return cost;
 	}
 
-	public void setCost(float cost) {
-		this.cost = cost;
-	}
-
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
+	}
+
+	public void setCost(float cost) {
+		this.cost = cost;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {

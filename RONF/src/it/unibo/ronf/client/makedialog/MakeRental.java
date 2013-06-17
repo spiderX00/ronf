@@ -116,12 +116,22 @@ public class MakeRental extends Dialog {
 
 		customerService.findAll(new AsyncCallback<List<Customer>>() {
 			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load customers: " + caught.getMessage());
+			}
+
+			@Override
 			public void onSuccess(List<Customer> result) {
 				customersMap = new HashMap<String, Customer>();
 				for (Customer c : result) {
 					customersMap.put("" + c.getId() + " - " + c.getName(), c);
 				}
 				agencyService.findAll(new AsyncCallback<List<Agency>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to load agency: " + caught.getMessage());
+					}
 
 					@Override
 					public void onSuccess(List<Agency> result) {
@@ -139,21 +149,16 @@ public class MakeRental extends Dialog {
 						dynamicForm.getField("optional").hide();
 						dynamicForm.getField("finished").hide();
 					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to load agency: " + caught.getMessage());
-					}
 				});
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load customers: " + caught.getMessage());
 			}
 		});
 
 		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load car type: " + caught.getMessage());
+			}
+
 			@Override
 			public void onSuccess(List<CarType> result) {
 				carTypeMap = new HashMap<String, CarType>();
@@ -162,11 +167,6 @@ public class MakeRental extends Dialog {
 				}
 				carTypeItem.clearValue();
 				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load car type: " + caught.getMessage());
 			}
 		});
 
@@ -177,6 +177,11 @@ public class MakeRental extends Dialog {
 
 				AvailableCarRequestDTO request = new AvailableCarRequestDTO(carTypeMap.get(selectedItem), (Date) (dynamicForm.getValue("start")), (Date) (dynamicForm.getValue("end")));
 				carService.findAvailableCarsInAllAgencies(request, new AsyncCallback<List<Car>>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to load available cars:" + caught.getMessage());
+					}
+
 					@Override
 					public void onSuccess(List<Car> result) {
 						if (result.isEmpty()) {
@@ -191,11 +196,6 @@ public class MakeRental extends Dialog {
 							carModelItem.enable();
 							carModelItem.setValueMap(carMap.keySet().toArray(new String[] {}));
 						}
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to load available cars:" + caught.getMessage());
 					}
 
 				});
@@ -289,15 +289,15 @@ public class MakeRental extends Dialog {
 				rental.getPayment().setPaymentMethod(paymentMethodItem.getEnteredValue());
 				rentalService.createRental(rental, new AsyncCallback<Void>() {
 					@Override
-					public void onSuccess(Void result) {
-						MakeRental.this.hide();
-						SC.say("Rent Successfully Created!");
-					}
-
-					@Override
 					public void onFailure(Throwable caught) {
 
 						Window.alert("Impossible to create rental : " + caught.getMessage());
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						MakeRental.this.hide();
+						SC.say("Rent Successfully Created!");
 					}
 				});
 

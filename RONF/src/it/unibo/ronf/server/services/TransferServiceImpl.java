@@ -30,18 +30,8 @@ public class TransferServiceImpl implements TransferService {
 	private TransferRestProxy transferRestClient;
 
 	@Override
-	public List<Transfer> findByStartAgency(Agency startAgency) {
-		return transferDAO.findByStartAgency(startAgency);
-	}
-
-	@Override
-	public List<Transfer> findByArrivalAgency(Agency arrivalAgency) {
-		return transferDAO.findByArrivalAgency(arrivalAgency);
-	}
-
-	@Override
-	public List<Transfer> findAllPending() {
-		return transferDAO.findAllPending();
+	public void createTransfer(Transfer t) {
+		transferRestClient.createTransfer(t);
 	}
 
 	@Override
@@ -50,8 +40,26 @@ public class TransferServiceImpl implements TransferService {
 	}
 
 	@Override
-	public void createTransfer(Transfer t) {
-		transferRestClient.createTransfer(t);
+	public List<Transfer> findAllPending() {
+		return transferDAO.findAllPending();
+	}
+
+	@Override
+	public List<Transfer> findByArrivalAgency(Agency arrivalAgency) {
+		return transferDAO.findByArrivalAgency(arrivalAgency);
+	}
+
+	@Override
+	public List<Transfer> findByStartAgency(Agency startAgency) {
+		return transferDAO.findByStartAgency(startAgency);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void SetEmployeePerTransfer(Transfer t) {
+		transferDAO.merge(t);
+		teDAO.merge(t.getTransferEmployee());
+
 	}
 
 	@Override
@@ -71,13 +79,5 @@ public class TransferServiceImpl implements TransferService {
 		t.setSuccess(true);
 		transferDAO.merge(t);
 		return true;
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void SetEmployeePerTransfer(Transfer t) {
-		transferDAO.merge(t);
-		teDAO.merge(t.getTransferEmployee());
-
 	}
 }

@@ -1,5 +1,11 @@
 package it.unibo.ronf.server.services;
 
+import it.unibo.ronf.server.dao.MaintenanceDAO;
+import it.unibo.ronf.shared.entities.Car;
+import it.unibo.ronf.shared.entities.Maintenance;
+import it.unibo.ronf.shared.entities.MaintenanceEmployee;
+import it.unibo.ronf.shared.services.MaintenanceService;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,17 +14,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.unibo.ronf.server.dao.MaintenanceDAO;
-import it.unibo.ronf.shared.entities.Car;
-import it.unibo.ronf.shared.entities.Maintenance;
-import it.unibo.ronf.shared.entities.MaintenanceEmployee;
-import it.unibo.ronf.shared.services.MaintenanceService;
-
 @Service("maintenanceService")
 public class MaintenanceServiceImpl implements MaintenanceService {
 
 	@Autowired
 	MaintenanceDAO maintenanceDAO;
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void createMaintenance(Maintenance mt) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<Maintenance> findAll() {
+		return maintenanceDAO.findAll();
+	}
 
 	@Override
 	public Maintenance findByCar(Car car) {
@@ -37,21 +49,9 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void createMaintenance(Maintenance mt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void removeById(long id) {
 		maintenanceDAO.remove(maintenanceDAO.findById(id));
 
-	}
-
-	@Override
-	public List<Maintenance> findAll() {
-		return maintenanceDAO.findAll();
 	}
 
 }

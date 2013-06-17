@@ -66,15 +66,15 @@ public class MakeUser extends Dialog {
 				customer.setDocNumber(dynamicForm.getValueAsString("docNumber"));
 				customerService.createCustomer(customer, new AsyncCallback<Void>() {
 					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to create optional : " + caught);
+					}
+
+					@Override
 					public void onSuccess(Void result) {
 						MakeUser.this.hide();
 						SC.say("Optional Created!");
 
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create optional : " + caught);
 					}
 				});
 

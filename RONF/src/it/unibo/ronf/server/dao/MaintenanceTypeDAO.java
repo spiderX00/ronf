@@ -1,11 +1,11 @@
 package it.unibo.ronf.server.dao;
 
+import it.unibo.ronf.shared.entities.MaintenanceType;
+
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
-
-import it.unibo.ronf.shared.entities.MaintenanceType;
 
 @Repository("maintenanceTypeDAO")
 public class MaintenanceTypeDAO extends JpaDAO<MaintenanceType> {

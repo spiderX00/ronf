@@ -26,8 +26,48 @@ public class TabCar extends ListGrid {
 	private final CarServiceAsync carService = GWT.create(CarService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
+
+	/**
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
+	 */
+	public static void setData(CarDS data, TabCar tabCar) {
+		tabCar.setShowRollOverCanvas(true);
+		tabCar.setWidth("99%");
+		vPanel.setWidth100();
+		tabCar.setHeight(400);
+		tabCar.setShowFilterEditor(true);
+		tabCar.setFilterOnKeypress(true);
+		tabCar.setDataSource(data);
+		tabCar.setAutoFetchData(true);
+		ListGridField idField = new ListGridField("id", "ID");
+		idField.setAlign(Alignment.LEFT);
+		ListGridField modelField = new ListGridField("model", "Model");
+		ListGridField plateField = new ListGridField("plate", "Plate");
+		ListGridField gasolineTypeField = new ListGridField("gasolineType", "Gasoline Type");
+		ListGridField seatsNumberField = new ListGridField("seatsNumber", "Seats Number");
+		seatsNumberField.setAlign(Alignment.LEFT);
+		ListGridField agencyField = new ListGridField("agency", "Agenzia");
+		ListGridField typeField = new ListGridField("type", "Tipo");
+		tabCar.setFields(new ListGridField[] { idField, modelField, plateField, gasolineTypeField, seatsNumberField, agencyField, typeField });
+		vPanel.addChild(tabCar);
+		rp.clear();
+		rp.add(vPanel);
+	}
+
 	private HLayout rollOverCanvas;
+
 	private ListGridRecord rollOverRecord;
+
+	public TabCar() {
+
+		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
+//		if (CarDS.getInstance(TabCar.this, null) != null) {
+//			rp.clear();
+//			rp.add(vPanel);
+//		}
+
+	}
 
 	/**
 	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
@@ -60,12 +100,12 @@ public class TabCar extends ListGrid {
 								removeData(rollOverRecord);
 								carService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
 									@Override
-									public void onSuccess(Void result) {
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
 									}
 
 									@Override
-									public void onFailure(Throwable caught) {
-										Window.alert("Errore nell'eliminazione");
+									public void onSuccess(Void result) {
 									}
 								});
 							}
@@ -79,44 +119,6 @@ public class TabCar extends ListGrid {
 		}
 		return rollOverCanvas;
 
-	}
-
-	public TabCar() {
-
-		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-//		if (CarDS.getInstance(TabCar.this, null) != null) {
-//			rp.clear();
-//			rp.add(vPanel);
-//		}
-
-	}
-
-	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
-	 * successo
-	 */
-	public static void setData(CarDS data, TabCar tabCar) {
-		tabCar.setShowRollOverCanvas(true);
-		tabCar.setWidth("99%");
-		vPanel.setWidth100();
-		tabCar.setHeight(400);
-		tabCar.setShowFilterEditor(true);
-		tabCar.setFilterOnKeypress(true);
-		tabCar.setDataSource(data);
-		tabCar.setAutoFetchData(true);
-		ListGridField idField = new ListGridField("id", "ID");
-		idField.setAlign(Alignment.LEFT);
-		ListGridField modelField = new ListGridField("model", "Model");
-		ListGridField plateField = new ListGridField("plate", "Plate");
-		ListGridField gasolineTypeField = new ListGridField("gasolineType", "Gasoline Type");
-		ListGridField seatsNumberField = new ListGridField("seatsNumber", "Seats Number");
-		seatsNumberField.setAlign(Alignment.LEFT);
-		ListGridField agencyField = new ListGridField("agency", "Agenzia");
-		ListGridField typeField = new ListGridField("type", "Tipo");
-		tabCar.setFields(new ListGridField[] { idField, modelField, plateField, gasolineTypeField, seatsNumberField, agencyField, typeField });
-		vPanel.addChild(tabCar);
-		rp.clear();
-		rp.add(vPanel);
 	}
 
 }

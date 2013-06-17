@@ -12,7 +12,6 @@ import it.unibo.ronf.client.table.TabAgency;
 import it.unibo.ronf.client.table.TabCustomer;
 import it.unibo.ronf.client.table.TabEmployee;
 import it.unibo.ronf.client.table.TabOptional;
-import it.unibo.ronf.client.table.TabTransferEmployee;
 
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.menu.Menu;

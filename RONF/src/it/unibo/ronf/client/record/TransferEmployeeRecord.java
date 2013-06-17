@@ -15,32 +15,24 @@ public class TransferEmployeeRecord extends ListGridRecord {
 		setObject(transferEmployee);
 	}
 
-	public void setObject(TransferEmployee transferEmployee) {
-		setAttribute("transferEmployee", transferEmployee);
+	public Integer getAge() {
+		return getAttributeAsInt("age");
 	}
 
-	public TransferEmployee getObject() {
-		return (TransferEmployee) getAttributeAsObject("transferEmployee");
-	}
-
-	public void setId(Long id) {
-		setAttribute("id", id);
+	public Boolean getBusy() {
+		return getAttributeAsBoolean("busy");
 	}
 
 	public Long getId() {
 		return getAttributeAsLong("id");
 	}
 
-	public void setName(String name) {
-		setAttribute("name", name);
-	}
-
 	public String getName() {
 		return getAttributeAsString("name");
 	}
 
-	public void setSurname(String surname) {
-		setAttribute("surname", surname);
+	public TransferEmployee getObject() {
+		return (TransferEmployee) getAttributeAsObject("transferEmployee");
 	}
 
 	public String getSurname() {
@@ -51,16 +43,24 @@ public class TransferEmployeeRecord extends ListGridRecord {
 		setAttribute("age", age);
 	}
 
-	public Integer getAge() {
-		return getAttributeAsInt("age");
-	}
-
 	public void setBusy(Boolean busy) {
 		setAttribute("busy", busy);
 	}
 
-	public Boolean getBusy() {
-		return getAttributeAsBoolean("busy");
+	public void setId(Long id) {
+		setAttribute("id", id);
+	}
+
+	public void setName(String name) {
+		setAttribute("name", name);
+	}
+
+	public void setObject(TransferEmployee transferEmployee) {
+		setAttribute("transferEmployee", transferEmployee);
+	}
+
+	public void setSurname(String surname) {
+		setAttribute("surname", surname);
 	}
 
 }

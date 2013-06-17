@@ -27,8 +27,6 @@ public class RentalDS extends DataSource {
 	private static RentalDS instance = null;
 	private final RentalServiceAsync rentalService = GWT.create(RentalService.class);
 	private static RentalRecord[] rentalRecord;
-	Map<String, Customer> customersMap = new HashMap<String, Customer>();
-	Map<String, Agency> agencyMap = new HashMap<String, Agency>();
 
 	public static RentalDS getInstance(TabRental tabRental, Map<String, Customer> customersMap, Map<String, Agency> agencyMap) {
 		if (instance == null) {
@@ -36,6 +34,10 @@ public class RentalDS extends DataSource {
 		}
 		return instance;
 	}
+
+	Map<String, Customer> customersMap = new HashMap<String, Customer>();
+
+	Map<String, Agency> agencyMap = new HashMap<String, Agency>();
 
 	public RentalDS(String id, final TabRental tabRental, Map<String, Customer> customersMap, Map<String, Agency> agencyMap) {
 

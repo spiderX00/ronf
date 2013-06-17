@@ -15,36 +15,36 @@ public class TransferActionRecord extends ListGridRecord {
 		setTransferDate(transferDate);
 	}
 
-	public void setId(Long id) {
-		setAttribute("id", id);
+	public String getCarRequired() {
+		return getAttributeAsString("carRequired");
 	}
 
 	public Long getId() {
 		return getAttributeAsLong("id");
 	}
 
-	public void setObject(TransferAction transferAction) {
-		setAttribute("transferAction", transferAction);
-	}
-
 	public TransferAction getObject() {
 		return (TransferAction) getAttributeAsObject("transferAction");
+	}
+
+	public Date getTransferDate() {
+		return getAttributeAsDate("transferDate");
 	}
 
 	public void setCarRequired(String carRequired) {
 		setAttribute("carRequired", carRequired);
 	}
 
-	public String getCarRequired() {
-		return getAttributeAsString("carRequired");
+	public void setId(Long id) {
+		setAttribute("id", id);
+	}
+
+	public void setObject(TransferAction transferAction) {
+		setAttribute("transferAction", transferAction);
 	}
 
 	public void setTransferDate(Date transferDate) {
 		setAttribute("transferDate", transferDate);
-	}
-
-	public Date getTransferDate() {
-		return getAttributeAsDate("transferDate");
 	}
 
 }

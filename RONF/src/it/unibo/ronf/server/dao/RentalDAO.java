@@ -1,28 +1,27 @@
 package it.unibo.ronf.server.dao;
 
-import it.unibo.ronf.shared.entities.Rental;
 import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Rental;
 
 import java.util.Date;
-
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
+
 @Repository("rentalDAO")
 public class RentalDAO extends JpaDAO<Rental> {
 
-	public List<Rental> findByStart(Date start) {
+	public List<Rental> findByArrivalAgency(Agency arrivalAgency) {
 
-		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.start = :start", entityClass);
+		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.arrivalAgency = :arrivalAgency", entityClass);
 
-		query.setParameter("start", start);
+		query.setParameter("arrivalAgency", arrivalAgency);
 
-		List<Rental> rentalListStart = query.getResultList();
+		List<Rental> rentalListArrivalAgency = query.getResultList();
 
-		return rentalListStart;
+		return rentalListArrivalAgency;
 
 	}
 
@@ -38,6 +37,18 @@ public class RentalDAO extends JpaDAO<Rental> {
 
 	}
 
+	public List<Rental> findByStart(Date start) {
+
+		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.start = :start", entityClass);
+
+		query.setParameter("start", start);
+
+		List<Rental> rentalListStart = query.getResultList();
+
+		return rentalListStart;
+
+	}
+
 	public List<Rental> findByStartingAgency(Agency startingAgency) {
 
 		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.startingAgency = :startingAgency", entityClass);
@@ -47,18 +58,6 @@ public class RentalDAO extends JpaDAO<Rental> {
 		List<Rental> rentalListStartAgency = query.getResultList();
 
 		return rentalListStartAgency;
-
-	}
-
-	public List<Rental> findByArrivalAgency(Agency arrivalAgency) {
-
-		TypedQuery<Rental> query = em.createQuery("SELECT r FROM Rental r WHERE r.arrivalAgency = :arrivalAgency", entityClass);
-
-		query.setParameter("arrivalAgency", arrivalAgency);
-
-		List<Rental> rentalListArrivalAgency = query.getResultList();
-
-		return rentalListArrivalAgency;
 
 	}
 

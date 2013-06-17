@@ -41,17 +41,17 @@ public class CustomerDAOTest {
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void testFindByFiscalCode() {
-		Customer result = test.findByFiscalCode(fiscalCode);
-		assertNotNull(result);
-		assertEquals(result.getFiscalCode(), fiscalCode);
-	}
-
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByDocNumber() {
 		Customer result = test.findByDocNumber(docNumber);
 		assertNotNull(result);
 		assertEquals(result.getDocNumber(), docNumber);
+	}
+
+	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void testFindByFiscalCode() {
+		Customer result = test.findByFiscalCode(fiscalCode);
+		assertNotNull(result);
+		assertEquals(result.getFiscalCode(), fiscalCode);
 	}
 }

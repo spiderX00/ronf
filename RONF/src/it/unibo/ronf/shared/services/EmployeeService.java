@@ -1,8 +1,8 @@
 package it.unibo.ronf.shared.services;
 
-import java.util.List;
-
 import it.unibo.ronf.shared.entities.Employee;
+
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -16,9 +16,9 @@ public interface EmployeeService extends RemoteService {
 
 	public List<Employee> findAll();
 
-	public void remove(Employee employee);
-
 	public Employee findByUserName(String userName);
+
+	public void remove(Employee employee);
 
 	public void removeById(long id);
 

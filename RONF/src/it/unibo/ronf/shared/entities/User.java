@@ -38,36 +38,36 @@ public class User implements java.io.Serializable {
 		this.age = age;
 	}
 
-	public long getId() {
-		return id;
+	public int getAge() {
+		return age;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public long getId() {
+		return id;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getSurname() {
 		return surname;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 }

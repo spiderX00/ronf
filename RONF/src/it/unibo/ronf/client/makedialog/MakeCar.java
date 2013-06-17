@@ -37,18 +37,50 @@ import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeCar extends Dialog {
 
+	class CreateBtnHandler implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			/** al click viene creato un nuovo Customer */
+			dynamicForm.saveData(new DSCallback() {
+				@Override
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
+					dynamicForm.editNewRecord();
+				}
+			});
+
+			car.setModel(dynamicForm.getValueAsString("model"));
+			car.setPlate(dynamicForm.getValueAsString("plate"));
+			car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
+			car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
+			car.setOriginAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
+			carService.createCar(car, new AsyncCallback<Void>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Impossible to create Car : " + caught);
+				}
+
+				@Override
+				public void onSuccess(Void result) {
+					MakeCar.this.hide();
+					SC.say("Car Created!");
+				}
+			});
+		}
+	}
+
 	private final CarServiceAsync carService = GWT.create(CarService.class);
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
+
 	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
 
 	private Car car;
-
 	private Map<String, Agency> agencyMap;
+
 	private Map<String, CarType> carTypeMap;
 
 	private DynamicForm dynamicForm;
-
 	private HLayout hLayout;
+
 	private SelectItem carTypeItem;
 
 	public MakeCar() {
@@ -67,6 +99,11 @@ public class MakeCar extends Dialog {
 		agencyService.findAll(new AsyncCallback<List<Agency>>() {
 
 			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load agency: " + caught.getMessage());
+			}
+
+			@Override
 			public void onSuccess(List<Agency> result) {
 				agencyMap = new HashMap<String, Agency>();
 				for (Agency c : result) {
@@ -81,14 +118,14 @@ public class MakeCar extends Dialog {
 				dynamicForm.getField("id").hide();
 				dynamicForm.getField("type").hide();
 			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load agency: " + caught.getMessage());
-			}
 		});
 
 		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load car type: " + caught.getMessage());
+			}
+
 			@Override
 			public void onSuccess(List<CarType> result) {
 				carTypeMap = new HashMap<String, CarType>();
@@ -97,11 +134,6 @@ public class MakeCar extends Dialog {
 				}
 				carTypeItem.clearValue();
 				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load car type: " + caught.getMessage());
 			}
 		});
 
@@ -133,36 +165,5 @@ public class MakeCar extends Dialog {
 		});
 		addItem(hLayout);
 		hLayout.moveTo(30, 231);
-	}
-
-	class CreateBtnHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			/** al click viene creato un nuovo Customer */
-			dynamicForm.saveData(new DSCallback() {
-				@Override
-				public void execute(DSResponse response, Object rawData, DSRequest request) {
-					dynamicForm.editNewRecord();
-				}
-			});
-
-			car.setModel(dynamicForm.getValueAsString("model"));
-			car.setPlate(dynamicForm.getValueAsString("plate"));
-			car.setGasolineType(dynamicForm.getValueAsString("gasolineType"));
-			car.setSeatsNumber(Integer.parseInt(dynamicForm.getValueAsString("seatsNumber")));
-			car.setOriginAgency(agencyMap.get(dynamicForm.getValueAsString("agency")));
-			carService.createCar(car, new AsyncCallback<Void>() {
-				@Override
-				public void onSuccess(Void result) {
-					MakeCar.this.hide();
-					SC.say("Car Created!");
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert("Impossible to create Car : " + caught);
-				}
-			});
-		}
 	}
 }

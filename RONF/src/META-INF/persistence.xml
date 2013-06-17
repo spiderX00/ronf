@@ -27,6 +27,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 			<property name="javax.persistence.jdbc.user" value="SA" />
 			<property name="javax.persistence.jdbc.password" value="" />
 			<!-- EclipseLink should create the database schema automatically -->
+			<!-- drop-and-create-tables usata in fase di sviluppo per eliminare il db ad ogni avvio -->
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode" value="database" />
 		</properties>

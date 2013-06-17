@@ -3,7 +3,6 @@ package it.unibo.ronf.client;
 import it.unibo.ronf.client.datasource.TransferActionDS;
 import it.unibo.ronf.client.record.TransferActionRecord;
 import it.unibo.ronf.client.record.TransferRecord;
-import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.services.TransferActionService;
 import it.unibo.ronf.shared.services.TransferActionServiceAsync;
 
@@ -35,6 +34,20 @@ public class TransferActionDialog extends Dialog {
 		h.setSize("450px", "200px");
 		final ListGrid transferActionGrid = new ListGrid() {
 			@Override
+			protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
+				if (getFieldName(rowNum) != null) {
+					TransferActionRecord transferRecord = (TransferActionRecord) record;
+					if (transferRecord.getObject().isSuccessAction() == false) {
+						return "font-weight:bold; background-color:#e60000;";
+					} else {
+						return "font-weight:bold; background-color:#00cc00;";
+					}
+				} else {
+					return super.getCellCSSText(record, rowNum, colNum);
+				}
+			}
+
+			@Override
 			protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
 				final ListGridRecord rollOverRecord = this.getRecord(rowNum);
 
@@ -64,13 +77,13 @@ public class TransferActionDialog extends Dialog {
 										transferActionService.updateSuccessTransferAction(ta.getObject(), new AsyncCallback<Void>() {
 
 											@Override
-											public void onSuccess(Void result) {
-												SC.say("Update Success!");
+											public void onFailure(Throwable caught) {
+												Window.alert("Error to update Success " + caught.getMessage());
 											}
 
 											@Override
-											public void onFailure(Throwable caught) {
-												Window.alert("Error to update Success " + caught.getMessage());
+											public void onSuccess(Void result) {
+												SC.say("Update Success!");
 											}
 										});
 									}
@@ -84,20 +97,6 @@ public class TransferActionDialog extends Dialog {
 				}
 				return rollOverCanvas;
 
-			}
-
-			@Override
-			protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
-				if (getFieldName(rowNum) != null) {
-					TransferActionRecord transferRecord = (TransferActionRecord) record;
-					if (transferRecord.getObject().isSuccessAction() == false) {
-						return "font-weight:bold; background-color:#e60000;";
-					} else {
-						return "font-weight:bold; background-color:#00cc00;";
-					}
-				} else {
-					return super.getCellCSSText(record, rowNum, colNum);
-				}
 			}
 		};
 		transferActionGrid.setShowRollOverCanvas(true);

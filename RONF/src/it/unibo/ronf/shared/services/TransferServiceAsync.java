@@ -9,18 +9,18 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface TransferServiceAsync {
 
-	public void findByStartAgency(Agency startAgency, AsyncCallback<List<Transfer>> callback);
-
-	public void findByArrivalAgency(Agency arrivalAgency, AsyncCallback<List<Transfer>> callback);
-
 	public void createTransfer(Transfer t, AsyncCallback<Void> callback);
-
-	public void findAllPending(AsyncCallback<List<Transfer>> callback);
 
 	public void findAll(AsyncCallback<List<Transfer>> callback);
 
-	public void updateSuccessTransfer(Transfer t, AsyncCallback<Boolean> callback);
+	public void findAllPending(AsyncCallback<List<Transfer>> callback);
+
+	public void findByArrivalAgency(Agency arrivalAgency, AsyncCallback<List<Transfer>> callback);
+
+	public void findByStartAgency(Agency startAgency, AsyncCallback<List<Transfer>> callback);
 
 	public void SetEmployeePerTransfer(Transfer t, AsyncCallback<Void> callback);
+
+	public void updateSuccessTransfer(Transfer t, AsyncCallback<Boolean> callback);
 
 }

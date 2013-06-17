@@ -2,16 +2,6 @@
 
 package it.unibo.ronf.server.services;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import it.unibo.ronf.server.dao.AgencyDAO;
 import it.unibo.ronf.server.dao.CarDAO;
 import it.unibo.ronf.server.dao.CarTypeDAO;
@@ -30,6 +20,16 @@ import it.unibo.ronf.shared.entities.Transfer;
 import it.unibo.ronf.shared.entities.TransferAction;
 import it.unibo.ronf.shared.entities.TransferEmployee;
 import it.unibo.ronf.shared.services.InitService;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Questa classe serve in fase di development poichè abbiamo impostato un parametro nel JPA di
@@ -65,47 +65,6 @@ public class InitServiceImpl implements InitService {
 	private TransferEmployeeDAO teDAO;
 	@Autowired
 	private TransferDAO transferDAO;
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void preLoginInitEntities() {
-		if (preLogin) {
-			return;
-		}
-		preLogin = true;
-		try {
-			/* Aggiungo l'admin */
-			Employee admin = new Employee();
-			admin.setUserName("admin");
-			admin.setPassword("admin");
-			admin.setAge(23);
-			admin.setName("Simone");
-			admin.setSurname("Rondelli");
-
-			employeeDAO.persist(admin);
-
-			/* Aggiungo le agenzie */
-			Agency a1 = new Agency();
-			a1.setAddress("Via Zamboni");
-			a1.setCode("a1");
-			a1.setIpAddress("127.0.0.1");
-			a1.setName("Herz centrale 8080");
-			a1.setPort(8080);
-
-			Agency a2 = new Agency();
-			a2.setAddress("Via Stalingrado");
-			a2.setCode("a2");
-			a2.setIpAddress("127.0.0.1");
-			a2.setName("Herz periferia 8081");
-			a2.setPort(8081);
-
-			agencyDAO.persist(a1);
-			agencyDAO.persist(a2);
-		} catch (Exception ex) {
-			logger.error("preLoginInitEntities", ex);
-		}
-
-	}
 
 	/**
 	 * A seconda della currentAgency contenuta dentro AgencyDAO, aggiungo qualche macchina nei
@@ -264,6 +223,47 @@ public class InitServiceImpl implements InitService {
 		} catch (Exception ex) {
 			logger.error("postLoginInitEntities", ex);
 		}
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void preLoginInitEntities() {
+		if (preLogin) {
+			return;
+		}
+		preLogin = true;
+		try {
+			/* Aggiungo l'admin */
+			Employee admin = new Employee();
+			admin.setUserName("admin");
+			admin.setPassword("admin");
+			admin.setAge(23);
+			admin.setName("Simone");
+			admin.setSurname("Rondelli");
+
+			employeeDAO.persist(admin);
+
+			/* Aggiungo le agenzie */
+			Agency a1 = new Agency();
+			a1.setAddress("Via Zamboni");
+			a1.setCode("a1");
+			a1.setIpAddress("127.0.0.1");
+			a1.setName("Herz centrale 8080");
+			a1.setPort(8080);
+
+			Agency a2 = new Agency();
+			a2.setAddress("Via Stalingrado");
+			a2.setCode("a2");
+			a2.setIpAddress("127.0.0.1");
+			a2.setName("Herz periferia 8081");
+			a2.setPort(8081);
+
+			agencyDAO.persist(a1);
+			agencyDAO.persist(a2);
+		} catch (Exception ex) {
+			logger.error("preLoginInitEntities", ex);
+		}
+
 	}
 
 }

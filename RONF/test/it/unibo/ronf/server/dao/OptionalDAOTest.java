@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import it.unibo.ronf.shared.entities.Optional;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,14 +19,14 @@ public class OptionalDAOTest {
 
 	@Autowired
 	private OptionalDAO test;
-	
+
 	private String name = "NAME";
 
 	@Before
 	public void setUpBefore() throws Exception {
 		Optional entity = new Optional();
 		String description = "DESCRIPTION";
-		
+
 		entity.setCost(10.0F);
 		entity.setDescription(description);
 		entity.setName(name);

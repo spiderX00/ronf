@@ -29,6 +29,42 @@ public class TabAgency extends ListGrid {
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
 
+	/**
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
+	 */
+	public static void setData(AgencyDS data, TabAgency tabAgency) {
+		tabAgency.setShowRollOverCanvas(true);
+		tabAgency.setWidth("99%");
+		vPanel.setWidth100();
+		tabAgency.setHeight(400);
+		tabAgency.setShowFilterEditor(true);
+		tabAgency.setFilterOnKeypress(true);
+		tabAgency.setDataSource(data);
+		tabAgency.setAutoFetchData(true);
+		ListGridField idField = new ListGridField("id", "ID");
+		idField.setAlign(Alignment.LEFT);
+		ListGridField codeField = new ListGridField("code", "Code");
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField addressField = new ListGridField("address", "Address");
+		ListGridField ipAddressField = new ListGridField("ipAddress", "IP");
+
+		tabAgency.setFields(new ListGridField[] { idField, codeField, nameField, addressField, ipAddressField });
+		vPanel.addChild(tabAgency);
+		rp.clear();
+		rp.add(vPanel);
+	}
+
+	public TabAgency() {
+
+		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
+		if (AgencyDS.getInstance(TabAgency.this) != null) {
+			rp.clear();
+			rp.add(vPanel);
+		}
+
+	}
+
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
 		rollOverRecord = this.getRecord(rowNum);
@@ -57,12 +93,12 @@ public class TabAgency extends ListGrid {
 								removeData(rollOverRecord);
 								agencyService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
 									@Override
-									public void onSuccess(Void result) {
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
 									}
 
 									@Override
-									public void onFailure(Throwable caught) {
-										Window.alert("Errore nell'eliminazione");
+									public void onSuccess(Void result) {
 									}
 								});
 							}
@@ -76,42 +112,6 @@ public class TabAgency extends ListGrid {
 		}
 		return rollOverCanvas;
 
-	}
-
-	public TabAgency() {
-
-		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-		if (AgencyDS.getInstance(TabAgency.this) != null) {
-			rp.clear();
-			rp.add(vPanel);
-		}
-
-	}
-
-	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
-	 * successo
-	 */
-	public static void setData(AgencyDS data, TabAgency tabAgency) {
-		tabAgency.setShowRollOverCanvas(true);
-		tabAgency.setWidth("99%");
-		vPanel.setWidth100();
-		tabAgency.setHeight(400);
-		tabAgency.setShowFilterEditor(true);
-		tabAgency.setFilterOnKeypress(true);
-		tabAgency.setDataSource(data);
-		tabAgency.setAutoFetchData(true);
-		ListGridField idField = new ListGridField("id", "ID");
-		idField.setAlign(Alignment.LEFT);
-		ListGridField codeField = new ListGridField("code", "Code");
-		ListGridField nameField = new ListGridField("name", "Name");
-		ListGridField addressField = new ListGridField("address", "Address");
-		ListGridField ipAddressField = new ListGridField("ipAddress", "IP");
-
-		tabAgency.setFields(new ListGridField[] { idField, codeField, nameField, addressField, ipAddressField });
-		vPanel.addChild(tabAgency);
-		rp.clear();
-		rp.add(vPanel);
 	}
 
 }

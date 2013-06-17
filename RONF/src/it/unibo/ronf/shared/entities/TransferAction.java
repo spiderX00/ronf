@@ -34,36 +34,36 @@ public class TransferAction implements java.io.Serializable {
 	private Date transferDate;
 	private boolean successAction;
 
-	public boolean isSuccessAction() {
-		return successAction;
-	}
-
-	public void setSuccessAction(boolean successAction) {
-		this.successAction = successAction;
+	public long getId() {
+		return id;
 	}
 
 	public Car getRequiredCar() {
 		return requiredCar;
 	}
 
-	public void setRequiredCar(Car requiredCar) {
-		this.requiredCar = requiredCar;
-	}
-
 	public Date getTransferDate() {
 		return transferDate;
 	}
 
-	public void setTransferDate(Date transferDate) {
-		this.transferDate = transferDate;
-	}
-
-	public long getId() {
-		return id;
+	public boolean isSuccessAction() {
+		return successAction;
 	}
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public void setRequiredCar(Car requiredCar) {
+		this.requiredCar = requiredCar;
+	}
+
+	public void setSuccessAction(boolean successAction) {
+		this.successAction = successAction;
+	}
+
+	public void setTransferDate(Date transferDate) {
+		this.transferDate = transferDate;
 	}
 
 }

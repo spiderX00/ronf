@@ -4,7 +4,6 @@ import it.unibo.ronf.client.record.CarRecord;
 import it.unibo.ronf.client.table.TabCar;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
-import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.services.CarService;
 import it.unibo.ronf.shared.services.CarServiceAsync;
 

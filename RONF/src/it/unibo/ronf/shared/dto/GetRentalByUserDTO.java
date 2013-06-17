@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Incapsula l'ID dell'utente del quale si vogliono conoscere i 
+ * noleggi eseguiti in una determinta agenzia remota siccome con jersey
+ * non si riescono a "jaxbare" i tipi primitivi
+ */
 @XmlRootElement
 public class GetRentalByUserDTO implements Serializable {
 

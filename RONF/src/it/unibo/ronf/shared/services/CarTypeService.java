@@ -12,9 +12,9 @@ public interface CarTypeService extends RemoteService {
 
 	public List<CarType> findAll();
 
-	public void insertCarType(CarType ct);
-
 	public CarType findBytype(String type);
+
+	public void insertCarType(CarType ct);
 
 	public void removeById(long id);
 

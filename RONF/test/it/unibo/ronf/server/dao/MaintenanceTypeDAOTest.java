@@ -19,7 +19,7 @@ public class MaintenanceTypeDAOTest {
 
 	@Autowired
 	private MaintenanceTypeDAO test;
-	
+
 	private String name = "NAME";
 
 	@Before

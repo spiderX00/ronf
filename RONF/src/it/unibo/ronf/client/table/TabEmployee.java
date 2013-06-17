@@ -1,11 +1,8 @@
 package it.unibo.ronf.client.table;
 
 import it.unibo.ronf.client.datasource.EmployeeDS;
-import it.unibo.ronf.client.record.RentalRecord;
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
-import it.unibo.ronf.shared.services.TransferService;
-import it.unibo.ronf.shared.services.TransferServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
@@ -33,8 +30,47 @@ public class TabEmployee extends ListGrid {
 	private final EmployeeServiceAsync employeeService = GWT.create(EmployeeService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
+
+	/**
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
+	 */
+	public static void setData(EmployeeDS data, TabEmployee tabEmployee) {
+		tabEmployee.setShowRollOverCanvas(true);
+		tabEmployee.setWidth("99%");
+		vPanel.setWidth100();
+		tabEmployee.setHeight(400);
+		tabEmployee.setShowFilterEditor(true);
+		tabEmployee.setFilterOnKeypress(true);
+		tabEmployee.setDataSource(data);
+		tabEmployee.setAutoFetchData(true);
+		ListGridField idField = new ListGridField("id", "ID");
+		idField.setAlign(Alignment.LEFT);
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField surnameField = new ListGridField("surname", "Surname");
+		ListGridField ageField = new ListGridField("age", "Age");
+		ageField.setAlign(Alignment.LEFT);
+		ListGridField userNameField = new ListGridField("userName", "Username");
+
+		tabEmployee.setFields(new ListGridField[] { idField, nameField, surnameField, ageField, userNameField });
+		vPanel.addChild(tabEmployee);
+		rp.clear();
+		rp.add(vPanel);
+	}
+
 	private HLayout rollOverCanvas;
+
 	private ListGridRecord rollOverRecord;
+
+	public TabEmployee() {
+
+		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
+		if (EmployeeDS.getInstance(TabEmployee.this) != null) {
+			rp.clear();
+			rp.add(vPanel);
+		}
+
+	}
 
 	/**
 	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
@@ -67,12 +103,12 @@ public class TabEmployee extends ListGrid {
 								removeData(rollOverRecord);
 								employeeService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
 									@Override
-									public void onSuccess(Void result) {
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
 									}
 
 									@Override
-									public void onFailure(Throwable caught) {
-										Window.alert("Errore nell'eliminazione");
+									public void onSuccess(Void result) {
 									}
 								});
 							}
@@ -86,43 +122,6 @@ public class TabEmployee extends ListGrid {
 		}
 		return rollOverCanvas;
 
-	}
-
-	public TabEmployee() {
-
-		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-		if (EmployeeDS.getInstance(TabEmployee.this) != null) {
-			rp.clear();
-			rp.add(vPanel);
-		}
-
-	}
-
-	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
-	 * successo
-	 */
-	public static void setData(EmployeeDS data, TabEmployee tabEmployee) {
-		tabEmployee.setShowRollOverCanvas(true);
-		tabEmployee.setWidth("99%");
-		vPanel.setWidth100();
-		tabEmployee.setHeight(400);
-		tabEmployee.setShowFilterEditor(true);
-		tabEmployee.setFilterOnKeypress(true);
-		tabEmployee.setDataSource(data);
-		tabEmployee.setAutoFetchData(true);
-		ListGridField idField = new ListGridField("id", "ID");
-		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Name");
-		ListGridField surnameField = new ListGridField("surname", "Surname");
-		ListGridField ageField = new ListGridField("age", "Age");
-		ageField.setAlign(Alignment.LEFT);
-		ListGridField userNameField = new ListGridField("userName", "Username");
-
-		tabEmployee.setFields(new ListGridField[] { idField, nameField, surnameField, ageField, userNameField });
-		vPanel.addChild(tabEmployee);
-		rp.clear();
-		rp.add(vPanel);
 	}
 
 }

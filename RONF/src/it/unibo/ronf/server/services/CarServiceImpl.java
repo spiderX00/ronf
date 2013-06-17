@@ -35,29 +35,8 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public Car findByPlate(String plate) {
-		return carDAO.findByPlate(plate);
-	}
-
-	@Override
-	public List<Car> findByGasolineType(String gasolineType) {
-		return carDAO.findByGasolineType(gasolineType);
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void removeById(long id) {
-		carDAO.remove(carDAO.findById(id));
-	}
-
-	@Override
 	public List<Car> findAll() {
 		return carDAO.findAll();
-	}
-
-	@Override
-	public List<Car> findByType(CarType carType) {
-		return carDAO.findByType(carType);
 	}
 
 	@Override
@@ -75,7 +54,28 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
+	public List<Car> findByGasolineType(String gasolineType) {
+		return carDAO.findByGasolineType(gasolineType);
+	}
+
+	@Override
+	public Car findByPlate(String plate) {
+		return carDAO.findByPlate(plate);
+	}
+
+	@Override
+	public List<Car> findByType(CarType carType) {
+		return carDAO.findByType(carType);
+	}
+
+	@Override
 	public List<Car> getAllFreeCars(Agency a) {
 		return carRestClient.findFreeCars(a);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void removeById(long id) {
+		carDAO.remove(carDAO.findById(id));
 	}
 }

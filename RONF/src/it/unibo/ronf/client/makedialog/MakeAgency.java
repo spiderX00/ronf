@@ -22,8 +22,39 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeAgency extends Dialog {
+	class CreateBtnHandler implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			/** al click viene creato un nuovo Customer */
+			dynamicForm.saveData(new DSCallback() {
+				@Override
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
+					dynamicForm.editNewRecord();
+				}
+			});
+			Agency agency = new Agency();
+			agency.setCode(dynamicForm.getValueAsString("code"));
+			agency.setName(dynamicForm.getValueAsString("name"));
+			agency.setAddress(dynamicForm.getValueAsString("address"));
+			agency.setIpAddress(dynamicForm.getValueAsString("ipAddress"));
+			agencyService.createAgency(agency, new AsyncCallback<Void>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Impossible to create optional : " + caught);
+				}
+
+				@Override
+				public void onSuccess(Void result) {
+					MakeAgency.this.hide();
+					SC.say("Optional Created!");
+				}
+			});
+		}
+	}
+
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private HLayout hLayout;
+
 	private DynamicForm dynamicForm;
 
 	public MakeAgency() {
@@ -57,36 +88,6 @@ public class MakeAgency extends Dialog {
 		addItem(hLayout);
 		hLayout.moveTo(30, 231);
 
-	}
-
-	class CreateBtnHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			/** al click viene creato un nuovo Customer */
-			dynamicForm.saveData(new DSCallback() {
-				@Override
-				public void execute(DSResponse response, Object rawData, DSRequest request) {
-					dynamicForm.editNewRecord();
-				}
-			});
-			Agency agency = new Agency();
-			agency.setCode(dynamicForm.getValueAsString("code"));
-			agency.setName(dynamicForm.getValueAsString("name"));
-			agency.setAddress(dynamicForm.getValueAsString("address"));
-			agency.setIpAddress(dynamicForm.getValueAsString("ipAddress"));
-			agencyService.createAgency(agency, new AsyncCallback<Void>() {
-				@Override
-				public void onSuccess(Void result) {
-					MakeAgency.this.hide();
-					SC.say("Optional Created!");
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert("Impossible to create optional : " + caught);
-				}
-			});
-		}
 	}
 
 }

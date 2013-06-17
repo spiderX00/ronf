@@ -30,8 +30,44 @@ public class TabOptional extends ListGrid {
 	private final OptionalServiceAsync optionalService = GWT.create(OptionalService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
+
+	/**
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
+	 */
+	public static void setData(OptionalDS data, TabOptional tabOptional) {
+		tabOptional.setShowRollOverCanvas(true);
+		tabOptional.setWidth("99%");
+		vPanel.setWidth100();
+		tabOptional.setHeight(400);
+		tabOptional.setShowFilterEditor(true);
+		tabOptional.setFilterOnKeypress(true);
+		tabOptional.setDataSource(data);
+		tabOptional.setAutoFetchData(true);
+		ListGridField idField = new ListGridField("id", "ID");
+		idField.setAlign(Alignment.LEFT);
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField costField = new ListGridField("cost", "Cost");
+		ListGridField descriptionField = new ListGridField("description", "Description");
+		tabOptional.setFields(new ListGridField[] { idField, nameField, costField, descriptionField });
+		vPanel.addChild(tabOptional);
+		rp.clear();
+		rp.add(vPanel);
+	}
+
 	private HLayout rollOverCanvas;
+
 	private ListGridRecord rollOverRecord;
+
+	public TabOptional() {
+
+		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
+		if (OptionalDS.getInstance(TabOptional.this) != null) {
+			rp.clear();
+			rp.add(vPanel);
+		}
+
+	}
 
 	/**
 	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
@@ -64,12 +100,12 @@ public class TabOptional extends ListGrid {
 								removeData(rollOverRecord);
 								optionalService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
 									@Override
-									public void onSuccess(Void result) {
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
 									}
 
 									@Override
-									public void onFailure(Throwable caught) {
-										Window.alert("Errore nell'eliminazione");
+									public void onSuccess(Void result) {
 									}
 								});
 							}
@@ -83,40 +119,6 @@ public class TabOptional extends ListGrid {
 		}
 		return rollOverCanvas;
 
-	}
-
-	public TabOptional() {
-
-		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-		if (OptionalDS.getInstance(TabOptional.this) != null) {
-			rp.clear();
-			rp.add(vPanel);
-		}
-
-	}
-
-	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
-	 * successo
-	 */
-	public static void setData(OptionalDS data, TabOptional tabOptional) {
-		tabOptional.setShowRollOverCanvas(true);
-		tabOptional.setWidth("99%");
-		vPanel.setWidth100();
-		tabOptional.setHeight(400);
-		tabOptional.setShowFilterEditor(true);
-		tabOptional.setFilterOnKeypress(true);
-		tabOptional.setDataSource(data);
-		tabOptional.setAutoFetchData(true);
-		ListGridField idField = new ListGridField("id", "ID");
-		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Name");
-		ListGridField costField = new ListGridField("cost", "Cost");
-		ListGridField descriptionField = new ListGridField("description", "Description");
-		tabOptional.setFields(new ListGridField[] { idField, nameField, costField, descriptionField });
-		vPanel.addChild(tabOptional);
-		rp.clear();
-		rp.add(vPanel);
 	}
 
 }

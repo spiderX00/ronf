@@ -2,12 +2,10 @@ package it.unibo.ronf.server.dao;
 
 import it.unibo.ronf.shared.entities.Optional;
 
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
-
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+
+import org.springframework.stereotype.Repository;
 
 @Repository("optionalDAO")
 public class OptionalDAO extends JpaDAO<Optional> {

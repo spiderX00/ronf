@@ -21,6 +21,21 @@ public class RentalRestProxy implements RestClient {
 
 	private final static Logger logger = Logger.getLogger(RentalRestProxy.class);
 
+	public void closeRental(Rental r) {
+		logger.debug("closeRemoteRental -> start");
+		Client client = Client.create();
+		client.setConnectTimeout(10000);
+		WebResource webResource = client.resource(getBaseUrl(r.getStartingAgency())).path("close");
+		logger.debug("closeRemoteRental -> Sending Request..");
+		webResource.accept(MediaType.APPLICATION_XML).post(r);
+		logger.debug("closeRemoteRental -> Rental successfully closed");
+	}
+
+	@Override
+	public String getBaseUrl(Agency a) {
+		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/rental/";
+	}
+
 	public List<Rental> getRentalForUser(long id, Agency a) {
 
 		GetRentalByUserDTO crDTO = new GetRentalByUserDTO();
@@ -39,21 +54,6 @@ public class RentalRestProxy implements RestClient {
 		logger.debug("Post Remote get user remote rental executed!");
 
 		return rentals;
-	}
-
-	public void closeRental(Rental r) {
-		logger.debug("closeRemoteRental -> start");
-		Client client = Client.create();
-		client.setConnectTimeout(10000);
-		WebResource webResource = client.resource(getBaseUrl(r.getStartingAgency())).path("close");
-		logger.debug("closeRemoteRental -> Sending Request..");
-		webResource.accept(MediaType.APPLICATION_XML).post(r);
-		logger.debug("closeRemoteRental -> Rental successfully closed");
-	}
-
-	@Override
-	public String getBaseUrl(Agency a) {
-		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/rental/";
 	}
 
 }

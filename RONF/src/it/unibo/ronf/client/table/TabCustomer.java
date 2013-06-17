@@ -33,6 +33,44 @@ public class TabCustomer extends ListGrid {
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
 
+	/**
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
+	 */
+	public static void setData(CustomerDS data, TabCustomer tabCustomer) {
+		tabCustomer.setShowRollOverCanvas(true);
+		tabCustomer.setWidth("99%");
+		vPanel.setWidth100();
+		tabCustomer.setHeight(400);
+		tabCustomer.setShowFilterEditor(true);
+		tabCustomer.setFilterOnKeypress(true);
+		tabCustomer.setDataSource(data);
+		tabCustomer.setAutoFetchData(true);
+		ListGridField idField = new ListGridField("id", "ID");
+		idField.setAlign(Alignment.LEFT);
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField surnameField = new ListGridField("surname", "Surname");
+		ListGridField ageField = new ListGridField("age", "Age ");
+		ageField.setAlign(Alignment.LEFT);
+		ListGridField fiscalCodeField = new ListGridField("fiscalCode", "Fiscal Code");
+		ListGridField docNumberField = new ListGridField("docNumber", "Document n.");
+
+		tabCustomer.setFields(new ListGridField[] { idField, nameField, surnameField, ageField, fiscalCodeField, docNumberField });
+		vPanel.addChild(tabCustomer);
+		rp.clear();
+		rp.add(vPanel);
+	}
+
+	public TabCustomer() {
+
+		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
+		if (CustomerDS.getInstance(TabCustomer.this) != null) {
+			rp.clear();
+			rp.add(vPanel);
+		}
+
+	}
+
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
 		rollOverRecord = this.getRecord(rowNum);
@@ -61,12 +99,12 @@ public class TabCustomer extends ListGrid {
 								removeData(rollOverRecord);
 								customerService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
 									@Override
-									public void onSuccess(Void result) {
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
 									}
 
 									@Override
-									public void onFailure(Throwable caught) {
-										Window.alert("Errore nell'eliminazione");
+									public void onSuccess(Void result) {
 									}
 								});
 							}
@@ -80,44 +118,6 @@ public class TabCustomer extends ListGrid {
 		}
 		return rollOverCanvas;
 
-	}
-
-	public TabCustomer() {
-
-		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-		if (CustomerDS.getInstance(TabCustomer.this) != null) {
-			rp.clear();
-			rp.add(vPanel);
-		}
-
-	}
-
-	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
-	 * successo
-	 */
-	public static void setData(CustomerDS data, TabCustomer tabCustomer) {
-		tabCustomer.setShowRollOverCanvas(true);
-		tabCustomer.setWidth("99%");
-		vPanel.setWidth100();
-		tabCustomer.setHeight(400);
-		tabCustomer.setShowFilterEditor(true);
-		tabCustomer.setFilterOnKeypress(true);
-		tabCustomer.setDataSource(data);
-		tabCustomer.setAutoFetchData(true);
-		ListGridField idField = new ListGridField("id", "ID");
-		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Name");
-		ListGridField surnameField = new ListGridField("surname", "Surname");
-		ListGridField ageField = new ListGridField("age", "Age ");
-		ageField.setAlign(Alignment.LEFT);
-		ListGridField fiscalCodeField = new ListGridField("fiscalCode", "Fiscal Code");
-		ListGridField docNumberField = new ListGridField("docNumber", "Document n.");
-
-		tabCustomer.setFields(new ListGridField[] { idField, nameField, surnameField, ageField, fiscalCodeField, docNumberField });
-		vPanel.addChild(tabCustomer);
-		rp.clear();
-		rp.add(vPanel);
 	}
 
 }

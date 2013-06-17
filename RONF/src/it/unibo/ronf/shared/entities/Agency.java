@@ -1,6 +1,10 @@
 package it.unibo.ronf.shared.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -26,48 +30,48 @@ public class Agency implements java.io.Serializable {
 	public Agency() {
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
+	public String getAddress() {
+		return address;
 	}
 
 	public String getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
+	public long getId() {
+		return id;
 	}
 
 	public String getIpAddress() {
 		return ipAddress;
 	}
 
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
+	public String getName() {
+		return name;
 	}
 
 	public int getPort() {
 		return port;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setPort(int port) {

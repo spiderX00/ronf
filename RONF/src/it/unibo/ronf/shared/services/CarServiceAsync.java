@@ -11,20 +11,20 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface CarServiceAsync {
 
-	public void findByPlate(String plate, AsyncCallback<Car> callback);
-
-	public void findByGasolineType(String gasolineType, AsyncCallback<List<Car>> callback);
-
 	public void createCar(Car car, AsyncCallback<Void> callback);
-
-	void removeById(long id, AsyncCallback<Void> callback);
 
 	public void findAll(AsyncCallback<List<Car>> callback);
 
-	public void findByType(CarType cartype, AsyncCallback<List<Car>> callback);
-
 	void findAvailableCarsInAllAgencies(AvailableCarRequestDTO request, AsyncCallback<List<Car>> callback);
 
+	public void findByGasolineType(String gasolineType, AsyncCallback<List<Car>> callback);
+
+	public void findByPlate(String plate, AsyncCallback<Car> callback);
+
+	public void findByType(CarType cartype, AsyncCallback<List<Car>> callback);
+
 	void getAllFreeCars(Agency a, AsyncCallback<List<Car>> callback);
+
+	void removeById(long id, AsyncCallback<Void> callback);
 
 }

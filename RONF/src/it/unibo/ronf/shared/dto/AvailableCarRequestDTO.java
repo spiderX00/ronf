@@ -20,33 +20,33 @@ public class AvailableCarRequestDTO implements Serializable {
 	}
 
 	public AvailableCarRequestDTO(CarType type2, Date start2, Date end2) {
-		this.type = type2;
-		this.start = start2;
-		this.end = end2;
-	}
-
-	public CarType getType() {
-		return type;
-	}
-
-	public void setType(CarType type) {
-		this.type = type;
-	}
-
-	public Date getStart() {
-		return start;
-	}
-
-	public void setStart(Date start) {
-		this.start = start;
+		type = type2;
+		start = start2;
+		end = end2;
 	}
 
 	public Date getEnd() {
 		return end;
 	}
 
+	public Date getStart() {
+		return start;
+	}
+
+	public CarType getType() {
+		return type;
+	}
+
 	public void setEnd(Date end) {
 		this.end = end;
+	}
+
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public void setType(CarType type) {
+		this.type = type;
 	}
 
 }

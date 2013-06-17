@@ -1,14 +1,14 @@
 package it.unibo.ronf.server.services;
 
-import java.util.Date;
-
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
-
 import it.unibo.ronf.shared.entities.Optional;
 import it.unibo.ronf.shared.entities.Payment;
 import it.unibo.ronf.shared.entities.Rental;
 import it.unibo.ronf.shared.services.PaymentService;
+
+import java.util.Date;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 @Service("paymentService")
 public class PaymentServiceImpl implements PaymentService {

@@ -10,11 +10,11 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("ronfServices/userService")
 public interface UserService extends RemoteService {
 
-	public void insertUser(User u);
+	public List<User> findAll();
 
 	public List<User> findByNameAndSurname(String name, String surname);
 
-	public List<User> findAll();
+	public void insertUser(User u);
 
 	public void removeById(long id);
 

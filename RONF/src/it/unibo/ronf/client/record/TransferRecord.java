@@ -15,51 +15,51 @@ public class TransferRecord extends ListGridRecord {
 		setSuccess(success);
 	}
 
-	public void setObject(Transfer transfer) {
-		setAttribute("transfer", transfer);
-	}
-
-	public Transfer getObject() {
-		return (Transfer) getAttributeAsObject("transfer");
-	}
-
-	public void setTransfers(Integer transfers) {
-		setAttribute("transfers", transfers);
-	}
-
-	public Integer getTransfers() {
-		return getAttributeAsInt("transfers");
-	}
-
-	public void setStartAgency(String startAgency) {
-		setAttribute("startAgency", startAgency);
-	}
-
-	public String getStartAgency() {
-		return getAttributeAsString("startAgency");
-	}
-
-	public void setArrivalAgency(String arrivalAgency) {
-		setAttribute("arrivalAgency", arrivalAgency);
-	}
-
 	public String getArrivalAgency() {
 		return getAttributeAsString("arrivalAgency");
-	}
-
-	public void setId(Long id) {
-		setAttribute("id", id);
 	}
 
 	public Long getId() {
 		return getAttributeAsLong("id");
 	}
 
-	public void setSuccess(Boolean success) {
-		setAttribute("success", success);
+	public Transfer getObject() {
+		return (Transfer) getAttributeAsObject("transfer");
+	}
+
+	public String getStartAgency() {
+		return getAttributeAsString("startAgency");
 	}
 
 	public Boolean getSuccess() {
 		return getAttributeAsBoolean("success");
+	}
+
+	public Integer getTransfers() {
+		return getAttributeAsInt("transfers");
+	}
+
+	public void setArrivalAgency(String arrivalAgency) {
+		setAttribute("arrivalAgency", arrivalAgency);
+	}
+
+	public void setId(Long id) {
+		setAttribute("id", id);
+	}
+
+	public void setObject(Transfer transfer) {
+		setAttribute("transfer", transfer);
+	}
+
+	public void setStartAgency(String startAgency) {
+		setAttribute("startAgency", startAgency);
+	}
+
+	public void setSuccess(Boolean success) {
+		setAttribute("success", success);
+	}
+
+	public void setTransfers(Integer transfers) {
+		setAttribute("transfers", transfers);
 	}
 }

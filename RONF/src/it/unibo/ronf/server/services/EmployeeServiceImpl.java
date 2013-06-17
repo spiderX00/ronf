@@ -1,10 +1,10 @@
 package it.unibo.ronf.server.services;
 
-import java.util.List;
-
 import it.unibo.ronf.server.dao.EmployeeDAO;
 import it.unibo.ronf.shared.entities.Employee;
 import it.unibo.ronf.shared.services.EmployeeService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,13 +34,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void remove(Employee employee) {
-		employeeDAO.remove(employee);
+	public Employee findByUserName(String userName) {
+		return employeeDAO.findByUserName(userName);
 	}
 
 	@Override
-	public Employee findByUserName(String userName) {
-		return employeeDAO.findByUserName(userName);
+	public void remove(Employee employee) {
+		employeeDAO.remove(employee);
 	}
 
 	@Override

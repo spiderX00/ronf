@@ -24,56 +24,48 @@ public class RentalRecord extends ListGridRecord {
 
 	}
 
-	public void setObject(Rental rental) {
-		setAttribute("rental", rental);
+	public String getArrivalAgency() {
+		return getAttributeAsString("arrivalAgency");
 	}
 
-	public Rental getObject() {
-		return (Rental) getAttributeAsObject("rental");
-	}
-
-	public void setId(Long id) {
-		setAttribute("id", id);
-	}
-
-	public Long getId() {
-		return getAttributeAsLong("id");
-	}
-
-	public void setStart(Date start) {
-		setAttribute("start", start);
-	}
-
-	public Date getStart() {
-		return getAttributeAsDate("start");
-	}
-
-	public void setEnd(Date end) {
-		setAttribute("end", end);
-	}
-
-	public Date getEnd() {
-		return getAttributeAsDate("end");
-	}
-
-	public void setRentedCar(String rentedCar) {
-		setAttribute("rentedCar", rentedCar);
-	}
-
-	public String getRentedCar() {
-		return getAttributeAsString("rentedCar");
-	}
-
-	public void setCustomer(String customer) {
-		setAttribute("customer", customer);
+	public float getCaution() {
+		return getAttributeAsFloat("caution");
 	}
 
 	public String getCustomer() {
 		return getAttributeAsString("customer");
 	}
 
-	public void setStartingAgency(String startingAgency) {
-		setAttribute("startingAgency", startingAgency);
+	public Date getEnd() {
+		return getAttributeAsDate("end");
+	}
+
+	public boolean getFinished() {
+		return getAttributeAsBoolean("finished");
+	}
+
+	public Long getId() {
+		return getAttributeAsLong("id");
+	}
+
+	public Rental getObject() {
+		return (Rental) getAttributeAsObject("rental");
+	}
+
+	public Integer getOptional() {
+		return getAttributeAsInt("optional");
+	}
+
+	public String getPayment() {
+		return getAttributeAsString("payment");
+	}
+
+	public String getRentedCar() {
+		return getAttributeAsString("rentedCar");
+	}
+
+	public Date getStart() {
+		return getAttributeAsDate("start");
 	}
 
 	public String getStartingAgency() {
@@ -84,40 +76,48 @@ public class RentalRecord extends ListGridRecord {
 		setAttribute("arrivalAgency", arrivalAgency);
 	}
 
-	public String getArrivalAgency() {
-		return getAttributeAsString("arrivalAgency");
-	}
-
-	public void setPayment(String payment) {
-		setAttribute("payment", payment);
-	}
-
-	public String getPayment() {
-		return getAttributeAsString("payment");
-	}
-
 	public void setCaution(float caution) {
 		setAttribute("caution", caution);
 	}
 
-	public float getCaution() {
-		return getAttributeAsFloat("caution");
+	public void setCustomer(String customer) {
+		setAttribute("customer", customer);
+	}
+
+	public void setEnd(Date end) {
+		setAttribute("end", end);
 	}
 
 	public void setFinished(boolean finished) {
 		setAttribute("finished", finished);
 	}
 
-	public boolean getFinished() {
-		return getAttributeAsBoolean("finished");
+	public void setId(Long id) {
+		setAttribute("id", id);
+	}
+
+	public void setObject(Rental rental) {
+		setAttribute("rental", rental);
 	}
 
 	public void setOptional(Integer optional) {
 		setAttribute("optional", optional);
 	}
 
-	public Integer getOptional() {
-		return getAttributeAsInt("optional");
+	public void setPayment(String payment) {
+		setAttribute("payment", payment);
+	}
+
+	public void setRentedCar(String rentedCar) {
+		setAttribute("rentedCar", rentedCar);
+	}
+
+	public void setStart(Date start) {
+		setAttribute("start", start);
+	}
+
+	public void setStartingAgency(String startingAgency) {
+		setAttribute("startingAgency", startingAgency);
 	}
 
 }

@@ -32,8 +32,10 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer findByFiscalCode(String fiscalCode) {
-		return customerDAO.findByFiscalCode(fiscalCode);
+	@GET
+	@Produces({ MediaType.APPLICATION_XML })
+	public List<Customer> findAll() {
+		return customerDAO.findAll();
 	}
 
 	@Override
@@ -42,10 +44,8 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	@GET
-	@Produces({ MediaType.APPLICATION_XML })
-	public List<Customer> findAll() {
-		return customerDAO.findAll();
+	public Customer findByFiscalCode(String fiscalCode) {
+		return customerDAO.findByFiscalCode(fiscalCode);
 	}
 
 	@Override

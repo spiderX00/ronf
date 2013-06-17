@@ -1,6 +1,5 @@
 package it.unibo.ronf.client.makedialog;
 
-import it.unibo.ronf.client.datasource.RentalDS;
 import it.unibo.ronf.client.datasource.TransferEmployeeDS;
 import it.unibo.ronf.client.table.TabTransferEmployee;
 import it.unibo.ronf.shared.entities.TransferEmployee;
@@ -25,8 +24,40 @@ import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeTransferEmployee extends Dialog {
 
+	class CreateHandler implements ClickHandler {
+		@Override
+		public void onClick(ClickEvent event) {
+			/** al click viene creato un nuovo Customer */
+			dynamicForm.saveData(new DSCallback() {
+				@Override
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
+					dynamicForm.editNewRecord();
+				}
+			});
+			TransferEmployee transferEmployee = new TransferEmployee();
+			transferEmployee.setName(dynamicForm.getValueAsString("name"));
+			transferEmployee.setSurname(dynamicForm.getValueAsString("surname"));
+			transferEmployee.setAge(Integer.parseInt(dynamicForm.getValueAsString("age")));
+			transferEmployee.setBusy(false);
+			transferEmployeeService.createTransferEmployee(transferEmployee, new AsyncCallback<Void>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Impossible to create Transfer Employee : " + caught);
+				}
+
+				@Override
+				public void onSuccess(Void result) {
+					MakeTransferEmployee.this.hide();
+					SC.say("Transfer Employee Created!");
+				}
+			});
+
+		}
+	}
+
 	private final TransferEmployeeServiceAsync transferEmployeeService = GWT.create(TransferEmployeeService.class);
 	private HLayout hLayout;
+
 	private DynamicForm dynamicForm;
 
 	public MakeTransferEmployee() {
@@ -64,36 +95,5 @@ public class MakeTransferEmployee extends Dialog {
 		addItem(hLayout);
 		hLayout.moveTo(30, 231);
 
-	}
-
-	class CreateHandler implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			/** al click viene creato un nuovo Customer */
-			dynamicForm.saveData(new DSCallback() {
-				@Override
-				public void execute(DSResponse response, Object rawData, DSRequest request) {
-					dynamicForm.editNewRecord();
-				}
-			});
-			TransferEmployee transferEmployee = new TransferEmployee();
-			transferEmployee.setName(dynamicForm.getValueAsString("name"));
-			transferEmployee.setSurname(dynamicForm.getValueAsString("surname"));
-			transferEmployee.setAge(Integer.parseInt(dynamicForm.getValueAsString("age")));
-			transferEmployee.setBusy(false);
-			transferEmployeeService.createTransferEmployee(transferEmployee, new AsyncCallback<Void>() {
-				@Override
-				public void onSuccess(Void result) {
-					MakeTransferEmployee.this.hide();
-					SC.say("Transfer Employee Created!");
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert("Impossible to create Transfer Employee : " + caught);
-				}
-			});
-
-		}
 	}
 }

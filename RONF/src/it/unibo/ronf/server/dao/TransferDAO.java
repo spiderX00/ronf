@@ -1,7 +1,7 @@
 package it.unibo.ronf.server.dao;
 
-import it.unibo.ronf.shared.entities.Transfer;
 import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Transfer;
 
 import java.util.List;
 
@@ -12,15 +12,13 @@ import org.springframework.stereotype.Repository;
 @Repository("transferDAO")
 public class TransferDAO extends JpaDAO<Transfer> {
 
-	public List<Transfer> findByStartAgency(Agency startAgency) {
+	public List<Transfer> findAllPending() {
 
-		TypedQuery<Transfer> query = em.createQuery("SELECT t FROM Transfer t WHERE t.startAgency = :startAgency", entityClass);
+		TypedQuery<Transfer> query = em.createQuery("SELECT t FROM Transfer t WHERE t.success = :state", entityClass);
 
-		query.setParameter("startAgency", startAgency);
+		query.setParameter("state", false);
 
-		List<Transfer> transferList = query.getResultList();
-
-		return transferList;
+		return query.getResultList();
 
 	}
 
@@ -36,13 +34,15 @@ public class TransferDAO extends JpaDAO<Transfer> {
 
 	}
 
-	public List<Transfer> findAllPending() {
+	public List<Transfer> findByStartAgency(Agency startAgency) {
 
-		TypedQuery<Transfer> query = em.createQuery("SELECT t FROM Transfer t WHERE t.success = :state", entityClass);
+		TypedQuery<Transfer> query = em.createQuery("SELECT t FROM Transfer t WHERE t.startAgency = :startAgency", entityClass);
 
-		query.setParameter("state", false);
+		query.setParameter("startAgency", startAgency);
 
-		return query.getResultList();
+		List<Transfer> transferList = query.getResultList();
+
+		return transferList;
 
 	}
 

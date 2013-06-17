@@ -11,16 +11,16 @@ public class OptionalRecord extends ListGridRecord {
 		setDescription(description);
 	}
 
-	public void setId(Long id) {
-		setAttribute("id", id);
+	public float getCost() {
+		return getAttributeAsFloat("cost");
+	}
+
+	public String getDescription() {
+		return getAttributeAsString("description");
 	}
 
 	public Long getId() {
 		return getAttributeAsLong("id");
-	}
-
-	public void setName(String name) {
-		setAttribute("name", name);
 	}
 
 	public String getName() {
@@ -31,15 +31,15 @@ public class OptionalRecord extends ListGridRecord {
 		setAttribute("cost", cost);
 	}
 
-	public float getCost() {
-		return getAttributeAsFloat("cost");
-	}
-
 	public void setDescription(String description) {
 		setAttribute("description", description);
 	}
 
-	public String getDescription() {
-		return getAttributeAsString("description");
+	public void setId(Long id) {
+		setAttribute("id", id);
+	}
+
+	public void setName(String name) {
+		setAttribute("name", name);
 	}
 }

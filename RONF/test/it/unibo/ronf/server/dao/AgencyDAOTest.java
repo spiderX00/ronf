@@ -28,7 +28,7 @@ public class AgencyDAOTest {
 		Agency entity = new Agency();
 		String address = "ADDRESS";
 		String ipAddress = "ipAddress";
-		
+
 		entity.setAddress(address);
 		entity.setCode(code);
 		entity.setId(0);
@@ -62,12 +62,12 @@ public class AgencyDAOTest {
 	}
 
 	@Test
-	public void testSetCurrentAgency() {
+	public void testGetOthers() {
 
 	}
 
 	@Test
-	public void testGetOthers() {
+	public void testSetCurrentAgency() {
 
 	}
 }

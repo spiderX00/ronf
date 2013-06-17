@@ -1,6 +1,7 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.MaintenanceEmployee;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class MaintenanceEmployeeDAOTest {
 		String password = "PASSWORD";
 		String surname = "SURNAME";
 		String userName = "USERNAME";
-		
+
 		entity.setAge(age);
 		entity.setBusy(false);
 		entity.setId(0);

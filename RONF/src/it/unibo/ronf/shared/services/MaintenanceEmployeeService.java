@@ -10,9 +10,9 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("ronfServices/maintenanceEmployeeService")
 public interface MaintenanceEmployeeService extends RemoteService {
 
-	public List<MaintenanceEmployee> findByBusy(boolean busy);
-
 	public void createMaintenanceEmployee(MaintenanceEmployee me);
+
+	public List<MaintenanceEmployee> findByBusy(boolean busy);
 
 	public void removeById(long id);
 

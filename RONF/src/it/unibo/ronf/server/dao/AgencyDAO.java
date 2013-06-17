@@ -46,10 +46,6 @@ public class AgencyDAO extends JpaDAO<Agency> {
 		return currentAgency;
 	}
 
-	public void setCurrentAgency(Agency currentAgency) {
-		this.currentAgency = currentAgency;
-	}
-
 	public List<Agency> getOthers() {
 
 		TypedQuery<Agency> query = em.createQuery("SELECT a FROM Agency a WHERE a.name != :current", entityClass);
@@ -58,6 +54,10 @@ public class AgencyDAO extends JpaDAO<Agency> {
 
 		return query.getResultList();
 
+	}
+
+	public void setCurrentAgency(Agency currentAgency) {
+		this.currentAgency = currentAgency;
 	}
 
 }

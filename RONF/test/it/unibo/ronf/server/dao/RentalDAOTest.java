@@ -1,6 +1,6 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -27,13 +27,13 @@ public class RentalDAOTest {
 
 	@Autowired
 	private CarDAO cardao;
-	
+
 	@Autowired
 	private RentalDAO test;
-	
+
 	@Autowired
 	private AgencyDAO agencydao;
-	
+
 	@Autowired
 	private CarTypeDAO cartypedao;
 
@@ -106,18 +106,18 @@ public class RentalDAOTest {
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void testFindByStart() {
-		List <Rental> rentalList = test.findByStart(start);
+	public void testFindByArrivalAgency() {
+		List<Rental> rentalList = test.findByArrivalAgency(arrivalAgency);
 		assertTrue(rentalList.size() > 0);
 		for (int i = 0; i < rentalList.size(); i++) {
-			assertTrue(rentalList.get(i).getStart() == start);
+			assertTrue(rentalList.get(i).getArrivalAgency() == arrivalAgency);
 		}
 	}
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByEnd() {
-		List <Rental> rentalList = test.findByEnd(end);
+		List<Rental> rentalList = test.findByEnd(end);
 		assertTrue(rentalList.size() > 0);
 		for (int i = 0; i < rentalList.size(); i++) {
 			assertTrue(rentalList.get(i).getEnd() == end);
@@ -126,21 +126,21 @@ public class RentalDAOTest {
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void testFindByStartingAgency() {
-		List <Rental> rentalList = test.findByStartingAgency(startingAgency);
+	public void testFindByStart() {
+		List<Rental> rentalList = test.findByStart(start);
 		assertTrue(rentalList.size() > 0);
 		for (int i = 0; i < rentalList.size(); i++) {
-			assertTrue(rentalList.get(i).getStartingAgency() == startingAgency);
+			assertTrue(rentalList.get(i).getStart() == start);
 		}
 	}
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void testFindByArrivalAgency() {
-		List <Rental> rentalList = test.findByArrivalAgency(arrivalAgency);
+	public void testFindByStartingAgency() {
+		List<Rental> rentalList = test.findByStartingAgency(startingAgency);
 		assertTrue(rentalList.size() > 0);
 		for (int i = 0; i < rentalList.size(); i++) {
-			assertTrue(rentalList.get(i).getArrivalAgency() == arrivalAgency);
+			assertTrue(rentalList.get(i).getStartingAgency() == startingAgency);
 		}
 	}
 }

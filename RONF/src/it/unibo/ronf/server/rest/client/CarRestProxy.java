@@ -1,7 +1,9 @@
 package it.unibo.ronf.server.rest.client;
 
 import it.unibo.ronf.server.dao.AgencyDAO;
+import it.unibo.ronf.server.rest.CarRestService;
 import it.unibo.ronf.server.rest.RestClient;
+import it.unibo.ronf.server.services.CarServiceImpl;
 import it.unibo.ronf.shared.dto.AvailableCarRequestDTO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
@@ -19,6 +21,9 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 
+/**
+ * Client REST necessario a fare richieste relative alle macchine verso un agenzia remota 
+ */
 @Service("clientRestCarsService")
 public class CarRestProxy implements RestClient {
 
@@ -27,11 +32,16 @@ public class CarRestProxy implements RestClient {
 	@Autowired
 	private AgencyDAO agencyDAO;
 
-	@Override
-	public String getBaseUrl(Agency a) {
-		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/cars";
-	}
-
+	/**
+	 * Cerca tutte le macchine disponibili, aventi i parametri definiti in request,
+	 * in tutte le agenzie disponibili.
+	 * Utile alla creazione dei rental
+	 * 
+	 * @param request Parametri di ricerca per le macchine
+	 * @return Lista di macchine trovate in tutte le agenzie
+	 * @see CarRestService
+	 * @see CarServiceImpl
+	 */
 	public List<Car> findAvailableCar(AvailableCarRequestDTO request) {
 		List<Car> allAvailableCars = new ArrayList<>();
 
@@ -60,6 +70,14 @@ public class CarRestProxy implements RestClient {
 
 	}
 
+	/**
+	 * Cerca le macchine libere nell'agenzia specificata. 
+	 * Utile alle richieste di Trasferimento.
+	 * 
+	 * @param a Agenzia nella quale si esegue la ricerca
+	 * @return Macchine disponibile per il trasferimento nell'agenzia a
+	 * @see CarServiceImpl
+	 */
 	public List<Car> findFreeCars(Agency a) {
 
 		List<Car> freeRemote = new ArrayList<>();
@@ -67,20 +85,24 @@ public class CarRestProxy implements RestClient {
 		logger.debug("Richiesta macchine libere inoltrata a " + a.getName());
 
 		Client client = Client.create();
+		//se non ricevo risposta in un secondo allora faccio scadere la richiesta
 		client.setConnectTimeout(1000);
 		WebResource webResource = client.resource(getBaseUrl(a)).path("free");
-
-		logger.debug("Request URI:" + webResource.getURI());
 
 		freeRemote = webResource.accept(MediaType.APPLICATION_XML).post(new GenericType<List<Car>>() {
 		});
 
 		if (logger.isDebugEnabled()) {
 			for (Car c : freeRemote) {
-				logger.debug("Traovata macchina free per parco: " + c.getModel() + " at " + c.getOriginAgency().getName() + " in " + a.getName());
+				logger.debug("Trovata macchina free per parco: " + c.getModel() + " at " + c.getOriginAgency().getName() + " in " + a.getName());
 			}
 		}
 		return freeRemote;
+	}
+
+	@Override
+	public String getBaseUrl(Agency a) {
+		return "http://" + a.getIpAddress() + ":" + a.getPort() + "/RONF/rest/cars";
 	}
 
 }

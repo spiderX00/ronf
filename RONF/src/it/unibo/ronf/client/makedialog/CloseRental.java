@@ -1,5 +1,6 @@
-package it.unibo.ronf.client.record;
+package it.unibo.ronf.client.makedialog;
 
+import it.unibo.ronf.client.record.RentalRecord;
 import it.unibo.ronf.shared.entities.Maintenance;
 import it.unibo.ronf.shared.entities.MaintenanceType;
 import it.unibo.ronf.shared.entities.Payment;
@@ -80,18 +81,18 @@ public class CloseRental extends Dialog {
 		maintenanceTypeService.findAll(new AsyncCallback<List<MaintenanceType>>() {
 
 			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load type of maintenance:" + caught.getMessage());
+
+			}
+
+			@Override
 			public void onSuccess(List<MaintenanceType> result) {
 				for (MaintenanceType mt : result) {
 					maintenanceTypeMap.put(mt.getName(), mt);
 				}
 				maintenanceTypeItem.setValueMap(maintenanceTypeMap.keySet().toArray(new String[] {}));
 				maintenanceTypeItem.setLayoutStyle(MultiComboBoxLayoutStyle.VERTICAL);
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load type of maintenance:" + caught.getMessage());
-
 			}
 		});
 		confirmButton.addClickHandler(new ClickHandler() {

@@ -45,21 +45,95 @@ import com.smartgwt.client.widgets.layout.HLayout;
 
 public class MakeTransfer extends Dialog {
 
+	class CreateBtnClickHandler implements ClickHandler {
+
+		@Override
+		public void onClick(ClickEvent event) {
+			final Transfer transfer = new Transfer();
+			/** al click viene creato un nuovo Customer */
+			dynamicForm.saveData(new DSCallback() {
+				@Override
+				public void execute(DSResponse response, Object rawData, DSRequest request) {
+					dynamicForm.editNewRecord();
+				}
+			});
+			transfer.setStartAgency(agencyMap.get(dynamicForm.getValueAsString("startAgency")));
+			transfer.setSuccess(false);
+
+			List<TransferAction> transferActionList = new ArrayList<TransferAction>();
+			String s = transferActionItem.getDisplayValue();
+			if (!s.trim().isEmpty()) {
+				String[] optional = s.split(",");
+				for (String o : optional) {
+					transferAction = new TransferAction();
+					transferAction.setRequiredCar(carMap.get(o));
+					transferAction.setSuccessAction(false);
+					transferAction.setTransferDate(data.getValueAsDate());
+					transferActionList.add(transferAction);
+				}
+				transfer.setTransfers(transferActionList);
+			}
+
+			transfer.setArrivalAgency(curreAgency);
+			transferService.createTransfer(transfer, new AsyncCallback<Void>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Impossible to create Transfer : " + caught.getMessage());
+				}
+
+				@Override
+				public void onSuccess(Void result) {
+					MakeTransfer.this.hide();
+					SC.say("Transfer Successfully Created!");
+				}
+			});
+		}
+	}
+
+	class StartAgencyHandler implements ChangeHandler {
+
+		@Override
+		public void onChange(ChangeEvent event) {
+			String selectedItem = (String) event.getValue();
+			carService.getAllFreeCars(agencyMap.get(selectedItem), new AsyncCallback<List<Car>>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Error while loading Agency:" + caught.getMessage());
+				}
+
+				@Override
+				public void onSuccess(List<Car> result) {
+					carMap = new HashMap<String, Car>();
+					for (Car c : result) {
+						carMap.put(c.getModel(), c);
+					}
+
+					transferActionItem.setValueMap(carMap.keySet().toArray(new String[] {}));
+				}
+
+			});
+		}
+
+	}
+
 	private final TransferServiceAsync transferService = GWT.create(TransferService.class);
 	private final AgencyServiceAsync agencyService = GWT.create(AgencyService.class);
 	private final CarTypeServiceAsync carTypeService = GWT.create(CarTypeService.class);
 	private final CarServiceAsync carService = GWT.create(CarService.class);
+
 	private HLayout hLayout;
 	private MultiComboBoxItem transferActionItem;
-
 	private Map<String, Agency> agencyMap;
+
 	private Map<String, CarType> carTypeMap;
 	private Map<String, Car> carMap;
-
 	private SelectItem carTypeItem;
 	private TransferAction transferAction;
 	private DateItem data;
+
 	private Agency curreAgency;
+
 	private DynamicForm dynamicForm;
 
 	public MakeTransfer() {
@@ -120,17 +194,17 @@ public class MakeTransfer extends Dialog {
 
 		carTypeService.findAll(new AsyncCallback<List<CarType>>() {
 			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load car type: " + caught.getMessage());
+			}
+
+			@Override
 			public void onSuccess(List<CarType> result) {
 				carTypeMap = new HashMap<String, CarType>();
 				for (CarType ct : result) {
 					carTypeMap.put(ct.getType(), ct);
 				}
 				carTypeItem.setValueMap(carTypeMap.keySet().toArray(new String[] {}));
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load car type: " + caught.getMessage());
 			}
 		});
 
@@ -154,77 +228,5 @@ public class MakeTransfer extends Dialog {
 		addItem(hLayout);
 		hLayout.moveTo(30, 231);
 
-	}
-
-	class StartAgencyHandler implements ChangeHandler {
-
-		@Override
-		public void onChange(ChangeEvent event) {
-			String selectedItem = (String) event.getValue();
-			carService.getAllFreeCars(agencyMap.get(selectedItem), new AsyncCallback<List<Car>>() {
-
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert("Error while loading Agency:" + caught.getMessage());
-				}
-
-				@Override
-				public void onSuccess(List<Car> result) {
-					carMap = new HashMap<String, Car>();
-					for (Car c : result) {
-						carMap.put(c.getModel(), c);
-					}
-
-					transferActionItem.setValueMap(carMap.keySet().toArray(new String[] {}));
-				}
-
-			});
-		}
-
-	}
-
-	class CreateBtnClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-			final Transfer transfer = new Transfer();
-			/** al click viene creato un nuovo Customer */
-			dynamicForm.saveData(new DSCallback() {
-				@Override
-				public void execute(DSResponse response, Object rawData, DSRequest request) {
-					dynamicForm.editNewRecord();
-				}
-			});
-			transfer.setStartAgency(agencyMap.get(dynamicForm.getValueAsString("startAgency")));
-			transfer.setSuccess(false);
-
-			List<TransferAction> transferActionList = new ArrayList<TransferAction>();
-			String s = transferActionItem.getDisplayValue();
-			if (!s.trim().isEmpty()) {
-				String[] optional = s.split(",");
-				for (String o : optional) {
-					transferAction = new TransferAction();
-					transferAction.setRequiredCar(carMap.get(o));
-					transferAction.setSuccessAction(false);
-					transferAction.setTransferDate(data.getValueAsDate());
-					transferActionList.add(transferAction);
-				}
-				transfer.setTransfers(transferActionList);
-			}
-
-			transfer.setArrivalAgency(curreAgency);
-			transferService.createTransfer(transfer, new AsyncCallback<Void>() {
-				@Override
-				public void onSuccess(Void result) {
-					MakeTransfer.this.hide();
-					SC.say("Transfer Successfully Created!");
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert("Impossible to create Transfer : " + caught.getMessage());
-				}
-			});
-		}
 	}
 }

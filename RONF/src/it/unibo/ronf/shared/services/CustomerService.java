@@ -1,8 +1,8 @@
 package it.unibo.ronf.shared.services;
 
-import java.util.List;
-
 import it.unibo.ronf.shared.entities.Customer;
+
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -12,11 +12,11 @@ public interface CustomerService extends RemoteService {
 
 	public void createCustomer(Customer customer);
 
-	public Customer findByFiscalCode(String fiscalCode);
+	public List<Customer> findAll();
 
 	public Customer findByDocNumber(String docNumber);
 
-	public List<Customer> findAll();
+	public Customer findByFiscalCode(String fiscalCode);
 
 	public Customer findById(Long id);
 

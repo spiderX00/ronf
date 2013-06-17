@@ -19,9 +19,6 @@ import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.FloatItem;
-import com.smartgwt.client.widgets.form.fields.TextAreaItem;
-import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
@@ -67,15 +64,15 @@ public class MakeOptional extends Dialog {
 				optional.setDescription(dynamicForm.getValueAsString("description"));
 				optionalService.createOptional(optional, new AsyncCallback<Void>() {
 					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Impossible to create optional : " + caught);
+					}
+
+					@Override
 					public void onSuccess(Void result) {
 						MakeOptional.this.hide();
 						SC.say("Optional Created!");
 
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						Window.alert("Impossible to create optional : " + caught);
 					}
 				});
 

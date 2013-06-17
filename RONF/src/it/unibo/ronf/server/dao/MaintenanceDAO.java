@@ -4,13 +4,13 @@ import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.Maintenance;
 import it.unibo.ronf.shared.entities.MaintenanceEmployee;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+
+import org.springframework.stereotype.Repository;
 
 @Repository("maintenanceDAO")
 public class MaintenanceDAO extends JpaDAO<Maintenance> {

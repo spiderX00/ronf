@@ -28,85 +28,10 @@ public class TabTransfer extends ListGrid {
 	private final TransferServiceAsync transferService = GWT.create(TransferService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
-	private HLayout rollOverCanvas;
-	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
-	 * sopra una riga, permettendone la modifica
-	 */
-	@Override
-	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
-		final ListGridRecord rollOverRecord = this.getRecord(rowNum);
-
-		if (rollOverCanvas == null) {
-			rollOverCanvas = new HLayout(3);
-			rollOverCanvas.setSnapTo("TR");
-			rollOverCanvas.setWidth(50);
-			rollOverCanvas.setHeight(22);
-			ImgButton removeImg = new ImgButton();
-			removeImg.setShowDown(false);
-			removeImg.setShowRollOver(false);
-			removeImg.setLayoutAlign(Alignment.CENTER);
-			removeImg.setSrc("remove.png");
-			removeImg.setPrompt("Remove record");
-			removeImg.setHeight(16);
-			removeImg.setWidth(16);
-			removeImg.addClickHandler(new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					final TransferRecord transferRecord = (TransferRecord) rollOverRecord;
-					transferService.updateSuccessTransfer(transferRecord.getObject(), new AsyncCallback<Boolean>() {
-
-						@Override
-						public void onSuccess(Boolean result) {
-							if (result == true) {
-								transferRecord.getObject().setSuccess(true);
-								SC.say("Update Transfer Success!");
-							} else {
-								SC.say("Transfer Action is pending!!");
-							}
-						}
-
-						@Override
-						public void onFailure(Throwable caught) {
-							Window.alert("Error to update Transfer " + caught.getMessage());
-						}
-					});
-				}
-			});
-
-			rollOverCanvas.addMember(removeImg);
-		}
-		return rollOverCanvas;
-
-	}
-
-	/**
-	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
-	 * settato l'attributo busy di un transfer employee
-	 */
-	@Override
-	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
-		if (getFieldName(rowNum) != null) {
-			TransferRecord transferRecord = (TransferRecord) record;
-			if (transferRecord.getObject().isSuccess() == false) {
-				return "font-weight:bold; background-color:#e60000;";
-			} else {
-				return "font-weight:bold; background-color:#00cc00;";
-			}
-		} else {
-			return super.getCellCSSText(record, rowNum, colNum);
-		}
-	}
-
-	public TabTransfer() {
-
-	}
-
-	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
 	 */
 	public static void setData(TransferDS data, TabTransfer tabTransfer) {
 		tabTransfer.setShowRollOverCanvas(true);
@@ -138,6 +63,81 @@ public class TabTransfer extends ListGrid {
 		vPanel.addChild(tabTransfer);
 		rp.clear();
 		rp.add(vPanel);
+	}
+
+	private HLayout rollOverCanvas;
+
+	public TabTransfer() {
+
+	}
+
+	/**
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo
+	 * busy di un transfer employee
+	 */
+	@Override
+	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
+		if (getFieldName(rowNum) != null) {
+			TransferRecord transferRecord = (TransferRecord) record;
+			if (transferRecord.getObject().isSuccess() == false) {
+				return "font-weight:bold; background-color:#e60000;";
+			} else {
+				return "font-weight:bold; background-color:#00cc00;";
+			}
+		} else {
+			return super.getCellCSSText(record, rowNum, colNum);
+		}
+	}
+
+	/**
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
+	 * permettendone la modifica
+	 */
+	@Override
+	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
+		final ListGridRecord rollOverRecord = this.getRecord(rowNum);
+
+		if (rollOverCanvas == null) {
+			rollOverCanvas = new HLayout(3);
+			rollOverCanvas.setSnapTo("TR");
+			rollOverCanvas.setWidth(50);
+			rollOverCanvas.setHeight(22);
+			ImgButton removeImg = new ImgButton();
+			removeImg.setShowDown(false);
+			removeImg.setShowRollOver(false);
+			removeImg.setLayoutAlign(Alignment.CENTER);
+			removeImg.setSrc("remove.png");
+			removeImg.setPrompt("Remove record");
+			removeImg.setHeight(16);
+			removeImg.setWidth(16);
+			removeImg.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					final TransferRecord transferRecord = (TransferRecord) rollOverRecord;
+					transferService.updateSuccessTransfer(transferRecord.getObject(), new AsyncCallback<Boolean>() {
+
+						@Override
+						public void onFailure(Throwable caught) {
+							Window.alert("Error to update Transfer " + caught.getMessage());
+						}
+
+						@Override
+						public void onSuccess(Boolean result) {
+							if (result == true) {
+								transferRecord.getObject().setSuccess(true);
+								SC.say("Update Transfer Success!");
+							} else {
+								SC.say("Transfer Action is pending!!");
+							}
+						}
+					});
+				}
+			});
+
+			rollOverCanvas.addMember(removeImg);
+		}
+		return rollOverCanvas;
+
 	}
 
 }

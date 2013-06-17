@@ -85,18 +85,8 @@ public class RentalServiceImpl implements RentalService {
 	}
 
 	@Override
-	public List<Rental> findByStart(Date start) {
-		return rentalDAO.findByStart(start);
-	}
-
-	@Override
-	public List<Rental> findByEnd(Date end) {
-		return rentalDAO.findByEnd(end);
-	}
-
-	@Override
-	public List<Rental> findByStartingAgency(Agency startingAgency) {
-		return rentalDAO.findByStartingAgency(startingAgency);
+	public List<Rental> findAll() {
+		return rentalDAO.findAll();
 	}
 
 	@Override
@@ -105,8 +95,18 @@ public class RentalServiceImpl implements RentalService {
 	}
 
 	@Override
-	public List<Rental> findAll() {
-		return rentalDAO.findAll();
+	public List<Rental> findByEnd(Date end) {
+		return rentalDAO.findByEnd(end);
+	}
+
+	@Override
+	public List<Rental> findByStart(Date start) {
+		return rentalDAO.findByStart(start);
+	}
+
+	@Override
+	public List<Rental> findByStartingAgency(Agency startingAgency) {
+		return rentalDAO.findByStartingAgency(startingAgency);
 	}
 
 	@Override
@@ -114,12 +114,6 @@ public class RentalServiceImpl implements RentalService {
 	public void removeById(long id) {
 		rentalDAO.remove(rentalDAO.findById(id));
 
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void updateRental(Rental r) {
-		rentalDAO.merge(r);
 	}
 
 	private void requestTransfer(Rental r) {
@@ -145,6 +139,12 @@ public class RentalServiceImpl implements RentalService {
 			logger.error("error while sending request for transfer to other agency: -->" + ex.getMessage());
 		}
 
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void updateRental(Rental r) {
+		rentalDAO.merge(r);
 	}
 
 }

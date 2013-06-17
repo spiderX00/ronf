@@ -1,6 +1,7 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.User;
 
 import java.util.ArrayList;
@@ -18,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserDAOTest {
-	
+
 	@Autowired
 	private UserDAO test;
 
 	private List<User> resultList = new ArrayList<User>();
 	private User entity = new User();
-	private  int age = 15;
+	private int age = 15;
 	private int id = 1;
 	private String name = "NAME";
 	private String surname = "SURNAME";

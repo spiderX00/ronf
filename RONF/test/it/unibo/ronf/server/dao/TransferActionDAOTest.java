@@ -27,21 +27,21 @@ public class TransferActionDAOTest {
 
 	@Autowired
 	private TransferActionDAO test;
-	
+
 	@Autowired
 	private TransferEmployeeDAO transferemployeedao;
-	
+
 	@Autowired
 	private CarDAO cardao;
-	
+
 	@Autowired
 	private CarTypeDAO cartypedao;
-	
+
 	@Autowired
 	private AgencyDAO agencydao;
 
 	private Date transferDate = new Date();
-	
+
 	private TransferAction entity = new TransferAction();
 	private TransferEmployee employee = new TransferEmployee();
 	private Car requiredCar = new Car();
@@ -49,7 +49,7 @@ public class TransferActionDAOTest {
 
 	@Before
 	public void setUpBeforeClass() throws Exception {
-		
+
 		final String model = "MODEL";
 		final String password = "PASSWORD";
 		final String surname = "SURNAME";

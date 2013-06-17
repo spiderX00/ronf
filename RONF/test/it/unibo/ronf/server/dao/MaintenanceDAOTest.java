@@ -1,6 +1,8 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -36,26 +38,25 @@ public class MaintenanceDAOTest {
 	private String code = "CODE";
 	private Date date = new Date();
 	private MaintenanceEmployee maintenanceEmployee = new MaintenanceEmployee();
-	
-	
+
 	@Autowired
 	private AgencyDAO agencydao = new AgencyDAO();
 	private Agency agency = new Agency();
-	
+
 	@Autowired
 	private CarDAO cardao;
 	private CarType type = new CarType();
-	
+
 	@Autowired
 	private CarTypeDAO cartypedao;
-	
+
 	@Autowired
 	private MaintenanceEmployeeDAO maintenanceEmployeedao;
 
 	@Before
 	public void setUpBefore() throws Exception {
 		List<MaintenanceType> maintenances = new ArrayList<MaintenanceType>();
-		
+
 		agency.setAddress(address);
 		agency.setCode(code);
 		agency.setId(0);

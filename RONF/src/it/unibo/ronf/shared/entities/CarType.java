@@ -1,6 +1,10 @@
 package it.unibo.ronf.shared.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -16,28 +20,28 @@ public class CarType implements java.io.Serializable {
 	private String type;
 	private float dailyCost;
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public float getDailyCost() {
 		return dailyCost;
-	}
-
-	public void setDailyCost(float dailyCost) {
-		this.dailyCost = dailyCost;
 	}
 
 	public long getId() {
 		return id;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setDailyCost(float dailyCost) {
+		this.dailyCost = dailyCost;
+	}
+
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

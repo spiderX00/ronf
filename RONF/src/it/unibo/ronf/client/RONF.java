@@ -1,12 +1,9 @@
 package it.unibo.ronf.client;
 
 import it.unibo.ronf.shared.entities.Agency;
-
 import it.unibo.ronf.shared.entities.Employee;
-
 import it.unibo.ronf.shared.services.AgencyService;
 import it.unibo.ronf.shared.services.AgencyServiceAsync;
-
 import it.unibo.ronf.shared.services.EmployeeService;
 import it.unibo.ronf.shared.services.EmployeeServiceAsync;
 import it.unibo.ronf.shared.services.InitService;
@@ -61,12 +58,12 @@ public class RONF implements EntryPoint {
 		initService.preLoginInitEntities(new AsyncCallback<Void>() {
 
 			@Override
-			public void onSuccess(Void result) {
+			public void onFailure(Throwable caught) {
+				Window.alert("Fallito preLogin(): " + caught.getMessage());
 			}
 
 			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Fallito preLogin(): " + caught.getMessage());
+			public void onSuccess(Void result) {
 			}
 		});
 
@@ -105,6 +102,12 @@ public class RONF implements EntryPoint {
 
 		agencyService.findAll(new AsyncCallback<List<Agency>>() {
 			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Impossible to load Agency: " + caught.getMessage());
+
+			}
+
+			@Override
 			public void onSuccess(List<Agency> result) {
 				for (Agency a : result) {
 					agencyMap.put(a.getName(), a);
@@ -112,12 +115,6 @@ public class RONF implements EntryPoint {
 				agencySelectItem.clearValue();
 				agencySelectItem.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 				loginButton.enable();
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Impossible to load Agency: " + caught.getMessage());
-
 			}
 		});
 
@@ -155,6 +152,12 @@ public class RONF implements EntryPoint {
 		employeeService.checkLogin(userName, pwd, new AsyncCallback<Boolean>() {
 
 			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Error while tryng login: " + caught.getMessage());
+				loginButton.enable();
+			}
+
+			@Override
 			public void onSuccess(Boolean result) {
 				if (result == true) {
 					layoutMain.removeChild(layoutForm);
@@ -163,14 +166,14 @@ public class RONF implements EntryPoint {
 					initService.postLoginInitEntities(new AsyncCallback<Void>() {
 
 						@Override
-						public void onSuccess(Void result) {
-							// TODO Auto-generated method stub
-						}
-
-						@Override
 						public void onFailure(Throwable caught) {
 							Window.alert("Fallito postLogin(): " + caught.getMessage());
 
+						}
+
+						@Override
+						public void onSuccess(Void result) {
+							// TODO Auto-generated method stub
 						}
 					});
 
@@ -182,12 +185,6 @@ public class RONF implements EntryPoint {
 					loginButton.enable();
 				}
 
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Error while tryng login: " + caught.getMessage());
-				loginButton.enable();
 			}
 		});
 	}

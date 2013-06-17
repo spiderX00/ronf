@@ -1,6 +1,6 @@
 package it.unibo.ronf.shared.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity

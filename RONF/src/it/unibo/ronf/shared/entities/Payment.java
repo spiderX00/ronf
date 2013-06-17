@@ -30,40 +30,40 @@ public class Payment implements java.io.Serializable {
 		return amount;
 	}
 
-	public void setAmount(float amount) {
-		this.amount = amount;
-	}
-
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-
 	public Date getDateOfPayment() {
 		return dateOfPayment;
-	}
-
-	public void setDateOfPayment(Date dateOfPayment) {
-		this.dateOfPayment = dateOfPayment;
-	}
-
-	public Customer getUserPayer() {
-		return userPayer;
-	}
-
-	public void setUserPayer(Customer userPayer) {
-		this.userPayer = userPayer;
 	}
 
 	public long getId() {
 		return id;
 	}
 
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public Customer getUserPayer() {
+		return userPayer;
+	}
+
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
+
+	public void setDateOfPayment(Date dateOfPayment) {
+		this.dateOfPayment = dateOfPayment;
+	}
+
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	public void setUserPayer(Customer userPayer) {
+		this.userPayer = userPayer;
 	}
 
 }

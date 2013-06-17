@@ -1,10 +1,10 @@
 package it.unibo.ronf.server.services;
 
-import java.util.List;
-
 import it.unibo.ronf.server.dao.TransferEmployeeDAO;
 import it.unibo.ronf.shared.entities.TransferEmployee;
 import it.unibo.ronf.shared.services.TransferEmployeeService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,20 @@ public class TransferEmployeeServiceImpl implements TransferEmployeeService {
 	private TransferEmployeeDAO teDAO;
 
 	@Override
-	public List<TransferEmployee> findByBusy(boolean busy) {
-		return teDAO.findByBusy(busy);
-	}
-
-	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void createTransferEmployee(TransferEmployee te) {
 		teDAO.persist(te);
 
+	}
+
+	@Override
+	public List<TransferEmployee> findAll() {
+		return teDAO.findAll();
+	}
+
+	@Override
+	public List<TransferEmployee> findByBusy(boolean busy) {
+		return teDAO.findByBusy(busy);
 	}
 
 	@Override
@@ -41,11 +46,6 @@ public class TransferEmployeeServiceImpl implements TransferEmployeeService {
 	public void updateTransferEmployeeBusy(TransferEmployee te) {
 		teDAO.merge(te);
 
-	}
-
-	@Override
-	public List<TransferEmployee> findAll() {
-		return teDAO.findAll();
 	}
 
 }

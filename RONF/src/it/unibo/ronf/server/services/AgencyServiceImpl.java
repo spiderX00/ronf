@@ -1,10 +1,10 @@
 package it.unibo.ronf.server.services;
 
-import java.util.List;
-
 import it.unibo.ronf.server.dao.AgencyDAO;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.services.AgencyService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +30,11 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	@Override
+	public List<Agency> findAll() {
+		return agencyDAO.findAll();
+	}
+
+	@Override
 	public Agency findByCode(String code) {
 		return agencyDAO.findByCode(code);
 	}
@@ -40,23 +45,6 @@ public class AgencyServiceImpl implements AgencyService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void removeById(long id) {
-		agencyDAO.remove(agencyDAO.findById(id));
-
-	}
-
-	@Override
-	public List<Agency> findAll() {
-		return agencyDAO.findAll();
-	}
-
-	@Override
-	public void setCurrentAgency(Agency a) {
-		agencyDAO.setCurrentAgency(a);
-	}
-
-	@Override
 	public Agency getCurrentAgency() {
 		return agencyDAO.getCurrentAgency();
 	}
@@ -64,6 +52,18 @@ public class AgencyServiceImpl implements AgencyService {
 	@Override
 	public List<Agency> getOthersAgencies() {
 		return agencyDAO.getOthers();
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void removeById(long id) {
+		agencyDAO.remove(agencyDAO.findById(id));
+
+	}
+
+	@Override
+	public void setCurrentAgency(Agency a) {
+		agencyDAO.setCurrentAgency(a);
 	}
 
 }

@@ -32,12 +32,62 @@ public class TabTransferEmployee extends ListGrid {
 	private final TransferServiceAsync transferService = GWT.create(TransferService.class);
 	final static VLayout vPanel = new VLayout();
 	final static RootPanel rp = RootPanel.get("content");
-	private HLayout rollOverCanvas;
-	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
-	 * sopra una riga, permettendone la modifica
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
+	 * successo
+	 */
+	public static void setData(TransferEmployeeDS data, TabTransferEmployee tabTransferEmployee) {
+		tabTransferEmployee.setShowRollOverCanvas(true);
+		tabTransferEmployee.setWidth("99%");
+		vPanel.setWidth100();
+		tabTransferEmployee.setHeight(400);
+		tabTransferEmployee.setShowFilterEditor(true);
+		tabTransferEmployee.setFilterOnKeypress(true);
+		tabTransferEmployee.setDataSource(data);
+		tabTransferEmployee.setAutoFetchData(true);
+		ListGridField idField = new ListGridField("id", "ID");
+		idField.setAlign(Alignment.LEFT);
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField surnameField = new ListGridField("surname", "Surname");
+		ListGridField ageField = new ListGridField("age", "Age");
+		ageField.setAlign(Alignment.LEFT);
+
+		tabTransferEmployee.setFields(new ListGridField[] { idField, nameField, surnameField, ageField });
+		vPanel.addChild(tabTransferEmployee);
+		rp.clear();
+		rp.add(vPanel);
+	}
+
+	private HLayout rollOverCanvas;
+
+	private ListGridRecord rollOverRecord;
+
+	public TabTransferEmployee() {
+
+	}
+
+	/**
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo
+	 * busy di un transfer employee
+	 */
+	@Override
+	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
+		if (getFieldName(rowNum) != null) {
+			TransferEmployeeRecord transferEmployeeRecord = (TransferEmployeeRecord) record;
+			if (transferEmployeeRecord.getBusy() == true) {
+				return "font-weight:bold; background-color:#e60000;";
+			} else {
+				return "font-weight:bold; background-color:#00cc00;";
+			}
+		} else {
+			return super.getCellCSSText(record, rowNum, colNum);
+		}
+	}
+
+	/**
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
+	 * permettendone la modifica
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
@@ -119,12 +169,12 @@ public class TabTransferEmployee extends ListGrid {
 								removeData(rollOverRecord);
 								transferEmployeeService.removeById(rollOverRecord.getAttributeAsLong("id"), new AsyncCallback<Void>() {
 									@Override
-									public void onSuccess(Void result) {
+									public void onFailure(Throwable caught) {
+										Window.alert("Errore nell'eliminazione");
 									}
 
 									@Override
-									public void onFailure(Throwable caught) {
-										Window.alert("Errore nell'eliminazione");
+									public void onSuccess(Void result) {
 									}
 								});
 							}
@@ -138,54 +188,6 @@ public class TabTransferEmployee extends ListGrid {
 		}
 		return rollOverCanvas;
 
-	}
-
-	/**
-	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
-	 * settato l'attributo busy di un transfer employee
-	 */
-	@Override
-	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
-		if (getFieldName(rowNum) != null) {
-			TransferEmployeeRecord transferEmployeeRecord = (TransferEmployeeRecord) record;
-			if (transferEmployeeRecord.getBusy() == true) {
-				return "font-weight:bold; background-color:#e60000;";
-			} else {
-				return "font-weight:bold; background-color:#00cc00;";
-			}
-		} else {
-			return super.getCellCSSText(record, rowNum, colNum);
-		}
-	}
-
-	public TabTransferEmployee() {
-
-	}
-
-	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
-	 * chiamata Asincrona ha avuto successo
-	 */
-	public static void setData(TransferEmployeeDS data, TabTransferEmployee tabTransferEmployee) {
-		tabTransferEmployee.setShowRollOverCanvas(true);
-		tabTransferEmployee.setWidth("99%");
-		vPanel.setWidth100();
-		tabTransferEmployee.setHeight(400);
-		tabTransferEmployee.setShowFilterEditor(true);
-		tabTransferEmployee.setFilterOnKeypress(true);
-		tabTransferEmployee.setDataSource(data);
-		tabTransferEmployee.setAutoFetchData(true);
-		ListGridField idField = new ListGridField("id", "ID");
-		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Name");
-		ListGridField surnameField = new ListGridField("surname", "Surname");
-		ListGridField ageField = new ListGridField("age", "Age");
-		ageField.setAlign(Alignment.LEFT);
-
-		tabTransferEmployee.setFields(new ListGridField[] { idField, nameField, surnameField, ageField });
-		vPanel.addChild(tabTransferEmployee);
-		rp.clear();
-		rp.add(vPanel);
 	}
 
 }

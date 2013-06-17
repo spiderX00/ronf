@@ -22,17 +22,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class TransferDAOTest {
 
 	@Autowired
-	private TransferDAO test ;
-	
+	private TransferDAO test;
+
 	private Transfer entity = new Transfer();
 	private List<Transfer> resultList = new ArrayList<Transfer>();
 	private List<TransferAction> transfers = new ArrayList<TransferAction>();
 	private Agency arrivalAgency = new Agency();
 	private Agency startAgency = new Agency();
-	
+
 	@Autowired
 	private AgencyDAO agencydao;
-	
+
 	private String address = "ADDRESS";
 	private String code = "CODE";
 	private String ipAddress = "IPADDRESS";
@@ -64,23 +64,23 @@ public class TransferDAOTest {
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void testFindByStartAgency() {
-		resultList.clear();
-		resultList = test.findByStartAgency(startAgency);
-		assertTrue(resultList.size() > 0);
-		for (int index = 0; index < resultList.size(); index++) {
-			assertTrue(resultList.get(index).getStartAgency().equals(startAgency));
-		}
-	}
-
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByArrivalAgency() {
 		resultList.clear();
 		resultList = test.findByArrivalAgency(arrivalAgency);
 		assertTrue(resultList.size() > 0);
 		for (int index = 0; index < resultList.size(); index++) {
 			assertTrue(resultList.get(index).getArrivalAgency().equals(arrivalAgency));
+		}
+	}
+
+	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void testFindByStartAgency() {
+		resultList.clear();
+		resultList = test.findByStartAgency(startAgency);
+		assertTrue(resultList.size() > 0);
+		for (int index = 0; index < resultList.size(); index++) {
+			assertTrue(resultList.get(index).getStartAgency().equals(startAgency));
 		}
 	}
 }

@@ -15,19 +15,19 @@ public class Customer extends User implements java.io.Serializable {
 	@Column(unique = true)
 	private String docNumber;
 
-	public String getFiscalCode() {
-		return fiscalCode;
-	}
-
-	public void setFiscalCode(String fiscalCode) {
-		this.fiscalCode = fiscalCode;
-	}
-
 	public String getDocNumber() {
 		return docNumber;
 	}
 
+	public String getFiscalCode() {
+		return fiscalCode;
+	}
+
 	public void setDocNumber(String docNumber) {
 		this.docNumber = docNumber;
+	}
+
+	public void setFiscalCode(String fiscalCode) {
+		this.fiscalCode = fiscalCode;
 	}
 }

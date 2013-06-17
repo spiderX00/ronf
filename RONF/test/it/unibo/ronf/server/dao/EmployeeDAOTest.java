@@ -22,7 +22,7 @@ public class EmployeeDAOTest {
 
 	@Autowired
 	private EmployeeDAO test;
-	
+
 	String password = "PASSWD";
 	String userName = "USERNAME";
 	private Employee entity = new Employee();
@@ -32,7 +32,7 @@ public class EmployeeDAOTest {
 		int age = 15;
 		String name = "NAME";
 		String surname = "SURNAME";
-		
+
 		entity.setAge(age);
 		entity.setId(0);
 		entity.setName(name);
@@ -46,7 +46,7 @@ public class EmployeeDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testCheckLogin() {
-		List <Employee> result = test.findAll();
+		List<Employee> result = test.findAll();
 		assertTrue(result.size() > 0);
 		assertTrue(test.checkLogin(userName, password));
 	}

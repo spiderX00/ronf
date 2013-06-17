@@ -1,12 +1,12 @@
 package it.unibo.ronf.server.dao;
 
+import it.unibo.ronf.shared.entities.MaintenanceEmployee;
+
 import java.util.List;
 
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
-
-import it.unibo.ronf.shared.entities.MaintenanceEmployee;
 
 @Repository("maintenanceEmployeeDAO")
 public class MaintenanceEmployeeDAO extends JpaDAO<MaintenanceEmployee> {

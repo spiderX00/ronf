@@ -1,6 +1,8 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -28,20 +30,20 @@ public class CarDAOTest {
 
 	@Autowired
 	private AgencyDAO agencydao = new AgencyDAO();
-	
+
 	@Autowired
 	private CarTypeDAO cartypedao = new CarTypeDAO();
-	
+
 	@Autowired
 	private CarDAO test = new CarDAO();
-	
+
 	@Autowired
 	private RentalDAO rentaldao = new RentalDAO();
-	
+
 	private Car entity = new Car();
 	private CarType type = new CarType();
 	private Agency agency = new Agency();
-	private Rental rental = new Rental();	
+	private Rental rental = new Rental();
 	private Customer customer = new Customer();
 	private Payment fine = new Payment();
 	private Payment payment = new Payment();
@@ -98,8 +100,24 @@ public class CarDAOTest {
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void testFindAvailableCar() {
+
+	}
+
+	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void testFindByGasolineType() {
+		List<Car> carList = test.findByGasolineType(gasolineType);
+		assertTrue(carList.size() > 0);
+		for (int i = 0; i < carList.size(); i++) {
+			assertEquals(carList.get(i).getGasolineType(), gasolineType);
+		}
+	}
+
+	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByModel() {
-		List <Car> carList = test.findByModel(model);
+		List<Car> carList = test.findByModel(model);
 		assertTrue(carList.size() > 0);
 		for (int i = 0; i < carList.size(); i++) {
 			assertEquals(carList.get(i).getModel(), model);
@@ -116,18 +134,8 @@ public class CarDAOTest {
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void testFindByGasolineType() {
-		List <Car> carList = test.findByGasolineType(gasolineType);
-		assertTrue(carList.size() > 0);
-		for (int i = 0; i < carList.size(); i++) {
-			assertEquals(carList.get(i).getGasolineType(), gasolineType);
-		}
-	}
-
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindBySeatsNumber() {
-		List <Car> carList = test.findBySeatsNumber(0);
+		List<Car> carList = test.findBySeatsNumber(0);
 		assertTrue(carList.size() > 0);
 		for (int i = 0; i < carList.size(); i++) {
 			if (carList.get(i).equals(entity)) {
@@ -138,14 +146,8 @@ public class CarDAOTest {
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public void testFindAvailableCar() {
-
-	}
-
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByType() {
-		List <Car> carList = test.findByType(type);
+		List<Car> carList = test.findByType(type);
 		assertTrue(carList.size() > 0);
 		for (int i = 0; i < carList.size(); i++) {
 			assertEquals(carList.get(i).getType(), type);

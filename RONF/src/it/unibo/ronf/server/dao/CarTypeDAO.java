@@ -4,6 +4,7 @@ import it.unibo.ronf.shared.entities.CarType;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 
 @Repository("carTypeDAO")

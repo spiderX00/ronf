@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
 	private UserDAO userDAO;
 
 	@Override
+	public List<User> findAll() {
+		return userDAO.findAll();
+	}
+
+	@Override
 	public List<User> findByNameAndSurname(String name, String surname) {
 		return userDAO.findByNameAndSurname(name, surname);
 	}
@@ -29,11 +34,6 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void insertUser(User u) {
 		userDAO.persist(u);
-	}
-
-	@Override
-	public List<User> findAll() {
-		return userDAO.findAll();
 	}
 
 	@Override

@@ -29,59 +29,59 @@ public class GridRecord extends ListGridRecord {
 		setDocNumber(docNumber);
 	}
 
-	public void setId(Long id) {
-		setAttribute("id", id);
-	}
-
-	public Long getId() {
-		return getAttributeAsLong("id");
-	}
-
-	public void setName(String name) {
-		setAttribute("name", name);
-	}
-
-	public String getName() {
-		return getAttributeAsString("name");
-	}
-
-	public void setSurname(String surname) {
-		setAttribute("surname", surname);
-	}
-
-	public String getSurname() {
-		return getAttributeAsString("surname");
-	}
-
-	public void setAge(Integer age) {
-		setAttribute("age", age);
-	}
-
 	public Integer getAge() {
 		return getAttributeAsInt("age");
 	}
 
-	public void setUserName(String userName) {
-		setAttribute("userName", userName);
-	}
-
-	public String getUserName() {
-		return getAttributeAsString("userName");
-	}
-
-	public void setFiscalCode(String fiscalCode) {
-		setAttribute("fiscalCode", fiscalCode);
+	public int getDocNumber() {
+		return getAttributeAsInt("docNumber");
 	}
 
 	public int getFiscalode() {
 		return getAttributeAsInt("fiscalCode");
 	}
 
+	public Long getId() {
+		return getAttributeAsLong("id");
+	}
+
+	public String getName() {
+		return getAttributeAsString("name");
+	}
+
+	public String getSurname() {
+		return getAttributeAsString("surname");
+	}
+
+	public String getUserName() {
+		return getAttributeAsString("userName");
+	}
+
+	public void setAge(Integer age) {
+		setAttribute("age", age);
+	}
+
 	public void setDocNumber(String docNumber) {
 		setAttribute("docNumber", docNumber);
 	}
 
-	public int getDocNumber() {
-		return getAttributeAsInt("docNumber");
+	public void setFiscalCode(String fiscalCode) {
+		setAttribute("fiscalCode", fiscalCode);
+	}
+
+	public void setId(Long id) {
+		setAttribute("id", id);
+	}
+
+	public void setName(String name) {
+		setAttribute("name", name);
+	}
+
+	public void setSurname(String surname) {
+		setAttribute("surname", surname);
+	}
+
+	public void setUserName(String userName) {
+		setAttribute("userName", userName);
 	}
 }

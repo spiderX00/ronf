@@ -1,11 +1,11 @@
 package it.unibo.ronf.server.services;
 
-import java.util.List;
-
 import it.unibo.ronf.server.rest.client.RentalRestProxy;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Rental;
 import it.unibo.ronf.shared.services.RentalRemoteService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +17,13 @@ public class RentalRemoteServiceImpl implements RentalRemoteService {
 	private RentalRestProxy rentalRestClient;
 
 	@Override
-	public List<Rental> getUserRemoteRental(long id, Agency a) {
-		return rentalRestClient.getRentalForUser(id, a);
+	public void closeRemoteRental(Rental r) {
+		rentalRestClient.closeRental(r);
 	}
 
 	@Override
-	public void closeRemoteRental(Rental r) {
-		rentalRestClient.closeRental(r);
+	public List<Rental> getUserRemoteRental(long id, Agency a) {
+		return rentalRestClient.getRentalForUser(id, a);
 	}
 
 }

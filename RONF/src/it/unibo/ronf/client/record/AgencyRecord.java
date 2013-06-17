@@ -12,24 +12,20 @@ public class AgencyRecord extends ListGridRecord {
 		setIpAddress(ipAddress);
 	}
 
-	public void setId(Long id) {
-		setAttribute("id", id);
-	}
-
-	public Long getId() {
-		return getAttributeAsLong("id");
-	}
-
-	public void setCode(String code) {
-		setAttribute("code", code);
+	public String getAddress() {
+		return getAttributeAsString("address");
 	}
 
 	public String getCode() {
 		return getAttributeAsString("code");
 	}
 
-	public void setName(String name) {
-		setAttribute("name", name);
+	public Long getId() {
+		return getAttributeAsLong("id");
+	}
+
+	public String getIpAddress() {
+		return getAttributeAsString("ipAddress");
 	}
 
 	public String getName() {
@@ -40,16 +36,20 @@ public class AgencyRecord extends ListGridRecord {
 		setAttribute("address", address);
 	}
 
-	public String getAddress() {
-		return getAttributeAsString("address");
+	public void setCode(String code) {
+		setAttribute("code", code);
+	}
+
+	public void setId(Long id) {
+		setAttribute("id", id);
 	}
 
 	public void setIpAddress(String ipAddress) {
 		setAttribute("ipAddress", ipAddress);
 	}
 
-	public String getIpAddress() {
-		return getAttributeAsString("ipAddress");
+	public void setName(String name) {
+		setAttribute("name", name);
 	}
 
 }

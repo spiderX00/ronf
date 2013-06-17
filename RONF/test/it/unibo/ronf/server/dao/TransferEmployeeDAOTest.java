@@ -1,6 +1,5 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.TransferEmployee;
 

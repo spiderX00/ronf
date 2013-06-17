@@ -1,8 +1,8 @@
 package it.unibo.ronf.shared.services;
 
-import java.util.List;
-
 import it.unibo.ronf.shared.entities.Employee;
+
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -14,9 +14,9 @@ public interface EmployeeServiceAsync {
 
 	public void findAll(AsyncCallback<List<Employee>> callback);
 
-	public void remove(Employee employee, AsyncCallback<Void> callback);
-
 	public void findByUserName(String userName, AsyncCallback<Employee> callback);
+
+	public void remove(Employee employee, AsyncCallback<Void> callback);
 
 	public void removeById(long id, AsyncCallback<Void> callback);
 

@@ -3,7 +3,16 @@ package it.unibo.ronf.shared.entities;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -38,99 +47,99 @@ public class Rental implements java.io.Serializable {
 	private float caution;
 	private boolean finished = false;
 
-	public Date getStart() {
-		return start;
-	}
-
-	public void setStart(Date start) {
-		this.start = start;
-	}
-
-	public Payment getFine() {
-		return fine;
-	}
-
-	public void setFine(Payment fine) {
-		this.fine = fine;
-	}
-
-	public Date getEnd() {
-		return end;
-	}
-
-	public void setEnd(Date end) {
-		this.end = end;
-	}
-
-	public Car getRentedCar() {
-		return rentedCar;
-	}
-
-	public void setRentedCar(Car rentedCar) {
-		this.rentedCar = rentedCar;
-	}
-
-	public List<Optional> getOptional() {
-		return optional;
-	}
-
-	public void setOptional(List<Optional> optional) {
-		this.optional = optional;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Agency getStartingAgency() {
-		return startingAgency;
-	}
-
-	public void setStartingAgency(Agency startingagency) {
-		this.startingAgency = startingagency;
-	}
-
 	public Agency getArrivalAgency() {
 		return arrivalAgency;
-	}
-
-	public void setArrivalAgency(Agency arrivalAgency) {
-		this.arrivalAgency = arrivalAgency;
-	}
-
-	public Payment getPayment() {
-		return payment;
-	}
-
-	public void setPayment(Payment payment) {
-		this.payment = payment;
 	}
 
 	public float getCaution() {
 		return caution;
 	}
 
-	public void setCaution(float caution) {
-		this.caution = caution;
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public Date getEnd() {
+		return end;
+	}
+
+	public Payment getFine() {
+		return fine;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public List<Optional> getOptional() {
+		return optional;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public Car getRentedCar() {
+		return rentedCar;
+	}
+
+	public Date getStart() {
+		return start;
+	}
+
+	public Agency getStartingAgency() {
+		return startingAgency;
 	}
 
 	public boolean isFinished() {
 		return finished;
 	}
 
+	public void setArrivalAgency(Agency arrivalAgency) {
+		this.arrivalAgency = arrivalAgency;
+	}
+
+	public void setCaution(float caution) {
+		this.caution = caution;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public void setEnd(Date end) {
+		this.end = end;
+	}
+
+	public void setFine(Payment fine) {
+		this.fine = fine;
+	}
+
 	public void setFinished(boolean finished) {
 		this.finished = finished;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setOptional(List<Optional> optional) {
+		this.optional = optional;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
+	public void setRentedCar(Car rentedCar) {
+		this.rentedCar = rentedCar;
+	}
+
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public void setStartingAgency(Agency startingagency) {
+		startingAgency = startingagency;
 	}
 }

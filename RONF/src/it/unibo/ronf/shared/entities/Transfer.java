@@ -1,8 +1,15 @@
 package it.unibo.ronf.shared.entities;
 
 import java.util.List;
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlElement;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,55 +41,55 @@ public class Transfer implements java.io.Serializable {
 	@OneToOne
 	private TransferEmployee transferEmployee;
 
-	public TransferEmployee getTransferEmployee() {
-		return transferEmployee;
-	}
-
-	public void setTransferEmployee(TransferEmployee transferEmployee) {
-		this.transferEmployee = transferEmployee;
-	}
-
 	public Transfer() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public List<TransferAction> getTransfers() {
-		return transfers;
-	}
-
-	public void setTransfers(List<TransferAction> transfers) {
-		this.transfers = transfers;
-	}
-
-	public Agency getStartAgency() {
-		return startAgency;
-	}
-
-	public void setStartAgency(Agency startAgency) {
-		this.startAgency = startAgency;
 	}
 
 	public Agency getArrivalAgency() {
 		return arrivalAgency;
 	}
 
-	public void setArrivalAgency(Agency arrivalAgency) {
-		this.arrivalAgency = arrivalAgency;
+	public long getId() {
+		return id;
+	}
+
+	public Agency getStartAgency() {
+		return startAgency;
+	}
+
+	public TransferEmployee getTransferEmployee() {
+		return transferEmployee;
+	}
+
+	public List<TransferAction> getTransfers() {
+		return transfers;
 	}
 
 	public boolean isSuccess() {
 		return success;
 	}
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
-
-	public long getId() {
-		return id;
+	public void setArrivalAgency(Agency arrivalAgency) {
+		this.arrivalAgency = arrivalAgency;
 	}
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public void setStartAgency(Agency startAgency) {
+		this.startAgency = startAgency;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+
+	public void setTransferEmployee(TransferEmployee transferEmployee) {
+		this.transferEmployee = transferEmployee;
+	}
+
+	public void setTransfers(List<TransferAction> transfers) {
+		this.transfers = transfers;
 	}
 }

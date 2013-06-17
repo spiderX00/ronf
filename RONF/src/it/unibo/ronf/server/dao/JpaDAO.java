@@ -25,21 +25,9 @@ public abstract class JpaDAO<E> {
 		this.entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
 	}
 
-	public void persist(E entity) {
-		em.persist(entity);
-	}
-
-	public void remove(E entity) {
-		em.remove(entity);
-	}
-
-	/* Aggiorna oggetto */
-	public E merge(E entity) {
-		return em.merge(entity);
-	}
-
-	public void refresh(E entity) {
-		em.refresh(entity);
+	public List<E> findAll() {
+		TypedQuery<E> q = em.createQuery("SELECT h FROM " + entityClass.getName() + " h", entityClass);
+		return q.getResultList();
 	}
 
 	public E findById(Long id) {
@@ -51,9 +39,21 @@ public abstract class JpaDAO<E> {
 		return entity;
 	}
 
-	public List<E> findAll() {
-		TypedQuery<E> q = em.createQuery("SELECT h FROM " + entityClass.getName() + " h", entityClass);
-		return q.getResultList();
+	/* Aggiorna oggetto */
+	public E merge(E entity) {
+		return em.merge(entity);
+	}
+
+	public void persist(E entity) {
+		em.persist(entity);
+	}
+
+	public void refresh(E entity) {
+		em.refresh(entity);
+	}
+
+	public void remove(E entity) {
+		em.remove(entity);
 	}
 
 	public Integer removeAll() {

@@ -1,10 +1,10 @@
 package it.unibo.ronf.shared.services;
 
+import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Rental;
+
 import java.util.Date;
 import java.util.List;
-
-import it.unibo.ronf.shared.entities.Rental;
-import it.unibo.ronf.shared.entities.Agency;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

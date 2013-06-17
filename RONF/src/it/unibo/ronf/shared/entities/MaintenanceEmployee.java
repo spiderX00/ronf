@@ -1,6 +1,6 @@
 package it.unibo.ronf.shared.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
 public class MaintenanceEmployee extends Employee implements java.io.Serializable {
