@@ -34,16 +34,16 @@ public class TransferEmployeeDS extends DataSource {
 		DataSourceIntegerField pkField = new DataSourceIntegerField("id");
 		pkField.setPrimaryKey(true);
 
-		DataSourceTextField nameField = new DataSourceTextField("name", "Nome");
+		DataSourceTextField nameField = new DataSourceTextField("name", "Name");
 		nameField.setRequired(true);
 
-		DataSourceTextField surnameField = new DataSourceTextField("surname", "Cognome");
+		DataSourceTextField surnameField = new DataSourceTextField("surname", "Surname");
 		surnameField.setRequired(true);
 
 		DataSourcePasswordField passwordField = new DataSourcePasswordField("password", "Password");
 		passwordField.setRequired(true);
 
-		DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Età");
+		DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Age");
 		ageField.setRequired(true);
 
 		setFields(pkField, nameField, surnameField, passwordField, ageField);
@@ -53,7 +53,7 @@ public class TransferEmployeeDS extends DataSource {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("fallito");
+				Window.alert("Failed");
 			}
 
 			/**

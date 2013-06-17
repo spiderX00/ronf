@@ -38,21 +38,21 @@ public class CarDS extends DataSource {
 		DataSourceIntegerField idField = new DataSourceIntegerField("id");
 		idField.setPrimaryKey(true);
 
-		DataSourceTextField modelField = new DataSourceTextField("model", "Modello");
+		DataSourceTextField modelField = new DataSourceTextField("model", "Model");
 		modelField.setRequired(true);
 
-		DataSourceTextField plateField = new DataSourceTextField("plate", "Targa");
+		DataSourceTextField plateField = new DataSourceTextField("plate", "Plate");
 		plateField.setRequired(true);
 
-		DataSourceTextField gasolineTypeField = new DataSourceTextField("gasolineType", "Alimentazione");
+		DataSourceTextField gasolineTypeField = new DataSourceTextField("gasolineType", "Gasoline type");
 		gasolineTypeField.setRequired(true);
 
-		DataSourceIntegerField seatsNumberField = new DataSourceIntegerField("seatsNumber", "N. Posti");
+		DataSourceIntegerField seatsNumberField = new DataSourceIntegerField("seatsNumber", "Seats n.");
 		seatsNumberField.setRequired(true);
-		DataSourceEnumField agencyField = new DataSourceEnumField("agency", "Agenzia");
+		DataSourceEnumField agencyField = new DataSourceEnumField("agency", "Agency");
 		agencyField.setRequired(true);
 
-		DataSourceTextField typeField = new DataSourceTextField("type", "Tipo");
+		DataSourceTextField typeField = new DataSourceTextField("type", "Type");
 		if (agencyMap != null) {
 			agencyField.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 		}

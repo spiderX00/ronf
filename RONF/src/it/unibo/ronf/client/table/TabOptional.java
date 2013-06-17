@@ -110,9 +110,9 @@ public class TabOptional extends ListGrid {
 		tabOptional.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField costField = new ListGridField("cost", "Prezzo");
-		ListGridField descriptionField = new ListGridField("description", "Descrizione");
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField costField = new ListGridField("cost", "Cost");
+		ListGridField descriptionField = new ListGridField("description", "Description");
 		tabOptional.setFields(new ListGridField[] { idField, nameField, costField, descriptionField });
 		vPanel.addChild(tabOptional);
 		rp.clear();

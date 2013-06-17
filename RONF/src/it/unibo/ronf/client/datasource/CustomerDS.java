@@ -42,21 +42,21 @@ public class CustomerDS extends DataSource {
 		DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");
 		idField.setPrimaryKey(true);
 
-		DataSourceTextField nameField = new DataSourceTextField("name", "Nome");
+		DataSourceTextField nameField = new DataSourceTextField("name", "Name");
 		nameField.setRequired(true);
 
-		DataSourceTextField surnameField = new DataSourceTextField("surname", "Cognome");
+		DataSourceTextField surnameField = new DataSourceTextField("surname", "Surname");
 		surnameField.setRequired(true);
 
-		DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Età");
+		DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Age");
 		ageField.setRequired(true);
 		IntegerRangeValidator rangeValidator = new IntegerRangeValidator();
 		rangeValidator.setMin(0);
 		ageField.setValidators(rangeValidator);
-		DataSourceTextField fiscalCodeField = new DataSourceTextField("fiscalCode", "Cod. Fiscale");
+		DataSourceTextField fiscalCodeField = new DataSourceTextField("fiscalCode", "Fiscal code");
 		fiscalCodeField.setRequired(true);
 
-		DataSourceTextField docNumberField = new DataSourceTextField("docNumber", "Documento n.");
+		DataSourceTextField docNumberField = new DataSourceTextField("docNumber", "Document n.");
 		docNumberField.setRequired(true);
 
 		setFields(idField, nameField, surnameField, ageField, fiscalCodeField, docNumberField);

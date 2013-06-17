@@ -107,12 +107,12 @@ public class TabCustomer extends ListGrid {
 		tabCustomer.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField surnameField = new ListGridField("surname", "Cognome");
-		ListGridField ageField = new ListGridField("age", "EtÃ ");
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField surnameField = new ListGridField("surname", "Surname");
+		ListGridField ageField = new ListGridField("age", "Age ");
 		ageField.setAlign(Alignment.LEFT);
-		ListGridField fiscalCodeField = new ListGridField("fiscalCode", "Cod. Fiscale");
-		ListGridField docNumberField = new ListGridField("docNumber", "Documento n.");
+		ListGridField fiscalCodeField = new ListGridField("fiscalCode", "Fiscal Code");
+		ListGridField docNumberField = new ListGridField("docNumber", "Document n.");
 
 		tabCustomer.setFields(new ListGridField[] { idField, nameField, surnameField, ageField, fiscalCodeField, docNumberField });
 		vPanel.addChild(tabCustomer);

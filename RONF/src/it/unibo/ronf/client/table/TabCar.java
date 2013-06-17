@@ -106,10 +106,10 @@ public class TabCar extends ListGrid {
 		tabCar.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
-		ListGridField modelField = new ListGridField("model", "Modello");
-		ListGridField plateField = new ListGridField("plate", "Targa");
-		ListGridField gasolineTypeField = new ListGridField("gasolineType", "Alimentazione");
-		ListGridField seatsNumberField = new ListGridField("seatsNumber", "N. Posti");
+		ListGridField modelField = new ListGridField("model", "Model");
+		ListGridField plateField = new ListGridField("plate", "Plate");
+		ListGridField gasolineTypeField = new ListGridField("gasolineType", "Gasoline Type");
+		ListGridField seatsNumberField = new ListGridField("seatsNumber", "Seats Number");
 		seatsNumberField.setAlign(Alignment.LEFT);
 		ListGridField agencyField = new ListGridField("agency", "Agenzia");
 		ListGridField typeField = new ListGridField("type", "Tipo");

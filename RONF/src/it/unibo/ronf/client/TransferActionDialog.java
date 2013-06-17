@@ -46,7 +46,7 @@ public class TransferActionDialog extends Dialog {
 					ImgButton removeImg = new ImgButton();
 					removeImg.setShowDown(false);
 					removeImg.setShowRollOver(false);
-					removeImg.setLayoutAlign(Alignment.RIGHT);
+					removeImg.setLayoutAlign(Alignment.CENTER);
 					removeImg.setSrc("remove.png");
 					removeImg.setPrompt("Set Success");
 					removeImg.setHeight(16);
@@ -107,11 +107,8 @@ public class TransferActionDialog extends Dialog {
 		transferActionGrid.setFilterOnKeypress(true);
 		transferActionGrid.setDataSource(TransferActionDS.getInstance(record));
 		transferActionGrid.setAutoFetchData(true);
-		ListGridField idField = new ListGridField("id", "ID");
-		idField.setAlign(Alignment.LEFT);
 		ListGridField startingAgencyField = new ListGridField("carRequired", "Car");
 		ListGridField transferDateField = new ListGridField("transferDate", "Data di Transferimento");
-		transferDateField.setAlign(Alignment.LEFT);
 		transferDateField.setDateFormatter(DateDisplayFormat.TOEUROPEANSHORTDATE);
 		transferActionGrid.setFields(startingAgencyField, transferDateField);
 		h.addMember(transferActionGrid);

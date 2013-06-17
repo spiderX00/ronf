@@ -111,8 +111,8 @@ public class MakeRental extends Dialog {
 		dynamicForm2.setFields(sectionPayment, amountItem, paymentMethodItem);
 
 		addItem(dynamicForm);
-		addItem(dynamicForm2);
 		addItem(dynamicForm3);
+		addItem(dynamicForm2);
 
 		customerService.findAll(new AsyncCallback<List<Customer>>() {
 			@Override

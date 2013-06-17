@@ -36,8 +36,8 @@ public class TabTransferEmployee extends ListGrid {
 	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
-	 * permettendone la modifica
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
+	 * sopra una riga, permettendone la modifica
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
@@ -141,8 +141,8 @@ public class TabTransferEmployee extends ListGrid {
 	}
 
 	/**
-	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo
-	 * busy di un transfer employee
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
+	 * settato l'attributo busy di un transfer employee
 	 */
 	@Override
 	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
@@ -160,17 +160,11 @@ public class TabTransferEmployee extends ListGrid {
 
 	public TabTransferEmployee() {
 
-		/** Creo una nuovo oggetto DataSource e gli passo questa listGrid */
-		if (TransferEmployeeDS.getInstance(TabTransferEmployee.this) != null) {
-			rp.clear();
-			rp.add(vPanel);
-		}
-
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
-	 * successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
+	 * chiamata Asincrona ha avuto successo
 	 */
 	public static void setData(TransferEmployeeDS data, TabTransferEmployee tabTransferEmployee) {
 		tabTransferEmployee.setShowRollOverCanvas(true);
@@ -183,9 +177,9 @@ public class TabTransferEmployee extends ListGrid {
 		tabTransferEmployee.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField surnameField = new ListGridField("surname", "Cognome");
-		ListGridField ageField = new ListGridField("age", "Età");
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField surnameField = new ListGridField("surname", "Surname");
+		ListGridField ageField = new ListGridField("age", "Age");
 		ageField.setAlign(Alignment.LEFT);
 
 		tabTransferEmployee.setFields(new ListGridField[] { idField, nameField, surnameField, ageField });

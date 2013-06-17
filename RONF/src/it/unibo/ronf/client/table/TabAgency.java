@@ -103,9 +103,9 @@ public class TabAgency extends ListGrid {
 		tabAgency.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
-		ListGridField codeField = new ListGridField("code", "Codice");
-		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField addressField = new ListGridField("address", "Indirizzo");
+		ListGridField codeField = new ListGridField("code", "Code");
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField addressField = new ListGridField("address", "Address");
 		ListGridField ipAddressField = new ListGridField("ipAddress", "IP");
 
 		tabAgency.setFields(new ListGridField[] { idField, codeField, nameField, addressField, ipAddressField });

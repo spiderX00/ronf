@@ -34,7 +34,7 @@ public class TransferActionDS extends DataSource {
 		DataSourceTextField carField = new DataSourceTextField("carRequired", "Car");
 		carField.setRequired(true);
 
-		DataSourceDateField transferDateField = new DataSourceDateField("transferDate", "Data trasferimento");
+		DataSourceDateField transferDateField = new DataSourceDateField("transferDate", "Transfer date");
 		transferDateField.setRequired(true);
 
 		setFields(pkField, carField, transferDateField);

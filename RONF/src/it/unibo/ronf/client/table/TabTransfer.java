@@ -32,8 +32,8 @@ public class TabTransfer extends ListGrid {
 	private ListGridRecord rollOverRecord;
 
 	/**
-	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse sopra una riga,
-	 * permettendone la modifica
+	 * Canvas che permette la visualizzazione dei tasti quando si passa il mouse
+	 * sopra una riga, permettendone la modifica
 	 */
 	@Override
 	protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
@@ -55,13 +55,17 @@ public class TabTransfer extends ListGrid {
 			removeImg.addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
-					TransferRecord transferRecord = (TransferRecord) rollOverRecord;
-					transferRecord.getObject().setSuccess(true);
+					final TransferRecord transferRecord = (TransferRecord) rollOverRecord;
 					transferService.updateSuccessTransfer(transferRecord.getObject(), new AsyncCallback<Boolean>() {
 
 						@Override
 						public void onSuccess(Boolean result) {
-							SC.say("Update Transfer Success!");
+							if (result == true) {
+								transferRecord.getObject().setSuccess(true);
+								SC.say("Update Transfer Success!");
+							} else {
+								SC.say("Transfer Action is pending!!");
+							}
 						}
 
 						@Override
@@ -79,14 +83,14 @@ public class TabTransfer extends ListGrid {
 	}
 
 	/**
-	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è settato l'attributo
-	 * busy di un transfer employee
+	 * Con questo metodo coloro lo sfondo (rosso o verde) a seconda di come è
+	 * settato l'attributo busy di un transfer employee
 	 */
 	@Override
 	protected String getCellCSSText(ListGridRecord record, int rowNum, int colNum) {
 		if (getFieldName(rowNum) != null) {
 			TransferRecord transferRecord = (TransferRecord) record;
-			if (transferRecord.getSuccess() == false) {
+			if (transferRecord.getObject().isSuccess() == false) {
 				return "font-weight:bold; background-color:#e60000;";
 			} else {
 				return "font-weight:bold; background-color:#00cc00;";
@@ -101,8 +105,8 @@ public class TabTransfer extends ListGrid {
 	}
 
 	/**
-	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la chiamata Asincrona ha avuto
-	 * successo
+	 * funzione che viene chiamata nell'EmployeeDS solo una volta che la
+	 * chiamata Asincrona ha avuto successo
 	 */
 	public static void setData(TransferDS data, TabTransfer tabTransfer) {
 		tabTransfer.setShowRollOverCanvas(true);
@@ -115,9 +119,9 @@ public class TabTransfer extends ListGrid {
 		tabTransfer.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
-		ListGridField startingAgencyField = new ListGridField("startAgency", "Agenzia di partenza");
-		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Agenzia di arrivo");
-		ListGridField successField = new ListGridField("success", "Concluso");
+		ListGridField startingAgencyField = new ListGridField("startAgency", "Starting agency");
+		ListGridField arrivalAgencyField = new ListGridField("arrivalAgency", "Arrival agency");
+		ListGridField successField = new ListGridField("success", "Success");
 		tabTransfer.setFields(new ListGridField[] { idField, startingAgencyField, arrivalAgencyField, successField });
 		tabTransfer.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
 

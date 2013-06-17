@@ -55,6 +55,7 @@ public class TransferServiceImpl implements TransferService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean updateSuccessTransfer(Transfer t) {
 
 		boolean res = false;
@@ -66,9 +67,13 @@ public class TransferServiceImpl implements TransferService {
 				return res;
 			}
 		}
+<<<<<<< HEAD
 		
 		logger.debug("true");
 	
+=======
+		t.setSuccess(true);
+>>>>>>> branch 'master' of https://lorenzo_vinci@bitbucket.org/acidici/ronf.git
 		transferDAO.merge(t);
 		return true;
 	}

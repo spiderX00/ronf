@@ -39,10 +39,10 @@ public class MakeTransferEmployee extends Dialog {
 		hLayout.setHeight("46px");
 		hLayout.setMembersMargin(40);
 		final TabTransferEmployee tabTransferEmployee = new TabTransferEmployee();
-		if (DataSource.getDataSource("transferDS") != null) {
-			DataSource.getDataSource("transferDS").destroy();
+		if (DataSource.getDataSource("transferEmployeeDS") != null) {
+			DataSource.getDataSource("transferEmployeeDS").destroy();
 		}
-		dynamicForm.setDataSource(new TransferEmployeeDS("transferDS", tabTransferEmployee));
+		dynamicForm.setDataSource(new TransferEmployeeDS("transferEmployeeDS", tabTransferEmployee));
 		dynamicForm.getField("id").hide();
 		Button btnCancel = new Button("Cancel");
 		btnCancel.setAlign(Alignment.CENTER);

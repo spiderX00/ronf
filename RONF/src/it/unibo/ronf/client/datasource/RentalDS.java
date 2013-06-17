@@ -42,34 +42,34 @@ public class RentalDS extends DataSource {
 		setID(id);
 		DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");
 		idField.setPrimaryKey(true);
-		DataSourceDateField startField = new DataSourceDateField("start", "Data Inizio");
+		DataSourceDateField startField = new DataSourceDateField("start", "Start date");
 		startField.setRequired(true);
-		DataSourceDateField endField = new DataSourceDateField("end", "Data Fine");
+		DataSourceDateField endField = new DataSourceDateField("end", "End date");
 		endField.setRequired(true);
 
-		DataSourceTextField rentedCarField = new DataSourceTextField("rentedCar", "Macchina");
+		DataSourceTextField rentedCarField = new DataSourceTextField("rentedCar", "Rented car");
 
-		DataSourceEnumField customerField = new DataSourceEnumField("customer", "Cliente");
+		DataSourceEnumField customerField = new DataSourceEnumField("customer", "Customer");
 		customerField.setRequired(true);
 		if (customersMap != null) {
 			customerField.setValueMap(customersMap.keySet().toArray(new String[] {}));
 		}
-		final DataSourceEnumField startingAgencyField = new DataSourceEnumField("startingAgency", "Agenzia di partenza");
+		final DataSourceEnumField startingAgencyField = new DataSourceEnumField("startingAgency", "Starting agency");
 		startingAgencyField.setRequired(true);
 		if (agencyMap != null) {
 			startingAgencyField.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 		}
-		final DataSourceEnumField arrivalAgencyField = new DataSourceEnumField("arrivalAgency", "Agenzia di arrivo");
+		final DataSourceEnumField arrivalAgencyField = new DataSourceEnumField("arrivalAgency", "Arrival agency");
 		arrivalAgencyField.setRequired(true);
 		if (agencyMap != null) {
 			arrivalAgencyField.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 		}
 
-		DataSourceIntegerField optionalField = new DataSourceIntegerField("optional", "N.Optional");
-		DataSourceIntegerField cautionField = new DataSourceIntegerField("caution", "Cauzione");
+		DataSourceIntegerField optionalField = new DataSourceIntegerField("optional", "Optional n.");
+		DataSourceIntegerField cautionField = new DataSourceIntegerField("caution", "Caution");
 		cautionField.setRequired(true);
 
-		DataSourceBooleanField finishedField = new DataSourceBooleanField("finished", "Concluso");
+		DataSourceBooleanField finishedField = new DataSourceBooleanField("finished", "Finished");
 
 		setFields(idField, startField, endField, rentedCarField, customerField, startingAgencyField, arrivalAgencyField, optionalField, cautionField, finishedField);
 
