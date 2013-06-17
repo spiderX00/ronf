@@ -57,14 +57,18 @@ public class TransferServiceImpl implements TransferService {
 	@Override
 	public boolean updateSuccessTransfer(Transfer t) {
 
+		boolean res = false;
 		for (TransferAction ta : t.getTransfers()) {
 			if (ta.isSuccessAction()) {
 				continue;
 			} else {
-				
-				return false;
+				logger.debug("false");
+				return res;
 			}
 		}
+		
+		logger.debug("true");
+	
 		transferDAO.merge(t);
 		return true;
 	}
