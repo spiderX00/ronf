@@ -1,7 +1,6 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -108,8 +107,8 @@ public class RentalDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByStart() {
-		rentalList = test.findByStart(start);
-		assertNotNull(rentalList);
+		List <Rental> rentalList = test.findByStart(start);
+		assertTrue(rentalList.size() > 0);
 		for (int i = 0; i < rentalList.size(); i++) {
 			assertTrue(rentalList.get(i).getStart() == start);
 		}
@@ -118,8 +117,8 @@ public class RentalDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByEnd() {
-		rentalList = test.findByEnd(end);
-		assertNotNull(rentalList);
+		List <Rental> rentalList = test.findByEnd(end);
+		assertTrue(rentalList.size() > 0);
 		for (int i = 0; i < rentalList.size(); i++) {
 			assertTrue(rentalList.get(i).getEnd() == end);
 		}
@@ -128,8 +127,8 @@ public class RentalDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByStartingAgency() {
-		rentalList = test.findByStartingAgency(startingAgency);
-		assertNotNull(rentalList);
+		List <Rental> rentalList = test.findByStartingAgency(startingAgency);
+		assertTrue(rentalList.size() > 0);
 		for (int i = 0; i < rentalList.size(); i++) {
 			assertTrue(rentalList.get(i).getStartingAgency() == startingAgency);
 		}
@@ -138,11 +137,10 @@ public class RentalDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByArrivalAgency() {
-		rentalList = test.findByArrivalAgency(arrivalAgency);
-		assertNotNull(rentalList);
+		List <Rental> rentalList = test.findByArrivalAgency(arrivalAgency);
+		assertTrue(rentalList.size() > 0);
 		for (int i = 0; i < rentalList.size(); i++) {
 			assertTrue(rentalList.get(i).getArrivalAgency() == arrivalAgency);
 		}
 	}
-
 }

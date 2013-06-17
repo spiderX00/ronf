@@ -46,7 +46,7 @@ public class TransferEmployeeDAOTest {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByBusy() {
 		result = test.findByBusy(false);
-		assertNotNull(result);
+		assertTrue(result.size() > 0);
 		for (int index = 0; index < result.size(); index++) {
 			assertTrue(result.get(index).isBusy() == false);
 		}

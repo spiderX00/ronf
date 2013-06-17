@@ -23,15 +23,16 @@ public class EmployeeDAOTest {
 	@Autowired
 	private EmployeeDAO test;
 	
+	String password = "PASSWD";
+	String userName = "USERNAME";
 	private Employee entity = new Employee();
-	private int age = 15;
-	private String name = "NAME";
-	private String password = "PASSWD";
-	private String surname = "SURNAME";
-	private String userName = "USERNAME";
 
 	@Before
 	public void setUpBefore() throws Exception {
+		int age = 15;
+		String name = "NAME";
+		String surname = "SURNAME";
+		
 		entity.setAge(age);
 		entity.setId(0);
 		entity.setName(name);

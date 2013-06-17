@@ -20,14 +20,15 @@ public class AgencyDAOTest {
 	@Autowired
 	private AgencyDAO test = new AgencyDAO();
 
-	private Agency entity = new Agency();
-	private String address = "ADDRESS";
 	private String code = "CODE";
-	private String ipAddress = "ipAddress";
 	private String name = "NAME";
 
 	@Before
 	public void setUpBeforeClass() throws Exception {
+		Agency entity = new Agency();
+		String address = "ADDRESS";
+		String ipAddress = "ipAddress";
+		
 		entity.setAddress(address);
 		entity.setCode(code);
 		entity.setId(0);

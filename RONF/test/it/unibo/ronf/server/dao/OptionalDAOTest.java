@@ -22,12 +22,13 @@ public class OptionalDAOTest {
 	@Autowired
 	private OptionalDAO test;
 	
-	private Optional entity = new Optional();
-	private String description = "DESCRIPTION";
 	private String name = "NAME";
 
 	@Before
 	public void setUpBefore() throws Exception {
+		Optional entity = new Optional();
+		String description = "DESCRIPTION";
+		
 		entity.setCost(10.0F);
 		entity.setDescription(description);
 		entity.setName(name);

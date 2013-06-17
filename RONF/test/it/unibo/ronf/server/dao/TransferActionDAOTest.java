@@ -1,7 +1,7 @@
 package it.unibo.ronf.server.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -12,38 +12,55 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class TransferActionDAOTest {
 
-	private static TransferActionDAO test = new TransferActionDAO();
-	private static TransferEmployeeDAO transferemployeedao = new TransferEmployeeDAO();
-	private static CarDAO cardao = new CarDAO();
-	private static CarTypeDAO cartypedao = new CarTypeDAO();
-	private static AgencyDAO agencydao = new AgencyDAO();
+	@Autowired
+	private TransferActionDAO test;
+	
+	@Autowired
+	private TransferEmployeeDAO transferemployeedao;
+	
+	@Autowired
+	private CarDAO cardao;
+	
+	@Autowired
+	private CarTypeDAO cartypedao;
+	
+	@Autowired
+	private AgencyDAO agencydao;
 
-	private static TransferAction entity = new TransferAction();
-	private static TransferEmployee employee = new TransferEmployee();
-	private static Car requiredCar = new Car();
-	private static CarType type = new CarType();
-	private static Date transferDate = new Date();
-	private static String model = "MODEL";
-	private static String password = "PASSWORD";
-	private static String surname = "SURNAME";
-	private static String userName = "USERNAME";
-	private static String address = "ADDRESS";
-	private static String code = "CODE";
-	private static String ipAddress = "IPADDRESS";
-	private static String name = "NAME";
-	private static String gasolineType = "GASOLINETYPE";
-	private static Agency agency = new Agency();
-	private static String plate = "PLATE";
+	private Date transferDate = new Date();
+	
+	private TransferAction entity = new TransferAction();
+	private TransferEmployee employee = new TransferEmployee();
+	private Car requiredCar = new Car();
+	private CarType type = new CarType();
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBeforeClass() throws Exception {
+		
+		final String model = "MODEL";
+		final String password = "PASSWORD";
+		final String surname = "SURNAME";
+		final String userName = "USERNAME";
+		final String address = "ADDRESS";
+		final String code = "CODE";
+		final String ipAddress = "IPADDRESS";
+		final String name = "NAME";
+		final String gasolineType = "GASOLINETYPE";
+		final Agency agency = new Agency();
+		final String plate = "PLATE";
 
 		agency.setAddress(address);
 		agency.setName(name);
@@ -93,7 +110,7 @@ public class TransferActionDAOTest {
 	public void testFindByDate() {
 		List<TransferAction> resultList = new ArrayList<TransferAction>();
 		resultList = test.findByDate(transferDate);
-		assertNotNull(resultList);
+		assertTrue(resultList.size() > 0);
 		for (int index = 0; index < resultList.size(); index++) {
 			assertEquals(resultList.get(index).getTransferDate(), transferDate);
 		}
@@ -104,10 +121,9 @@ public class TransferActionDAOTest {
 	public void testFindBySuccess() {
 		List<TransferAction> resultList = new ArrayList<TransferAction>();
 		resultList = test.findBySuccess(false);
-		assertNotNull(resultList);
+		assertTrue(resultList.size() > 0);
 		for (int index = 0; index < resultList.size(); index++) {
 			assertEquals(resultList.get(index).isSuccessAction(), false);
 		}
 	}
-
 }

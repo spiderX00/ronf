@@ -1,7 +1,6 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -26,8 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 @ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CarDAOTest {
-
-	private List<Car> carList = new ArrayList<Car>();
 
 	@Autowired
 	private AgencyDAO agencydao = new AgencyDAO();
@@ -102,9 +99,8 @@ public class CarDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByModel() {
-		carList.clear();
-		carList = test.findByModel(model);
-
+		List <Car> carList = test.findByModel(model);
+		assertTrue(carList.size() > 0);
 		for (int i = 0; i < carList.size(); i++) {
 			assertEquals(carList.get(i).getModel(), model);
 		}
@@ -113,7 +109,6 @@ public class CarDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByPlate() {
-		carList.clear();
 		Car result = test.findByPlate(plate);
 		assertNotNull(result);
 		assertEquals(result.getPlate(), plate);
@@ -122,9 +117,8 @@ public class CarDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByGasolineType() {
-		carList.clear();
-		carList = test.findByGasolineType(gasolineType);
-
+		List <Car> carList = test.findByGasolineType(gasolineType);
+		assertTrue(carList.size() > 0);
 		for (int i = 0; i < carList.size(); i++) {
 			assertEquals(carList.get(i).getGasolineType(), gasolineType);
 		}
@@ -133,9 +127,8 @@ public class CarDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindBySeatsNumber() {
-		carList.clear();
-		carList = test.findBySeatsNumber(0);
-
+		List <Car> carList = test.findBySeatsNumber(0);
+		assertTrue(carList.size() > 0);
 		for (int i = 0; i < carList.size(); i++) {
 			if (carList.get(i).equals(entity)) {
 				assertEquals(carList.get(i).getSeatsNumber(), 0);
@@ -152,9 +145,8 @@ public class CarDAOTest {
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByType() {
-		carList.clear();
-		carList = test.findByType(type);
-
+		List <Car> carList = test.findByType(type);
+		assertTrue(carList.size() > 0);
 		for (int i = 0; i < carList.size(); i++) {
 			assertEquals(carList.get(i).getType(), type);
 		}

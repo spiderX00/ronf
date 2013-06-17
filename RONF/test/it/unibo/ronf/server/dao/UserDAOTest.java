@@ -1,7 +1,6 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import it.unibo.ronf.shared.entities.User;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class UserDAOTest {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByNameAndSurname() {
 		resultList = test.findByNameAndSurname(name, surname);
-		assertNotNull(resultList);
+		assertTrue(resultList.size() > 0);
 		for (int index = 0; index < resultList.size(); index++) {
 			assertEquals(resultList.get(index).getName(), name);
 			assertEquals(resultList.get(index).getSurname(), surname);

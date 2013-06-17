@@ -1,8 +1,6 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -113,7 +111,7 @@ public class MaintenanceDAOTest {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByDate() {
 		List<Maintenance> result = test.findByMaintenanceEmployee(maintenanceEmployee);
-		assertFalse(result.isEmpty());
+		assertTrue(result.size() > 0);
 		for (int index = 0; index < result.size(); index++) {
 			assertEquals(result.get(index).getDate(), date);
 		}
@@ -123,7 +121,7 @@ public class MaintenanceDAOTest {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByMaintenanceEmployee() {
 		List<Maintenance> result = test.findByMaintenanceEmployee(maintenanceEmployee);
-		assertFalse(result.isEmpty());
+		assertTrue(result.size() > 0);
 		for (int index = 0; index < result.size(); index++) {
 			assertEquals(result.get(index).getMaintenanceEmployee(), maintenanceEmployee);
 		}

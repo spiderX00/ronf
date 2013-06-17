@@ -1,6 +1,5 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Transfer;
@@ -68,7 +67,7 @@ public class TransferDAOTest {
 	public void testFindByStartAgency() {
 		resultList.clear();
 		resultList = test.findByStartAgency(startAgency);
-		assertNotNull(resultList);
+		assertTrue(resultList.size() > 0);
 		for (int index = 0; index < resultList.size(); index++) {
 			assertTrue(resultList.get(index).getStartAgency().equals(startAgency));
 		}
@@ -79,7 +78,7 @@ public class TransferDAOTest {
 	public void testFindByArrivalAgency() {
 		resultList.clear();
 		resultList = test.findByArrivalAgency(arrivalAgency);
-		assertNotNull(resultList);
+		assertTrue(resultList.size() > 0);
 		for (int index = 0; index < resultList.size(); index++) {
 			assertTrue(resultList.get(index).getArrivalAgency().equals(arrivalAgency));
 		}

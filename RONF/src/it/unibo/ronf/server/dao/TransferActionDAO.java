@@ -42,7 +42,7 @@ public class TransferActionDAO extends JpaDAO<TransferAction> {
 
 	public List<TransferAction> findBySuccess(boolean success) {
 
-		TypedQuery<TransferAction> query = em.createQuery("SELECT ta FROM TransferAction ta WHERE ta.success = :success", entityClass);
+		TypedQuery<TransferAction> query = em.createQuery("SELECT ta FROM TransferAction ta WHERE ta.successAction = :success", entityClass);
 
 		query.setParameter("success", success);
 

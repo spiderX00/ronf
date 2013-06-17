@@ -20,12 +20,12 @@ public class MaintenanceTypeDAOTest {
 	@Autowired
 	private MaintenanceTypeDAO test;
 	
-	private MaintenanceType entity = new MaintenanceType();
-	private String description = "DESCRIPTION";
 	private String name = "NAME";
 
 	@Before
 	public void setUpBeforeClass() throws Exception {
+		MaintenanceType entity = new MaintenanceType();
+		String description = "DESCRIPTION";
 		entity.setCost(0.0F);
 		entity.setDescription(description);
 		entity.setId(0);

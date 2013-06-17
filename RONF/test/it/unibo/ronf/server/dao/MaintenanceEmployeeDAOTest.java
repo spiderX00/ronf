@@ -1,6 +1,6 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import it.unibo.ronf.shared.entities.MaintenanceEmployee;
 
 import java.util.List;
@@ -21,14 +21,15 @@ public class MaintenanceEmployeeDAOTest {
 	@Autowired
 	private MaintenanceEmployeeDAO test;
 	private MaintenanceEmployee entity = new MaintenanceEmployee();
-	private int age = 15;
-	private String name = "NAME";
-	private String password = "PASSWORD";
-	private String surname = "SURNAME";
-	private String userName = "USERNAME";
 
 	@Before
 	public void setUpBefore() throws Exception {
+		int age = 15;
+		String name = "NAME";
+		String password = "PASSWORD";
+		String surname = "SURNAME";
+		String userName = "USERNAME";
+		
 		entity.setAge(age);
 		entity.setBusy(false);
 		entity.setId(0);
@@ -44,6 +45,7 @@ public class MaintenanceEmployeeDAOTest {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByBusy() {
 		List<MaintenanceEmployee> result = test.findByBusy(false);
+		assertTrue(result.size() > 0);
 		for (int index = 0; index < result.size(); index++) {
 			assertEquals(result.get(index).isBusy(), false);
 		}
