@@ -41,10 +41,10 @@ public class OptionalDS extends DataSource {
 		DataSourceIntegerField pkField = new DataSourceIntegerField("id");
 		pkField.setPrimaryKey(true);
 
-		DataSourceTextField nameField = new DataSourceTextField("name", "Nome");
+		DataSourceTextField nameField = new DataSourceTextField("name", "Name");
 		nameField.setRequired(true);
 
-		DataSourceIntegerField costField = new DataSourceIntegerField("cost", "Prezzo");
+		DataSourceIntegerField costField = new DataSourceIntegerField("cost", "Cost");
 		costField.setRequired(true);
 		FloatRangeValidator rangeValidator = new FloatRangeValidator();
 		rangeValidator.setMin(0);
@@ -56,7 +56,7 @@ public class OptionalDS extends DataSource {
 		/** Restrizioni su numeri negativi ed oltre le due cifre dopo la virgola */
 		costField.setValidators(rangeValidator, precisionValidator);
 
-		DataSourceTextField descriptionField = new DataSourceTextField("description", "Descrizione");
+		DataSourceTextField descriptionField = new DataSourceTextField("description", "Description");
 		descriptionField.setRequired(true);
 
 		setFields(pkField, nameField, costField, descriptionField);

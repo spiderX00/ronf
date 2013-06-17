@@ -34,13 +34,13 @@ public class AgencyDS extends DataSource {
 		DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");
 		idField.setPrimaryKey(true);
 
-		DataSourceTextField codeField = new DataSourceTextField("code", "Codice");
+		DataSourceTextField codeField = new DataSourceTextField("code", "Code");
 		codeField.setRequired(true);
 
-		DataSourceTextField nameField = new DataSourceTextField("name", "Nome");
+		DataSourceTextField nameField = new DataSourceTextField("name", "Name");
 		nameField.setRequired(true);
 
-		DataSourceTextField addressField = new DataSourceTextField("address", "Indirizzo");
+		DataSourceTextField addressField = new DataSourceTextField("address", "Address");
 		addressField.setRequired(true);
 
 		DataSourceTextField ipAddressField = new DataSourceTextField("ipAddress", "IP");

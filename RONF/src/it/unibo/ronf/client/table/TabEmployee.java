@@ -113,9 +113,9 @@ public class TabEmployee extends ListGrid {
 		tabEmployee.setAutoFetchData(true);
 		ListGridField idField = new ListGridField("id", "ID");
 		idField.setAlign(Alignment.LEFT);
-		ListGridField nameField = new ListGridField("name", "Nome");
-		ListGridField surnameField = new ListGridField("surname", "Cognome");
-		ListGridField ageField = new ListGridField("age", "Età");
+		ListGridField nameField = new ListGridField("name", "Name");
+		ListGridField surnameField = new ListGridField("surname", "Surname");
+		ListGridField ageField = new ListGridField("age", "Age");
 		ageField.setAlign(Alignment.LEFT);
 		ListGridField userNameField = new ListGridField("userName", "Username");
 

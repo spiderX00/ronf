@@ -54,7 +54,7 @@ public class MakeCar extends Dialog {
 	public MakeCar() {
 		setSize("370", "500px");
 		dynamicForm = new DynamicForm();
-		dynamicForm.setSize("350px", "194px");
+		dynamicForm.setSize("350px", "30px");
 		addItem(dynamicForm);
 		hLayout = new HLayout();
 		hLayout.setSize("351px", "46px");

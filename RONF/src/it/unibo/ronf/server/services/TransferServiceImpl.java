@@ -55,6 +55,7 @@ public class TransferServiceImpl implements TransferService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public boolean updateSuccessTransfer(Transfer t) {
 
 		for (TransferAction ta : t.getTransfers()) {
@@ -65,6 +66,7 @@ public class TransferServiceImpl implements TransferService {
 				return false;
 			}
 		}
+		t.setSuccess(true);
 		transferDAO.merge(t);
 		return true;
 	}

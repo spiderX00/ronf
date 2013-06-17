@@ -40,16 +40,16 @@ public class EmployeeDS extends DataSource {
 		DataSourceIntegerField pkField = new DataSourceIntegerField("id");
 		pkField.setPrimaryKey(true);
 
-		DataSourceTextField nameField = new DataSourceTextField("name", "Nome");
+		DataSourceTextField nameField = new DataSourceTextField("name", "Name");
 		nameField.setRequired(true);
 
-		DataSourceTextField surnameField = new DataSourceTextField("surname", "Cognome");
+		DataSourceTextField surnameField = new DataSourceTextField("surname", "Surname");
 		surnameField.setRequired(true);
 
 		DataSourcePasswordField passwordField = new DataSourcePasswordField("password", "Password");
 		passwordField.setRequired(true);
 
-		DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Età");
+		DataSourceIntegerField ageField = new DataSourceIntegerField("age", "Age");
 		ageField.setRequired(true);
 		DataSourceTextField userNameField = new DataSourceTextField("userName", "Username");
 		userNameField.setRequired(true);

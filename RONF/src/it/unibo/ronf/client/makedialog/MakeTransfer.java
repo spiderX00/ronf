@@ -66,7 +66,7 @@ public class MakeTransfer extends Dialog {
 
 		setSize("400px", "330px");
 		dynamicForm = new DynamicForm();
-		dynamicForm.setSize("350px", "194px");
+		dynamicForm.setSize("350px", "30px");
 		addItem(dynamicForm);
 		hLayout = new HLayout();
 		hLayout.setHeight("46px");

@@ -37,17 +37,17 @@ public class TransferDS extends DataSource {
 		DataSourceIntegerField idField = new DataSourceIntegerField("id", "ID");
 		idField.setPrimaryKey(true);
 
-		final DataSourceEnumField startingAgencyField = new DataSourceEnumField("startAgency", "Agenzia di partenza");
+		final DataSourceEnumField startingAgencyField = new DataSourceEnumField("startAgency", "Starting agency");
 		startingAgencyField.setRequired(true);
 		if (agencyMap != null) {
 			startingAgencyField.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 		}
-		final DataSourceEnumField arrivalAgencyField = new DataSourceEnumField("arrivalAgency", "Agenzia di arrivo");
+		final DataSourceEnumField arrivalAgencyField = new DataSourceEnumField("arrivalAgency", "Arrival agency");
 		arrivalAgencyField.setRequired(true);
 		if (agencyMap != null) {
 			arrivalAgencyField.setValueMap(agencyMap.keySet().toArray(new String[] {}));
 		}
-		DataSourceBooleanField successField = new DataSourceBooleanField("success", "Concluso");
+		DataSourceBooleanField successField = new DataSourceBooleanField("success", "Success");
 
 		setFields(idField, startingAgencyField, arrivalAgencyField, successField);
 		/** Effettuo la richiesta per la ricerca di tutti gli employee */
