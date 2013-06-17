@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=" http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:component-scan base-package="it.unibo.ronf" />
+
+	<context:annotation-config />
+
+	<task:annotation-driven executor="myExecutor"
+		scheduler="myScheduler" />
+
+	<task:executor id="myExecutor" pool-size="5" />
+
+	<task:scheduler id="myScheduler" pool-size="10" />
+
+	<tx:annotation-driven />
+
+	<!-- enables interpretation of the @Required annotation to ensure that dependency 
+		injection actually occures -->
+	<bean
+		class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+
+	<!-- enables interpretation of the @PersistenceUnit/@PersistenceContext 
+		annotations providing convenient access to EntityManagerFactory/EntityManager -->
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<!-- uses the persistence unit defined in the META-INF/persistence.xml JPA 
+		configuration file -->
+	<bean class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean"
+		id="entityManagerFactory">
+		<property name="persistenceUnitName" value="ronfPU" />
+	</bean>
+
+	<!-- transaction manager for use with a single JPA EntityManagerFactory 
+		for transactional data access to a single datasource -->
+	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
+		id="transactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+
+	<!-- enables interpretation of the @Transactional annotation for declerative 
+		transaction managment using the specified JpaTransactionManager -->
+	<tx:annotation-driven transaction-manager="jpaTransactionManager"
+		proxy-target-class="false" />
+
+	<bean class="it.unibo.ronf.server.dao.AgencyDAO" id="agencyDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.CarDAO" id="carDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.CarTypeDAO" id="carTypeDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.CustomerDAO" id="customerDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.EmployeeDAO" id="employeeDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.MaintenanceDAO" id="maintenanceDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.MaintenanceEmployeeDAO" id="maintenanceEmployeeDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.MaintenanceTypeDAO" id="maintenanceTypeDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.OptionalDAO" id="optionalDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.RentalDAO" id="rentalDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.TransferActionDAO" id="transferActionDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.TransferDAO" id="transferDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.TransferEmployeeDAO" id="transferEmployeeDAO">
+	</bean>
+
+	<bean class="it.unibo.ronf.server.dao.UserDAO" id="userDAO"/>
+</beans>

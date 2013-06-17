@@ -1,23 +1,37 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.Employee;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class EmployeeDAOTest {
 
-	static EmployeeDAO test = new EmployeeDAO();
-	static Employee entity = new Employee();
-	static int age = 15;
-	static String name = "NAME";
-	static String password = "PASSWD";
-	static String surname = "SURNAME";
-	static String userName = "USERNAME";
+	@Autowired
+	private EmployeeDAO test;
+	
+	private Employee entity = new Employee();
+	private int age = 15;
+	private String name = "NAME";
+	private String password = "PASSWD";
+	private String surname = "SURNAME";
+	private String userName = "USERNAME";
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBefore() throws Exception {
 		entity.setAge(age);
 		entity.setId(0);
 		entity.setName(name);
@@ -29,15 +43,18 @@ public class EmployeeDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testCheckLogin() {
+		List <Employee> result = test.findAll();
+		assertTrue(result.size() > 0);
 		assertTrue(test.checkLogin(userName, password));
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByUserName() {
 		Employee result = test.findByUserName(userName);
 		assertNotNull(result);
 		assertEquals(result.getUserName(), userName);
 	}
-
 }

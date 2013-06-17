@@ -6,7 +6,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
-@Repository("cartTypeDAO")
+@Repository("carTypeDAO")
 public class CarTypeDAO extends JpaDAO<CarType> {
 
 	public CarType findByType(String type) {

@@ -1,31 +1,46 @@
 package it.unibo.ronf.server.dao;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Transfer;
+import it.unibo.ronf.shared.entities.TransferAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.ronf.shared.entities.*;
-
-import static org.junit.Assert.*;
-
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class TransferDAOTest {
 
-	static TransferDAO test = new TransferDAO();
-	static Transfer entity = new Transfer();
-	static List<Transfer> resultList = new ArrayList<Transfer>();
-	static List<TransferAction> transfers = new ArrayList<TransferAction>();
-	static Agency arrivalAgency = new Agency();
-	static Agency startAgency = new Agency();
-	static AgencyDAO agencydao = new AgencyDAO();
-	static String address = "ADDRESS";
-	static String code = "CODE";
-	static String ipAddress = "IPADDRESS";
-	static String name = "NAME";
+	@Autowired
+	private TransferDAO test ;
+	
+	private Transfer entity = new Transfer();
+	private List<Transfer> resultList = new ArrayList<Transfer>();
+	private List<TransferAction> transfers = new ArrayList<TransferAction>();
+	private Agency arrivalAgency = new Agency();
+	private Agency startAgency = new Agency();
+	
+	@Autowired
+	private AgencyDAO agencydao;
+	
+	private String address = "ADDRESS";
+	private String code = "CODE";
+	private String ipAddress = "IPADDRESS";
+	private String name = "NAME";
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBeforeClass() throws Exception {
 		arrivalAgency.setAddress(address);
 		arrivalAgency.setName(name);
 		arrivalAgency.setCode(code);
@@ -49,6 +64,7 @@ public class TransferDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByStartAgency() {
 		resultList.clear();
 		resultList = test.findByStartAgency(startAgency);
@@ -59,6 +75,7 @@ public class TransferDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByArrivalAgency() {
 		resultList.clear();
 		resultList = test.findByArrivalAgency(arrivalAgency);
@@ -67,5 +84,4 @@ public class TransferDAOTest {
 			assertTrue(resultList.get(index).getArrivalAgency().equals(arrivalAgency));
 		}
 	}
-
 }

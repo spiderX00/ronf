@@ -1,33 +1,45 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import it.unibo.ronf.shared.entities.Agency;
 
-import it.unibo.ronf.shared.entities.*;
-
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class AgencyDAOTest {
 
-	static Agency entity = new Agency();
-	static AgencyDAO test = new AgencyDAO();
-	static String address = "ADDRESS";
-	static String code = "CODE";
-	static String ipAddress = "ipAddress";
-	static String name = "NAME";
+	@Autowired
+	private AgencyDAO test = new AgencyDAO();
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	private Agency entity = new Agency();
+	private String address = "ADDRESS";
+	private String code = "CODE";
+	private String ipAddress = "ipAddress";
+	private String name = "NAME";
+
+	@Before
+	public void setUpBeforeClass() throws Exception {
 		entity.setAddress(address);
 		entity.setCode(code);
 		entity.setId(0);
 		entity.setIpAddress(ipAddress);
 		entity.setName(name);
 		entity.setPort(5555);
+
 		test.persist(entity);
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByCode() {
 		Agency result = test.findByCode(code);
 		assertNotNull(result);
@@ -35,6 +47,7 @@ public class AgencyDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByName() {
 		Agency result = test.findByName(name);
 		assertNotNull(result);
@@ -42,6 +55,7 @@ public class AgencyDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testGetCurrentAgency() {
 
 	}
@@ -55,5 +69,4 @@ public class AgencyDAOTest {
 	public void testGetOthers() {
 
 	}
-
 }

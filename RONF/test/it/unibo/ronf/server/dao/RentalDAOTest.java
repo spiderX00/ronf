@@ -1,8 +1,7 @@
 package it.unibo.ronf.server.dao;
 
-import java.util.*;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.Agency;
 import it.unibo.ronf.shared.entities.Car;
 import it.unibo.ronf.shared.entities.CarType;
@@ -10,38 +9,56 @@ import it.unibo.ronf.shared.entities.Optional;
 import it.unibo.ronf.shared.entities.Payment;
 import it.unibo.ronf.shared.entities.Rental;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class RentalDAOTest {
 
-	static CarDAO cardao = new CarDAO();
-	static RentalDAO test = new RentalDAO();
-	static AgencyDAO agencydao = new AgencyDAO();
-	static CarTypeDAO cartypedao = new CarTypeDAO();
+	@Autowired
+	private CarDAO cardao;
+	
+	@Autowired
+	private RentalDAO test;
+	
+	@Autowired
+	private AgencyDAO agencydao;
+	
+	@Autowired
+	private CarTypeDAO cartypedao;
 
-	static int id = 10;
-	static float caution = 1;
-	static String code = "CODE1";
-	static String name = "NAME1";
-	static String address = "ADDRESS1";
-	static String ipAddress = "1.1.1.1";
-	static boolean confirmed = true;
+	private int id = 10;
+	private float caution = 1;
+	private String code = "CODE1";
+	private String name = "NAME1";
+	private String address = "ADDRESS1";
+	private String ipAddress = "1.1.1.1";
 
-	static Agency startingAgency = new Agency();
-	static Agency arrivalAgency = new Agency();
-	static Payment payment = new Payment();
-	static Rental entity = new Rental();
-	static Car rentedCar = new Car();
-	static CarType type = new CarType();
+	private Agency startingAgency = new Agency();
+	private Agency arrivalAgency = new Agency();
+	private Payment payment = new Payment();
+	private Rental entity = new Rental();
+	private Car rentedCar = new Car();
+	private CarType type = new CarType();
 
-	static List<Rental> rentalList = new ArrayList<Rental>();
-	static List<Optional> optional = new ArrayList<Optional>();
+	private List<Rental> rentalList = new ArrayList<Rental>();
+	private List<Optional> optional = new ArrayList<Optional>();
 
-	static Date start = new Date(), end = new Date();
+	private Date start = new Date(), end = new Date();
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBeforeClass() throws Exception {
 		startingAgency.setId(id);
 		startingAgency.setCode(code);
 		startingAgency.setName(name);
@@ -89,6 +106,7 @@ public class RentalDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByStart() {
 		rentalList = test.findByStart(start);
 		assertNotNull(rentalList);
@@ -98,6 +116,7 @@ public class RentalDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByEnd() {
 		rentalList = test.findByEnd(end);
 		assertNotNull(rentalList);
@@ -107,6 +126,7 @@ public class RentalDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByStartingAgency() {
 		rentalList = test.findByStartingAgency(startingAgency);
 		assertNotNull(rentalList);
@@ -116,6 +136,7 @@ public class RentalDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByArrivalAgency() {
 		rentalList = test.findByArrivalAgency(arrivalAgency);
 		assertNotNull(rentalList);

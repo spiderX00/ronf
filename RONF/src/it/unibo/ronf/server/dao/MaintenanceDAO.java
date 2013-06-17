@@ -18,7 +18,7 @@ public class MaintenanceDAO extends JpaDAO<Maintenance> {
 	public Maintenance findByCar(Car car) {
 		try {
 
-			TypedQuery<Maintenance> query = em.createQuery("SELECT m FROM Maintenance m WHERE m.care = :car", entityClass);
+			TypedQuery<Maintenance> query = em.createQuery("SELECT m FROM Maintenance m WHERE m.car = :car", entityClass);
 
 			query.setParameter("car", car);
 

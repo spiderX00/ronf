@@ -1,42 +1,65 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
-import it.unibo.ronf.shared.entities.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Car;
+import it.unibo.ronf.shared.entities.CarType;
+import it.unibo.ronf.shared.entities.Customer;
+import it.unibo.ronf.shared.entities.Optional;
+import it.unibo.ronf.shared.entities.Payment;
+import it.unibo.ronf.shared.entities.Rental;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class CarDAOTest {
 
-	static List<Car> carList = new ArrayList<Car>();
+	private List<Car> carList = new ArrayList<Car>();
 
-	static AgencyDAO agencydao = new AgencyDAO();
-	static CarTypeDAO cartypedao = new CarTypeDAO();
-	static CarDAO test = new CarDAO();
-	static Car entity = new Car();
-	static CarType type = new CarType();
-	static Agency agency = new Agency();
-	static Rental rental = new Rental();
-	static RentalDAO rentaldao = new RentalDAO();
-	static Customer customer = new Customer();
-	static Payment fine = new Payment();
-	static Payment payment = new Payment();
+	@Autowired
+	private AgencyDAO agencydao = new AgencyDAO();
+	
+	@Autowired
+	private CarTypeDAO cartypedao = new CarTypeDAO();
+	
+	@Autowired
+	private CarDAO test = new CarDAO();
+	
+	@Autowired
+	private RentalDAO rentaldao = new RentalDAO();
+	
+	private Car entity = new Car();
+	private CarType type = new CarType();
+	private Agency agency = new Agency();
+	private Rental rental = new Rental();	
+	private Customer customer = new Customer();
+	private Payment fine = new Payment();
+	private Payment payment = new Payment();
 
-	static List<Optional> optionals = new ArrayList<Optional>();
+	private List<Optional> optionals = new ArrayList<Optional>();
 
-	static String model = "AAAAAAAA";
-	static String gasolineType = "ABC";
-	static String plate = "PLATE";
-	static String address = "ADDRESS";
-	static String code = "CODE";
-	static Date start = new Date(), end = new Date();
+	private String model = "AAAAAAAA";
+	private String gasolineType = "ABC";
+	private String plate = "PLATE";
+	private String address = "ADDRESS";
+	private String code = "CODE";
+	private Date start = new Date(), end = new Date();
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBefore() throws Exception {
 
 		type.setId(0);
 		type.setDailyCost(0);
@@ -77,6 +100,7 @@ public class CarDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByModel() {
 		carList.clear();
 		carList = test.findByModel(model);
@@ -87,13 +111,16 @@ public class CarDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByPlate() {
 		carList.clear();
 		Car result = test.findByPlate(plate);
+		assertNotNull(result);
 		assertEquals(result.getPlate(), plate);
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByGasolineType() {
 		carList.clear();
 		carList = test.findByGasolineType(gasolineType);
@@ -104,6 +131,7 @@ public class CarDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindBySeatsNumber() {
 		carList.clear();
 		carList = test.findBySeatsNumber(0);
@@ -116,11 +144,13 @@ public class CarDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindAvailableCar() {
 
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByType() {
 		carList.clear();
 		carList = test.findByType(type);

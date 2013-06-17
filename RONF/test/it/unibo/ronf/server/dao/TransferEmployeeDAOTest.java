@@ -1,25 +1,36 @@
 package it.unibo.ronf.server.dao;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import it.unibo.ronf.shared.entities.TransferEmployee;
-import static org.junit.Assert.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class TransferEmployeeDAOTest {
 
-	static TransferEmployeeDAO test = new TransferEmployeeDAO();
-	static TransferEmployee entity = new TransferEmployee();
-	static String name = "NAME";
-	static String password = "PASSWORD";
-	static String surname = "SURNAME";
-	static String userName = "USERNAME";
-	List<TransferEmployee> result = new ArrayList<TransferEmployee>();
+	@Autowired
+	private TransferEmployeeDAO test = new TransferEmployeeDAO();
+	private TransferEmployee entity = new TransferEmployee();
+	private String name = "NAME";
+	private String password = "PASSWORD";
+	private String surname = "SURNAME";
+	private String userName = "USERNAME";
+	private List<TransferEmployee> result = new ArrayList<TransferEmployee>();
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBeforeClass() throws Exception {
 		entity.setAge(15);
 		entity.setId(0);
 		entity.setName(name);
@@ -32,6 +43,7 @@ public class TransferEmployeeDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByBusy() {
 		result = test.findByBusy(false);
 		assertNotNull(result);

@@ -1,37 +1,63 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import it.unibo.ronf.shared.entities.Agency;
+import it.unibo.ronf.shared.entities.Car;
+import it.unibo.ronf.shared.entities.CarType;
+import it.unibo.ronf.shared.entities.Maintenance;
+import it.unibo.ronf.shared.entities.MaintenanceEmployee;
+import it.unibo.ronf.shared.entities.MaintenanceType;
 
-import it.unibo.ronf.shared.entities.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import java.util.*;
-
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class MaintenanceDAOTest {
 
-	static MaintenanceDAO test = new MaintenanceDAO();
-	static Maintenance entity = new Maintenance();
-	static Car car = new Car();
-	static String model = "AAAAAAAA";
-	static String gasolineType = "ABC";
-	static String plate = "PLATE";
-	static String address = "ADDRESS";
-	static String code = "CODE";
-	static Date date = new Date();
-	static MaintenanceEmployee maintenanceEmployee = new MaintenanceEmployee();
-	static List<MaintenanceType> maintenances = new ArrayList<MaintenanceType>();
-	static AgencyDAO agencydao = new AgencyDAO();
-	static Agency agency = new Agency();
-	static CarDAO cardao = new CarDAO();
-	static CarType type = new CarType();
-	static CarTypeDAO cartypedao = new CarTypeDAO();
-	static MaintenanceEmployeeDAO maintenanceEmployeedao = new MaintenanceEmployeeDAO();
+	@Autowired
+	private MaintenanceDAO test;
+	private Maintenance entity = new Maintenance();
+	private Car car = new Car();
+	private String model = "AAAAAAAA";
+	private String gasolineType = "ABC";
+	private String plate = "PLATE";
+	private String address = "ADDRESS";
+	private String code = "CODE";
+	private Date date = new Date();
+	private MaintenanceEmployee maintenanceEmployee = new MaintenanceEmployee();
+	
+	
+	@Autowired
+	private AgencyDAO agencydao = new AgencyDAO();
+	private Agency agency = new Agency();
+	
+	@Autowired
+	private CarDAO cardao;
+	private CarType type = new CarType();
+	
+	@Autowired
+	private CarTypeDAO cartypedao;
+	
+	@Autowired
+	private MaintenanceEmployeeDAO maintenanceEmployeedao;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-
+	@Before
+	public void setUpBefore() throws Exception {
+		List<MaintenanceType> maintenances = new ArrayList<MaintenanceType>();
+		
 		agency.setAddress(address);
 		agency.setCode(code);
 		agency.setId(0);
@@ -76,6 +102,7 @@ public class MaintenanceDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByCar() {
 		Maintenance result = test.findByCar(car);
 		assertNotNull(result);
@@ -83,6 +110,7 @@ public class MaintenanceDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByDate() {
 		List<Maintenance> result = test.findByMaintenanceEmployee(maintenanceEmployee);
 		assertFalse(result.isEmpty());
@@ -92,6 +120,7 @@ public class MaintenanceDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByMaintenanceEmployee() {
 		List<Maintenance> result = test.findByMaintenanceEmployee(maintenanceEmployee);
 		assertFalse(result.isEmpty());

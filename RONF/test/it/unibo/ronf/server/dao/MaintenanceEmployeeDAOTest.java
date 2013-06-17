@@ -1,26 +1,34 @@
 package it.unibo.ronf.server.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import it.unibo.ronf.shared.entities.MaintenanceEmployee;
 
 import java.util.List;
 
-import it.unibo.ronf.shared.entities.MaintenanceEmployee;
-
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+@ContextConfiguration(locations = { "/META-INF/applicationContext.xml" })
+@RunWith(SpringJUnit4ClassRunner.class)
 public class MaintenanceEmployeeDAOTest {
 
-	static MaintenanceEmployeeDAO test = new MaintenanceEmployeeDAO();
-	static MaintenanceEmployee entity = new MaintenanceEmployee();
-	static int age = 15;
-	static String name = "NAME";
-	static String password = "PASSWORD";
-	static String surname = "SURNAME";
-	static String userName = "USERNAME";
+	@Autowired
+	private MaintenanceEmployeeDAO test;
+	private MaintenanceEmployee entity = new MaintenanceEmployee();
+	private int age = 15;
+	private String name = "NAME";
+	private String password = "PASSWORD";
+	private String surname = "SURNAME";
+	private String userName = "USERNAME";
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBefore() throws Exception {
 		entity.setAge(age);
 		entity.setBusy(false);
 		entity.setId(0);
@@ -33,12 +41,11 @@ public class MaintenanceEmployeeDAOTest {
 	}
 
 	@Test
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void testFindByBusy() {
 		List<MaintenanceEmployee> result = test.findByBusy(false);
-		assertFalse(result.isEmpty());
 		for (int index = 0; index < result.size(); index++) {
 			assertEquals(result.get(index).isBusy(), false);
 		}
 	}
-
 }
